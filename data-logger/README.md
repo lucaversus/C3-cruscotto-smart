@@ -55,9 +55,11 @@ insieme ai dati decodificati per consentire verifiche successive.
 
 ## Stato e organizzazione
 
-Requisiti iniziali documentati; firmware, configurazione PlatformIO e test
-non sono ancora presenti. Le funzioni descritte sono obiettivi da implementare
-e validare, non capacità già disponibili.
+È presente un primo [firmware diagnostico a banco](firmware/diagnostic/README.md)
+per il solo ESP32, con configurazione PlatformIO e uscita seriale.
+Non implementa ancora acquisizione BSI/OBD2, MicroSD o RTC. Le funzioni
+di registrazione descritte sono obiettivi da implementare e validare,
+non capacità già disponibili. Le prove sulla scheda sono separate dalla compilazione.
 
 La cartella `docs/` ospiterà la documentazione tecnica di dettaglio.
 Il modello ESP32-S3 e il display previsti per il cruscotto non vincolano

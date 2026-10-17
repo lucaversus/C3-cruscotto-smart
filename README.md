@@ -78,8 +78,9 @@ PSRAM della scheda da 5″ dovranno essere verificati.
 
 ## Stato del repository
 
-Il repository contiene per ora la documentazione del progetto. Non sono ancora
-presenti firmware, configurazione PlatformIO, simulatore o test eseguibili.
-Le versioni delle dipendenze e la configurazione hardware verranno fissate
-dopo l'identificazione della scheda. Il layout della UI e il simulatore PC
+Il data logger dispone di un primo [firmware diagnostico per il solo ESP32](data-logger/firmware/diagnostic/README.md),
+con configurazione PlatformIO. Non acquisisce ancora dati dal veicolo.
+Per il cruscotto digitale non sono ancora presenti firmware, simulatore o test
+eseguibili: le dipendenze e la configurazione hardware saranno fissate dopo
+l'identificazione della scheda display. Il layout della UI e il simulatore PC
 possono essere sviluppati prima dell'arrivo dell'hardware.
