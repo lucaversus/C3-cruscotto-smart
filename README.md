@@ -7,8 +7,8 @@ Cruscotto digitale custom per Citroën C3 Phase 1, 1.4 HDi, motore DV4TD / 8HZ.
 Il repository ospita due attività collegate:
 
 1. **[Data logger](data-logger/README.md)**: primo progetto da sviluppare,
-   con una scheda da installare nell'auto per registrare dati. Finalità
-   dettagliata, segnali e hardware saranno definiti nei prossimi passi.
+   basato su ESP32, MicroSD e RTC DS3231 per raccogliere dati BSI e OBD2
+   e costruire un dataset di guida per TinyML e rilevamento di anomalie.
 2. **Cruscotto digitale**: progetto successivo, descritto nelle sezioni seguenti.
 
 Il data logger è un sottoprogetto nello stesso repository e condivide la sua
