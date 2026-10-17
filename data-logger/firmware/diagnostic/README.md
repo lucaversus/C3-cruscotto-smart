@@ -40,18 +40,44 @@ all'interno della cartella diagnostica e sono esclusi da Git.
 La cache usa un percorso corto fuori dal checkout per evitare errori di
 estrazione dovuti alla lunghezza dei percorsi su Windows; non va aggiunta a Git.
 
-## Prova hardware da effettuare separatamente
+## Compilazione e primo collaudo hardware
 
 Compilazione verificata il 18 ottobre 2026 con PlatformIO Core 6.1.18:
 esito SUCCESS, RAM statica 21472 byte, programma 269909 byte su partizione
 applicativa da 1310720 byte. Queste misure non includono l'uso dinamico
-durante l'esecuzione. Firmware non ancora caricato né provato sulla scheda.
+durante l'esecuzione.
+
+### Esito del 18 ottobre 2026
+
+- Firmware del commit `735fbda` caricato su COM3 a 115200 baud con
+  PlatformIO/esptool 4.9.0. Caricamento SUCCESS e hash dei dati scritti verificati.
+- Prima della scrittura, SHA-256 del backup completo ricontrollato:
+  `702a591483514093a9dd3c6255b492895cedf7dba1ea95d0d5e1ca3bad8cb4b2`.
+- L'ingresso automatico in download mode non è riuscito (boot mode 0x13).
+  Il caricamento è riuscito tenendo BOOT premuto. Dopo il rilascio è stato
+  necessario premere EN/RESET per avviare l'applicazione.
+- Lettura diretta della seriale per 20 secondi: comandi `h` e `s` funzionanti,
+  stato periodico ogni 5 secondi, heap libera stabile a 351476 byte e nessun
+  riavvio osservato nella finestra acquisita.
+- Screenshot del monitor: 12 righe, da uptime 100550191 a 155550191 microsecondi
+  (55 secondi consecutivi), con incrementi di 5000000 microsecondi e heap libera
+  stabile a 351476 byte. Heap minima da 345888 a 345884 byte: variazione di
+  4 byte del minimo storico, senza calo della memoria libera corrente visibile.
+- L'utente ha successivamente confermato di aver atteso l'intervallo richiesto
+  di almeno un minuto. Non è stato acquisito un log completo di quell'intervallo:
+  la continuità dell'intero minuto non è verificata automaticamente.
+
+Esito: caricamento e prima prova funzionale positivi; nessun reset imprevisto
+nelle finestre direttamente osservate. Non sono ancora verificati banner di
+avvio completo, stabilità prolungata, RTC, MicroSD o comunicazioni veicolo.
+La misura della heap è un dato runtime e non è confrontabile direttamente
+con il budget RAM statico indicato dalla compilazione.
 
 Il caricamento sostituisce il firmware attuale e scrive anche componenti
 di avvio e partizioni: va eseguito soltanto nel passaggio concordato,
 dopo verifica del backup. Il ripristino del backup non è ancora stato provato.
 
-Dopo il caricamento, verificare seriale a 115200, banner coerente con
-ESP32 e flash da 4194304 byte, stato periodico per almeno un minuto,
-comandi `s` e `h`, riavvio con EN e assenza di reset imprevisti.
+Per completare il collaudo, acquisire il banner di avvio (ESP32 e flash da
+4194304 byte), un log continuo di almeno un minuto e una prova documentata
+di riavvio con EN. Serialità prevista: 115200 baud; comandi `s` e `h`.
 Questa prova non certifica MicroSD, RTC, protocolli del veicolo o alimentazione.
