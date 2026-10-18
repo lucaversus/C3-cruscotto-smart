@@ -155,6 +155,19 @@
         "PCB, flash, PSRAM, interfaccia display e pinout da verificare"
       ],
       "evidence": "Osservazioni preliminari nel README originale; non attestano un ordine o un collaudo."
+    },
+    {
+      "id": "HW-MULTIMETER",
+      "name": "Tester / multimetro — modello non ancora identificato",
+      "scope": "Data Logger — strumento di verifica",
+      "quantity": 1,
+      "status": "present_declared",
+      "verified": [],
+      "open_checks": [
+        "Modello, prese dei puntali e portate disponibili da identificare prima delle misure guidate",
+        "Nessuna misura sul modulo MCP2515 ancora acquisita"
+      ],
+      "evidence": "Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”."
     }
   ],
   "wiring_proposal": {

@@ -180,6 +180,21 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possesso e modello non confermati per questa fase; non trasferire i dati della variante 1,9 pollici
 - PCB, flash, PSRAM, interfaccia display e pinout da verificare
 
+### HW-MULTIMETER — Tester / multimetro — modello non ancora identificato
+
+**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger — strumento di verifica
+
+**Fonte:** Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Modello, prese dei puntali e portate disponibili da identificare prima delle misure guidate
+- Nessuna misura sul modulo MCP2515 ancora acquisita
+
 ## Proposta di collegamento — non validata fisicamente
 
 GPIO proposti nel firmware 0.2.0, non cablaggio fisico approvato. GPIO32/33 illustrati per pulsanti eventuali, non inizializzati.
