@@ -5,7 +5,7 @@
 | Progetto | **Cruscotto C3+AI** |
 | Sottoprogetto | **Data Logger** |
 | Documento | C3AI-DL-PH-001 |
-| Revisione | A — 18/10/2026 |
+| Revisione | B — 18/10/2026 |
 | Stato | Identificazione visiva; nessun collaudo elettrico dei moduli CAN |
 
 Foto già fornite dall'utente, recuperate dai Download e archiviate qui per
@@ -51,8 +51,19 @@ Serigrafie HW-394 / ESP-32D e basetta di espansione a morsetti visibili.
 La continuità tra morsetti e socket non è stata verificata. Usare nomi GPIO,
 non posizioni dedotte dalle illustrazioni dello schema generale.
 
+## HW-MULTIMETER — UNI-T UT210E
+
+![Tester UNI-T UT210E](tester-unit-ut210e.jpg)
+
+Modello identificato visivamente dalla foto tester.jpg fornita dall'utente.
+Funzioni e misure vanno selezionate in base ai simboli effettivamente mostrati
+dal display. Per le misure di resistenza sul modulo si usano i puntali,
+non la pinza amperometrica. L'identificazione non certifica taratura o puntali.
+[Manuale del produttore](https://meters.uni-trend.com/download/ut210e-user-manual/).
+
 ## Evidenze mancanti
 
-Non sono archiviate foto del retro dei moduli né del modello/selettore del tester.
+Non sono archiviate foto del retro dei moduli. Il tester è ora identificato;
+le sue prese inferiori non sono visibili nell'immagine fornita.
 Chiedere una vista aggiuntiva solo se necessaria per una misura specifica;
-non richiedere nuovamente le cinque immagini già disponibili qui.
+non richiedere nuovamente le sei immagini già disponibili qui.

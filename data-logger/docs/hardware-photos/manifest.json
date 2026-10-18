@@ -2,7 +2,7 @@
   "project": "Cruscotto C3+AI",
   "subproject": "Data Logger",
   "drawing_code": "C3AI-DL-PH-001",
-  "revision": "A",
+  "revision": "B",
   "date": "2026-10-18",
   "note": "Fotografie sorgenti: identificazione visiva, non collaudo elettrico. Metadati EXIF/XMP/IPTC e commenti rimossi senza ricompressione. Originali integrali conservati solo localmente in .tools/hardware-photo-originals/.",
   "photos": [
@@ -40,6 +40,13 @@
       "source_filename": "PXL_20261017_211117767.jpg",
       "source_sha256": "6762aac1b2697ddd7672a8b3ae1c3625d9bfccbee5498f5bad93a913f9084f7a",
       "sha256": "4866b83d2314e242b61410ae2091aba642ca5f1a768b0025f55e32d4daf9eee4"
+    },
+    {
+      "hardware_id": "HW-MULTIMETER",
+      "file": "tester-unit-ut210e.jpg",
+      "source_filename": "tester.jpg",
+      "source_sha256": "a0a97650c5673c79cd457e64804929bd85923de0dd15558d7f9811c92082be2b",
+      "sha256": "977030a9e1f593068c34e9258fe649b2d1c0aa0b1a8d6098141d52092093af30"
     }
   ]
 }

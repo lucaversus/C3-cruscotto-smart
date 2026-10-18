@@ -176,16 +176,21 @@
     },
     {
       "id": "HW-MULTIMETER",
-      "name": "Tester / multimetro — modello non ancora identificato",
+      "name": "UNI-T UT210E — multimetro / pinza amperometrica",
       "scope": "Data Logger — strumento di verifica",
       "quantity": 1,
       "status": "present_declared",
-      "verified": [],
-      "open_checks": [
-        "Modello, prese dei puntali e portate disponibili da identificare prima delle misure guidate",
-        "Nessuna misura sul modulo MCP2515 ancora acquisita"
+      "verified": [
+        "Identificazione visiva UNI-T UT210E nella foto tester.jpg, archiviata con SHA-256."
       ],
-      "evidence": "Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”."
+      "open_checks": [
+        "Funzionamento, batterie e puntali da verificare prima delle misure",
+        "Nessuna misura sul modulo MCP2515 ancora acquisita; non confondere identificazione dello strumento con collaudo del modulo"
+      ],
+      "evidence": "Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”. Foto tester.jpg fornita il 18/10/2026: modello identificato visivamente; nessuna misura ancora eseguita.",
+      "photos": [
+        "data-logger/docs/hardware-photos/tester-unit-ut210e.jpg"
+      ]
     },
     {
       "id": "HW-ESP32-TERMINAL-BASE",

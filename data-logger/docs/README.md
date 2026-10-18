@@ -9,6 +9,7 @@ Per lo stato attuale vedere il [README del sottoprogetto](../README.md).
 
 - [Inventario hardware](hardware-inventory.md), generato da [hardware.json](hardware.json).
 - [Foto hardware archiviate](hardware-photos/README.md), con nomi stabili e SHA-256.
+- [Registro verifiche MCP2515](collaudo-mcp2515.md), con risultati distinti dalle prove ancora da fare.
 - [Decisioni definitive nel README principale](../../README.md#decisioni-definitive).
 - [Procedura di continuità e aggiornamento](procedura-progetto.md).
 

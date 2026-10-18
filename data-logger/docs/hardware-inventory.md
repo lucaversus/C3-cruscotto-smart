@@ -189,20 +189,22 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possesso e modello non confermati per questa fase; non trasferire i dati della variante 1,9 pollici
 - PCB, flash, PSRAM, interfaccia display e pinout da verificare
 
-### HW-MULTIMETER — Tester / multimetro — modello non ancora identificato
+### HW-MULTIMETER — UNI-T UT210E — multimetro / pinza amperometrica
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger — strumento di verifica
 
-**Fonte:** Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”.
+**Fonte:** Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”. Foto tester.jpg fornita il 18/10/2026: modello identificato visivamente; nessuna misura ancora eseguita.
+
+**Foto archiviate:** [tester-unit-ut210e.jpg](hardware-photos/tester-unit-ut210e.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Identificazione visiva UNI-T UT210E nella foto tester.jpg, archiviata con SHA-256.
 
 **Da verificare:**
 
-- Modello, prese dei puntali e portate disponibili da identificare prima delle misure guidate
-- Nessuna misura sul modulo MCP2515 ancora acquisita
+- Funzionamento, batterie e puntali da verificare prima delle misure
+- Nessuna misura sul modulo MCP2515 ancora acquisita; non confondere identificazione dello strumento con collaudo del modulo
 
 ### HW-ESP32-TERMINAL-BASE — Basetta di espansione a morsetti per ESP32 HW-394, visibile in foto
 
