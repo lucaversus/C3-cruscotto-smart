@@ -1,6 +1,6 @@
 # K-line autocostruita — Cruscotto C3+AI / Data Logger
 
-Revisione A, 18/10/2026. Disegno C3AI-DL-KL-001, rev A.
+Revisione D, 18/10/2026. Disegno C3AI-DL-KL-001, rev D.
 **Prototipo da banco non collaudato: nessun collegamento al veicolo.**
 Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
 il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
@@ -24,10 +24,10 @@ se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 | Rif. | Quantita | Valore / componente | Nota |
 | --- | --- | --- | --- |
 | Q1 | 1 | 2N5551, NPN TO-92 | Scegliere produttore e verificare E/B/C sul relativo datasheet |
-| U1 | 1 | LM2903B, versione PDIP-8 | Non scambiare con un modulo LM393 con circuiti ignoti |
+| U1 | 1 | LM2903B, versione SOIC-8 | Adattatore SOIC-8 → DIP-8; non scambiare con LM2903 senza B |
 | R1 | 1 | 330 ohm, 0,25 W, 5% | Base TX |
 | R2 | 1 | 47 kohm, 0,25 W, 5% | Base-emettitore, Q1 spento a GPIO flottante |
-| R3 | 1 | 510 ohm, 1 W, 1% | Pull-up banco, tramite JP1 |
+| R3 | 1 | 510 ohm, 1 W, 1% | Solo simulatore esterno da banco; non montare nel modulo |
 | R4 | 1 | 68 kohm, 0,25 W, 1% | Partitore K |
 | R5, R7 | 2 | 10 kohm, 0,25 W, 1% | Partitori verso massa |
 | R6 | 1 | 150 kohm, 0,25 W, 1% | Riferimento VBENCH |
@@ -35,8 +35,7 @@ se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 | R9 | 1 | 1 kohm, 0,25 W | Serie RX ESP32 |
 | C1 | 1 | 100 nF ceramico | Bypass U1, vicino ai pin 8/4 |
 | C2 | 1 | 10 microfarad, 16 V | Positivo su +5 V, negativo a GND |
-| JP1 | 1 | Jumper 2 contatti con ponticello | Chiuso solo nella simulazione a banco |
-| Montaggio | 1 insieme | Zoccolo DIP-8, millefori, morsetti e fili | Saldature e piedinatura da controllare |
+| Montaggio | 1 insieme | Adattatore SOIC-8 → DIP-8, zoccolo DIP-8, millefori, morsetti e fili | Saldature e piedinatura da controllare |
 
 Non ordinare in questa fase un altro modulo CAN o un'interfaccia Freematics.
 Il tester esistente consente i controlli statici, non dimostra i tempi UART.
@@ -51,7 +50,7 @@ fisica dei transistor come se fossero universali fra produttori.
 | R1 | TX_INV — base Q1 |
 | R2 | Base Q1 — GND |
 | Q1 | Collettore K_BENCH; emettitore GND |
-| JP1 + R3 in serie | VBENCH — JP1 — R3 — K_BENCH |
+| R3, esterna al modulo | VBENCH — R3 — K_BENCH, soltanto nel simulatore da banco |
 | R4 | K_BENCH — VSENSE |
 | R5 | VSENSE — GND |
 | R6 | VBENCH — VREF |
@@ -79,7 +78,7 @@ VBENCH = 9-16 V stabilizzati con limitazione di corrente; +5V = 4,75-5,25 V;
 3V3 = logica ESP32. Alimentazioni e GND corretti prima di applicare VBENCH,
 rimuovere VBENCH prima di spegnere la logica. Alimentatore banco non ancora
 censito come disponibile: non usare l'auto come sostituto per la prova.
-R3 chiusa via JP1 simula il pull-up del banco; il pull-up della vettura non e
+R3 esterna simula il pull-up della vettura sul banco; nessun jumper nel modulo. Il pull-up della vettura non e
 stato verificato e non va raddoppiato automaticamente. Non collegare 12 V
 ad alcun ingresso ESP32 o al pin 3V3. Montare e controllare tutto spento.
 
@@ -119,3 +118,28 @@ esterne. Riferimenti funzionali e limiti dei componenti:
 - [TI LM2903B datasheet](https://www.ti.com/lit/ds/symlink/lm2903b.pdf): pinout, uscita open collector, alimentazione e campo ingressi; verificare codice ordinato.
 - [onsemi 2N5551 datasheet](https://www.onsemi.com/pdf/datasheet/2n5551t-d.pdf): NPN TO-92 e caratteristiche; il collaudo resta necessario.
 - [ELM327 DSL](https://elmelectronics.com/wp-content/uploads/2020/05/ELM327DSL.pdf): distinzione KWP fast init da solo invio UART.
+
+## Revisione B — riordino schema e correzione contenitore
+
+U1 rappresentato intero, vista superiore con tutti gli otto piedini; condensatori
+disegnati, distinta base sullo stesso foglio e cartiglio aggiornato. Collegamenti
+e valori elettrici invariati. Il datasheet TI SLCS005AH distingue LM2903B da
+LM2903: per la versione B usare SOIC-8 con adattatore a DIP-8, non il PDIP-8
+precedentemente indicato per errore. Pinout verificato nella sezione 4 del
+datasheet; nessuna verifica hardware aggiuntiva.
+
+## Revisione C — simulatore esterno
+
+Conferma utente 18/10/2026: eliminare JP1. La resistenza R3 da 510 ohm / 1 W
+resta solo nel simulatore esterno al modulo. Sul banco si collega il modulo
+alla linea simulata come alla linea della vettura, con alimentazioni e masse
+corrette. Il solo richiamo resistivo simula il carico statico, non risposte ECU,
+disturbi o transitori della vettura; non costituisce collaudo KWP completo.
+In auto non montare R3 aggiuntiva senza riscontro del richiamo gia presente.
+
+## Revisione D — porte esterne evidenziate
+
+RX_3V3 e uscita dal modulo verso RX ESP32; TX_INV e ingresso dal TX ESP32.
+K-line e bidirezionale verso linea esterna, simulata da K_BENCH nella prova.
+Porte colorate e direzioni visibili sul disegno; collegamenti elettrici invariati.
+Alimentazioni: +5 V, 3V3, riferimento VBENCH 9–16 V e GND comune.

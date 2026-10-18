@@ -38,8 +38,11 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-013 | approvata | Realizzare in proprio l’interfaccia K-line; prima prototipo e collaudo a banco, poi progetto protetto per auto. | Utente 18/10/2026: “ok procediamo con il circuito autocostruito”. La scelta non certifica lo schema né conferma possesso dei componenti. |
 | D-014 | approvata | Escludere il convertitore Pololu dalla distinta acquisti. | Utente 18/10/2026: costo e tempi di invio eccessivi. Eventuali citazioni precedenti restano storiche, non proposte correnti. |
 | D-015 | approvata | Data Logger temporaneo per pochi giorni: avvio automatico, pulsante STOP per salvataggio e arresto prima di spegnere l’auto. Nessun UPS o mantenimento automatico richiesto. | Utente 18/10/2026: semplificare lo spin-off; premere il pulsante prima di togliere alimentazione. Conservare limiti elettrici reali e protezione di base. |
-
 | D-016 | approvata | Due sorgenti di acquisizione: diagnostica dalla presa OBD e ascolto passivo della linea dietro al cruscotto originale. Conservare tutti i messaggi ricevuti dalla linea, anche non decodificati, e le risposte OBD di sola lettura, distinguendo le sorgenti. | Utente 18/10/2026: acquisizione tramite OBD e linea dietro al cruscotto, “tutto quello che arriva”. D-007 resta valida; pin e protocollo della linea da verificare. |
+
+| D-017 | approvata | Collegamento temporaneo alla linea dietro al cruscotto con fili volanti fissati e isolati; nessun connettore dedicato da acquistare per questo punto. | Utente 18/10/2026: non interessa il connettore del quadro; identificazione elettrica dei segnali resta necessaria prima del collegamento. |
+
+| D-018 | approvata | Modulo K-line senza jumper JP1 e senza richiamo R3 integrato; resistenza 510 ohm soltanto nel simulatore esterno da banco. | Conferma utente 18/10/2026: collaudare il modulo collegandolo alla linea simulata come alla vettura; nessuna risposta ECU simulata dalla sola resistenza. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -165,7 +168,7 @@ i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veico
 ### Interfaccia K-line autocostruita
 
 Scelta D-013: [schema e distinta del prototipo a banco](data-logger/docs/kline-autocostruita.md),
-rev A. NPN e comparatore, calcoli DC verificati; non montato o collaudato.
+rev D. NPN e comparatore, calcoli DC verificati; non montato o collaudato.
 Installazione auto e protezioni ancora da progettare.
 
 ### Logger temporaneo: arresto manuale

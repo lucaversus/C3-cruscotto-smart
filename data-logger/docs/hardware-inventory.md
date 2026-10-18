@@ -241,7 +241,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale.
+**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale. Revisione B 18/10/2026: schema completo U1 e distinta sul foglio; pinout TI SLCS005AH sezione 4. Corretto contenitore LM2903B: SOIC-8 con adattatore DIP-8, non PDIP-8. Nessun acquisto o collaudo aggiuntivo. Revisione C, D-018: eliminato JP1; R3 510 ohm solo nel simulatore esterno da banco, non nel modulo. Nessun nuovo acquisto o collaudo. Revisione D: evidenziate porte TX ingresso, RX uscita e K-line bidirezionale; nessuna variazione elettrica.
 
 **Verifiche documentate:**
 
@@ -252,7 +252,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possesso e ordine dei singoli componenti non confermati; distinta di costruzione in docs/kline-autocostruita.md.
 - Verifica montaggio, pin transistor secondo produttore, assenza corti e alimentazioni su banco limitato in corrente; alimentatore banco non confermato.
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
-- Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev A e solo da banco.
+- Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev D e solo da banco.
 
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
 
@@ -269,11 +269,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possesso/ordine non confermato; GPIO e cablaggio da fissare nel firmware.
 - Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione.
 
-### HW-DASH-HARNESS — Derivazione linea dietro al cruscotto originale
+### HW-DASH-HARNESS — Cablaggio temporaneo con fili volanti dietro al cruscotto
 
 **Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Utente 18/10/2026, D-016: acquisizione OBD e dalla linea dietro al cruscotto, tutto quello che arriva. Punto di accesso richiesto, non cablaggio collaudato; nessun ordine dichiarato.
+**Fonte:** Utente 18/10/2026, D-016: acquisizione OBD e dalla linea dietro al cruscotto, tutto quello che arriva. Punto di accesso richiesto, non cablaggio collaudato; nessun ordine dichiarato. Utente 18/10/2026 D-017: nessun connettore dedicato, fili volanti.
 
 **Verifiche documentate:**
 
@@ -281,8 +281,38 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Identificare connettore, terminali, pin, protocollo e lunghezza cablaggio della specifica vettura.
+- Identificare segnali, pin, protocollo e lunghezza cablaggio; fili fissati e isolati, nessun acquisto di connettore quadro richiesto.
 - HW-CAN-VP230 presente candidato per ricezione VAN passiva; verificare interfaccia senza aggiungere terminazione.
+
+### HW-FUSE-TAP — Gebildet B078T6NLTP, derivatore fusibile standard ATC proposto
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
+
+**Fonte:** Link utente 18/10/2026 https://www.amazon.it/dp/B078T6NLTP. Pagina Amazon non accessibile al lettore web; identificazione commerciale incrociata con schede distributori: https://www.manomano.fr/p/4pcs-12v-24v-20a-standard-atc-add-a-circuit-car-fuse-holder-atc-fuse-holder-blade-adapter-with-6pcs-blade-fuse-and-1pc-puller-236987415 e https://www.ebay.it/itm/287197489185. Indicano derivatore add-a-circuit standard ATC, non portafusibile in linea. Nessun ordine confermato.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Formato del fusibile, spazio e circuito di prelievo sulla specifica auto non verificati: non selezionato per acquisto.
+- Non confondere con portafusibile in linea richiesto dalla distinta; valore fusibile di ramo da fissare secondo carico/cablaggio.
+
+### HW-FUSE-HOLDER — Portafusibile acquistato, modello da riscontrare
+
+**Stato:** `ordered_pending` · **Quantità:** non confermata · **Ambito:** Data Logger
+
+**Fonte:** Utente 18/10/2026: ok portafusibile preso. Acquisto confermato; consegna, quantita e riferimento esatto non specificati. Non attribuire automaticamente l acquisto al derivatore Gebildet precedentemente proposto.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Riscontrare tipo e modello sul pezzo ricevuto; non proporre altro portafusibile prima del riscontro.
+- Fusibile da 2 A previsto per ramo 12 V prima del convertitore; acquisto non confermato, valore da verificare con cavi e assorbimento reali.
 
 ## Proposta di collegamento — non validata fisicamente
 

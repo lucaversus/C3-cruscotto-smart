@@ -1,6 +1,6 @@
 # Distinta hardware — Cruscotto C3+AI / Data Logger
 
-Revisione F — 18/10/2026. Proposta tecnica consolidata, non ordine di acquisto
+Revisione J — 18/10/2026. Proposta tecnica consolidata, non ordine di acquisto
 né schema esecutivo auto. Fonte per disponibilità e collaudi: hardware.json.
 Vincoli D-002, D-003, D-004, D-005, D-006, D-007, D-008, D-010 e D-011.
 La richiesta di definire l'hardware non equivale ad approvazione di moduli
@@ -17,25 +17,25 @@ Gia ordinati: lettore MicroSD, RTC DS3231 e OLED. Non ricomprarli.
 | Quantita | Da procurare se non gia disponibile | Destinazione / limite |
 | --- | --- | --- |
 | 1 | Convertitore Uadme GYVRM-K240505, ASIN B0BFFDSNRC, uscita 5 V | Candidato gia esaminato; misurare uscita prima dell'ESP32. Non collaudato in auto |
-| 1 | Portafusibile in linea e fusibile di ramo | Valore definitivo secondo cavo e carico; 2 A resta una proposta |
+| 1 | Fusibile di ramo da 2 A, se non incluso | Portafusibile gia acquistato (HW-FUSE-HOLDER), modello da riscontrare; verificare valore con cavo e carico |
 | 1 | Pulsante momentaneo normalmente aperto, a 2 contatti | STOP logico, non interruttore di potenza |
 | 1 | 2N5551 NPN TO-92 | K-line, pinout secondo produttore |
-| 1 + 1 | LM2903B in PDIP-8 e zoccolo DIP-8 | Ricevitore K-line del prototipo documentato |
+| 1 + 1 + 1 | LM2903B SOIC-8, adattatore SOIC-8 → DIP-8 e zoccolo DIP-8 | Ricevitore K-line del prototipo documentato |
 | 1 ciascuna | Resistenze 330 ohm e 47 kohm, 0,25 W, 5% | K-line |
-| 1 | Resistenza 510 ohm, 1 W, 1% | Pull-up per prova a banco, non da inserire automaticamente sulla linea auto |
+| 1 | Resistenza 510 ohm, 1 W, 1% | Solo simulatore esterno da banco, non montata nel modulo K-line |
 | 1 ciascuna | Resistenze 68 kohm, 150 kohm e 4,7 kohm, 0,25 W, 1% | K-line |
 | 2 | Resistenze 10 kohm, 0,25 W, 1% | K-line |
 | 1 | Resistenza 1 kohm, 0,25 W | K-line |
 | 1 ciascuno | Condensatore ceramico 100 nF ed elettrolitico 10 microfarad, 16 V | Alimentazione a 5 V del ricevitore |
-| 1 | Jumper a 2 contatti con ponticello | Prova K-line a banco |
 | 1 | Basetta millefori | Montaggio interfaccia K-line |
 | 1 insieme | Morsetti, filo flessibile per segnali e alimentazione, guaina termorestringente e fascette | Lunghezze dipendenti dalla collocazione; niente acquisto di controconnettori presunti |
 | 1 | Contenitore isolante con fissaggi per le schede | Dimensioni da scegliere sul montaggio reale |
 | 1 se manca | MicroSD 16-32 GB | Possesso non confermato; verificare prima di duplicare l'acquisto |
 
 Restano da identificare soltanto per completare il cablaggio specifico auto:
-controconnettori/terminali per derivazione posteriore OBD e linea dietro al
-cruscotto, lunghezze dei cavi e punto alimentazione. Non li dichiariamo scelti
+eventuali terminali per derivazione posteriore OBD, lunghezze dei cavi e punto
+alimentazione. Dietro al cruscotto si useranno fili volanti fissati e isolati
+(D-017): nessun connettore dedicato da acquistare. Non li dichiariamo scelti
 senza identificazione. Il fronte OBD resta libero (D-007).
 La distinta K-line e acquistabile per costruire il prototipo a banco descritto
 in [kline-autocostruita.md](kline-autocostruita.md), non e una validazione del
@@ -262,3 +262,19 @@ correlare con richieste/risposte OBD tramite timestamp e sorgente. Nessun
 pin del connettore cruscotto è assegnato; non confondere il punto richiesto
 con un protocollo già misurato. Nessuna garanzia di acquisizione senza perdite
 prima del collaudo. D-007 lascia libero il fronte OBD.
+
+## Valutazione link portafusibile — 18/10/2026
+
+HW-FUSE-TAP, Gebildet B078T6NLTP: dalle schede commerciali incrociate risulta
+un derivatore add-a-circuit standard ATC, non un portafusibile in linea.
+Pagina Amazon non letta direttamente. Candidato non ordinato e non scelto:
+formato fusibili, spazio e punto di prelievo sulla vettura non verificati.
+Per mantenere il cablaggio previsto dalla lista serve un portafusibile in linea;
+il derivatore e una diversa soluzione di prelievo da verificare prima di acquistare.
+
+## Aggiornamento acquisto — 18/10/2026
+
+Utente conferma portafusibile acquistato (HW-FUSE-HOLDER): non ricomprare.
+Modello, quantita e consegna non specificati. Il candidato HW-FUSE-TAP resta
+separato finche non identificato il pezzo effettivo. Fusibile da 2 A previsto
+sul ramo positivo 12 V prima del convertitore, acquisto non confermato.
