@@ -51,7 +51,9 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
 - OBD: nuova evidenza indica ISO 14230-4 KWP fast init 10,4 kbaud, in conflitto
   con precedente indicazione CAN Creader. BSI F02-00 / MG, riferimento 9653667330: famiglia Siemens Light 2001 VAN
   identificata documentalmente; pin e segnali della variante da verificare. Vedere [registro protocolli](data-logger/docs/protocolli-veicolo.md).
-  I moduli CAN disponibili non gestiscono direttamente K-line o VAN.
+  Il MCP2515 non decodifica VAN e nessun modulo CAN gestisce K-line; il
+  VP230 separato è candidato come ricevitore fisico VAN con decoder ESP32,
+  da collaudare. Vedere [distinta hardware rev A](data-logger/docs/distinta-hardware.md).
 - MicroSD, RTC e OLED ordinati e ancora in consegna. I riferimenti commerciali
   sono indicazioni dal contesto; modello OLED, quantità e pezzi consegnati da riscontrare.
 - GPIO21/22 I2C e GPIO18/19/23 + CS27 sono una **proposta firmware**, registrata

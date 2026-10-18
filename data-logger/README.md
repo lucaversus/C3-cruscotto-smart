@@ -44,8 +44,10 @@ la vecchia indicazione CAN Creader. La successiva foto BSI identifica F02-00 / M
 Siemens Light 2001 VAN secondo tabella del costruttore; pin e segnali
 della specifica C3 restano da verificare.
 Vedere [evidenze e conclusioni](docs/protocolli-veicolo.md). Interfaccia K-line,
-PID supportati e frequenze sostenibili restano da verificare; MCP2515/VP230
-non sostituiscono un transceiver K-line o un decoder VAN.
+PID supportati e frequenze sostenibili restano da verificare; MCP2515/VP230 non sostituiscono un transceiver K-line. Il controller MCP2515
+non decodifica VAN; il modulo VP230 separato può essere valutato come
+ricevitore fisico VAN con decoder software ESP32, senza equivalere a un
+collaudo del modulo o della vettura.
 L'acquisizione BSI è prevista inizialmente in ascolto passivo; le richieste
 OBD2 saranno limitate alla lettura dei parametri diagnostici.
 
@@ -98,3 +100,10 @@ Caricato il 18/10/2026 con hash verificati da esptool; letto su COM3
 `status SPI_TEST=PASS uptime_ms=15545`. CAN non collaudato.
 Sulla scheda sostituisce la diagnostica, i cui sorgenti sono conservati.
 GPIO del solo test: SCK18, MISO19, MOSI23, CS26; H/L e INT scollegati.
+
+## Distinta hardware
+
+[Distinta rev A](docs/distinta-hardware.md): riuso del materiale presente e
+ordinato, interfaccia K-line e valutazione VP230 per VAN passivo.
+Architettura proposta; alimentazione automotive, interfaccia K-line completa
+e cablaggio posteriore OBD non ancora rilasciati per acquisto/installazione.

@@ -94,3 +94,14 @@ veicolo e decodifica dei dati; nessuna misura sul bus effettuata.
 MCP2515 non può decodificare VAN; nessun acquisto o collegamento viene deciso.
 
 Fonte aggiuntiva: [riproduzione del documento Peugeot D6AN012EP0, identificazione BSI](https://www.scribd.com/document/485332590/peugeot-BSI).
+
+## Precisazione interfaccia VAN — 18/10/2026
+
+L'affermazione precedente sulle interfacce CAN va distinta per funzione:
+MCP2515 è un controller CAN e non può decodificare frame VAN. Il transceiver
+SN65HVD230 separato (HW-CAN-VP230) può invece essere valutato come ricevitore
+fisico VAN con decoder software ESP32; questa applicazione è documentata
+dall'autore di [VanBus](https://github.com/0xCAFEDECAF/VanBus#-schematics).
+Non è una certificazione TI di compatibilità VAN né un collaudo sul nostro modulo.
+Controllare resistenza di terminazione, livelli, protezioni e inibizione del
+trasmettitore prima dell'uso. Non ordinare un secondo modulo VAN ora.

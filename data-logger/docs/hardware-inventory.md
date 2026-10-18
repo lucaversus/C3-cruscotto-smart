@@ -68,7 +68,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Inventario iniziale utente e correzione sul CAN del 18/10/2026. Nessun collaudo del modulo documentato. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json.
+**Fonte:** Inventario iniziale utente e correzione sul CAN del 18/10/2026. Nessun collaudo del modulo documentato. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json. Valutazione 18/10/2026: https://github.com/0xCAFEDECAF/VanBus sezione Schematics documenta SN65HVD230 come ricevitore fisico VAN; datasheet TI SN65HVD230 descrive RS e driver disabilitabile. Non prova funzionamento del modulo posseduto.
 
 **Foto archiviate:** [can-vp230-fronte.jpg](hardware-photos/can-vp230-fronte.jpg), [can-vp230-dettaglio.jpg](hardware-photos/can-vp230-dettaglio.jpg)
 
@@ -81,6 +81,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Alimentazione indicata 3,3 V: da verificare sul modulo
 - Resistenza 120 ohm apparentemente fissa: da misurare; non aggiungere terminazione al bus auto senza verifica
 - Possibile uso col controller TWAI interno ESP32: scelta subordinata a verifica elettrica
+- Candidato per ricezione fisica VAN con decoder software ESP32: applicazione documentata dal progetto VanBus, non collaudata su questo modulo o veicolo. Prima verificare alimentazione 3,3 V, assenza di terminazione aggiunta, livelli e inibizione hardware TX. Non usare il controller MCP2515 come decoder VAN.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
@@ -169,6 +170,8 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Da verificare:**
 
 - Modello convertitore, fusibile, protezioni, punto di prelievo e chiusura file SD non definiti
+- Specificare convertitore automotive 12 V nominali verso 5 V regolati, corrente con margine sul picco combinato ESP32/SD/display.
+- Protezioni sovracorrente/inversione/transitori, gestione accensione e riserva energetica per chiusura SD: valori e modello da dimensionare; non approvare un semplice buck generico come alimentatore auto.
 
 ### HW-OBD-HARNESS — Derivazione dietro la presa OBD
 
@@ -183,6 +186,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Da verificare:**
 
 - Connettore posteriore C3, accesso fisico, lunghezza derivazione e massa di riferimento
+- Identificare controconnettori posteriori della presa per derivazione a T con fronte libero, oppure punto equivalente documentato. Nessun ordine basato sulla sola foto frontale.
 
 ### HW-DASH-DISPLAY — Scheda RCmall ESP32-S3 con display 5 pollici — variante da identificare
 
@@ -231,6 +235,23 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Da verificare:**
 
 - Continuità tra morsetti e socket, etichette e compatibilità meccanica da verificare
+
+### HW-KLINE-INTERFACE — Interfaccia K-line: modulo basato su L9637D con adattamento logico ESP32
+
+**Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger
+
+**Fonte:** Proposta tecnica 18/10/2026 nella distinta hardware rev A; datasheet ST L9637. Non è acquisto o verifica hardware approvata.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Modello commerciale e schema del modulo non ancora scelti; nessun ordine confermato.
+- Alimentazione VS/VCC, pull-up, protezioni e livelli TX/RX da riscontrare; non presumere RX a 3,3 V su un modulo a 5 V.
+- Scegliere interfaccia e adattamento bidirezionale prima del cablaggio; KWP fast init 10,4 kbaud da implementare e collaudare.
+- Identificare adattatore usato per lo screenshot: eventuale riuso va valutato prima di nuovi acquisti.
 
 ## Proposta di collegamento — non validata fisicamente
 
