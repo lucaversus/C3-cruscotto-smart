@@ -40,7 +40,9 @@ con risoluzione adeguata alle frequenze di acquisizione.
 Il protocollo fisico e logico del bus BSI va identificato sulla specifica auto:
 non si assume che sia CAN. La nuova schermata del 18/10/2026 indica
 ISO 14230-4 KWP fast init a 10,4 kbaud per la diagnosi motore; contraddice
-la vecchia indicazione CAN Creader. Non identifica il bus abitacolo BSI.
+la vecchia indicazione CAN Creader. La successiva foto BSI identifica F02-00 / MG (9653667330), famiglia
+Siemens Light 2001 VAN secondo tabella del costruttore; pin e segnali
+della specifica C3 restano da verificare.
 Vedere [evidenze e conclusioni](docs/protocolli-veicolo.md). Interfaccia K-line,
 PID supportati e frequenze sostenibili restano da verificare; MCP2515/VP230
 non sostituiscono un transceiver K-line o un decoder VAN.

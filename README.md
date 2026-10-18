@@ -49,8 +49,8 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
 - Moduli CAN: livelli, alimentazione e terminazione da verificare prima del riuso.
   TWAI interno + HW-CAN-VP230 è una possibilità; MCP2515 resta disponibile.
 - OBD: nuova evidenza indica ISO 14230-4 KWP fast init 10,4 kbaud, in conflitto
-  con precedente indicazione CAN Creader. BSI non identificata; ipotesi CAN/VAN
-  da verificare sulla variante. Vedere [registro protocolli](data-logger/docs/protocolli-veicolo.md).
+  con precedente indicazione CAN Creader. BSI F02-00 / MG, riferimento 9653667330: famiglia Siemens Light 2001 VAN
+  identificata documentalmente; pin e segnali della variante da verificare. Vedere [registro protocolli](data-logger/docs/protocolli-veicolo.md).
   I moduli CAN disponibili non gestiscono direttamente K-line o VAN.
 - MicroSD, RTC e OLED ordinati e ancora in consegna. I riferimenti commerciali
   sono indicazioni dal contesto; modello OLED, quantità e pezzi consegnati da riscontrare.

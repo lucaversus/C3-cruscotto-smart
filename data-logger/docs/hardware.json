@@ -382,10 +382,19 @@
     "obd_reported_protocol": "ISO 14230-4 KWP fast init 10.4 kbaud (protocol 5)",
     "calibration_id": "9656710099",
     "ecu_address_as_displayed": "10",
-    "bsi_network": "not_confirmed",
-    "working_hypothesis": "Architettura CAN/VAN delle prime C3; VAN comfort 125 kbit/s nella documentazione Citroen 2001, applicabilita al veicolo da verificare.",
+    "bsi_network": "family_identified_documentally_CAN_VAN_not_electrically_verified",
+    "working_hypothesis": "Famiglia Siemens Light 2001 VAN identificata da F02-00 e MG; rete comfort VAN 125 kbit/s documentata per prima C3, da riscontrare sui fili della variante. CAN motore e diagnosi KWP separati.",
     "conflict": "Nuovo screenshot KWP contraddice precedente schermata Creader CAN; conservare entrambe le evidenze.",
     "private_evidence": "Targhetta con identificativo veicolo: non pubblicata.",
-    "local_evidence": "Le tre immagini originali sono conservate localmente nella cartella ignorata .tools/hardware-photo-originals; pubblicazione immagini non autorizzata dal controllo automatico."
+    "local_evidence": "Originali ecu obd.png, targhetta.jpg, obd presa.jpg e BSI ID.jpg conservati localmente in .tools/hardware-photo-originals; nessuna nuova foto pubblicata.",
+    "bsi_identification": {
+      "part_reference": "9653667330",
+      "variant": "F02-00",
+      "trim_marking": "MG",
+      "family": "Siemens Light 2001",
+      "documented_network_family": "VAN / architecture CAN-VAN",
+      "source": "Foto BSI ID.jpg fornita il 18/10/2026; tabella identificazione Peugeot D6AN012EP0, sezione 3.6, riproduzione https://www.scribd.com/document/485332590/peugeot-BSI",
+      "limits": "Identificazione documentale da variante F02-00; pin e segnali del singolo veicolo non misurati. Nessuna indicazione che tutti i collegamenti della BSI siano VAN."
+    }
   }
 }

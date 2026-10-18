@@ -1,6 +1,6 @@
 # Protocolli veicolo — Cruscotto C3+AI / Data Logger
 
-Revisione 1, 18/10/2026. Evidenze, non schema di collegamento al veicolo.
+Revisione 2, 18/10/2026. Evidenze, non schema di collegamento al veicolo.
 Ambito D-006, D-008, D-011 e D-012; HW-CAN-MCP2515, HW-CAN-VP230 e HW-SCANNER.
 
 ## Cosa mostrano le nuove foto
@@ -69,3 +69,28 @@ Le tre foto attuali non permettono di assegnare pin, bitrate o decoder BSI defin
   sezione 1 pp. 1-7, [riproduzione del documento del costruttore](https://www.scribd.com/document/759219550/C3-TECHNICAL).
   Documento storico generale: non certifica la variante della vettura.
 - Foto fornite dall'utente il 18/10/2026: copie locali, non incluse nel repository.
+
+## Aggiornamento: etichetta BSI identificata — 18/10/2026
+
+Nuova foto `BSI ID.jpg`, originale archiviato soltanto localmente:
+- riferimento 9653667330;
+- variante BSI F02-00;
+- livello MG.
+
+La tabella del costruttore Peugeot D6AN012EP0, sezione 3.6, identifica F02-00
+come Siemens Light 2001 VAN, livello medio. Questa corrispondenza di famiglia
+rende l'architettura CAN/VAN una conclusione documentale, più forte della
+precedente ipotesi fondata sul solo anno. La tabella consultata elenca applicazioni
+Peugeot: non equivale a uno schema dei connettori della C3 specifica.
+
+La documentazione C3 già citata descrive VAN comfort 125 kbit/s verso
+quadro/display/radio e CAN del gruppo motore: la BSI collega reti diverse.
+La diagnosi motore KWP dello screenshot rimane separata da queste reti.
+Non si conclude che la diagnosi BSI usi necessariamente il medesimo protocollo.
+
+Superata la precedente necessità di ottenere il codice etichetta. Restano
+piedinatura dello specifico connettore, conferma dei livelli e del bitrate sul
+veicolo e decodifica dei dati; nessuna misura sul bus effettuata.
+MCP2515 non può decodificare VAN; nessun acquisto o collegamento viene deciso.
+
+Fonte aggiuntiva: [riproduzione del documento Peugeot D6AN012EP0, identificazione BSI](https://www.scribd.com/document/485332590/peugeot-BSI).
