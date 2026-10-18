@@ -1,11 +1,11 @@
 # Registro di verifica HW-CAN-MCP2515
 
-Cruscotto C3+AI / Data Logger — revisione 1, 18/10/2026.
+Cruscotto C3+AI / Data Logger — revisione 2, 18/10/2026.
 
 Consultare [inventario](hardware-inventory.md) e
 [foto archiviate](hardware-photos/README.md) prima di indicare i punti di misura.
 Strumento disponibile: UNI-T UT210E, identificato dalla foto dell'utente.
-Nessuna misura ancora acquisita; il modulo non è dichiarato compatibile con ESP32.
+Prima lettura riferita dall’utente registrata sotto; il modulo non è dichiarato compatibile con ESP32.
 
 ## Misura M-001 — resistenza tra H e L
 
@@ -20,10 +20,16 @@ Nessuna misura ancora acquisita; il modulo non è dichiarato compatibile con ESP
 
 | Misura | Stato | Risultato utente | Interpretazione |
 | --- | --- | --- | --- |
-| M-001, H–L, modulo isolato e spento | in attesa | non fornito | non formulata |
+| M-001, H–L, richiesto modulo isolato e spento | riferita, da confermare | 51,8 kΩ (testo utente: “51.8Komh”) | Contatto e condizioni da confermare; nessuna conclusione sulla terminazione |
+| C-001, contatto diretto tra i puntali in modalità Ω | in attesa | non fornito | Controllo preliminare dello strumento prima di ripetere M-001 |
 
 Il risultato descriverà soltanto la resistenza tra le linee nelle condizioni
 della prova. Non prova tensioni interne, livelli SPI, bitrate o funzionamento CAN.
 Le verifiche successive dipendono da questa misura e dall'identificazione del circuito.
 
 Riferimento strumento: [pagina manuale UNI-T UT210E](https://meters.uni-trend.com/download/ut210e-user-manual/).
+
+Per C-001 tenere il modulo scollegato e appoggiare soltanto tra loro le punte
+metalliche dei due puntali, lasciando la funzione Ω. Registrare valore e unità.
+Un valore vicino a zero è atteso per il contatto diretto; non prova la taratura
+assoluta del tester. Non modificare ponticelli né alimentare il modulo.

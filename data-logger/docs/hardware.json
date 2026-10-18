@@ -38,18 +38,33 @@
       "quantity": 1,
       "status": "present_declared",
       "verified": [
-        "Foto fronte e dettaglio archiviate: MCP2515, quarzo 8.000 e marcatura VP230 leggibili; connettori J1/J3 non ancora identificati elettricamente."
+        "Foto fronte e dettaglio archiviate: MCP2515, quarzo 8.000 e marcatura VP230 leggibili; connettori J1/J3 non ancora identificati elettricamente.",
+        "M-001: utente riferisce 51,8 kOhm tra H e L con UNI-T UT210E; valore preliminare da confermare dopo controllo del contatto dei puntali, non collaudo CAN."
       ],
       "open_checks": [
         "Venditore dichiara 5 V: alimentazione interna e livelli SPI non verificati",
         "Identità effettiva del transceiver, terminazione e compatibilità ESP32 da verificare",
         "Non collegare né decidere un sostituto prima della verifica",
-        "Foto retro non disponibile nell’archivio; prima di alimentare, identificare con tester VCC interno e funzione dei ponticelli senza presumerne il circuito."
+        "Foto retro non disponibile nell’archivio; prima di alimentare, identificare con tester VCC interno e funzione dei ponticelli senza presumerne il circuito.",
+        "Verificare puntali a contatto e ripetere M-001 prima di concludere sulla terminazione H/L."
       ],
       "evidence": "Inventario iniziale fornito dall’utente; successiva correzione “ma non abbiamo già il modulo can?” il 18/10/2026. Il precedente “non possiedo altro” non annulla più questa voce. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json.",
       "photos": [
         "data-logger/docs/hardware-photos/mcp2515-fronte.jpg",
         "data-logger/docs/hardware-photos/mcp2515-dettaglio.jpg"
+      ],
+      "measurements": [
+        {
+          "id": "M-001",
+          "date": "2026-10-18",
+          "instrument": "HW-MULTIMETER",
+          "quantity": "resistance_H_L",
+          "reported_text": "51.8Komh",
+          "value": 51.8,
+          "unit": "kOhm",
+          "status": "reported_pending_contact_check",
+          "conditions": "Richiesto modulo isolato e spento, ponticelli invariati; condizioni e contatto da confermare con il controllo dei puntali."
+        }
       ]
     },
     {
@@ -185,9 +200,9 @@
       ],
       "open_checks": [
         "Funzionamento, batterie e puntali da verificare prima delle misure",
-        "Nessuna misura sul modulo MCP2515 ancora acquisita; non confondere identificazione dello strumento con collaudo del modulo"
+        "Prima lettura M-001 riferita 51,8 kOhm; controllo puntali a contatto ancora da acquisire."
       ],
-      "evidence": "Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”. Foto tester.jpg fornita il 18/10/2026: modello identificato visivamente; nessuna misura ancora eseguita.",
+      "evidence": "Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”. Foto tester.jpg fornita il 18/10/2026: modello identificato visivamente; lettura M-001 successivamente riferita dall’utente, controllo puntali in attesa.",
       "photos": [
         "data-logger/docs/hardware-photos/tester-unit-ut210e.jpg"
       ]
