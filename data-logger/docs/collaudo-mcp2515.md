@@ -1,6 +1,6 @@
 # Registro di verifica HW-CAN-MCP2515
 
-Cruscotto C3+AI / Data Logger — revisione 2, 18/10/2026.
+Cruscotto C3+AI / Data Logger — revisione 3, 18/10/2026.
 
 Consultare [inventario](hardware-inventory.md) e
 [foto archiviate](hardware-photos/README.md) prima di indicare i punti di misura.
@@ -20,8 +20,10 @@ Prima lettura riferita dall’utente registrata sotto; il modulo non è dichiara
 
 | Misura | Stato | Risultato utente | Interpretazione |
 | --- | --- | --- | --- |
-| M-001, H–L, richiesto modulo isolato e spento | riferita, da confermare | 51,8 kΩ (testo utente: “51.8Komh”) | Contatto e condizioni da confermare; nessuna conclusione sulla terminazione |
-| C-001, contatto diretto tra i puntali in modalità Ω | in attesa | non fornito | Controllo preliminare dello strumento prima di ripetere M-001 |
+| M-001, H–L, richiesto modulo isolato e spento | riferita e successivamente ripetuta | 51,8 kΩ (testo utente: “51.8Komh”) | Nessuna conclusione definitiva sul circuito |
+| C-001, contatto diretto tra i puntali in modalità Ω | riferita | 0; unità non ripetuta, Ω richiesto nella procedura | Contatto dei puntali riscontrato; non è taratura |
+| M-002, ripetizione H–L dopo C-001 | riferita | “stesso valore”, cioè 51,8 kΩ | Resistenza H–L ripetuta, senza dedurre guasto o compatibilità |
+| M-003, direttamente sulle estremità di R2 | in attesa | non fornito | Da acquisire prima di interpretare la terminazione |
 
 Il risultato descriverà soltanto la resistenza tra le linee nelle condizioni
 della prova. Non prova tensioni interne, livelli SPI, bitrate o funzionamento CAN.
@@ -33,3 +35,8 @@ Per C-001 tenere il modulo scollegato e appoggiare soltanto tra loro le punte
 metalliche dei due puntali, lasciando la funzione Ω. Registrare valore e unità.
 Un valore vicino a zero è atteso per il contatto diretto; non prova la taratura
 assoluta del tester. Non modificare ponticelli né alimentare il modulo.
+
+Per M-003 mantenere il modulo isolato e spento, tester su Ω, senza spostare
+ponticelli. Sulla foto frontale R2 è in basso, a destra del LED POW e a sinistra
+di J1, con codice 121: appoggiare un puntale a ciascuna delle sue due estremità
+metalliche, senza premere o forzare il componente. Registrare valore e unità.

@@ -47,7 +47,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Verifiche documentate:**
 
 - Foto fronte e dettaglio archiviate: MCP2515, quarzo 8.000 e marcatura VP230 leggibili; connettori J1/J3 non ancora identificati elettricamente.
-- M-001: utente riferisce 51,8 kOhm tra H e L con UNI-T UT210E; valore preliminare da confermare dopo controllo del contatto dei puntali, non collaudo CAN.
+- M-001 / M-002: resistenza H-L riferita 51,8 kOhm e ripetuta dopo controllo C-001 dei puntali (0 riferito). Nessuna conclusione su compatibilità o funzionamento CAN.
 
 **Da verificare:**
 
@@ -55,7 +55,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Identità effettiva del transceiver, terminazione e compatibilità ESP32 da verificare
 - Non collegare né decidere un sostituto prima della verifica
 - Foto retro non disponibile nell’archivio; prima di alimentare, identificare con tester VCC interno e funzione dei ponticelli senza presumerne il circuito.
-- Verificare puntali a contatto e ripetere M-001 prima di concludere sulla terminazione H/L.
+- Misurare direttamente le due estremità metalliche di R2 (marcata 121); funzione dei ponticelli e percorso verso H/L ancora da identificare.
 
 ### HW-CAN-VP230 — Modulo CAN blu VP230 / SN65HVD230
 
@@ -195,18 +195,18 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger — strumento di verifica
 
-**Fonte:** Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”. Foto tester.jpg fornita il 18/10/2026: modello identificato visivamente; lettura M-001 successivamente riferita dall’utente, controllo puntali in attesa.
+**Fonte:** Utente il 18/10/2026: “ho il tester per verificare il modulo con mcp2515”. Foto tester.jpg fornita il 18/10/2026: modello identificato visivamente; lettura M-001 successivamente riferita dall’utente, controllo puntali C-001 successivamente riferito 0, H-L ripetuta con lo stesso valore.
 
 **Foto archiviate:** [tester-unit-ut210e.jpg](hardware-photos/tester-unit-ut210e.jpg)
 
 **Verifiche documentate:**
 
 - Identificazione visiva UNI-T UT210E nella foto tester.jpg, archiviata con SHA-256.
+- Contatto diretto tra i puntali: utente riferisce 0 in risposta al controllo C-001 richiesto in modalità Ω.
 
 **Da verificare:**
 
-- Funzionamento, batterie e puntali da verificare prima delle misure
-- Prima lettura M-001 riferita 51,8 kOhm; controllo puntali a contatto ancora da acquisire.
+- Taratura assoluta e stato completo dello strumento non verificati.
 
 ### HW-ESP32-TERMINAL-BASE — Basetta di espansione a morsetti per ESP32 HW-394, visibile in foto
 
