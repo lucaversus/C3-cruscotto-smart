@@ -1,10 +1,54 @@
 # Distinta hardware — Cruscotto C3+AI / Data Logger
 
-Revisione C — 18/10/2026. Proposta tecnica consolidata, non ordine di acquisto
+Revisione F — 18/10/2026. Proposta tecnica consolidata, non ordine di acquisto
 né schema esecutivo auto. Fonte per disponibilità e collaudi: hardware.json.
 Vincoli D-002, D-003, D-004, D-005, D-006, D-007, D-008, D-010 e D-011.
 La richiesta di definire l'hardware non equivale ad approvazione di moduli
 commerciali non identificati. Nessun componente candidato è segnato come ordinato.
+
+## Lista corrente da usare per gli acquisti
+
+Questa sezione sostituisce le precedenti proposte: D-013, D-014, D-015, D-016.
+Le sezioni successive restano come storico tecnico, non come carrello corrente.
+
+Gia presenti: ESP32 HW-394, basetta a morsetti, MCP2515 e modulo blu VP230.
+Gia ordinati: lettore MicroSD, RTC DS3231 e OLED. Non ricomprarli.
+
+| Quantita | Da procurare se non gia disponibile | Destinazione / limite |
+| --- | --- | --- |
+| 1 | Convertitore Uadme GYVRM-K240505, ASIN B0BFFDSNRC, uscita 5 V | Candidato gia esaminato; misurare uscita prima dell'ESP32. Non collaudato in auto |
+| 1 | Portafusibile in linea e fusibile di ramo | Valore definitivo secondo cavo e carico; 2 A resta una proposta |
+| 1 | Pulsante momentaneo normalmente aperto, a 2 contatti | STOP logico, non interruttore di potenza |
+| 1 | 2N5551 NPN TO-92 | K-line, pinout secondo produttore |
+| 1 + 1 | LM2903B in PDIP-8 e zoccolo DIP-8 | Ricevitore K-line del prototipo documentato |
+| 1 ciascuna | Resistenze 330 ohm e 47 kohm, 0,25 W, 5% | K-line |
+| 1 | Resistenza 510 ohm, 1 W, 1% | Pull-up per prova a banco, non da inserire automaticamente sulla linea auto |
+| 1 ciascuna | Resistenze 68 kohm, 150 kohm e 4,7 kohm, 0,25 W, 1% | K-line |
+| 2 | Resistenze 10 kohm, 0,25 W, 1% | K-line |
+| 1 | Resistenza 1 kohm, 0,25 W | K-line |
+| 1 ciascuno | Condensatore ceramico 100 nF ed elettrolitico 10 microfarad, 16 V | Alimentazione a 5 V del ricevitore |
+| 1 | Jumper a 2 contatti con ponticello | Prova K-line a banco |
+| 1 | Basetta millefori | Montaggio interfaccia K-line |
+| 1 insieme | Morsetti, filo flessibile per segnali e alimentazione, guaina termorestringente e fascette | Lunghezze dipendenti dalla collocazione; niente acquisto di controconnettori presunti |
+| 1 | Contenitore isolante con fissaggi per le schede | Dimensioni da scegliere sul montaggio reale |
+| 1 se manca | MicroSD 16-32 GB | Possesso non confermato; verificare prima di duplicare l'acquisto |
+
+Restano da identificare soltanto per completare il cablaggio specifico auto:
+controconnettori/terminali per derivazione posteriore OBD e linea dietro al
+cruscotto, lunghezze dei cavi e punto alimentazione. Non li dichiariamo scelti
+senza identificazione. Il fronte OBD resta libero (D-007).
+La distinta K-line e acquistabile per costruire il prototipo a banco descritto
+in [kline-autocostruita.md](kline-autocostruita.md), non e una validazione del
+collegamento all'auto. Nessun nuovo ordine e dichiarato.
+
+Niente secondo modulo CAN, Pololu, UPS o circuito di mantenimento MOSFET.
+Avvio automatico, STOP, chiusura SD e conferma SALVATO prima di togliere corrente.
+Due sorgenti: OBD di sola lettura e tutti i messaggi ricevuti dalla linea dietro
+al cruscotto, conservati anche senza decodifica e distinti per sorgente/tempo.
+
+## Storico delle proposte precedenti
+
+Le sezioni sotto documentano l'evoluzione: per gli acquisti prevale la lista corrente.
 
 ## Composizione della prima versione
 
@@ -157,3 +201,64 @@ La soluzione tecnica corrente è [prototipo NPN + comparatore, rev A](kline-auto
 Distinta componenti per banco e schema con cartiglio allegati; progetto auto
 protetto e collaudi ancora aperti. Due soli NPN e PC817 non sono la soluzione
 implementata nel disegno.
+
+## Candidato alimentazione proposto dall'utente — 18/10/2026
+
+[Uadme, ASIN B0BFFDSNRC](https://www.amazon.it/dp/B0BFFDSNRC), modello dichiarato
+GYVRM-K240505. Scheda letta direttamente tramite browser Work:
+8-40 V ingresso; 5 +/-0,25 V uscita; 5 A, 25 W massimi dichiarati; non isolato;
+60 x 24,5 x 20 mm. Protezioni commercialmente dichiarate: sovra/sottotensione,
+sovraccarico, surriscaldamento e corto. Soglie e condizioni non specificate.
+Non confondere la dichiarazione generica di protezione con prova ISO 7637/16750
+o tolleranza al load dump. Inversione di polarita non dimostrata dalla pagina.
+
+Potenza nominale plausibilmente sufficiente al logger, ma picchi e regolazione
+vanno misurati. Ingresso minimo 8 V: continuita durante avviamento non garantita.
+Non comprende chiusura SD o riserva energetica documentate. E un candidato di
+conversione da valutare con protezioni esterne, non un alimentatore completo
+approvato per l'auto. Nessun ordine confermato. Pololu D36V28F5 citato qui come storico; successivamente escluso dall'utente (D-014).
+
+## Secondo candidato Amazon: MP1584EN — 18/10/2026
+
+[LAOMAO B0B92WYRR4](https://www.amazon.it/dp/B0B92WYRR4), 6 moduli regolabili:
+ingresso 4,5-28 V, uscita 0,8-20 V, corrente 3 A massimi dichiarati nella
+pagina letta direttamente tramite browser Work. Adatto da valutare per prove
+su alimentazione pulita, regolando e misurando prima l'uscita a carico scollegato.
+Non scelto per collegamento diretto auto: minore margine di ingresso rispetto
+ai candidati 40/50 V, nessuna protezione automotive completa documentata,
+uscita affidata a regolazione con trimmer. Il valore massimo di corrente non
+certifica la corrente continua ottenibile sulla specifica schedina.
+Nessun ordine o possesso confermato; nessun acquisto di un kit di sei moduli
+necessario al solo Data Logger sulla base della presente valutazione.
+
+## Alimentazione: proposta completa del circuito normale
+
+Pololu escluso da acquisto (D-014). Base economica Uadme e circuito di
+mantenimento/spegnimento: [distinta e netlist](alimentazione-spegnimento.md).
+La batteria dell’auto resta disponibile fino alla chiusura dei file; nessun UPS
+autonomo aggiunto. Richiede +12 permanente, massa e IGN identificati.
+Nessun pin auto assegnato, nessun collaudo hardware o ordine dichiarato.
+
+## Versione corrente semplificata — D-015
+
+Prevale sulle proposte precedenti: logger temporaneo per pochi giorni,
+avvio automatico e pulsante STOP prima di spegnere l'auto. Circuito di
+mantenimento MOSFET, IGN separato per arresto, UPS e riserva energetica ritirati.
+Non ordinare i componenti di quel circuito. La K-line resta autocostruita.
+
+Materiale corrente: ESP32 e moduli gia censiti; SD/RTC/OLED ordinati;
+componenti K-line in kline-autocostruita.md; Uadme candidato; portafusibile di
+ramo con fusibile adeguato (proposta 2 A da riscontrare), un pulsante NO,
+fili/morsetti/contenitore. Consultare alimentazione-spegnimento.md rev B.
+Il segnale SALVATO compare solo dopo chiusura SD riuscita; fino a quel momento
+l'alimentazione resta presente. Il pulsante non taglia corrente.
+
+## Precisazione acquisizione — D-016, 18/10/2026
+
+Due ingressi: OBD con HW-KLINE-INTERFACE per diagnosi di sola lettura, e
+linea dietro al cruscotto con ricevitore da verificare (HW-CAN-VP230 candidato
+per VAN). Conservare tutti i messaggi ricevuti dalla linea, anche non decodificati;
+correlare con richieste/risposte OBD tramite timestamp e sorgente. Nessun
+pin del connettore cruscotto è assegnato; non confondere il punto richiesto
+con un protocollo già misurato. Nessuna garanzia di acquisizione senza perdite
+prima del collaudo. D-007 lascia libero il fronte OBD.

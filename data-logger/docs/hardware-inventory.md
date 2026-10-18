@@ -157,11 +157,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Possesso, capacità e formattazione da confermare prima di ordinare un duplicato
 
-### HW-AUTO-POWER — Alimentazione automotive, protezioni e arresto controllato
+### HW-AUTO-POWER — Alimentazione temporanea proposta: Uadme 5 V, arresto manuale STOP
 
 **Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin.
+**Fonte:** Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto.
 
 **Verifiche documentate:**
 
@@ -169,9 +169,10 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Modello convertitore, fusibile, protezioni, punto di prelievo e chiusura file SD non definiti
-- Specificare convertitore automotive 12 V nominali verso 5 V regolati, corrente con margine sul picco combinato ESP32/SD/display.
-- Protezioni sovracorrente/inversione/transitori, gestione accensione e riserva energetica per chiusura SD: valori e modello da dimensionare; non approvare un semplice buck generico come alimentatore auto.
+- Uadme B0BFFDSNRC: nessun ordine/possesso confermato; verificare uscita 5 V e funzionamento col carico.
+- Prelievo alimentazione auto e fusibile di ramo da verificare; non collegare 12 V ai GPIO. Nessun pin auto assegnato.
+- Arresto manuale STOP e conferma a display da implementare/collaudare con SD reale. Il pulsante non toglie fisicamente corrente.
+- Nessuna garanzia su transitori oltre specifica, cadute in avviamento o spegnimento senza STOP; nessuna qualifica automotive dichiarata.
 
 ### HW-OBD-HARNESS — Derivazione dietro la presa OBD
 
@@ -252,6 +253,36 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Verifica montaggio, pin transistor secondo produttore, assenza corti e alimentazioni su banco limitato in corrente; alimentatore banco non confermato.
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
 - Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev A e solo da banco.
+
+### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
+
+**Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger temporaneo
+
+**Fonte:** Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Possesso/ordine non confermato; GPIO e cablaggio da fissare nel firmware.
+- Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione.
+
+### HW-DASH-HARNESS — Derivazione linea dietro al cruscotto originale
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
+
+**Fonte:** Utente 18/10/2026, D-016: acquisizione OBD e dalla linea dietro al cruscotto, tutto quello che arriva. Punto di accesso richiesto, non cablaggio collaudato; nessun ordine dichiarato.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Identificare connettore, terminali, pin, protocollo e lunghezza cablaggio della specifica vettura.
+- HW-CAN-VP230 presente candidato per ricezione VAN passiva; verificare interfaccia senza aggiungere terminazione.
 
 ## Proposta di collegamento — non validata fisicamente
 

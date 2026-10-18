@@ -21,8 +21,15 @@ con display IPS e avvisi vocali.
 
 ## Funzioni previste
 
-- Acquisizione dei dati del bus di bordo associato alla BSI.
-- Interrogazioni diagnostiche OBD2 durante il funzionamento del veicolo.
+- D-016: ascolto passivo della linea dietro al cruscotto originale, conservando
+  tutti i messaggi ricevuti in forma grezza, anche quelli non ancora decodificati.
+  Pin, protocollo e capacità di acquisizione senza perdite restano da verificare.
+- D-016: interrogazioni diagnostiche di sola lettura dalla presa OBD durante
+  il funzionamento del veicolo, conservando richieste e risposte disponibili.
+  La raccolta OBD dipende dai parametri esposti e dalla frequenza sostenibile;
+  non equivale alla cattura di tutte le reti interne dell’auto.
+- Identificazione della sorgente e timestamp per correlare le due acquisizioni;
+  registrazione degli errori e delle perdite rilevabili. Fronte OBD libero (D-007).
 - Raccolta di RPM, temperature, pressioni, MAF (portata massica dell'aria)
   e MAP (pressione assoluta nel collettore), nei limiti dei parametri
   effettivamente esposti dalla centralina.
@@ -103,7 +110,7 @@ GPIO del solo test: SCK18, MISO19, MOSI23, CS26; H/L e INT scollegati.
 
 ## Distinta hardware
 
-[Distinta rev A](docs/distinta-hardware.md): riuso del materiale presente e
+[Distinta hardware](docs/distinta-hardware.md): riuso del materiale presente e
 ordinato, interfaccia K-line e valutazione VP230 per VAN passivo.
 Architettura proposta; alimentazione automotive, interfaccia K-line completa
 e cablaggio posteriore OBD non ancora rilasciati per acquisto/installazione.
@@ -114,3 +121,12 @@ Scelta D-013 registrata: [circuito a banco rev A](docs/kline-autocostruita.md),
 NPN 2N5551 e comparatore LM2903B. UART 10400 con solo TX invertito.
 Schema e modello DC prodotti; componenti non confermati, nessun montaggio,
 firmware K-line o collaudo. Nessun collegamento alla vettura.
+
+## Alimentazione e arresto manuale
+
+D-015: logger temporaneo per pochi giorni. Avvio automatico; pulsante STOP
+chiude la SD e mostra SALVATO - PUOI SPEGNERE, poi acquisizione arrestata fino
+al prossimo avvio. Niente UPS, mantenimento MOSFET o arresto automatico IGN.
+[Alimentazione e STOP rev B](docs/alimentazione-spegnimento.md).
+Funzione richiesta, non ancora implementata nel firmware; stato ARRESTATO
+non significa disconnessione elettrica dell'ESP32. Uadme candidato, non collaudato.

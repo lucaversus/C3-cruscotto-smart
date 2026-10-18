@@ -281,17 +281,19 @@
     },
     {
       "id": "HW-AUTO-POWER",
-      "name": "Alimentazione automotive, protezioni e arresto controllato",
+      "name": "Alimentazione temporanea proposta: Uadme 5 V, arresto manuale STOP",
       "scope": "Data Logger",
       "quantity": null,
       "status": "candidate",
       "verified": [],
       "open_checks": [
-        "Modello convertitore, fusibile, protezioni, punto di prelievo e chiusura file SD non definiti",
-        "Specificare convertitore automotive 12 V nominali verso 5 V regolati, corrente con margine sul picco combinato ESP32/SD/display.",
-        "Protezioni sovracorrente/inversione/transitori, gestione accensione e riserva energetica per chiusura SD: valori e modello da dimensionare; non approvare un semplice buck generico come alimentatore auto."
+        "Uadme B0BFFDSNRC: nessun ordine/possesso confermato; verificare uscita 5 V e funzionamento col carico.",
+        "Prelievo alimentazione auto e fusibile di ramo da verificare; non collegare 12 V ai GPIO. Nessun pin auto assegnato.",
+        "Arresto manuale STOP e conferma a display da implementare/collaudare con SD reale. Il pulsante non toglie fisicamente corrente.",
+        "Nessuna garanzia su transitori oltre specifica, cadute in avviamento o spegnimento senza STOP; nessuna qualifica automotive dichiarata."
       ],
-      "evidence": "Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin."
+      "evidence": "Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto.",
+      "assembly_document": "data-logger/docs/alimentazione-spegnimento.md"
     },
     {
       "id": "HW-OBD-HARNESS",
@@ -381,6 +383,32 @@
       ],
       "evidence": "Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale.",
       "assembly_document": "data-logger/docs/kline-autocostruita.md"
+    },
+    {
+      "id": "HW-STOP-BUTTON",
+      "name": "Pulsante STOP momentaneo normalmente aperto",
+      "scope": "Data Logger temporaneo",
+      "quantity": 1,
+      "status": "candidate",
+      "verified": [],
+      "open_checks": [
+        "Possesso/ordine non confermato; GPIO e cablaggio da fissare nel firmware.",
+        "Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione."
+      ],
+      "evidence": "Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto."
+    },
+    {
+      "id": "HW-DASH-HARNESS",
+      "name": "Derivazione linea dietro al cruscotto originale",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "candidate",
+      "verified": [],
+      "open_checks": [
+        "Identificare connettore, terminali, pin, protocollo e lunghezza cablaggio della specifica vettura.",
+        "HW-CAN-VP230 presente candidato per ricezione VAN passiva; verificare interfaccia senza aggiungere terminazione."
+      ],
+      "evidence": "Utente 18/10/2026, D-016: acquisizione OBD e dalla linea dietro al cruscotto, tutto quello che arriva. Punto di accesso richiesto, non cablaggio collaudato; nessun ordine dichiarato."
     }
   ],
   "wiring_proposal": {
@@ -420,9 +448,9 @@
   "hardware_baseline": {
     "date": "2026-10-18",
     "document": "data-logger/docs/distinta-hardware.md",
-    "revision": "C",
+    "revision": "F",
     "status": "technical_proposal_not_purchase_release",
-    "architecture": "ESP32 esistente + SD/RTC/OLED ordinati; K-line autocostruita D-013, prototipo NPN+comparatore da banco; VAN con VP230 da valutare; MCP2515 conservato per CAN.",
-    "limits": "Modelli K-line, alimentatore/protezioni, riserva SD e connettore auto non chiusi: non distinta esecutiva di acquisto."
+    "architecture": "Logger temporaneo D-015: ESP32, SD/RTC/OLED ordinati, K-line autocostruita, VP230 per VAN da verificare; Uadme candidato e pulsante STOP. Niente UPS, latch o IGN separato per arresto automatico.",
+    "limits": "Punto di prelievo e connettori veicolo, moduli in consegna e collaudi ancora aperti; nessun collegamento auto da pin presunti."
   }
 }

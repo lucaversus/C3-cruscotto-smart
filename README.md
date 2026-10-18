@@ -27,7 +27,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-002 | approvata | Sviluppare prima il Data Logger; solo repository **lucaversus/C3-cruscotto-smart**. | Ordine di lavoro e perimetro richiesti. |
 | D-003 | approvata | Strumenti software gratuiti, preferibilmente open source; riutilizzare l'hardware disponibile prima di nuovi acquisti. | Vincoli utente; controllare anche moduli non collaudati e in consegna. |
 | D-004 | approvata | Registrazione ad **avvio automatico**, senza conferma tramite pulsante. | Utente: “non sono arrivati e facciamola partire in automatico”. |
-| D-005 | approvata | Pulsanti soltanto se necessari in futuro; nessun pulsante richiesto dalla prima versione. | Indicazione esplicita utente. Gli elementi disegnati sono opzionali. |
+| D-005 | superata | Inizialmente nessun pulsante richiesto nella prima versione; sostituita da D-015. | Scelta iniziale conservata; il 18/10/2026 l’utente richiede STOP manuale per il logger temporaneo. |
 | D-006 | approvata | **Non acquistare CAN Pal o un altro modulo CAN ora**: verificare prima HW-CAN-MCP2515 e HW-CAN-VP230 già disponibili. | Correzione utente: “ma non abbiamo già il modulo can?”. La raccomandazione CAN Pal è ritirata. |
 | D-007 | approvata | Lasciare **libera frontalmente la presa OBD**. | Preferenza esplicita utente; soluzione posteriore da identificare, non adattatore già approvato. |
 | D-008 | approvata | Non presumere CAN sulla BSI; identificare rete e punto di accesso. Primo ascolto BSI passivo; diagnostica OBD di sola lettura. | Progetto iniziale; aggiornamento 18/10/2026: nuova schermata OBD indica KWP, in conflitto con CAN del Creader. Nessuna delle due identifica la rete BSI. |
@@ -36,6 +36,10 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-011 | approvata | Inventario e decisioni versionati, consultati prima di ogni scelta pertinente e aggiornati nello stesso cambiamento. | Richiesta utente del 18/10/2026: non delegare il controllo della memoria all'utente. |
 | D-012 | approvata | Archiviare nel repository le foto hardware già disponibili e collegarle all'inventario; consultarle prima di richiederle nuovamente. | Richiesta utente del 18/10/2026. Conservare evidenze e SHA-256, senza metadati personali nelle copie pubblicate. |
 | D-013 | approvata | Realizzare in proprio l’interfaccia K-line; prima prototipo e collaudo a banco, poi progetto protetto per auto. | Utente 18/10/2026: “ok procediamo con il circuito autocostruito”. La scelta non certifica lo schema né conferma possesso dei componenti. |
+| D-014 | approvata | Escludere il convertitore Pololu dalla distinta acquisti. | Utente 18/10/2026: costo e tempi di invio eccessivi. Eventuali citazioni precedenti restano storiche, non proposte correnti. |
+| D-015 | approvata | Data Logger temporaneo per pochi giorni: avvio automatico, pulsante STOP per salvataggio e arresto prima di spegnere l’auto. Nessun UPS o mantenimento automatico richiesto. | Utente 18/10/2026: semplificare lo spin-off; premere il pulsante prima di togliere alimentazione. Conservare limiti elettrici reali e protezione di base. |
+
+| D-016 | approvata | Due sorgenti di acquisizione: diagnostica dalla presa OBD e ascolto passivo della linea dietro al cruscotto originale. Conservare tutti i messaggi ricevuti dalla linea, anche non decodificati, e le risposte OBD di sola lettura, distinguendo le sorgenti. | Utente 18/10/2026: acquisizione tramite OBD e linea dietro al cruscotto, “tutto quello che arriva”. D-007 resta valida; pin e protocollo della linea da verificare. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -54,7 +58,7 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
   identificata documentalmente; pin e segnali della variante da verificare. Vedere [registro protocolli](data-logger/docs/protocolli-veicolo.md).
   Il MCP2515 non decodifica VAN e nessun modulo CAN gestisce K-line; il
   VP230 separato è candidato come ricevitore fisico VAN con decoder ESP32,
-  da collaudare. Vedere [distinta hardware rev A](data-logger/docs/distinta-hardware.md).
+  da collaudare. Vedere [distinta hardware](data-logger/docs/distinta-hardware.md).
 - MicroSD, RTC e OLED ordinati e ancora in consegna. I riferimenti commerciali
   sono indicazioni dal contesto; modello OLED, quantità e pezzi consegnati da riscontrare.
 - GPIO21/22 I2C e GPIO18/19/23 + CS27 sono una **proposta firmware**, registrata
@@ -163,3 +167,10 @@ i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veico
 Scelta D-013: [schema e distinta del prototipo a banco](data-logger/docs/kline-autocostruita.md),
 rev A. NPN e comparatore, calcoli DC verificati; non montato o collaudato.
 Installazione auto e protezioni ancora da progettare.
+
+### Logger temporaneo: arresto manuale
+
+D-015 sostituisce la proposta di mantenimento con batteria permanente, MOSFET
+e rilevamento IGN. STOP chiude i file, conferma SALVATO e arresta acquisizione;
+poi si toglie alimentazione. Il pulsante non interrompe direttamente la corrente.
+Punto di prelievo auto ancora da verificare, nessun pin presunto.
