@@ -1,6 +1,6 @@
 # Registro di verifica HW-CAN-MCP2515
 
-Cruscotto C3+AI / Data Logger — revisione 3, 18/10/2026.
+Cruscotto C3+AI / Data Logger — revisione 4, 18/10/2026.
 
 Consultare [inventario](hardware-inventory.md) e
 [foto archiviate](hardware-photos/README.md) prima di indicare i punti di misura.
@@ -23,7 +23,8 @@ Prima lettura riferita dall’utente registrata sotto; il modulo non è dichiara
 | M-001, H–L, richiesto modulo isolato e spento | riferita e successivamente ripetuta | 51,8 kΩ (testo utente: “51.8Komh”) | Nessuna conclusione definitiva sul circuito |
 | C-001, contatto diretto tra i puntali in modalità Ω | riferita | 0; unità non ripetuta, Ω richiesto nella procedura | Contatto dei puntali riscontrato; non è taratura |
 | M-002, ripetizione H–L dopo C-001 | riferita | “stesso valore”, cioè 51,8 kΩ | Resistenza H–L ripetuta, senza dedurre guasto o compatibilità |
-| M-003, direttamente sulle estremità di R2 | in attesa | non fornito | Da acquisire prima di interpretare la terminazione |
+| M-003, direttamente sulle estremità di R2 | riferita | 119 Ω (testo utente: “119 omh”) | Misura sulla resistenza; collegamento verso H/L non ancora determinato |
+| M-004a/b, terminale L verso le due estremità di R2 | in attesa | non forniti | Due misure per individuare il percorso elettrico, senza spostare ponticelli |
 
 Il risultato descriverà soltanto la resistenza tra le linee nelle condizioni
 della prova. Non prova tensioni interne, livelli SPI, bitrate o funzionamento CAN.
@@ -40,3 +41,9 @@ Per M-003 mantenere il modulo isolato e spento, tester su Ω, senza spostare
 ponticelli. Sulla foto frontale R2 è in basso, a destra del LED POW e a sinistra
 di J1, con codice 121: appoggiare un puntale a ciascuna delle sue due estremità
 metalliche, senza premere o forzare il componente. Registrare valore e unità.
+
+Per M-004 mantenere il puntale nero sul contatto metallico del morsetto L,
+modulo sempre isolato e spento, tester su Ω. Misurare col rosso prima
+l’estremità di R2 dal lato del LED POW, poi quella dal lato di J1.
+Registrare separatamente i due valori con unità, oppure OL, senza dedurre
+la funzione dei ponticelli prima di aver identificato i collegamenti.

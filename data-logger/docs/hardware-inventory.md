@@ -48,6 +48,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Foto fronte e dettaglio archiviate: MCP2515, quarzo 8.000 e marcatura VP230 leggibili; connettori J1/J3 non ancora identificati elettricamente.
 - M-001 / M-002: resistenza H-L riferita 51,8 kOhm e ripetuta dopo controllo C-001 dei puntali (0 riferito). Nessuna conclusione su compatibilità o funzionamento CAN.
+- M-003: utente riferisce 119 Ohm direttamente su R2 (marcata 121). Il collegamento di R2 verso H/L resta da determinare.
 
 **Da verificare:**
 
@@ -55,7 +56,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Identità effettiva del transceiver, terminazione e compatibilità ESP32 da verificare
 - Non collegare né decidere un sostituto prima della verifica
 - Foto retro non disponibile nell’archivio; prima di alimentare, identificare con tester VCC interno e funzione dei ponticelli senza presumerne il circuito.
-- Misurare direttamente le due estremità metalliche di R2 (marcata 121); funzione dei ponticelli e percorso verso H/L ancora da identificare.
+- Determinare il collegamento delle due estremità di R2 verso L e H, senza spostare ponticelli; H-L riferito 51,8 kOhm e R2 riferita 119 Ohm non determinano da soli il circuito.
 
 ### HW-CAN-VP230 — Modulo CAN blu VP230 / SN65HVD230
 
