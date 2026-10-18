@@ -6,7 +6,7 @@
 | Sottoprogetto | **Data Logger** |
 | Documento | C3AI-DL-PH-001 |
 | Revisione | B — 18/10/2026 |
-| Stato | Identificazione visiva; nessun collaudo elettrico dei moduli CAN |
+| Stato | Identificazione visiva; esiti elettrici separati nel registro MCP2515 |
 
 Foto già fornite dall'utente, recuperate dai Download e archiviate qui per
 consultarle anche nelle sessioni future. Consultare queste immagini e

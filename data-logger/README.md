@@ -38,9 +38,12 @@ per ordinare eventi ravvicinati servirà anche un contatore monotono
 con risoluzione adeguata alle frequenze di acquisizione.
 
 Il protocollo fisico e logico del bus BSI va identificato sulla specifica auto:
-non si assume che sia CAN. Il lettore Creader sulla stessa auto mostra CAN per la diagnostica OBD2;
-bitrate, formato identificativi, interfacce necessarie, PID supportati e
-frequenze sostenibili restano da verificare.
+non si assume che sia CAN. La nuova schermata del 18/10/2026 indica
+ISO 14230-4 KWP fast init a 10,4 kbaud per la diagnosi motore; contraddice
+la vecchia indicazione CAN Creader. Non identifica il bus abitacolo BSI.
+Vedere [evidenze e conclusioni](docs/protocolli-veicolo.md). Interfaccia K-line,
+PID supportati e frequenze sostenibili restano da verificare; MCP2515/VP230
+non sostituiscono un transceiver K-line o un decoder VAN.
 L'acquisizione BSI è prevista inizialmente in ascolto passivo; le richieste
 OBD2 saranno limitate alla lettura dei parametri diagnostici.
 

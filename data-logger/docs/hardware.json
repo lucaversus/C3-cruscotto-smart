@@ -258,10 +258,11 @@
       "quantity": 1,
       "status": "present_declared",
       "verified": [
-        "Foto del lettore sulla stessa C3: “Protocol Type CAN”"
+        "Foto del lettore sulla stessa C3: “Protocol Type CAN”",
+        "18/10/2026: nuova schermata ECU di altro strumento/app non identificato riporta ISO 14230-4 KWP fast init 10,4 kbaud, calibrazione 9656710099 coincidente con la precedente foto. Indicazione CAN Creader in conflitto e non più base per cablaggio OBD."
       ],
       "open_checks": [
-        "Bitrate, identificativi CAN 11/29 bit e accesso BSI non determinati dalla foto"
+        "Risolvere differenza tra vecchia indicazione CAN e nuova schermata KWP mediante protocollo effettivamente negoziato e letture correnti; non assumere accesso BSI dalla diagnosi motore."
       ],
       "evidence": "Foto fornite e conferma utente che si tratta della stessa C3 e che dispone ancora del lettore."
     },
@@ -374,5 +375,17 @@
       "kSdCs": 27
     },
     "note": "GPIO proposti nel firmware 0.2.0, non cablaggio fisico approvato. GPIO32/33 illustrati per pulsanti eventuali, non inizializzati."
+  },
+  "vehicle_network_evidence": {
+    "date": "2026-10-18",
+    "document": "data-logger/docs/protocolli-veicolo.md",
+    "obd_reported_protocol": "ISO 14230-4 KWP fast init 10.4 kbaud (protocol 5)",
+    "calibration_id": "9656710099",
+    "ecu_address_as_displayed": "10",
+    "bsi_network": "not_confirmed",
+    "working_hypothesis": "Architettura CAN/VAN delle prime C3; VAN comfort 125 kbit/s nella documentazione Citroen 2001, applicabilita al veicolo da verificare.",
+    "conflict": "Nuovo screenshot KWP contraddice precedente schermata Creader CAN; conservare entrambe le evidenze.",
+    "private_evidence": "Targhetta con identificativo veicolo: non pubblicata.",
+    "local_evidence": "Le tre immagini originali sono conservate localmente nella cartella ignorata .tools/hardware-photo-originals; pubblicazione immagini non autorizzata dal controllo automatico."
   }
 }

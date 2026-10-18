@@ -30,7 +30,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-005 | approvata | Pulsanti soltanto se necessari in futuro; nessun pulsante richiesto dalla prima versione. | Indicazione esplicita utente. Gli elementi disegnati sono opzionali. |
 | D-006 | approvata | **Non acquistare CAN Pal o un altro modulo CAN ora**: verificare prima HW-CAN-MCP2515 e HW-CAN-VP230 già disponibili. | Correzione utente: “ma non abbiamo già il modulo can?”. La raccomandazione CAN Pal è ritirata. |
 | D-007 | approvata | Lasciare **libera frontalmente la presa OBD**. | Preferenza esplicita utente; soluzione posteriore da identificare, non adattatore già approvato. |
-| D-008 | approvata | Non presumere CAN sulla BSI; identificare rete e punto di accesso. Primo ascolto BSI passivo; diagnostica OBD di sola lettura. | Progetto iniziale. Foto Creader indica CAN per la diagnostica, non per l'intera rete BSI. |
+| D-008 | approvata | Non presumere CAN sulla BSI; identificare rete e punto di accesso. Primo ascolto BSI passivo; diagnostica OBD di sola lettura. | Progetto iniziale; aggiornamento 18/10/2026: nuova schermata OBD indica KWP, in conflitto con CAN del Creader. Nessuna delle due identifica la rete BSI. |
 | D-009 | approvata | Tutti i documenti visivi di progetto con cornice e cartiglio: progetto, sottoprogetto, titolo, codice, revisione, data, foglio e stato di validazione. | Richiesta esplicita utente; componenti illustrati e fili continui nello schema collegamenti. |
 | D-010 | approvata | Prima fase firmware a banco USB: preservare diagnostica 0.1.0; base 0.2.0 separata, nessuna acquisizione auto finché le interfacce non sono verificate. | 0.1.0 caricata e collaudata; 0.2.0 compilata, non caricata né collaudata sui moduli. |
 | D-011 | approvata | Inventario e decisioni versionati, consultati prima di ogni scelta pertinente e aggiornati nello stesso cambiamento. | Richiesta utente del 18/10/2026: non delegare il controllo della memoria all'utente. |
@@ -48,8 +48,10 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
 - Adattatore dietro OBD, connettore posteriore C3 e massa di riferimento da identificare.
 - Moduli CAN: livelli, alimentazione e terminazione da verificare prima del riuso.
   TWAI interno + HW-CAN-VP230 è una possibilità; MCP2515 resta disponibile.
-- OBD: indicazione CAN osservata sul Creader della stessa auto; bitrate, ID e PID
-  non ancora identificati. Protocollo BSI e architettura delle reti non confermati.
+- OBD: nuova evidenza indica ISO 14230-4 KWP fast init 10,4 kbaud, in conflitto
+  con precedente indicazione CAN Creader. BSI non identificata; ipotesi CAN/VAN
+  da verificare sulla variante. Vedere [registro protocolli](data-logger/docs/protocolli-veicolo.md).
+  I moduli CAN disponibili non gestiscono direttamente K-line o VAN.
 - MicroSD, RTC e OLED ordinati e ancora in consegna. I riferimenti commerciali
   sono indicazioni dal contesto; modello OLED, quantità e pezzi consegnati da riscontrare.
 - GPIO21/22 I2C e GPIO18/19/23 + CS27 sono una **proposta firmware**, registrata

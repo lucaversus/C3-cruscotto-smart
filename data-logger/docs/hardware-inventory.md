@@ -136,10 +136,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Verifiche documentate:**
 
 - Foto del lettore sulla stessa C3: “Protocol Type CAN”
+- 18/10/2026: nuova schermata ECU di altro strumento/app non identificato riporta ISO 14230-4 KWP fast init 10,4 kbaud, calibrazione 9656710099 coincidente con la precedente foto. Indicazione CAN Creader in conflitto e non più base per cablaggio OBD.
 
 **Da verificare:**
 
-- Bitrate, identificativi CAN 11/29 bit e accesso BSI non determinati dalla foto
+- Risolvere differenza tra vecchia indicazione CAN e nuova schermata KWP mediante protocollo effettivamente negoziato e letture correnti; non assumere accesso BSI dalla diagnosi motore.
 
 ### HW-SD-CARD — Scheda MicroSD (supporto di memoria, distinta dal lettore)
 
