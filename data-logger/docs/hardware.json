@@ -1,0 +1,173 @@
+{
+  "project": "Cruscotto C3+AI",
+  "subproject": "Data Logger",
+  "updated": "2026-10-18",
+  "status_definitions": {
+    "present_verified": "Presente; verifiche effettivamente eseguite indicate nella voce.",
+    "present_declared": "Presente secondo il contesto utente; non equivale a verifica elettrica.",
+    "ordered_pending": "Ordinato dall’utente, non ancora arrivato.",
+    "not_confirmed": "Disponibilità o ordine non confermati: non presumere possesso né assenza.",
+    "candidate": "Solo ipotesi di progetto; non confondere con materiale acquistato."
+  },
+  "items": [
+    {
+      "id": "HW-ESP32",
+      "name": "ESP32 HW-394 a 30 pin, modulo marcato ESP-32D",
+      "scope": "Data Logger",
+      "quantity": 1,
+      "status": "present_verified",
+      "verified": [
+        "esptool: ESP32-D0WD-V3 rev. 3.1, flash 4 MB, quarzo 40 MHz",
+        "COM3 CH340; diagnostica 0.1.0 caricata, avvio e oltre 70 s osservati",
+        "Backup flash completo con SHA-256 verificato; ripristino non provato"
+      ],
+      "open_checks": [
+        "Piedinatura fisica HW-394 e corrente disponibile per i moduli esterni"
+      ],
+      "evidence": "Identificazione e collaudo a banco nella chat; data-logger/backups/esp32-hw394/README.md e firmware/diagnostic/README.md."
+    },
+    {
+      "id": "HW-CAN-MCP2515",
+      "name": "Modulo MCP2515, quarzo 8 MHz, transceiver marcato VP230",
+      "scope": "Data Logger",
+      "quantity": 1,
+      "status": "present_declared",
+      "verified": [],
+      "open_checks": [
+        "Venditore dichiara 5 V: alimentazione interna e livelli SPI non verificati",
+        "Identità effettiva del transceiver, terminazione e compatibilità ESP32 da verificare",
+        "Non collegare né decidere un sostituto prima della verifica"
+      ],
+      "evidence": "Inventario iniziale fornito dall’utente; successiva correzione “ma non abbiamo già il modulo can?” il 18/10/2026. Il precedente “non possiedo altro” non annulla più questa voce."
+    },
+    {
+      "id": "HW-CAN-VP230",
+      "name": "Modulo CAN blu VP230 / SN65HVD230",
+      "scope": "Data Logger",
+      "quantity": 1,
+      "status": "present_declared",
+      "verified": [],
+      "open_checks": [
+        "Alimentazione indicata 3,3 V: da verificare sul modulo",
+        "Resistenza 120 ohm apparentemente fissa: da misurare; non aggiungere terminazione al bus auto senza verifica",
+        "Possibile uso col controller TWAI interno ESP32: scelta subordinata a verifica elettrica"
+      ],
+      "evidence": "Inventario iniziale utente e correzione sul CAN del 18/10/2026. Nessun collaudo del modulo documentato."
+    },
+    {
+      "id": "HW-SD-MODULE",
+      "name": "Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "ordered_pending",
+      "verified": [],
+      "open_checks": [
+        "Quantità, modello e serigrafie del materiale ricevuto",
+        "Alimentazione, livelli SPI e picchi di corrente"
+      ],
+      "evidence": "Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente."
+    },
+    {
+      "id": "HW-RTC",
+      "name": "RTC DS3231 / AT24C32 — riferimento consigliato TECNOIOT B07LH592FM",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "ordered_pending",
+      "verified": [],
+      "open_checks": [
+        "Modello, quantità, pull-up I2C e circuito di ricarica batteria",
+        "Non inserire una CR2032 non ricaricabile prima di verificare il circuito"
+      ],
+      "evidence": "Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata."
+    },
+    {
+      "id": "HW-OLED",
+      "name": "Display OLED monocromatico I2C consigliato — modello e controller non riscontrati",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "ordered_pending",
+      "verified": [],
+      "open_checks": [
+        "Distinguere raccomandazione 1,3 pollici e link 0,96/0,91; non inventare modello definitivo",
+        "Controller, risoluzione, ordine dei pin e compatibilità 3,3 V sul pezzo ricevuto"
+      ],
+      "evidence": "Conferma ordine dei componenti consigliati; non è disponibile un riepilogo ordine che identifichi esattamente il display. Non richiedere di nuovo tutti i link già in chat."
+    },
+    {
+      "id": "HW-SCANNER",
+      "name": "Launch Creader 3001",
+      "scope": "Data Logger — strumento di verifica",
+      "quantity": 1,
+      "status": "present_declared",
+      "verified": [
+        "Foto del lettore sulla stessa C3: “Protocol Type CAN”"
+      ],
+      "open_checks": [
+        "Bitrate, identificativi CAN 11/29 bit e accesso BSI non determinati dalla foto"
+      ],
+      "evidence": "Foto fornite e conferma utente che si tratta della stessa C3 e che dispone ancora del lettore."
+    },
+    {
+      "id": "HW-SD-CARD",
+      "name": "Scheda MicroSD (supporto di memoria, distinta dal lettore)",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "not_confirmed",
+      "verified": [],
+      "open_checks": [
+        "Possesso, capacità e formattazione da confermare prima di ordinare un duplicato"
+      ],
+      "evidence": "Nessuna conferma esplicita nel contesto disponibile."
+    },
+    {
+      "id": "HW-AUTO-POWER",
+      "name": "Alimentazione automotive, protezioni e arresto controllato",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "candidate",
+      "verified": [],
+      "open_checks": [
+        "Modello convertitore, fusibile, protezioni, punto di prelievo e chiusura file SD non definiti"
+      ],
+      "evidence": "Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin."
+    },
+    {
+      "id": "HW-OBD-HARNESS",
+      "name": "Derivazione dietro la presa OBD",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "candidate",
+      "verified": [],
+      "open_checks": [
+        "Connettore posteriore C3, accesso fisico, lunghezza derivazione e massa di riferimento"
+      ],
+      "evidence": "Preferenza utente: lasciare libera frontalmente la presa OBD; adattatore non identificato né ordinato."
+    },
+    {
+      "id": "HW-DASH-DISPLAY",
+      "name": "Scheda RCmall ESP32-S3 con display 5 pollici — variante da identificare",
+      "scope": "Cruscotto futuro",
+      "quantity": null,
+      "status": "candidate",
+      "verified": [],
+      "open_checks": [
+        "Possesso e modello non confermati per questa fase; non trasferire i dati della variante 1,9 pollici",
+        "PCB, flash, PSRAM, interfaccia display e pinout da verificare"
+      ],
+      "evidence": "Osservazioni preliminari nel README originale; non attestano un ordine o un collaudo."
+    }
+  ],
+  "wiring_proposal": {
+    "status": "proposed_not_hardware_validated",
+    "firmware": "data-logger/firmware/logger/include/config.h",
+    "pins": {
+      "kSda": 21,
+      "kScl": 22,
+      "kSck": 18,
+      "kMiso": 19,
+      "kMosi": 23,
+      "kSdCs": 27
+    },
+    "note": "GPIO proposti nel firmware 0.2.0, non cablaggio fisico approvato. GPIO32/33 illustrati per pulsanti eventuali, non inizializzati."
+  }
+}

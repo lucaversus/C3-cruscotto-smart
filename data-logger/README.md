@@ -1,4 +1,12 @@
-# Data logger ibrido per Citroën C3
+# Data Logger — Cruscotto C3+AI
+
+## Consultazione prima di modificare il progetto
+
+Le [decisioni definitive](../README.md#decisioni-definitive) nel README principale
+sono vincolanti. Consultare sempre anche [l'inventario](docs/hardware-inventory.md)
+e la [procedura](docs/procedura-progetto.md); eseguire `python tools/project_preflight.py`
+dalla radice. In particolare i due moduli CAN esistono già nell'inventario:
+non suggerire un altro acquisto prima della loro verifica.
 
 Sottoprogetto per lo sviluppo di un data logger basato su ESP32 per
 Citroën C3 Phase 1, 1.4 HDi (DV4TD / 8HZ), da realizzare prima del
@@ -30,8 +38,9 @@ per ordinare eventi ravvicinati servirà anche un contatore monotono
 con risoluzione adeguata alle frequenze di acquisizione.
 
 Il protocollo fisico e logico del bus BSI va identificato sulla specifica auto:
-non si assume che sia CAN. Anche trasporto diagnostico OBD2, interfacce
-necessarie, PID supportati e frequenze sostenibili restano da verificare.
+non si assume che sia CAN. Il lettore Creader sulla stessa auto mostra CAN per la diagnostica OBD2;
+bitrate, formato identificativi, interfacce necessarie, PID supportati e
+frequenze sostenibili restano da verificare.
 L'acquisizione BSI è prevista inizialmente in ascolto passivo; le richieste
 OBD2 saranno limitate alla lettura dei parametri diagnostici.
 
@@ -42,8 +51,10 @@ insieme ai dati decodificati per consentire verifiche successive.
 
 ## Decisioni da definire
 
-- Modello ESP32, memoria e interfacce disponibili.
-- Anno/versione del veicolo, protocolli e punti di collegamento verificati.
+- ESP32 identificato e flash verificata: vedere inventario. Restano da verificare
+  piedinatura fisica e alimentazione dei moduli esterni.
+- Veicolo dichiarato C3 2005, 1.4 HDi DV4TD/8HZ; variante rete e punti
+  di collegamento ancora da verificare.
 - Transceiver o adattatori adatti alle interfacce effettive.
 - Alimentazione automotive, protezioni e gestione di accensione/spegnimento.
 - Elenco dei segnali, frequenze e strategia delle interrogazioni OBD2.
@@ -60,6 +71,12 @@ per il solo ESP32, con configurazione PlatformIO e uscita seriale.
 Non implementa ancora acquisizione BSI/OBD2, MicroSD o RTC. Le funzioni
 di registrazione descritte sono obiettivi da implementare e validare,
 non capacità già disponibili. Le prove sulla scheda sono separate dalla compilazione.
+
+È inoltre presente la prima [base logger 0.2.0](firmware/logger/README.md),
+separata dalla diagnostica: avvio automatico, CSV di salute ESP32 su MicroSD
+e lettura DS3231 con stato di validità. Compilazione e 18 controlli sul decoder
+verificati; non ancora caricata né collaudata con i moduli, ancora in consegna.
+Pulsanti, OLED e acquisizione automobilistica restano disabilitati.
 
 La cartella `docs/` ospiterà la documentazione tecnica di dettaglio.
 Il modello ESP32-S3 e il display previsti per il cruscotto non vincolano

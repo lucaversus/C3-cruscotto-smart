@@ -1,0 +1,54 @@
+# Istruzioni permanenti — Cruscotto C3+AI
+
+## Consultazione obbligatoria, prima di decidere
+
+Per ogni attività che riguarda hardware, acquisti, firmware, GPIO, protocolli,
+schemi, alimentazione o collaudo:
+
+1. Leggere **questa versione su disco** di `README.md`,
+   `data-logger/README.md`, `data-logger/docs/hardware-inventory.md` e
+   `data-logger/docs/procedura-progetto.md`. Non sostituirli con ricordi di chat.
+2. Eseguire `python tools/project_preflight.py` dalla radice con un Python
+   disponibile. Se segnala incoerenze, risolverle prima della decisione dipendente.
+3. Controllare `git status --short --branch`; preservare modifiche preesistenti.
+   Se serve lo stato pubblicato, leggere il ref GitHub e confrontarlo: il solo
+   `origin/main` locale non prova la sincronizzazione attuale.
+4. Collegare la proposta agli ID hardware e alle decisioni D-xxx nel README.
+   Prima di suggerire acquisti controllare anche materiale presente non collaudato
+   e materiale ordinato. Mancanza di collaudo non significa mancanza del modulo.
+5. Non trasformare proposte, dichiarazioni commerciali, illustrazioni o una
+   compilazione riuscita in decisioni approvate o verifiche hardware.
+
+## Aggiornamento nello stesso passaggio
+
+- Ogni nuova informazione su possesso, ordine, consegna o verifica va aggiornata
+  in `data-logger/docs/hardware.json`, con fonte e verifiche ancora aperte.
+  Poi eseguire `python tools/project_preflight.py --render-inventory` per
+  aggiornare la vista Markdown. Non mantenere un secondo inventario manuale.
+- Le decisioni definitive stanno nella tabella D-xxx del README principale.
+  Aggiornarla con il fondamento della scelta e la data; una decisione superata
+  resta tracciata come superata. Le scelte aperte restano nella sezione separata.
+- Aggiornare nello stesso cambiamento documenti, firmware e disegni coinvolti;
+  i disegni devono avere cartiglio e revisione coerenti. Non cambiare una scelta
+  dell'utente autonomamente: chiedere solo per il vero conflitto irrisolto.
+- Un'affermazione generica ambigua non elimina componenti già identificati:
+  conservarli con stato incerto e risolvere il dubbio prima di acquisti/collegamenti.
+
+## Chiusura e GitHub
+
+Eseguire preflight, controlli pertinenti e `git diff --check`. Quando l'utente
+richiede salvataggio/pubblicazione, includere tutti i file necessari per rendere
+la modifica riproducibile, senza cache, credenziali o dati personali del veicolo.
+Non fare force-push, reset distruttivi o sovrascrivere modifiche altrui.
+Se git push non è autenticato, usare il connettore GitHub già autorizzato e
+sincronizzare il checkout verificando SHA e tree. Non richiedere di riconfigurare
+Git inutilmente. Dichiarare pubblicato solo dopo verifica del ref remoto.
+Nel resoconto indicare commit, verifiche reali e limiti; distinguere compilato,
+caricato e collaudato. Se non pubblicato, dirlo esplicitamente.
+
+## Vincoli del progetto
+
+Italiano, risposte brevi, un passaggio alla volta. Software gratuito, preferibilmente
+open source. Unico repository: lucaversus/C3-cruscotto-smart. Data Logger prima
+del cruscotto. Nessun collegamento veicolo basato su pin/protocolli presunti.
+Non comprare un altro modulo CAN senza prima valutare HW-CAN-MCP2515 e HW-CAN-VP230.

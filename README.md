@@ -1,4 +1,60 @@
-# C3-cruscotto-smart
+# Cruscotto C3+AI
+
+## Fonti del progetto — consultazione obbligatoria
+
+Prima di acquisti, firmware, schemi o collegamenti leggere questa sezione,
+[l'inventario hardware](data-logger/docs/hardware-inventory.md),
+[lo stato del Data Logger](data-logger/README.md) e la
+[procedura di aggiornamento](data-logger/docs/procedura-progetto.md).
+Le istruzioni per gli agenti sono in [AGENTS.md](AGENTS.md).
+
+L'inventario sorgente è [hardware.json](data-logger/docs/hardware.json);
+la vista Markdown è generata per evitare due elenchi divergenti.
+Comando prima di decidere e prima di pubblicare:
+
+```powershell
+python tools/project_preflight.py
+```
+
+## Decisioni definitive
+
+Registro iniziale consolidato il **18/10/2026** dalle conferme dell'utente.
+Le date indicano la registrazione, non necessariamente la prima discussione.
+
+| ID | Stato | Decisione | Fondamento / vincolo |
+| --- | --- | --- | --- |
+| D-001 | approvata | Progetto principale **Cruscotto C3+AI**, sottoprogetto **Data Logger**. | Nomi richiesti dall'utente per tutti i cartigli. |
+| D-002 | approvata | Sviluppare prima il Data Logger; solo repository **lucaversus/C3-cruscotto-smart**. | Ordine di lavoro e perimetro richiesti. |
+| D-003 | approvata | Strumenti software gratuiti, preferibilmente open source; riutilizzare l'hardware disponibile prima di nuovi acquisti. | Vincoli utente; controllare anche moduli non collaudati e in consegna. |
+| D-004 | approvata | Registrazione ad **avvio automatico**, senza conferma tramite pulsante. | Utente: “non sono arrivati e facciamola partire in automatico”. |
+| D-005 | approvata | Pulsanti soltanto se necessari in futuro; nessun pulsante richiesto dalla prima versione. | Indicazione esplicita utente. Gli elementi disegnati sono opzionali. |
+| D-006 | approvata | **Non acquistare CAN Pal o un altro modulo CAN ora**: verificare prima HW-CAN-MCP2515 e HW-CAN-VP230 già disponibili. | Correzione utente: “ma non abbiamo già il modulo can?”. La raccomandazione CAN Pal è ritirata. |
+| D-007 | approvata | Lasciare **libera frontalmente la presa OBD**. | Preferenza esplicita utente; soluzione posteriore da identificare, non adattatore già approvato. |
+| D-008 | approvata | Non presumere CAN sulla BSI; identificare rete e punto di accesso. Primo ascolto BSI passivo; diagnostica OBD di sola lettura. | Progetto iniziale. Foto Creader indica CAN per la diagnostica, non per l'intera rete BSI. |
+| D-009 | approvata | Tutti i documenti visivi di progetto con cornice e cartiglio: progetto, sottoprogetto, titolo, codice, revisione, data, foglio e stato di validazione. | Richiesta esplicita utente; componenti illustrati e fili continui nello schema collegamenti. |
+| D-010 | approvata | Prima fase firmware a banco USB: preservare diagnostica 0.1.0; base 0.2.0 separata, nessuna acquisizione auto finché le interfacce non sono verificate. | 0.1.0 caricata e collaudata; 0.2.0 compilata, non caricata né collaudata sui moduli. |
+| D-011 | approvata | Inventario e decisioni versionati, consultati prima di ogni scelta pertinente e aggiornati nello stesso cambiamento. | Richiesta utente del 18/10/2026: non delegare il controllo della memoria all'utente. |
+
+Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
+risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
+approvata serve una nuova indicazione utente o la risoluzione esplicita di un conflitto.
+
+## Questioni ancora aperte — non sono decisioni definitive
+
+- Alimentazione dal quadro: possibilità proposta dall'utente, non pin, circuito,
+  corrente aggiuntiva o convertitore già approvati. Protezioni automotive e arresto
+  controllato MicroSD da progettare; nessun modulo alimentatore da ordinare alla cieca.
+- Adattatore dietro OBD, connettore posteriore C3 e massa di riferimento da identificare.
+- Moduli CAN: livelli, alimentazione e terminazione da verificare prima del riuso.
+  TWAI interno + HW-CAN-VP230 è una possibilità; MCP2515 resta disponibile.
+- OBD: indicazione CAN osservata sul Creader della stessa auto; bitrate, ID e PID
+  non ancora identificati. Protocollo BSI e architettura delle reti non confermati.
+- MicroSD, RTC e OLED ordinati e ancora in consegna. I riferimenti commerciali
+  sono indicazioni dal contesto; modello OLED, quantità e pezzi consegnati da riscontrare.
+- GPIO21/22 I2C e GPIO18/19/23 + CS27 sono una **proposta firmware**, registrata
+  in hardware.json e verificata contro config.h, non il pinout fisico HW-394 approvato.
+- Regolazione iniziale RTC, alimentazione di mantenimento, driver OLED, capacità
+  della scheda MicroSD e formato finale dei dati auto restano da completare.
 
 Cruscotto digitale custom per Citroën C3 Phase 1, 1.4 HDi, motore DV4TD / 8HZ.
 
@@ -80,6 +136,8 @@ PSRAM della scheda da 5″ dovranno essere verificati.
 
 Il data logger dispone di un primo [firmware diagnostico per il solo ESP32](data-logger/firmware/diagnostic/README.md),
 con configurazione PlatformIO. Non acquisisce ancora dati dal veicolo.
+Una [base logger 0.2.0](data-logger/firmware/logger/README.md) separata prepara
+registrazione automatica MicroSD e RTC: compilata, non ancora collaudata su hardware.
 Per il cruscotto digitale non sono ancora presenti firmware, simulatore o test
 eseguibili: le dipendenze e la configurazione hardware saranno fissate dopo
 l'identificazione della scheda display. Il layout della UI e il simulatore PC

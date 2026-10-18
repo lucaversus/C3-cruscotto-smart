@@ -67,9 +67,25 @@ durante l'esecuzione.
   di almeno un minuto. Non è stato acquisito un log completo di quell'intervallo:
   la continuità dell'intero minuto non è verificata automaticamente.
 
-Esito: caricamento e prima prova funzionale positivi; nessun reset imprevisto
-nelle finestre direttamente osservate. Non sono ancora verificati banner di
-avvio completo, stabilità prolungata, RTC, MicroSD o comunicazioni veicolo.
+### Completamento del collaudo iniziale
+
+Successivi screenshot forniti dall'utente documentano il riavvio richiesto
+con EN/RESET e il banner completo della versione 0.1.0: ESP32-D0WD-V3,
+revisione riportata 3, due core a 240 MHz, flash 4194304 byte a 40000000 Hz,
+modalità DIO e reset_reason=1. Il campo psram_bytes=0 descrive la
+configurazione runtime, non una verifica indipendente dell'hardware.
+
+Lo screenshot successivo mostra lo stesso banner e tutti gli stati da
+uptime_us=548530 a 70549194: circa 70 secondi consecutivi, con primo
+intervallo di circa 5 secondi e successivi incrementi di 5000000 microsecondi.
+Heap libera sempre 351476 byte e minima sempre 345888 byte; nessun
+ulteriore banner o azzeramento dell'uptime visibile. La verifica è visiva
+sugli screenshot, non un'acquisizione automatica del log seriale su file.
+
+Esito: collaudo iniziale del solo ESP32 positivo, inclusi banner, riavvio
+richiesto e oltre un minuto di stati consecutivi senza reset imprevisti
+visibili. Restano da verificare stabilità prolungata, RTC, MicroSD e
+comunicazioni veicolo.
 La misura della heap è un dato runtime e non è confrontabile direttamente
 con il budget RAM statico indicato dalla compilazione.
 
@@ -77,7 +93,5 @@ Il caricamento sostituisce il firmware attuale e scrive anche componenti
 di avvio e partizioni: va eseguito soltanto nel passaggio concordato,
 dopo verifica del backup. Il ripristino del backup non è ancora stato provato.
 
-Per completare il collaudo, acquisire il banner di avvio (ESP32 e flash da
-4194304 byte), un log continuo di almeno un minuto e una prova documentata
-di riavvio con EN. Serialità prevista: 115200 baud; comandi `s` e `h`.
+Serialità prevista: 115200 baud; comandi `s` e `h`.
 Questa prova non certifica MicroSD, RTC, protocolli del veicolo o alimentazione.
