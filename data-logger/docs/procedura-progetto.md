@@ -1,6 +1,6 @@
 # Procedura di continuità — Cruscotto C3+AI / Data Logger
 
-Revisione 1, 18/10/2026. Richiesta dall'utente per evitare acquisti duplicati,
+Revisione 2, 18/10/2026. Richiesta dall'utente per evitare acquisti duplicati,
 decisioni dimenticate e documenti incoerenti tra chat e PC.
 
 ## Fonti e precedenza
@@ -10,6 +10,9 @@ decisioni dimenticate e documenti incoerenti tra chat e PC.
 3. hardware.json: inventario strutturato con stato, fonte e verifiche aperte.
    hardware-inventory.md è la vista generata, non una seconda fonte manuale.
 4. README Data Logger e documenti di collaudo: implementazione e prove reali.
+   Per identificazione visiva consultare le foto collegate all'inventario e
+   [il dossier fotografico](hardware-photos/README.md). Non richiedere foto
+   già disponibili: recuperarle prima dai file e poi archiviarle stabilmente.
 5. Schemi e config.h: proposta tecnica; non promuovono un pinout a verificato.
 6. Ricordi e riepiloghi di chat: solo indizi per cercare, non autorità sullo stato.
 
@@ -28,7 +31,8 @@ python tools/project_preflight.py
 
 Il comando controlla struttura/stati dell'inventario, vista Markdown generata,
 presenza dei documenti/decisioni obbligatori e coerenza dei GPIO proposti con
-config.h. Stampa un riepilogo del materiale e delle scelte chiave.
+config.h. Controlla anche file fotografici e SHA-256 rispetto al manifest.
+Stampa un riepilogo del materiale e delle scelte chiave.
 Non prova l'hardware e non sostituisce la lettura o il giudizio tecnico.
 Se un controllo fallisce, correggere la fonte o la divergenza prima di proseguire
 con una scelta che ne dipende. Non cambiare dati corretti solo per far passare un test.
@@ -50,6 +54,11 @@ Per una nuova decisione approvata aggiornare anche la tabella D-xxx nel README;
 per una decisione ritirata conservarne la motivazione come superata. Distinguere:
 idea, scelta approvata, implementazione, compilazione, caricamento e collaudo.
 Una consegna aggiorna lo stato da ordinato a presente, non a verificato.
+Una foto dimostra solo ciò che è leggibile: non sostituisce misure di tensione,
+resistenza, continuità o prova funzionale. Aggiungere una nuova foto all'archivio,
+al manifest e agli ID hardware pertinenti; conservare localmente l'originale
+integrale e pubblicare una copia priva di metadati personali. Le foto sorgenti
+non devono essere coperte da cartigli: usare il cartiglio nel dossier/derivati.
 Aggiornare testi e revisioni dei disegni coinvolti nello stesso cambiamento.
 
 ## Verifica e salvataggio

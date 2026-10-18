@@ -8,6 +8,7 @@ Per lo stato attuale vedere il [README del sottoprogetto](../README.md).
 ## Fonti da consultare prima di decidere
 
 - [Inventario hardware](hardware-inventory.md), generato da [hardware.json](hardware.json).
+- [Foto hardware archiviate](hardware-photos/README.md), con nomi stabili e SHA-256.
 - [Decisioni definitive nel README principale](../../README.md#decisioni-definitive).
 - [Procedura di continuità e aggiornamento](procedura-progetto.md).
 
@@ -16,6 +17,8 @@ verificarli prima di proporre altri acquisti. RTC, MicroSD e OLED sono ordinati,
 non ancora ricevuti. Il controllo `python tools/project_preflight.py` dalla radice
 verifica coerenza dei registri e della proposta GPIO; 11 test di regressione
 eseguiti con esito positivo. Non certifica l'hardware.
+L'archivio fotografico aggiunge controlli di presenza e impronta dei file:
+la suite aggiornata contiene 13 test.
 
 ## Hardware verificato
 

@@ -7,4 +7,6 @@
 *.ini text eol=lf
 *.svg text eol=lf
 *.png binary
+*.jpg binary
+*.jpeg binary
 *.bin binary

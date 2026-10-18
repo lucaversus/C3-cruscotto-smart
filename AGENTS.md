@@ -14,6 +14,9 @@ schemi, alimentazione o collaudo:
    Se serve lo stato pubblicato, leggere il ref GitHub e confrontarlo: il solo
    `origin/main` locale non prova la sincronizzazione attuale.
 4. Collegare la proposta agli ID hardware e alle decisioni D-xxx nel README.
+   Per identificazione e misure consultare prima le foto collegate nell'inventario
+   e `data-logger/docs/hardware-photos/README.md`. Non richiedere di nuovo foto
+   già archiviate; distinguere una vista mancante da quelle disponibili.
    Prima di suggerire acquisti controllare anche materiale presente non collaudato
    e materiale ordinato. Mancanza di collaudo non significa mancanza del modulo.
 5. Non trasformare proposte, dichiarazioni commerciali, illustrazioni o una

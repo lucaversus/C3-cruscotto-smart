@@ -1,0 +1,45 @@
+{
+  "project": "Cruscotto C3+AI",
+  "subproject": "Data Logger",
+  "drawing_code": "C3AI-DL-PH-001",
+  "revision": "A",
+  "date": "2026-10-18",
+  "note": "Fotografie sorgenti: identificazione visiva, non collaudo elettrico. Metadati EXIF/XMP/IPTC e commenti rimossi senza ricompressione. Originali integrali conservati solo localmente in .tools/hardware-photo-originals/.",
+  "photos": [
+    {
+      "hardware_id": "HW-ESP32",
+      "file": "esp32-hw394-fronte.jpg",
+      "source_filename": "PXL_20261017_202948899.jpg",
+      "source_sha256": "49b91fe27e9b0bead2c32da0cc937c4832fcdc0921c5d5e0e742210a997b5423",
+      "sha256": "fb9c4e1fcb9276b59a29a1dfff051fcd185ac1f3c6f9c95f6cdc6f7fb04bab77"
+    },
+    {
+      "hardware_id": "HW-CAN-MCP2515",
+      "file": "mcp2515-fronte.jpg",
+      "source_filename": "PXL_20261017_204139794.jpg",
+      "source_sha256": "b30ba2fbcc40c09b76500f71454241e05aaafc262cc045ee35057e28474dac3c",
+      "sha256": "cf84a6fcf4523ba87535477bc7d329cda3319d6726db6d569fa9fe3c211e2773"
+    },
+    {
+      "hardware_id": "HW-CAN-VP230",
+      "file": "can-vp230-fronte.jpg",
+      "source_filename": "PXL_20261017_204216577.jpg",
+      "source_sha256": "2b522988a0126744bca84b858724d975487ea0b7a337bb5ec686728ff30dcde1",
+      "sha256": "a3e87bf0d7531c21a61dfef19407c4ee8f23ddffb979fb1b572c44c17363c0d1"
+    },
+    {
+      "hardware_id": "HW-CAN-MCP2515",
+      "file": "mcp2515-dettaglio.jpg",
+      "source_filename": "PXL_20261017_205640652.jpg",
+      "source_sha256": "c6a6793d2bb9f6f0051d7cf039fbda0eb583db98b9149642db71659da8326958",
+      "sha256": "b0c5b2f1c305837dd6ca95685f297b52edcc4b0fa6f227804b9397d7894b9a89"
+    },
+    {
+      "hardware_id": "HW-CAN-VP230",
+      "file": "can-vp230-dettaglio.jpg",
+      "source_filename": "PXL_20261017_211117767.jpg",
+      "source_sha256": "6762aac1b2697ddd7672a8b3ae1c3625d9bfccbee5498f5bad93a913f9084f7a",
+      "sha256": "4866b83d2314e242b61410ae2091aba642ca5f1a768b0025f55e32d4daf9eee4"
+    }
+  ]
+}

@@ -20,43 +20,52 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_verified` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Identificazione e collaudo a banco nella chat; data-logger/backups/esp32-hw394/README.md e firmware/diagnostic/README.md.
+**Fonte:** Identificazione e collaudo a banco nella chat; data-logger/backups/esp32-hw394/README.md e firmware/diagnostic/README.md. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json.
+
+**Foto archiviate:** [esp32-hw394-fronte.jpg](hardware-photos/esp32-hw394-fronte.jpg)
 
 **Verifiche documentate:**
 
 - esptool: ESP32-D0WD-V3 rev. 3.1, flash 4 MB, quarzo 40 MHz
 - COM3 CH340; diagnostica 0.1.0 caricata, avvio e oltre 70 s osservati
 - Backup flash completo con SHA-256 verificato; ripristino non provato
+- Foto frontale archiviata: HW-394 / ESP-32D e basetta di espansione a morsetti visibili; nessuna verifica elettrica della basetta.
 
 **Da verificare:**
 
 - Piedinatura fisica HW-394 e corrente disponibile per i moduli esterni
+- Basetta a morsetti visibile in foto: continuità e corrispondenza delle etichette non ancora provate.
 
 ### HW-CAN-MCP2515 — Modulo MCP2515, quarzo 8 MHz, transceiver marcato VP230
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Inventario iniziale fornito dall’utente; successiva correzione “ma non abbiamo già il modulo can?” il 18/10/2026. Il precedente “non possiedo altro” non annulla più questa voce.
+**Fonte:** Inventario iniziale fornito dall’utente; successiva correzione “ma non abbiamo già il modulo can?” il 18/10/2026. Il precedente “non possiedo altro” non annulla più questa voce. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json.
+
+**Foto archiviate:** [mcp2515-fronte.jpg](hardware-photos/mcp2515-fronte.jpg), [mcp2515-dettaglio.jpg](hardware-photos/mcp2515-dettaglio.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Foto fronte e dettaglio archiviate: MCP2515, quarzo 8.000 e marcatura VP230 leggibili; connettori J1/J3 non ancora identificati elettricamente.
 
 **Da verificare:**
 
 - Venditore dichiara 5 V: alimentazione interna e livelli SPI non verificati
 - Identità effettiva del transceiver, terminazione e compatibilità ESP32 da verificare
 - Non collegare né decidere un sostituto prima della verifica
+- Foto retro non disponibile nell’archivio; prima di alimentare, identificare con tester VCC interno e funzione dei ponticelli senza presumerne il circuito.
 
 ### HW-CAN-VP230 — Modulo CAN blu VP230 / SN65HVD230
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Inventario iniziale utente e correzione sul CAN del 18/10/2026. Nessun collaudo del modulo documentato.
+**Fonte:** Inventario iniziale utente e correzione sul CAN del 18/10/2026. Nessun collaudo del modulo documentato. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json.
+
+**Foto archiviate:** [can-vp230-fronte.jpg](hardware-photos/can-vp230-fronte.jpg), [can-vp230-dettaglio.jpg](hardware-photos/can-vp230-dettaglio.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Foto fronte e dettaglio archiviate: marcatura VP230 e serigrafie 3.3V/GND/RX/TX; resistenza con codice 121 e serigrafia 120R visibili, valore non misurato.
 
 **Da verificare:**
 
@@ -194,6 +203,22 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Modello, prese dei puntali e portate disponibili da identificare prima delle misure guidate
 - Nessuna misura sul modulo MCP2515 ancora acquisita
+
+### HW-ESP32-TERMINAL-BASE — Basetta di espansione a morsetti per ESP32 HW-394, visibile in foto
+
+**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
+
+**Fonte:** Foto originale PXL_20261017_202948899.jpg già fornita, recuperata dai Download e archiviata il 18/10/2026.
+
+**Foto archiviate:** [esp32-hw394-fronte.jpg](hardware-photos/esp32-hw394-fronte.jpg)
+
+**Verifiche documentate:**
+
+- Presenza visibile nella fotografia esp32-hw394-fronte.jpg
+
+**Da verificare:**
+
+- Continuità tra morsetti e socket, etichette e compatibilità meccanica da verificare
 
 ## Proposta di collegamento — non validata fisicamente
 

@@ -23,6 +23,8 @@ class ProjectPreflightTests(unittest.TestCase):
             destination = self.root / name
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / name, destination)
+        shutil.copytree(ROOT / "data-logger/docs/hardware-photos",
+                        self.root / "data-logger/docs/hardware-photos")
 
     def change_inventory(self, mutate, render=True):
         data = preflight.load_inventory(self.root)
@@ -47,7 +49,7 @@ class ProjectPreflightTests(unittest.TestCase):
         self.assertIn("duplicato", self.errors())
 
     def test_claimed_verification_needs_evidence(self):
-        self.change_inventory(lambda d: d["items"][1].update(status="present_verified"))
+        self.change_inventory(lambda d: d["items"][1].update(status="present_verified", verified=[]))
         self.assertIn("senza evidenze", self.errors())
 
     def test_changed_status_requires_updated_markdown(self):
@@ -80,6 +82,15 @@ class ProjectPreflightTests(unittest.TestCase):
     def test_unknown_is_not_a_fake_quantity(self):
         self.change_inventory(lambda d: d["items"][3].update(quantity=0))
         self.assertIn("quantità", self.errors())
+
+    def test_missing_archived_photo_is_detected(self):
+        (self.root / "data-logger/docs/hardware-photos/mcp2515-fronte.jpg").unlink()
+        self.assertIn("Foto archiviata assente", self.errors())
+
+    def test_changed_photo_bytes_are_detected(self):
+        path = self.root / "data-logger/docs/hardware-photos/mcp2515-fronte.jpg"
+        path.write_bytes(path.read_bytes() + b"modified")
+        self.assertIn("SHA-256 foto differente", self.errors())
 
 
 if __name__ == "__main__":

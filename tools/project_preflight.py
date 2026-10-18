@@ -1,5 +1,6 @@
 """Check the project sources before hardware/firmware decisions. Python stdlib only."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -59,6 +60,11 @@ def inventory_errors(data):
                 errors.append(f"{key}: {field} deve contenere testi non vuoti.")
         if item.get("status") == "present_verified" and not item.get("verified"):
             errors.append(f"{key}: verificato senza evidenze di verifica.")
+        photos = item.get("photos", [])
+        if not isinstance(photos, list) or any(not isinstance(p, str) or
+                not p.startswith("data-logger/docs/hardware-photos/") or
+                ".." in Path(p).parts for p in photos):
+            errors.append(f"{key}: riferimenti foto non validi.")
     if REQUIRED_IDS - ids:
         errors.append("Hardware necessario scomparso dal registro: " + ", ".join(sorted(REQUIRED_IDS - ids)))
     proposal = data.get("wiring_proposal")
@@ -94,6 +100,11 @@ def render_inventory(data):
         lines += [f"### {item['id']} — {item['name']}", "",
                   f"**Stato:** `{item['status']}` · **Quantità:** {quantity} · **Ambito:** {item['scope']}", "",
                   f"**Fonte:** {item['evidence']}", "", "**Verifiche documentate:**", ""]
+        photos = item.get("photos", [])
+        if photos:
+            lines[-2:] = ["**Foto archiviate:** " + ", ".join(
+                f"[{Path(photo).name}]({photo.removeprefix('data-logger/docs/')})" for photo in photos),
+                "", "**Verifiche documentate:**", ""]
         lines += ["- " + value for value in item["verified"]] or ["- Nessun collaudo elettrico del modulo documentato."]
         lines += ["", "**Da verificare:**", ""]
         lines += ["- " + value for value in item["open_checks"]] or ["- Nessuna verifica ulteriore registrata."]
@@ -120,12 +131,33 @@ def validate(root):
         return errors, data
     if not (root / VIEW).is_file() or (root / VIEW).read_text(encoding="utf-8-sig") != render_inventory(data):
         errors.append("Vista hardware-inventory.md non aggiornata: rigenerarla dall'inventario.")
+    # Archived visual evidence must remain available and byte-identical.
+    photo_root = root / "data-logger/docs/hardware-photos"
+    try:
+        manifest = json.loads((photo_root / "manifest.json").read_text(encoding="utf-8"))
+        indexed = {}
+        for entry in manifest["photos"]:
+            name = entry["file"]
+            if not isinstance(name, str) or Path(name).name != name or name in indexed:
+                raise ValueError("Nome foto non valido o duplicato")
+            indexed[name] = entry
+            path = photo_root / name
+            if not path.is_file():
+                errors.append(f"Foto archiviata assente: {name}")
+            elif hashlib.sha256(path.read_bytes()).hexdigest() != entry["sha256"]:
+                errors.append(f"SHA-256 foto differente dal manifest: {name}")
+        for item in data["items"]:
+            for photo in item.get("photos", []):
+                if Path(photo).name not in indexed:
+                    errors.append(f"Foto inventario non indicizzata: {photo}")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"Manifest foto non valido o assente: {exc}")
     readme = (root / "README.md").read_text(encoding="utf-8-sig")
     decisions = re.findall(r"^\| (D-\d{3}) \| (approvata|superata) \|", readme, re.MULTILINE)
     ids = [key for key, _ in decisions]
     if len(ids) != len(set(ids)):
         errors.append("ID decisione duplicato nel README.")
-    missing = {f"D-{number:03}" for number in range(1, 12)} - set(ids)
+    missing = {f"D-{number:03}" for number in range(1, 13)} - set(ids)
     if missing:
         errors.append("Decisioni mancanti dal README: " + ", ".join(sorted(missing)))
     config = root / data["wiring_proposal"]["firmware"]
@@ -159,7 +191,7 @@ def main():
         for error in errors:
             print("ERRORE: " + error)
         return 1
-    print("OK: inventario, vista Markdown, decisioni obbligatorie e GPIO coerenti.")
+    print("OK: inventario, foto con SHA-256, vista Markdown, decisioni obbligatorie e GPIO coerenti.")
     for item in data["items"]:
         print(f"  {item['id']}: {item['status']} — {item['name']}")
     print("Leggere README + inventario + procedura prima di decidere; non è una verifica hardware.")
