@@ -1,6 +1,6 @@
 # Registro di verifica HW-CAN-MCP2515
 
-Cruscotto C3+AI / Data Logger — revisione 5, 18/10/2026.
+Cruscotto C3+AI / Data Logger — revisione 6, 18/10/2026.
 
 Consultare [inventario](hardware-inventory.md) e
 [foto archiviate](hardware-photos/README.md) prima di indicare i punti di misura.
@@ -25,7 +25,8 @@ Prima lettura riferita dall’utente registrata sotto; il modulo non è dichiara
 | M-002, ripetizione H–L dopo C-001 | riferita | “stesso valore”, cioè 51,8 kΩ | Resistenza H–L ripetuta, senza dedurre guasto o compatibilità |
 | M-003, direttamente sulle estremità di R2 | riferita | 119 Ω (testo utente: “119 omh”) | Misura sulla resistenza; collegamento verso H/L non ancora determinato |
 | M-004a/b, terminale L verso le due estremità di R2 | riferite | entrambe circa 52 kΩ (testo utente: “entrambi 52komh”) | Nessun percorso diretto a bassa resistenza verso L riscontrato in queste misure |
-| M-005a/b, terminale H verso le due estremità di R2 | in attesa | non forniti | Completare la mappa resistiva prima di interpretare il circuito |
+| M-005a, H verso R2 lato POW | riferita | 0; unità non ripetuta, Ω richiesto | Compatibile con collegamento diretto a H |
+| M-005b, H verso R2 lato J1 | riferita | 120 Ω (testo utente: “lato j1 120omh”) | Coerente con attraversamento di R2, senza identificare il resto del circuito |
 
 Il risultato descriverà soltanto la resistenza tra le linee nelle condizioni
 della prova. Non prova tensioni interne, livelli SPI, bitrate o funzionamento CAN.
@@ -52,3 +53,15 @@ la funzione dei ponticelli prima di aver identificato i collegamenti.
 Per M-005 spostare soltanto il puntale nero da L al contatto metallico H.
 Modulo sempre scollegato, tester su Ω e ponticelli invariati. Con il rosso
 ripetere sulle estremità R2 lato POW e lato J1; riportare i due valori e unità.
+
+## Esito parziale dopo M-005
+
+Le misure riferite indicano R2 circa 119–120 Ω e un collegamento diretto
+della sua estremità lato POW a H. A modulo spento H-L risulta invece circa
+52 kΩ: non è stato misurato un percorso da 120 Ω tra i morsetti in queste
+condizioni. Non dedurre comportamento a modulo alimentato, guasto o
+compatibilità elettrica con ESP32. Prossimo dato necessario: foto del retro
+del modulo MCP2515; nell’archivio sono presenti solo fronte e dettaglio.
+
+Il controllo di lentezza della chat ha interrotto il passaggio alla foto:
+le due letture M-005 sono state conservate, senza avviare altre misure.

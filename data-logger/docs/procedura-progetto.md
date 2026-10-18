@@ -1,6 +1,6 @@
 # Procedura di continuità — Cruscotto C3+AI / Data Logger
 
-Revisione 2, 18/10/2026. Richiesta dall'utente per evitare acquisti duplicati,
+Revisione 3, 18/10/2026. Richiesta dall'utente per evitare acquisti duplicati,
 decisioni dimenticate e documenti incoerenti tra chat e PC.
 
 ## Fonti e precedenza
@@ -22,6 +22,23 @@ l'utente ha già corretto l'inventario: entrambi i moduli iniziali restano prese
 dichiarati, non elettricamente verificati. Il CAN Pal proposto non va acquistato.
 
 ## Prima di ogni decisione pertinente
+
+### Applicazione efficiente durante un collaudo
+
+Leggere le fonti a inizio blocco e quando cambiano. La consultazione di contenuti
+già letti e invariati non richiede di ristamparli a ogni risposta. Durante una
+sequenza di misure sullo stesso modulo, registrare immediatamente ogni risultato
+nel registro e nell'inventario locali, poi rigenerare la vista quando necessario.
+Raggruppare preflight, verifica Git e pubblicazione a fine blocco, prima di una
+nuova scelta tecnica dipendente o alla richiesta di salvataggio/interruzione.
+Segnalare se ci sono risultati locali ancora da pubblicare. Non far passare
+ogni risposta numerica attraverso ripetute letture integrali e più chiamate
+GitHub; non ripetere test su codice invariato senza un nuovo motivo.
+
+Le verifiche del 18/10/2026 non hanno trovato processi ausiliari attivi tra quelli
+avviati per il progetto (monitor seriale, build, server anteprima e generatore).
+Questo non è un audit dell'infrastruttura remota di ChatGPT. È stata identificata
+e rimossa la ripetizione del flusso documenti/preflight/pubblicazione per misura.
 
 Leggere i quattro documenti richiesti in AGENTS.md ed eseguire dalla radice:
 

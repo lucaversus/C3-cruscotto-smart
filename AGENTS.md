@@ -2,6 +2,16 @@
 
 ## Consultazione obbligatoria, prima di decidere
 
+Applicare la consultazione senza ripetizioni inutili: leggere le fonti all'inizio
+del blocco di lavoro e rileggerle quando cambiano o prima di una nuova scelta
+tecnica. Tra letture successive dello stesso collaudo usare il contenuto già
+consultato e aggiornare subito i risultati locali. Non ristampare interi documenti,
+non rieseguire preflight e non fare un ciclo completo GitHub per ogni singolo
+valore riferito. Eseguire preflight e pubblicazione a fine blocco, prima di una
+nuova decisione dipendente o quando l'utente chiede salvataggio/interruzione.
+La pubblicazione differita deve essere dichiarata; nessuna perdita di risultati
+locali o rinuncia alla consultazione delle fonti.
+
 Per ogni attività che riguarda hardware, acquisti, firmware, GPIO, protocolli,
 schemi, alimentazione o collaudo:
 
