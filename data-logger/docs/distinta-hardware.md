@@ -1,6 +1,6 @@
 # Distinta hardware — Cruscotto C3+AI / Data Logger
 
-Revisione A — 18/10/2026. Proposta tecnica consolidata, non ordine di acquisto
+Revisione C — 18/10/2026. Proposta tecnica consolidata, non ordine di acquisto
 né schema esecutivo auto. Fonte per disponibilità e collaudi: hardware.json.
 Vincoli D-002, D-003, D-004, D-005, D-006, D-007, D-008, D-010 e D-011.
 La richiesta di definire l'hardware non equivale ad approvazione di moduli
@@ -89,3 +89,71 @@ i disegni precedenti restano proposte non esecutive per il collegamento auto.
 - [VanBus, sezione Schematics](https://github.com/0xCAFEDECAF/VanBus#-schematics): esperienza dell'autore con SN65HVD230 e VAN, non certificazione del nostro modulo.
 - [TI SN65HVD230](https://www.ti.com/lit/ds/symlink/sn65hvd230.pdf): caratteristiche del chip, ingressi e modalità; non schema del modulo blu.
 - [ESP32 RMT VAN RX](https://github.com/morcibacsi/esp32_rmt_van_rx): possibile decoder open source; integrazione con SD/RTC ancora da verificare.
+
+## Proposta concreta K-line — 18/10/2026
+
+Candidato raccomandato: **MikroE ISO 9141 Click, MIKROE-4331**, basato su L9637D.
+UART con logica selezionabile 3,3/5 V; JP1 da impostare su 3V3. VS bus separata
+4,5-36 V secondo documentazione; non confondere VS con alimentazione logica.
+È un transceiver, non un interprete ELM: KWP e fast init saranno nel firmware.
+Si può collegare tramite contatti/cablaggio adeguato senza acquistare una
+scheda madre mikroBUS né software MikroE a pagamento. Non ancora ordinato.
+Schema ufficiale v101 consultato; verifica fisica dei livelli e circuito bus
+completo richiesta prima dell'auto. Non richiede di scegliere alla cieca un
+convertitore UART esterno, poiché la scheda prevede logica 3V3 selezionabile.
+
+- [Produttore](https://www.mikroe.com/iso-9141-click)
+- [Schema v101](https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf)
+- [Farnell Italia, codice 4696642](https://it.farnell.com/mikroelektronika/mikroe-4331/development-boardseval-kits/dp/4696642)
+
+Prezzo e stock sono dati variabili: verifica al momento dell'ordine.
+
+## Alternative per indisponibilita MIKROE-4331 — 18/10/2026
+
+Utente non trova MIKROE-4331 disponibile. Nessun ordine o cambio definitivo.
+
+- **E-L9637D da assemblare:** il chip e venduto separatamente, formato SOIC-8;
+  occorrono adattatore/PCB, componenti del circuito e saldatura, non e un modulo
+  pronto. Schema, alimentazione e livelli restano da progettare e verificare.
+  [DigiKey](https://www.digikey.it/it/products/detail/stmicroelectronics/E-L9637D/1852145).
+- **Freematics OBD-II UART Adapter V2.1:** adattatore completo con UART compatibile
+  3,3/5 V dichiarata, libreria open source e interprete AT. Prezzo sul negozio
+  consultato 87 USD, prima di costi di acquisto/spedizione. Non e solo un
+  transceiver e non sostituisce l'acquisizione VAN. Richiede derivazione
+  posteriore per lasciare libera la presa frontale (D-007). Verificare supporto
+  e prova KWP fast init sulla C3 prima di promuoverlo a interfaccia collaudata.
+  [Produttore](https://shop.freematics.com/products/freematics-obd-ii-uart-adapter-v2-1-for-arduino).
+
+Prezzi, stock e consegna sono variabili; nessuna promessa di disponibilita
+alla destinazione italiana senza verifica al momento dell'ordine.
+
+## Proposta utente: interfaccia discreta — valutazione preliminare
+
+Due NPN (2N2222/BC547) oppure PC817, pull-up 510 ohm/0,5 W e resistenze
+4,7/10 kohm sono una proposta, non una distinta approvata. Nessun possesso
+di questi componenti confermato. Serve lo schema per verificare livelli RX,
+inversione logica TX/RX, correnti, polarizzazione e comportamento al reset.
+Non aggiungere pull-up alla linea auto senza valutare il circuito complessivo.
+Su 510 ohm, con linea tenuta bassa e 14,4 V, la dissipazione ideale e
+14,4^2/510 = 0,407 W; a 16 V e 0,502 W. La resistenza da 0,5 W proposta
+non ha margine sufficiente per essere fissata come scelta automotive definitiva.
+PC817 richiede verifica di CTR e tempi di commutazione nel circuito effettivo;
+non e una sostituzione automatica del circuito a transistor e non prova
+isolamento galvanico completo se alimentazioni/masse restano comuni.
+
+Software: UART ESP32 a 10400 baud, normalmente 8N1, con KWP2000/ISO14230,
+checksum, timeout ed eco. ISO-TP per CAN/ISO15765 non e il protocollo da usare.
+Fast init richiede impulsi temporizzati sulla linea prima del messaggio UART:
+non consiste solo nell'inviare byte a 10400 baud. Nessun codice caricato.
+Riferimenti: [progetto dell'autore con schemi alternativi](https://github.com/muki01/OBD2_K-line_Reader),
+[libreria K-line](https://github.com/muki01/OBD2_KLine_Library),
+[ELM327, inizializzazione e parametri temporali](https://elmelectronics.com/wp-content/uploads/2020/05/ELM327DSL.pdf).
+
+## Scelta D-013: costruzione in proprio
+
+Il 18/10/2026 l’utente sceglie circuito autocostruito. Le precedenti proposte
+MIKROE/Freematics restano tracciate, non sono acquisti o materiale posseduto.
+La soluzione tecnica corrente è [prototipo NPN + comparatore, rev A](kline-autocostruita.md).
+Distinta componenti per banco e schema con cartiglio allegati; progetto auto
+protetto e collaudi ancora aperti. Due soli NPN e PC817 non sono la soluzione
+implementata nel disegno.

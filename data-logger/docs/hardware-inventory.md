@@ -236,11 +236,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Continuità tra morsetti e socket, etichette e compatibilità meccanica da verificare
 
-### HW-KLINE-INTERFACE — Interfaccia K-line: modulo basato su L9637D con adattamento logico ESP32
+### HW-KLINE-INTERFACE — Interfaccia K-line autocostruita: prototipo banco NPN 2N5551 + LM2903B
 
 **Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Proposta tecnica 18/10/2026 nella distinta hardware rev A; datasheet ST L9637. Non è acquisto o verifica hardware approvata.
+**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale.
 
 **Verifiche documentate:**
 
@@ -248,10 +248,10 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Modello commerciale e schema del modulo non ancora scelti; nessun ordine confermato.
-- Alimentazione VS/VCC, pull-up, protezioni e livelli TX/RX da riscontrare; non presumere RX a 3,3 V su un modulo a 5 V.
-- Scegliere interfaccia e adattamento bidirezionale prima del cablaggio; KWP fast init 10,4 kbaud da implementare e collaudare.
-- Identificare adattatore usato per lo screenshot: eventuale riuso va valutato prima di nuovi acquisti.
+- Possesso e ordine dei singoli componenti non confermati; distinta di costruzione in docs/kline-autocostruita.md.
+- Verifica montaggio, pin transistor secondo produttore, assenza corti e alimentazioni su banco limitato in corrente; alimentatore banco non confermato.
+- Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
+- Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev A e solo da banco.
 
 ## Proposta di collegamento — non validata fisicamente
 

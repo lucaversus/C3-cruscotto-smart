@@ -107,3 +107,10 @@ GPIO del solo test: SCK18, MISO19, MOSI23, CS26; H/L e INT scollegati.
 ordinato, interfaccia K-line e valutazione VP230 per VAN passivo.
 Architettura proposta; alimentazione automotive, interfaccia K-line completa
 e cablaggio posteriore OBD non ancora rilasciati per acquisto/installazione.
+
+## K-line autocostruita
+
+Scelta D-013 registrata: [circuito a banco rev A](docs/kline-autocostruita.md),
+NPN 2N5551 e comparatore LM2903B. UART 10400 con solo TX invertito.
+Schema e modello DC prodotti; componenti non confermati, nessun montaggio,
+firmware K-line o collaudo. Nessun collegamento alla vettura.

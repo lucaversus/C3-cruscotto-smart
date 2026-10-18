@@ -35,6 +35,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-010 | approvata | Prima fase firmware a banco USB: preservare diagnostica 0.1.0; base 0.2.0 separata, nessuna acquisizione auto finché le interfacce non sono verificate. | 0.1.0 caricata e collaudata; 0.2.0 compilata, non caricata né collaudata sui moduli. |
 | D-011 | approvata | Inventario e decisioni versionati, consultati prima di ogni scelta pertinente e aggiornati nello stesso cambiamento. | Richiesta utente del 18/10/2026: non delegare il controllo della memoria all'utente. |
 | D-012 | approvata | Archiviare nel repository le foto hardware già disponibili e collegarle all'inventario; consultarle prima di richiederle nuovamente. | Richiesta utente del 18/10/2026. Conservare evidenze e SHA-256, senza metadati personali nelle copie pubblicate. |
+| D-013 | approvata | Realizzare in proprio l’interfaccia K-line; prima prototipo e collaudo a banco, poi progetto protetto per auto. | Utente 18/10/2026: “ok procediamo con il circuito autocostruito”. La scelta non certifica lo schema né conferma possesso dei componenti. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -156,3 +157,9 @@ compilato e caricato su HW-ESP32 con hash dei segmenti verificati da esptool.
 Esito letto direttamente su COM3: `SPI_TEST=PASS` (M-010), SPI a 100 kHz mode 0.
 Questo programma è ora sulla scheda, in sostituzione della diagnostica 0.1.0
 i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veicolo.
+
+### Interfaccia K-line autocostruita
+
+Scelta D-013: [schema e distinta del prototipo a banco](data-logger/docs/kline-autocostruita.md),
+rev A. NPN e comparatore, calcoli DC verificati; non montato o collaudato.
+Installazione auto e protezioni ancora da progettare.

@@ -1,0 +1,121 @@
+# K-line autocostruita — Cruscotto C3+AI / Data Logger
+
+Revisione A, 18/10/2026. Disegno C3AI-DL-KL-001, rev A.
+**Prototipo da banco non collaudato: nessun collegamento al veicolo.**
+Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
+il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
+
+## Soluzione
+
+NPN 2N5551 per portare K a massa (trasmissione); comparatore LM2903B
+per ricevere con soglia riferita alla tensione della linea, invece della
+soglia base-emettitore di un secondo transistor. Ricevitore a 5 V con
+uscita open collector e pull-up a 3,3 V. Masse comuni, nessun optoisolamento.
+Non usare PC817 come sostituto diretto. Non usa MCP2515 o CAN.
+
+Schema modificabile: [SVG](schema-kline-banco.svg). Anteprima: [PNG](schema-kline-banco.png).
+Non e una piedinatura del veicolo o una scheda automotive certificata.
+
+## Distinta per un prototipo da banco
+
+Tutte le resistenze dei partitori a tolleranza 1%; valori da acquistare solo
+se non gia disponibili. Possesso/ordine di questi componenti non confermato.
+
+| Rif. | Quantita | Valore / componente | Nota |
+| --- | --- | --- | --- |
+| Q1 | 1 | 2N5551, NPN TO-92 | Scegliere produttore e verificare E/B/C sul relativo datasheet |
+| U1 | 1 | LM2903B, versione PDIP-8 | Non scambiare con un modulo LM393 con circuiti ignoti |
+| R1 | 1 | 330 ohm, 0,25 W, 5% | Base TX |
+| R2 | 1 | 47 kohm, 0,25 W, 5% | Base-emettitore, Q1 spento a GPIO flottante |
+| R3 | 1 | 510 ohm, 1 W, 1% | Pull-up banco, tramite JP1 |
+| R4 | 1 | 68 kohm, 0,25 W, 1% | Partitore K |
+| R5, R7 | 2 | 10 kohm, 0,25 W, 1% | Partitori verso massa |
+| R6 | 1 | 150 kohm, 0,25 W, 1% | Riferimento VBENCH |
+| R8 | 1 | 4,7 kohm, 0,25 W, 1% | Pull-up RX a 3V3 |
+| R9 | 1 | 1 kohm, 0,25 W | Serie RX ESP32 |
+| C1 | 1 | 100 nF ceramico | Bypass U1, vicino ai pin 8/4 |
+| C2 | 1 | 10 microfarad, 16 V | Positivo su +5 V, negativo a GND |
+| JP1 | 1 | Jumper 2 contatti con ponticello | Chiuso solo nella simulazione a banco |
+| Montaggio | 1 insieme | Zoccolo DIP-8, millefori, morsetti e fili | Saldature e piedinatura da controllare |
+
+Non ordinare in questa fase un altro modulo CAN o un'interfaccia Freematics.
+Il tester esistente consente i controlli statici, non dimostra i tempi UART.
+
+## Connessioni elettriche complete (netlist di riferimento)
+
+I nomi di rete uguali indicano un collegamento. Non usare numeri di posizione
+fisica dei transistor come se fossero universali fra produttori.
+
+| Elemento | Collegamento |
+| --- | --- |
+| R1 | TX_INV — base Q1 |
+| R2 | Base Q1 — GND |
+| Q1 | Collettore K_BENCH; emettitore GND |
+| JP1 + R3 in serie | VBENCH — JP1 — R3 — K_BENCH |
+| R4 | K_BENCH — VSENSE |
+| R5 | VSENSE — GND |
+| R6 | VBENCH — VREF |
+| R7 | VREF — GND |
+| U1A pin 3 (+) | VSENSE |
+| U1A pin 2 (-) | VREF |
+| U1A pin 1 (out) | RX_RAW |
+| R8 | 3V3 — RX_RAW |
+| R9 | RX_RAW — RX_3V3 |
+| U1 pin 8, pin 4 | +5V, GND rispettivamente |
+| U1B pin 5, pin 6, pin 7 | GND, VREF, non collegato rispettivamente |
+| C1, C2 | Fra +5V e GND (polarita C2 come distinta) |
+| ESP32 | GND comune; 3V3 e +5V da alimentazioni regolate concordate, non da K |
+
+Proposta logica firmware: GPIO17 TX_INV e GPIO16 RX_3V3 (non ancora assegnazione
+finale dell'intero logger). Il GPIO TX deve restare basso a riposo: NPN inverte.
+Usare inversione UART del solo TX; RX non invertito. Applicare la configurazione
+in modo da non produrre impulsi dominanti indesiderati durante inizializzazione.
+Non collegare questi segnali al firmware SPI attualmente caricato presumendo
+che esegua il test K-line: non lo esegue.
+
+## Alimentazione e ambito del primo collaudo
+
+VBENCH = 9-16 V stabilizzati con limitazione di corrente; +5V = 4,75-5,25 V;
+3V3 = logica ESP32. Alimentazioni e GND corretti prima di applicare VBENCH,
+rimuovere VBENCH prima di spegnere la logica. Alimentatore banco non ancora
+censito come disponibile: non usare l'auto come sostituto per la prova.
+R3 chiusa via JP1 simula il pull-up del banco; il pull-up della vettura non e
+stato verificato e non va raddoppiato automaticamente. Non collegare 12 V
+ad alcun ingresso ESP32 o al pin 3V3. Montare e controllare tutto spento.
+
+La protezione automotive contro inversione, cortocircuiti, ESD/transitori,
+load dump, disturbi e alimentazioni parziali NON e compresa o validata in
+questa revisione. Q1 non ha limitazione attiva di corrente su corto a batteria.
+La tensione nominale del transistor non dimostra robustezza del sistema.
+La revisione per l'auto richiede uno studio dedicato del circuito protetto.
+
+## Verifiche svolte e limiti
+
+`python data-logger/docs/tools/genera-kline-banco.py` rigenera lo schema e
+verifica un modello DC a estremi delle resistenze, non una simulazione SPICE.
+Con resistori dei partitori all'1% e offset assunto +/-3 mV, VBENCH 9-16 V:
+
+- soglia nominale K = 0,4875 VBENCH, estremi calcolati 0,4676-0,5081 VBENCH;
+- massimo ingresso comparatore 2,087 V, sotto 4,75-2 V;
+- beta forzato massimo calcolato circa 8,51 con TX minimo assunto 2,5 V,
+  VBE massimo assunto 1,2 V e tolleranze resistenze base;
+- R3 massimo calcolato 0,507 W a 16 V: selezionata 1 W per il banco.
+
+Sono calcoli con ipotesi esplicite: non provano VCEsat al punto reale,
+commutazione del transistor, isteresi, margini ai disturbi, propagazione,
+capacita del cablaggio o risposta della centralina. Nessun risultato
+sperimentale acquisito. Nessun componente segnato come posseduto.
+
+Primo controllo futuro: continuita e assenza corti a circuito spento; poi
+stati statici K alta/bassa su banco limitato e tensione RX. Solo dopo,
+verifica temporale a 10400 baud e fast init, gestione eco e timeout.
+Nessun firmware K-line compilato o caricato in questo passaggio.
+
+## Fonti / originalita
+
+Schema e generatore prodotti per questo repository, senza copia di immagini
+esterne. Riferimenti funzionali e limiti dei componenti:
+
+- [TI LM2903B datasheet](https://www.ti.com/lit/ds/symlink/lm2903b.pdf): pinout, uscita open collector, alimentazione e campo ingressi; verificare codice ordinato.
+- [onsemi 2N5551 datasheet](https://www.onsemi.com/pdf/datasheet/2n5551t-d.pdf): NPN TO-92 e caratteristiche; il collaudo resta necessario.
+- [ELM327 DSL](https://elmelectronics.com/wp-content/uploads/2020/05/ELM327DSL.pdf): distinzione KWP fast init da solo invio UART.
