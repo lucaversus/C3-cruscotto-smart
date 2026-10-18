@@ -83,3 +83,13 @@ Il modello ESP32-S3 e il display previsti per il cruscotto non vincolano
 la scelta della scheda per il data logger.
 
 La documentazione generale del cruscotto rimane nel [README principale](../README.md).
+
+## Collaudo MCP2515 a banco
+
+Preparato il [test SPI separato](firmware/mcp2515-spi-test/README.md) per
+HW-CAN-MCP2515 con HW-ESP32, secondo D-006 e D-010: reset, verifica modalità
+configurazione e scrittura/rilettura registri a 100 kHz, senza traffico CAN.
+Caricato il 18/10/2026 con hash verificati da esptool; letto su COM3
+`status SPI_TEST=PASS uptime_ms=15545`. CAN non collaudato.
+Sulla scheda sostituisce la diagnostica, i cui sorgenti sono conservati.
+GPIO del solo test: SCK18, MISO19, MOSI23, CS26; H/L e INT scollegati.

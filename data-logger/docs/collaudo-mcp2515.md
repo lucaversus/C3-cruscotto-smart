@@ -65,3 +65,76 @@ del modulo MCP2515; nell’archivio sono presenti solo fronte e dettaglio.
 
 Il controllo di lentezza della chat ha interrotto il passaggio alla foto:
 le due letture M-005 sono state conservate, senza avviare altre misure.
+
+## Prosecuzione senza vista delle piste posteriori
+
+Utente: retro verniciato di nero, nessun dettaglio utile visibile. Non rimuovere
+il rivestimento. Procedere con misure non invasive a modulo isolato.
+
+| Misura | Stato | Risultato | Condizioni richieste |
+| --- | --- | --- | --- |
+| M-006, resistenza VCC-GND | riferita | circa 9 kΩ (testo utente: “9komh”) | Modulo scollegato da tutto, tester Ω, nero GND e rosso VCC del connettore SPI; lettura dopo circa 5 secondi |
+
+## Controllo mirato compatibilità ESP32 — M-007 in attesa
+
+Richiesto dall’utente: concentrarsi su alimentazione e livelli SPI. Modulo
+spento e isolato, tester Ω: misura tra VCC del connettore e pin 3 (VCC)
+del transceiver U1 marcato VP230. Per contare i pin identificare prima
+il riferimento del pin 1, poi procedere 1–2–3 lungo lo stesso lato. Se il
+riferimento non è identificabile non indovinare l’orientamento. Nessun
+risultato ancora acquisito. Riferimento: datasheet TI SN65HVD230, pin 3 VCC.
+La misura riguarda il percorso di alimentazione del transceiver; restano da
+verificare alimentazione MCP2515 e livelli SPI, prima di collegare ESP32.
+
+M-007: utente riferisce “0” dopo istruzione di misura in Ω tra VCC connettore
+e pin 3 U1 VP230. Indicazione di collegamento diretto: non alimentare il
+modulo a 5 V. Il VP230 corrisponde al SN65HVD230 a 3,3 V secondo il datasheet TI.
+Non è ancora verificata alimentazione del MCP2515 né comunicazione SPI.
+
+M-008 in attesa: resistenza tra VCC connettore e VDD del MCP2515.
+Il controller fotografato ha 20 pin (TSSOP): VDD è il pin 20, di fronte
+al pin 1 sul lato opposto, alla stessa estremità del corpo. Non usare
+il pin 18 della diversa variante a 18 pin. Modulo isolato, tester Ω.
+Fonte: datasheet Microchip DS20001801J, tabella 1-1, pagina 4.
+
+M-008: risposta utente “arriva”, registrata come conferma qualitativa di
+collegamento; nessun valore numerico attribuito. Compatibilità logica SPI
+ancora non provata.
+
+M-009 proposta, in attesa: scollegare USB ESP32, collegare soltanto 3V3→VCC
+e GND→GND, poi alimentare ESP32 via USB. CAN H/L e SPI restano liberi.
+Tester su tensione continua (V DC), nero GND, rosso VCC del modulo:
+registrare la tensione effettiva. Non applicare 5 V e non misurare Ω sul
+circuito alimentato. Il controllo riguarda solo alimentazione a banco.
+
+M-009 esito riferito il 18/10/2026: utente “c'e 3.3V”. Registrati 3,3 V
+tra VCC e GND del modulo nella prova a banco richiesta. Conferma della
+tensione presente sul modulo alimentato; non dimostra funzionamento del
+controller, comunicazione SPI, stabilità prolungata o funzionamento CAN.
+
+Prova successiva M-010 preparata, non eseguita: firmware separato
+[collaudo SPI](../firmware/mcp2515-spi-test/README.md), alimentazione 3,3 V,
+SCK18/MISO19/MOSI23/CS26. RESET, modalità configurazione e confronto CNF1
+con tre pattern e ripristino; nessuna trasmissione CAN. GPIO per solo banco,
+non assegnazione definitiva del logger. Nessun esito hardware acquisito.
+
+18/10/2026: caricamento mcp2515-spi-test 0.1.0 su COM3 riuscito con BOOT
+manuale, hash dei segmenti verificati da esptool. Primo tentativo automatico
+fallito prima della scrittura (boot 0x13). Risultato M-010 ancora in attesa;
+richiesti rilascio BOOT e pressione EN per avvio normale.
+
+## Esito M-010 — 18/10/2026
+
+Dopo rilascio BOOT e pressione EN riferiti dall’utente, lettura diretta di COM3
+a 115200 con DTR/RTS inattivi per 7 secondi:
+
+```text
+status SPI_TEST=PASS uptime_ms=15545
+```
+
+Il risultato memorizzato dal firmware richiede modalità configurazione,
+scrittura/rilettura CNF1 con 0x55/0xAA/0x00 e ripristino del valore iniziale.
+Banner e letture dei singoli registri non catturati. Alimentazione 3,3 V
+riferita in M-009; SPI 100 kHz mode 0, CAN H/L scollegati.
+Verificato il percorso SPI a banco; non transceiver, bitrate, terminazione,
+rete auto o stabilità prolungata. Nessun frame CAN trasmesso dal firmware.

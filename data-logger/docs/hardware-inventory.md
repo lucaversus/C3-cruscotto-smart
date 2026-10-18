@@ -30,6 +30,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - COM3 CH340; diagnostica 0.1.0 caricata, avvio e oltre 70 s osservati
 - Backup flash completo con SHA-256 verificato; ripristino non provato
 - Foto frontale archiviata: HW-394 / ESP-32D e basetta di espansione a morsetti visibili; nessuna verifica elettrica della basetta.
+- 18/10/2026: firmware mcp2515-spi-test 0.1.0 caricato su COM3 con BOOT manuale; esptool conferma hash dei segmenti scritti. Sostituisce sulla scheda la diagnostica 0.1.0, i cui sorgenti sono conservati. Avvio verificato tramite stato seriale SPI_TEST=PASS (M-010).
 
 **Da verificare:**
 
@@ -40,7 +41,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Inventario iniziale fornito dall’utente; successiva correzione “ma non abbiamo già il modulo can?” il 18/10/2026. Il precedente “non possiedo altro” non annulla più questa voce. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json.
+**Fonte:** Inventario iniziale fornito dall’utente; successiva correzione “ma non abbiamo già il modulo can?” il 18/10/2026. Il precedente “non possiedo altro” non annulla più questa voce. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json. Utente: retro verniciato di nero, piste non visibili; non è stato richiesto di rimuovere il rivestimento.
 
 **Foto archiviate:** [mcp2515-fronte.jpg](hardware-photos/mcp2515-fronte.jpg), [mcp2515-dettaglio.jpg](hardware-photos/mcp2515-dettaglio.jpg)
 
@@ -51,14 +52,17 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - M-003: utente riferisce 119 Ohm direttamente su R2 (marcata 121).
 - M-004a/b: utente riferisce circa 52 kOhm da L a ciascuna delle due estremità di R2; non indica un collegamento diretto a bassa resistenza verso L nelle condizioni della prova.
 - M-005a/b: H verso R2 lato POW riferito 0 (Ω richiesto), lato J1 120 Ohm; compatibile con collegamento diretto del lato POW a H. A modulo spento H-L resta circa 52 kOhm; circuito e alimentazione non ancora validati.
+- M-006: resistenza VCC-GND riferita circa 9 kOhm a modulo spento. Non prova tensione ammissibile o funzionamento.
+- M-007: utente riferisce 0 in modalità Ω tra VCC connettore e pin 3 U1 VP230; coerente con alimentazione diretta del transceiver, che da datasheet TI richiede 3,3 V.
+- M-008: utente risponde “arriva” alla verifica VCC verso VDD del MCP2515; annotazione qualitativa di continuità, senza resistenza numerica. La compatibilità SPI non è ancora collaudata.
+- M-009: utente riferisce 3,3 V tra VCC e GND del modulo alimentato a banco da ESP32; comunicazione SPI e funzionamento CAN non verificati.
+- M-010: letto direttamente su COM3 status SPI_TEST=PASS uptime_ms=15545; prova registri SPI a 100 kHz mode 0 con alimentazione 3,3 V M-009. Non è un collaudo CAN o di stabilità prolungata.
 
 **Da verificare:**
 
-- Venditore dichiara 5 V: alimentazione interna e livelli SPI non verificati
-- Identità effettiva del transceiver, terminazione e compatibilità ESP32 da verificare
-- Non collegare né decidere un sostituto prima della verifica
-- Foto retro non disponibile nell’archivio; prima di alimentare, identificare con tester VCC interno e funzione dei ponticelli senza presumerne il circuito.
-- Acquisire il retro del modulo, non ancora archiviato, per identificare piste, alimentazione e funzione dei ponticelli prima di alimentare.
+- Funzionamento del transceiver, terminazione e comunicazione CAN ancora da collaudare; nessun collegamento auto autorizzato da questo test.
+- M-007 indica VCC diretto al VP230: non applicare 5 V. SPI a 3,3 V verificato soltanto a banco, 100 kHz mode 0.
+- Funzione dei connettori J1/J3 e circuito di terminazione da ricostruire; nessun nuovo modulo da acquistare prima della valutazione degli esistenti.
 
 ### HW-CAN-VP230 — Modulo CAN blu VP230 / SN65HVD230
 

@@ -143,3 +143,12 @@ Per il cruscotto digitale non sono ancora presenti firmware, simulatore o test
 eseguibili: le dipendenze e la configurazione hardware saranno fissate dopo
 l'identificazione della scheda display. Il layout della UI e il simulatore PC
 possono essere sviluppati prima dell'arrivo dell'hardware.
+
+### Collaudo SPI a banco — 18/10/2026
+
+HW-CAN-MCP2515 alimentato a 3,3 V (M-009); firmware separato
+[data-logger/firmware/mcp2515-spi-test](data-logger/firmware/mcp2515-spi-test/README.md)
+compilato e caricato su HW-ESP32 con hash dei segmenti verificati da esptool.
+Esito letto direttamente su COM3: `SPI_TEST=PASS` (M-010), SPI a 100 kHz mode 0.
+Questo programma è ora sulla scheda, in sostituzione della diagnostica 0.1.0
+i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veicolo.
