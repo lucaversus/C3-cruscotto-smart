@@ -51,6 +51,32 @@ schemi, alimentazione o collaudo:
 - Un'affermazione generica ambigua non elimina componenti già identificati:
   conservarli con stato incerto e risolvere il dubbio prima di acquisti/collegamenti.
 
+## Controllo obbligatorio di compatibilità — D-021
+
+A fine blocco e **prima di ogni pubblicazione su GitHub**, eseguire
+`python tools/dev.py check`. Verificare che le modifiche siano compatibili con
+le decisioni D-xxx, l'hardware inventariato, i GPIO/protocolli configurati e le
+versioni di strumenti e librerie. Rileggere le sole fonti coinvolte se cambiate.
+
+Eseguire anche `python tools/dev.py build` se cambiano firmware, dipendenze,
+configurazione GPIO/interfacce, ambiente di compilazione o CI, oppure manca un
+esito di build valido per quegli stessi sorgenti e configurazioni. Per sole
+modifiche documentali non ripetere una build già valida: dichiarare il riuso
+dell'esito, senza presentarlo come nuova compilazione.
+
+Un controllo software fallito o un conflitto tecnico va risolto prima di
+pubblicare le modifiche dipendenti. Le verifiche hardware ancora aperte restano
+esplicite nell'inventario: non equivalgono a controlli superati e non impediscono
+di versionare sorgenti o proposte correttamente marcati come non collaudati.
+Questo controllo non autorizza caricamenti sull'ESP32 o collegamenti al veicolo.
+
+**Dopo la pubblicazione**, verificare ref remoto e risultato della pipeline
+`Project checks` sul commit esatto. Se fallisce, correggere e ripetere i soli
+controlli interessati; se è in corso o non disponibile, dichiararlo, senza
+considerare verificata la compatibilità remota. Registrare nel resoconto commit,
+controlli effettuati, risultati riutilizzati e limiti. Evitare cicli per ogni
+singola misura: raggruppare il controllo alla chiusura del blocco di lavoro.
+
 ## Chiusura e GitHub
 
 Eseguire preflight, controlli pertinenti e `git diff --check`. Quando l'utente

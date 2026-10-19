@@ -55,6 +55,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 
 | D-019 | approvata | Usare CR2032 nel RTC e rimuovere la resistenza marcata 201 per interrompere il ramo di ricarica. | Utente 19/10/2026: intervento scelto ma non ancora dichiarato eseguito; confermare interruzione del percorso prima di inserire la pila. Nessuna qualifica hardware dal solo intento. |
 | D-020 | approvata | Proseguire con il firmware completo; verifiche tecniche dei moduli a cura dell'utente. Implementare SD/RTC/OLED, STOP D-015, OBD KWP D-013 e ricezione VAN D-008/D-016. | Utente 19/10/2026: "ci penso io alle verifiche". Non equivale a collaudo superato o ad autorizzazione a presumere pin auto. GPIO firmware 0.3.0 documentati come proposti. |
+| D-021 | approvata | Controllo di compatibilita a fine blocco, prima di ogni pubblicazione; riscontro decisioni/inventario/configurazioni, check e build quando pertinente. Dopo pubblicazione verificare ref e pipeline sul commit esatto. | Utente 20/10/2026: rendere il controllo una regola. Esecuzione prima di GitHub e conferma CI dopo; non sostituisce collaudi hardware. Build invariata riutilizzabile per sole modifiche documentali, dichiarandolo. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione

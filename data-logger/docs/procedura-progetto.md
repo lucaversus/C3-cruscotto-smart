@@ -1,6 +1,6 @@
 # Procedura di continuità — Cruscotto C3+AI / Data Logger
 
-Revisione 3, 18/10/2026. Richiesta dall'utente per evitare acquisti duplicati,
+Revisione 4, 20/10/2026. Richiesta dall'utente per evitare acquisti duplicati,
 decisioni dimenticate e documenti incoerenti tra chat e PC.
 
 ## Fonti e precedenza
@@ -79,6 +79,16 @@ non devono essere coperte da cartigli: usare il cartiglio nel dossier/derivati.
 Aggiornare testi e revisioni dei disegni coinvolti nello stesso cambiamento.
 
 ## Verifica e salvataggio
+
+Il controllo di compatibilita D-021 si esegue prima di pubblicare, a fine blocco:
+`python tools/dev.py check`, piu riscontro con decisioni, inventario e configurazioni
+coinvolti. Aggiungere `python tools/dev.py build` quando cambiano firmware,
+dipendenze, GPIO/interfacce, ambiente di build o CI, o manca una build valida.
+Non ripetere build invariate per sole modifiche documentali; citare l'esito
+riutilizzato. Nessun controllo software sostituisce una verifica hardware.
+Dopo la pubblicazione controllare ref e pipeline sul commit esatto, dichiarando
+se il risultato remoto e ancora in corso, indisponibile o fallito. Risolvere gli
+errori prima di considerare conclusa la verifica delle modifiche dipendenti.
 
 Eseguire preflight, test pertinenti e `git diff --check`. Per modifiche al solo
 registro non occorre ricompilare firmware invariato. I controlli del preflight

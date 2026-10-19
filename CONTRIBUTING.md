@@ -59,9 +59,17 @@ risultato documentato. Distinguere sempre proposto, compilato, caricato e collau
 Controllare `git status --short --branch` all'inizio e preservare modifiche altrui.
 Con agenti contemporanei assegnare file distinti o usare checkout/worktree separati;
 non includere automaticamente il lavoro di un altro agente nel proprio commit.
-Eseguire `check` a chiusura e `build` per modifiche firmware o dipendenze.
+Prima di ogni pubblicazione eseguire il controllo di compatibilita D-021:
+`check` e riscontro delle modifiche con decisioni, inventario e configurazioni.
+Eseguire anche `build` per modifiche firmware, dipendenze, GPIO/interfacce,
+ambiente di compilazione o CI, oppure se manca un esito valido per i sorgenti.
+Per sole modifiche documentali si puo riutilizzare una build invariata e gia
+verificata, dichiarandolo. Le verifiche hardware aperte non diventano superate
+con questi comandi; sorgenti e proposte non collaudati restano versionabili.
 Prima di pubblicare confrontare il ref remoto attuale e preservare nuovi commit.
 Non fare force-push; riportare commit, controlli e verifiche hardware non eseguite.
+La chiusura comprende il controllo della pipeline sul commit pubblicato:
+se in corso, non disponibile o fallita, indicarne lo stato effettivo.
 
 Il caricamento e una fase separata, da svolgere solo nell'ambito richiesto
 dall'utente e con hardware identificato. Su Windows usare il terminale visibile
