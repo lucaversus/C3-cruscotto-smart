@@ -87,6 +87,25 @@ constexpr bool pidSupported(const uint8_t *bitmap, uint8_t block, uint8_t pid) {
   return (bitmap[bit / 8] & (0x80 >> (bit % 8))) != 0;
 }
 
+// KWP polling plan: priority PIDs every round, then one other supported PID
+// (rotating), so dynamic values are sampled often and slow ones still appear.
+constexpr uint8_t kPriorityPids[] = {0x0c, 0x0d, 0x04, 0x0b, 0x10, 0x23};
+constexpr bool isPriorityPid(unsigned pid) {
+  for (uint8_t p : kPriorityPids) if (p == pid) return true;
+  return false;
+}
+constexpr bool isLivePid(const bool *supported, unsigned pid) {
+  return pid > 0 && pid < 256 && pid % 32 != 0 && supported[pid];
+}
+// Next non-priority live PID after cursor (wrapping), or 0 when none exists.
+constexpr unsigned nextSlowPid(const bool *supported, unsigned cursor) {
+  for (unsigned step = 1; step <= 255; ++step) {
+    const unsigned pid = (cursor + step - 1) % 255 + 1;
+    if (isLivePid(supported, pid) && !isPriorityPid(pid)) return pid;
+  }
+  return 0;
+}
+
 // CRC and enhanced-Manchester extraction adapted from Peter Pinter/haxplore's
 // MIT-licensed esp32_rmt_van_rx, revision d64064f. See THIRD_PARTY.md.
 constexpr uint16_t vanCrc(const uint8_t *data, size_t length) {

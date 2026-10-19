@@ -1,4 +1,4 @@
-# Dipendenze e attribuzioni — 0.3.0
+# Dipendenze e attribuzioni — 0.3.x
 
 - Framework Arduino-ESP32 2.0.17 tramite Espressif32 6.12.0 (PlatformIO):
   https://github.com/espressif/arduino-esp32/tree/2.0.17 — LGPL-2.1 e licenze dei componenti ESP-IDF.

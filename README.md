@@ -56,6 +56,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-019 | approvata | Usare CR2032 nel RTC e rimuovere la resistenza marcata 201 per interrompere il ramo di ricarica. | Utente 19/10/2026: intervento scelto ma non ancora dichiarato eseguito; confermare interruzione del percorso prima di inserire la pila. Nessuna qualifica hardware dal solo intento. |
 | D-020 | approvata | Proseguire con il firmware completo; verifiche tecniche dei moduli a cura dell'utente. Implementare SD/RTC/OLED, STOP D-015, OBD KWP D-013 e ricezione VAN D-008/D-016. | Utente 19/10/2026: "ci penso io alle verifiche". Non equivale a collaudo superato o ad autorizzazione a presumere pin auto. GPIO firmware 0.3.0 documentati come proposti. |
 | D-021 | approvata | Controllo di compatibilita a fine blocco, prima di ogni pubblicazione; riscontro decisioni/inventario/configurazioni, check e build quando pertinente. Dopo pubblicazione verificare ref e pipeline sul commit esatto. | Utente 20/10/2026: rendere il controllo una regola. Esecuzione prima di GitHub e conferma CI dopo; non sostituisce collaudi hardware. Build invariata riutilizzabile per sole modifiche documentali, dichiarandolo. |
+| D-022 | approvata | Applicare le proposte della revisione del 20/10/2026: firmware 0.3.1 (PID OBD prioritari, pausa KWP ridotta sopra P3min, SPI MicroSD configurabile, predefinita 1 MHz); K-line rev E con isteresi R10; verifiche VAN bloccanti prima del collegamento; prove a banco P-001/P-002 su interruzione e calo di tensione; controllo NVS del backup. | Utente 20/10/2026: "procedere con tutto quello che hai scritto, aggiornando il Git". Non è collaudo: 0.3.1 non caricata, rev E non montata, verifiche VAN e P-001/P-002 non eseguite. D-013, D-015, D-016 restano valide. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -163,6 +164,7 @@ PSRAM della scheda da 5″ dovranno essere verificati.
 
 Il data logger dispone di un primo [firmware diagnostico per il solo ESP32](data-logger/firmware/diagnostic/README.md),
 con configurazione PlatformIO. Non acquisisce ancora dati dal veicolo.
+Sorgenti logger aggiornati alla 0.3.1 (D-022), solo compilata; sulla scheda resta la 0.3.0.
 Il [logger 0.3.0](data-logger/firmware/logger/README.md) implementa registrazione
 MicroSD, RTC, OLED, STOP, OBD KWP e ricezione VAN. Profili banco/veicolo separati;
 sorgenti e GPIO proposti, non collaudati sul veicolo. Profilo banco 0.3.0 caricato e avviato il 20/10/2026: ATTESA SD
@@ -185,7 +187,7 @@ i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veico
 ### Interfaccia K-line autocostruita
 
 Scelta D-013: [schema e distinta del prototipo a banco](data-logger/docs/kline-autocostruita.md),
-rev D. NPN e comparatore, calcoli DC verificati; non montato o collaudato.
+rev E (isteresi R10, D-022). NPN e comparatore, calcoli DC verificati; non montato o collaudato.
 Installazione auto e protezioni ancora da progettare.
 
 ### Logger temporaneo: arresto manuale

@@ -83,6 +83,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Resistenza 120 ohm apparentemente fissa: da misurare; non aggiungere terminazione al bus auto senza verifica
 - Possibile uso col controller TWAI interno ESP32: scelta subordinata a verifica elettrica
 - Candidato per ricezione fisica VAN con decoder software ESP32: applicazione documentata dal progetto VanBus, non collaudata su questo modulo o veicolo. Prima verificare alimentazione 3,3 V, assenza di terminazione aggiunta, livelli e inibizione hardware TX. Non usare il controller MCP2515 come decoder VAN.
+- BLOCCANTE prima del collegamento VAN (D-022): terminazione 120 ohm scollegata e H-L misurata non circa 120 ohm; TX modulo collegato a 3V3, mai flottante o a GPIO; differenziale H-L recessivo a banco. Procedura in docs/protocolli-veicolo.md; nessun punto eseguito.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
@@ -102,6 +103,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Quantità, modello e serigrafie del materiale ricevuto
 - Alimentazione, livelli SPI e picchi di corrente
 - Saldare la strip pin prima del collegamento; modulo escluso dalla prima prova USB senza SD del 20/10/2026.
+- Prove a banco P-001 (interruzione senza STOP, 20-30 volte) e P-002 (calo tensione da avviamento) prima dell'auto, D-022; procedura in docs/alimentazione-spegnimento.md. Frequenza SPI oltre 1 MHz non collaudata.
 
 ### HW-RTC — RTC DS3231SN con AT24C32 e portabatteria sul retro da verificare
 
@@ -260,7 +262,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale. Revisione B 18/10/2026: schema completo U1 e distinta sul foglio; pinout TI SLCS005AH sezione 4. Corretto contenitore LM2903B: SOIC-8 con adattatore DIP-8, non PDIP-8. Nessun acquisto o collaudo aggiuntivo. Revisione C, D-018: eliminato JP1; R3 510 ohm solo nel simulatore esterno da banco, non nel modulo. Nessun nuovo acquisto o collaudo. Revisione D: evidenziate porte TX ingresso, RX uscita e K-line bidirezionale; nessuna variazione elettrica.
+**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale. Revisione B 18/10/2026: schema completo U1 e distinta sul foglio; pinout TI SLCS005AH sezione 4. Corretto contenitore LM2903B: SOIC-8 con adattatore DIP-8, non PDIP-8. Nessun acquisto o collaudo aggiuntivo. Revisione C, D-018: eliminato JP1; R3 510 ohm solo nel simulatore esterno da banco, non nel modulo. Nessun nuovo acquisto o collaudo. Revisione D: evidenziate porte TX ingresso, RX uscita e K-line bidirezionale; nessuna variazione elettrica. Revisione E 20/10/2026, D-022: R10 330 kohm 1% da OUT1 a IN1+ per isteresi 0,545-0,721 V sulla linea K (modello DC); possesso di R10 non confermato, nessun collaudo.
 
 **Verifiche documentate:**
 
@@ -271,7 +273,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possesso e ordine dei singoli componenti non confermati; distinta di costruzione in docs/kline-autocostruita.md.
 - Verifica montaggio, pin transistor secondo produttore, assenza corti e alimentazioni su banco limitato in corrente; alimentatore banco non confermato.
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
-- Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev D e solo da banco.
+- Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev E e solo da banco.
 
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
 

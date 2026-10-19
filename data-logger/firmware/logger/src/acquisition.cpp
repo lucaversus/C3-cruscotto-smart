@@ -202,16 +202,20 @@ void kwpTask(void *) {
     if (!discovered) { ++capture.kwpErrors; systemRecord("pid_discovery_failed"); releaseKline(); sleepUntilStop(5000); continue; }
     unsigned errors = 0;
     bool any = false;
-    for (unsigned pid = 1; pid < 256; ++pid) any |= supported[pid] && pid % 32;
+    for (unsigned pid = 1; pid < 256; ++pid) any |= logger::isLivePid(supported, pid);
     if (!any) { systemRecord("no_live_pids"); releaseKline(); sleepUntilStop(5000); continue; }
+    auto poll = [&](unsigned pid) {
+      sleepUntilStop(logger::kKwpRequestGapMs);
+      if (capture.stop) return;
+      if (sendKwp(0x01, pid, false) && receiveKwp(false, pid, nullptr)) errors = 0;
+      else { ++errors; ++capture.kwpErrors; systemRecord("pid_timeout", (ecu << 8) | pid); }
+    };
+    unsigned slowCursor = 0;
     while (!capture.stop && errors < 3) {
-      for (unsigned pid = 1; pid < 256 && !capture.stop && errors < 3; ++pid) {
-        if (!supported[pid] || pid % 32 == 0) continue;
-        sleepUntilStop(250);
-        if (capture.stop) break;
-        if (sendKwp(0x01, pid, false) && receiveKwp(false, pid, nullptr)) errors = 0;
-        else { ++errors; ++capture.kwpErrors; systemRecord("pid_timeout", (ecu << 8) | pid); }
-      }
+      for (uint8_t pid : logger::kPriorityPids)
+        if (!capture.stop && errors < 3 && logger::isLivePid(supported, pid)) poll(pid);
+      const unsigned slow = logger::nextSlowPid(supported, slowCursor);
+      if (slow && !capture.stop && errors < 3) { slowCursor = slow; poll(slow); }
     }
     releaseKline();
   }
