@@ -14,10 +14,15 @@ $pythonExe = Join-Path $projectRoot '.tools/pio-venv/Scripts/python.exe'
 $firmwareFolder = Join-Path $projectRoot 'data-logger/firmware/logger'
 $serialFolder = Join-Path $projectRoot '.tools/serial'
 if (-not (Test-Path -LiteralPath $pythonExe)) {
-    throw "Runtime PlatformIO locale assente: $pythonExe"
+    throw "Runtime PlatformIO locale assente: $pythonExe. Dalla radice eseguire: python tools/dev.py setup"
 }
 New-Item -ItemType Directory -Path $serialFolder -Force | Out-Null
-$env:PLATFORMIO_CORE_DIR = Join-Path $env:USERPROFILE 'Documents/Codex/pio-c3'
+$projectPaths = & $pythonExe (Join-Path $PSScriptRoot 'dev.py') paths | ConvertFrom-Json
+if ($LASTEXITCODE -ne 0) { throw 'Configurazione percorsi PlatformIO non riuscita' }
+$env:PLATFORMIO_CORE_DIR = $projectPaths.PLATFORMIO_CORE_DIR
+if ($projectPaths.PLATFORMIO_WORKSPACE_DIR) {
+    $env:PLATFORMIO_WORKSPACE_DIR = $projectPaths.PLATFORMIO_WORKSPACE_DIR
+}
 $env:PYTHONUNBUFFERED = '1'
 $Host.UI.RawUI.WindowTitle = "C3+AI - Caricamento e monitor $Porta"
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'

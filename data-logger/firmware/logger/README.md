@@ -121,9 +121,15 @@ PlatformIO 6.1.18, Espressif32 6.12.0, Arduino-ESP32 2.0.17, C++14.
 SdFat 2.3.1 e U8g2 Arduino 2.37.1 fissate a commit in platformio.ini;
 licenze e provenienza in [THIRD_PARTY.md](THIRD_PARTY.md).
 
-```powershell
-$env:PLATFORMIO_CORE_DIR = Join-Path $env:USERPROFILE 'Documents/Codex/pio-c3'
-& .tools/pio-venv/Scripts/python.exe -m platformio run --project-dir data-logger/firmware/logger -e esp32-hw394-logger -e esp32-hw394-vehicle
+Su un clone nuovo eseguire prima `python tools/dev.py setup` dalla radice;
+poi `python tools/dev.py check` e `python tools/dev.py build`.
+I comandi funzionano su Windows/Linux/macOS senza attivazione manuale della venv.
+Dettagli e prerequisiti in [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+Usare lo stesso ingresso portabile anche sull'ambiente locale esistente:
+
+```text
+python tools/dev.py check
+python tools/dev.py build
 ```
 
 `calendar_checks.cpp` e `logic_checks.cpp` esercitano il codice realmente usato:

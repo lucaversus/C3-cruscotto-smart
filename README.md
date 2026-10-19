@@ -7,6 +7,8 @@ Prima di acquisti, firmware, schemi o collegamenti leggere questa sezione,
 [lo stato del Data Logger](data-logger/README.md) e la
 [procedura di aggiornamento](data-logger/docs/procedura-progetto.md).
 Le istruzioni per gli agenti sono in [AGENTS.md](AGENTS.md).
+Per iniziare da un clone nuovo, su un altro PC o con un altro agente, seguire
+[CONTRIBUTING.md](CONTRIBUTING.md): setup, check e build riproducibili.
 
 L'inventario sorgente è [hardware.json](data-logger/docs/hardware.json);
 la vista Markdown è generata per evitare due elenchi divergenti.

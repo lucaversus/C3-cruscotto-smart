@@ -1,7 +1,7 @@
 # Documentazione del data logger
 
-Questa cartella raccoglierà requisiti, scelte hardware, collegamenti,
-formato delle registrazioni e procedure di collaudo quando saranno definiti.
+Questa cartella raccoglie inventario, collegamenti, protocolli e prove reali.
+Per preparare un altro PC o agente seguire [CONTRIBUTING.md](../../CONTRIBUTING.md).
 
 Per lo stato attuale vedere il [README del sottoprogetto](../README.md).
 
@@ -10,16 +10,22 @@ Per lo stato attuale vedere il [README del sottoprogetto](../README.md).
 - [Inventario hardware](hardware-inventory.md), generato da [hardware.json](hardware.json).
 - [Foto hardware archiviate](hardware-photos/README.md), con nomi stabili e SHA-256.
 - [Registro verifiche MCP2515](collaudo-mcp2515.md), con risultati distinti dalle prove ancora da fare.
+- [Registro moduli e avvio logger](verifiche-moduli.md): SD/RTC, caricamento e stato osservato.
+- [Biblioteca tecnica del veicolo](../../docs/manuali/indice.md): riferimenti e limiti delle fonti.
 - [Decisioni definitive nel README principale](../../README.md#decisioni-definitive).
 - [Procedura di continuità e aggiornamento](procedura-progetto.md).
 
-I moduli HW-CAN-MCP2515 e HW-CAN-VP230 sono già presenti dichiarati:
-verificarli prima di proporre altri acquisti. RTC, MicroSD e OLED sono ordinati,
-non ancora ricevuti. Il controllo `python tools/project_preflight.py` dalla radice
-verifica coerenza dei registri e della proposta GPIO; 11 test di regressione
-eseguiti con esito positivo. Non certifica l'hardware.
-L'archivio fotografico aggiunge controlli di presenza e impronta dei file:
-la suite aggiornata contiene 13 test.
+Per disponibilita e consegna dei moduli fa fede l'inventario, non le note storiche
+dei disegni. RTC, lettore MicroSD e OLED sono ricevuti e fotografati; il lettore
+SD resta da collegare dopo saldatura dei pin. I due moduli CAN sono gia presenti:
+non proporre acquisti sostitutivi senza consultarne le verifiche aperte.
+Il profilo banco logger 0.3.0 e stato caricato e avviato; esiti e limiti sono nel
+registro moduli. Compilazione o raggiungibilita I2C non equivalgono a collaudo completo.
+
+`python tools/dev.py check` controlla inventario, impronte delle foto, GPIO e
+test di regressione. `python tools/dev.py build` compila entrambi i profili.
+La suite si trova in `tools/tests`; non duplicare qui un conteggio destinato a cambiare.
+I controlli software non certificano l'hardware.
 
 ## Hardware verificato
 
@@ -27,14 +33,18 @@ la suite aggiornata contiene 13 test.
 
 ## Schema del sistema
 
-- [Schema elettrico di collegamento Rev. D](schema-collegamenti.svg),
+- **Collegamenti correnti per firmware 0.3.0:** [EL-003 rev. A](collegamenti-banco-030.md),
+  con [SVG](collegamenti-banco-030.svg) e [PNG](collegamenti-banco-030.png).
+  Banco USB: SD, RTC, OLED, STOP GPIO32. GPIO33 inutilizzato; OBD/VAN scollegati.
+  Mappa GPIO proposta coerente con `hardware.json` e `config.h`, non validazione fisica.
+- **Disegno storico:** [schema di collegamento Rev. D](schema-collegamenti.svg),
   con [anteprima PNG](schema-collegamenti.png): proposta pin per pin a livello
   di moduli, per alimentazione USB a banco. Fili continui collegano i terminali;
   un punto pieno indica una giunzione, gli incroci senza punto non sono collegati.
   Non è ancora validato sul materiale ricevuto.
   GPIO21/22 per I2C, GPIO18/23/19 per SPI, GPIO27 per CS MicroSD,
-  GPIO32/33 per pulsanti opzionali sono scelte nuove di progetto, non
-  collegamenti già realizzati o configurati nel firmware 0.1.0.
+  GPIO32/33 per pulsanti opzionali appartengono alla proposta iniziale;
+  non usarli per dedurre il comportamento del firmware 0.3.0.
   I riferimenti MicroSD Create idea e RTC TECNOIOT provengono dalle
   raccomandazioni precedenti, confermate dall'utente come componenti ordinati;
   non da una verifica dei moduli consegnati. Il modello OLED resta da riscontrare.
@@ -49,8 +59,8 @@ le pull-up I2C, la corrente del regolatore e i picchi MicroSD. Non applicare
 
 - [Schema funzionale SVG modificabile](schema-sistema.svg): componenti previsti,
   interfacce e alimentazione. È preliminare: non è uno schema elettrico
-  esecutivo e non assegna pin. Solo ESP32 e diagnostica seriale sono verificati;
-  moduli, rete BSI, parametri CAN OBD e protezioni richiedono ulteriori verifiche.
+  esecutivo e non assegna pin. Per stato hardware e versione sulla scheda consultare
+  inventario e registro moduli; reti del veicolo e protezioni restano da verificare.
 
 ## Formato dei documenti visivi
 

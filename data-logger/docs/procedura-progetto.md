@@ -86,8 +86,9 @@ sono verificabili con `python -m unittest discover -s tools/tests -v`.
 
 Conservare cache e output firmware esclusi da Git. Versionare sorgenti, schemi,
 anteprime, inventario e documenti; non inserire token, VIN completo o dati personali.
-Pubblicare solo quanto autorizzato; la richiesta attuale autorizza il salvataggio
-su GitHub del lavoro di progetto già prodotto e dei nuovi registri.
+Pubblicare solo quanto autorizzato dall'utente nella sessione pertinente.
+Una precedente pubblicazione non autorizza automaticamente lavoro estraneo o
+modifiche di altri agenti presenti nel checkout.
 Usare commit descrittivi senza force-push, verificare ref remoto e corrispondenza
 del tree locale. Un commit locale, un fetch vecchio o il messaggio di un comando
 non bastano da soli a dichiarare che tutto è pubblicato.
@@ -113,3 +114,13 @@ seriale. Usare tools/carica-logger-visibile.ps1 in una finestra visibile, profil
 banco predefinito; non aprire contemporaneamente altri monitor sulla stessa porta.
 Lo script conserva log locali sotto .tools/serial e apre il monitor soltanto
 dopo upload riuscito. Nessuna modifica ai criteri PowerShell permanenti.
+
+## Ripresa da un altro agente — 20/10/2026
+
+L'ingresso portabile e [CONTRIBUTING.md](../../CONTRIBUTING.md).
+`python tools/dev.py setup` ricrea gli strumenti ignorati da Git;
+`python tools/dev.py check` e `python tools/dev.py build` sono condivisi con la CI.
+Le fonti del progetto sostituiscono il bisogno di una precedente chat o di skill locali.
+Con lavoro contemporaneo coordinare file o checkout prima di scrivere, preservando
+modifiche altrui. La pipeline compila ma non carica, non imposta l'RTC e non esegue
+collaudi sul veicolo.

@@ -1,5 +1,9 @@
 # Istruzioni permanenti — Cruscotto C3+AI
 
+Per un clone nuovo o un altro PC leggere [CONTRIBUTING.md](CONTRIBUTING.md):
+setup portabile, comandi check/build, mappa delle fonti e coordinamento tra agenti.
+Non dipendere da skill o ambienti installati soltanto sul PC di Luca.
+
 ## Consultazione obbligatoria, prima di decidere
 
 Applicare la consultazione senza ripetizioni inutili: leggere le fonti all'inizio
