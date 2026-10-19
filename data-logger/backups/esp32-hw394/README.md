@@ -38,3 +38,19 @@ La verifica conferma l'integrità del trasferimento, non la validità del firmwa
 Non sono state eseguite una seconda lettura indipendente o una prova di ripristino.
 L'archivio copre la flash SPI, non eFuse o altre memorie, e non è un'immagine
 universale per schede diverse.
+
+## Controllo contenuti NVS — 20/10/2026 (D-022)
+
+Analisi in sola lettura della tabella partizioni (0x8000) e della partizione
+`nvs` (0x12000, 56 KiB, due pagine usate) del file archiviato, senza modificarlo.
+Partizioni presenti: `phy_init`, `otadata`, `nvs`, `at_customize`, `ota_0`, `ota_1`,
+compatibili con un firmware ESP-AT preinstallato (identificazione non certificata).
+
+- `sta.ssid`, `sta.pswd`, `sta.pmk`, `sta.bssid`, `sta.apinfo`, `ap.ssid`,
+  `ap.passwd`, `ap.pmk`: presenti come chiavi ma con contenuto interamente vuoto.
+- Valori non vuoti: parametri UART del firmware AT, dati di calibrazione radio
+  (`cal_data`) e indirizzi MAC della scheda (`cal_mac`, `sta.mac`, `ap.mac`).
+
+Conclusione: nessuna credenziale o dato personale rilevato. Il MAC identifica la
+sola scheda ed è comunque leggibile dagli eFuse; la pubblicazione resta invariata.
+SHA-256 del file non cambiato.

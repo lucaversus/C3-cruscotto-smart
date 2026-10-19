@@ -1,8 +1,13 @@
-# Data Logger — firmware 0.3.0
+# Data Logger — firmware 0.3.1
 
 Progetto **Cruscotto C3+AI**, sottoprogetto **Data Logger**. Revisione software
-19/10/2026. Implementazione per HW-ESP32; compilazione distinta dal caricamento
-e dal collaudo. Dal 20/10/2026 sulla scheda e caricata la 0.3.0 banco, con avvio seriale verificato.
+20/10/2026 (0.3.1, D-022). Implementazione per HW-ESP32; compilazione distinta dal caricamento
+e dal collaudo. Dal 20/10/2026 sulla scheda e caricata la 0.3.0 banco, con avvio seriale verificato;
+la 0.3.1 non e caricata.
+
+Novita 0.3.1 rispetto alla 0.3.0: pianificazione OBD con PID prioritari e pausa
+ridotta fra richieste; frequenza SPI della MicroSD impostabile in compilazione e
+registrata nel file. Profilo banco invariato nel comportamento, salvo la riga `sd_spi_hz`.
 
 ## Funzionamento
 
@@ -47,7 +52,7 @@ rev. A: SD, RTC, OLED e STOP, senza connessioni al veicolo.
 | CS MCP2515 eventuale sullo stesso SPI, mantenuto HIGH | 26 |
 
 Configurazione unica in `include/config.h`, riscontrata dal preflight con
-`hardware.json`. I2C 100 kHz, SPI 1 MHz. Sono assegnazioni firmware proposte,
+`hardware.json`. I2C 100 kHz, SPI MicroSD 1 MHz predefinita (vedi sotto). Sono assegnazioni firmware proposte,
 non una verifica di cablaggio né pin del connettore auto. Lo schema generale
 storico rimane illustrativo: per questa release vale la tabella, GPIO33 inutilizzato.
 Le verifiche fisiche sono a cura dell'utente (D-020); nessun loro esito è presunto.
@@ -59,8 +64,14 @@ RTC: rimozione resistenza 201 scelta in D-019, esecuzione ancora non confermata.
 D-013 (2N5551 + LM2903B), non per collegamento diretto. Fast init 25/25 ms,
 StartCommunication funzionale indirizzo 0x33; apprende l'indirizzo ECU dalla
 risposta valida. Intervalli temporali da verificare sull'interfaccia assemblata.
-Richiede eco TX coerente. Scopre le bitmap dei PID mode 01 e interroga tutti
-quelli dichiarati, esclusi i PID bitmap, con pausa 250 ms fra richieste.
+Richiede eco TX coerente. Scopre le bitmap dei PID mode 01. A ogni giro interroga
+i PID prioritari dichiarati supportati (0x0C giri, 0x0D velocita, 0x04 carico,
+0x0B MAP, 0x10 portata aria, 0x23 pressione rail) e poi uno solo degli altri
+PID supportati, a rotazione; i PID bitmap sono esclusi. Pausa fra richieste:
+attesa di 60 ms dopo l'ultimo byte di risposta piu 40 ms (`kKwpRequestGapMs`),
+quindi sopra il P3min ISO 14230 di 55 ms; nella 0.3.0 erano 250 ms. Con N PID
+prioritari supportati, ciascuno viene letto circa ogni N+1 richieste invece che
+ogni giro completo. Tempi reali della centralina ancora da misurare.
 Dopo tre errori consecutivi riconnette. Registra anche risposte negative,
 sconosciute, frammenti e checksum errati. Decodifica carico, farfalla, livello
 carburante, temperature, pressioni, giri, velocità, portata aria e tensione
@@ -78,6 +89,22 @@ terminazione aggiunta alla rete: il software non può garantire questa condizion
 Non promette di registrare ogni segnale o ogni pacchetto: RMT, buffer e SD hanno
 limiti; overflow della coda è contato, perdite prima della coda non sono quantificate.
 Timestamp VAN alla consegna RMT, non al SOF. Non conserva le forme d'onda originali.
+
+## Frequenza SPI MicroSD
+
+Predefinita 1 MHz, valore prudente da banco. Si cambia solo in compilazione,
+entro 0,4-25 MHz (controllo `static_assert`), per esempio:
+
+```text
+PLATFORMIO_BUILD_FLAGS=-DLOGGER_SD_SPI_HZ=10000000 python tools/dev.py build
+```
+
+All'avvio la seriale riporta `sd_spi_hz=` e il CSV registra l'evento di sistema
+`sd_spi_hz` con il valore nel campo `id`. Procedura di innalzamento: prima
+completare a banco la prova di scrittura a 1 MHz, poi 4, 10 e 20 MHz con cavi
+corti, controllando `queue_dropped`, errori `write_failed` e chiusura SALVATO.
+Adottare il valore piu alto stabile con margine, registrandolo nel registro moduli.
+Nessuna frequenza superiore a 1 MHz e collaudata.
 
 ## Comandi seriali (Invio)
 
@@ -140,6 +167,7 @@ Collaudi completi di registrazione SD, sorgenti veicolo e spegnimento fisico anc
 da eseguire; avvio a banco e raggiungibilita RTC verificati il 20/10/2026.
 Il 20/10/2026 e stata caricata la 0.3.0 banco su COM3 con hash verificati,
 avvio ATTESA SD e RTC oscillator_stop; modulo SD ancora scollegato.
+La 0.3.1 e verificata soltanto in compilazione (vedi VERIFICA.md).
 
 ## Caricamento con terminale visibile
 

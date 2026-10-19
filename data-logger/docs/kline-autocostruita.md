@@ -1,6 +1,6 @@
 # K-line autocostruita — Cruscotto C3+AI / Data Logger
 
-Revisione D, 18/10/2026. Disegno C3AI-DL-KL-001, rev D.
+Revisione E, 20/10/2026. Disegno C3AI-DL-KL-001, rev E (D-022: isteresi R10).
 **Prototipo da banco non collaudato: nessun collegamento al veicolo.**
 Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
 il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
@@ -9,7 +9,8 @@ il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
 
 NPN 2N5551 per portare K a massa (trasmissione); comparatore LM2903B
 per ricevere con soglia riferita alla tensione della linea, invece della
-soglia base-emettitore di un secondo transistor. Ricevitore a 5 V con
+soglia base-emettitore di un secondo transistor. R10 in retroazione positiva
+introduce isteresi, per evitare commutazioni multiple sui fronti lenti della K-line. Ricevitore a 5 V con
 uscita open collector e pull-up a 3,3 V. Masse comuni, nessun optoisolamento.
 Non usare PC817 come sostituto diretto. Non usa MCP2515 o CAN.
 
@@ -33,6 +34,7 @@ se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 | R6 | 1 | 150 kohm, 0,25 W, 1% | Riferimento VBENCH |
 | R8 | 1 | 4,7 kohm, 0,25 W, 1% | Pull-up RX a 3V3 |
 | R9 | 1 | 1 kohm, 0,25 W | Serie RX ESP32 |
+| R10 | 1 | 330 kohm, 0,25 W, 1% | Retroazione OUT1 → IN1+, isteresi (rev E) |
 | C1 | 1 | 100 nF ceramico | Bypass U1, vicino ai pin 8/4 |
 | C2 | 1 | 10 microfarad, 16 V | Positivo su +5 V, negativo a GND |
 | Montaggio | 1 insieme | Adattatore SOIC-8 → DIP-8, zoccolo DIP-8, millefori, morsetti e fili | Saldature e piedinatura da controllare |
@@ -60,6 +62,7 @@ fisica dei transistor come se fossero universali fra produttori.
 | U1A pin 1 (out) | RX_RAW |
 | R8 | 3V3 — RX_RAW |
 | R9 | RX_RAW — RX_3V3 |
+| R10 | RX_RAW — VSENSE (U1A pin 1 — pin 3) |
 | U1 pin 8, pin 4 | +5V, GND rispettivamente |
 | U1B pin 5, pin 6, pin 7 | GND, VREF, non collegato rispettivamente |
 | C1, C2 | Fra +5V e GND (polarita C2 come distinta) |
@@ -92,10 +95,14 @@ La revisione per l'auto richiede uno studio dedicato del circuito protetto.
 
 `python data-logger/docs/tools/genera-kline-banco.py` rigenera lo schema e
 verifica un modello DC a estremi delle resistenze, non una simulazione SPICE.
-Con resistori dei partitori all'1% e offset assunto +/-3 mV, VBENCH 9-16 V:
+Con resistori all'1% (partitori, R8 e R10), offset assunto +/-3 mV, 3V3 a
+3,135-3,465 V, uscita bassa 0-0,4 V e VBENCH 9-16 V (rev E):
 
-- soglia nominale K = 0,4875 VBENCH, estremi calcolati 0,4676-0,5081 VBENCH;
-- massimo ingresso comparatore 2,087 V, sotto 4,75-2 V;
+- soglia in discesa della linea (uscita alta) 0,4018-0,4801 VBENCH;
+- soglia in salita (uscita bassa) 0,4710-0,5216 VBENCH; tutte entro 0,3-0,7 VBENCH;
+- isteresi riferita alla linea K 0,545-0,721 V, indipendente da VBENCH
+  (circa 3,3 V × R4 / (R10 + R8)); in rev D era assente;
+- massimo ingresso comparatore 2,123 V, sotto 4,75-2 V;
 - beta forzato massimo calcolato circa 8,51 con TX minimo assunto 2,5 V,
   VBE massimo assunto 1,2 V e tolleranze resistenze base;
 - R3 massimo calcolato 0,507 W a 16 V: selezionata 1 W per il banco.
@@ -136,6 +143,18 @@ alla linea simulata come alla linea della vettura, con alimentazioni e masse
 corrette. Il solo richiamo resistivo simula il carico statico, non risposte ECU,
 disturbi o transitori della vettura; non costituisce collaudo KWP completo.
 In auto non montare R3 aggiuntiva senza riscontro del richiamo gia presente.
+
+## Revisione E — isteresi del comparatore, 20/10/2026
+
+D-022. Aggiunta R10 330 kohm 1% tra uscita OUT1 (pin 1, nodo RX_RAW) e
+ingresso IN1+ (pin 3, VSENSE). Senza retroazione, rumore e fronti lenti della
+linea (richiamo resistivo e capacita del cablaggio) potevano far oscillare
+l'uscita durante la transizione e produrre byte spuri o errori di framing.
+Il generatore verifica soglie e isteresi agli estremi delle tolleranze; resta un
+modello DC, senza tempi di propagazione, rumore reale o carico dell'ingresso ESP32.
+Primo controllo aggiuntivo al montaggio: con il simulatore da banco, rampa lenta
+della linea K e verifica che RX_3V3 cambi stato una sola volta per ciascun fronte.
+Nessun altro collegamento o valore modificato; componenti non confermati.
 
 ## Revisione D — porte esterne evidenziate
 

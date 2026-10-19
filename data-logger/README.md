@@ -89,6 +89,8 @@ Il [logger 0.3.0](firmware/logger/README.md) implementa avvio automatico,
 MicroSD con rotazione e verifica di chiusura, DS3231, OLED e pulsante STOP.
 Il profilo veicolo aggiunge OBD KWP fast init e ricezione VAN con salvataggio
 anche dei byte non interpretati. Profili/GPIO proposti descritti nel README firmware.
+Sorgenti aggiornati alla [0.3.1](firmware/logger/README.md) (D-022): PID OBD
+prioritari, pausa KWP ridotta e SPI MicroSD configurabile; solo compilata, non caricata.
 Profilo banco 0.3.0 caricato e avviato il 20/10/2026 su COM3: ATTESA SD
 (modulo scollegato) e RTC oscillator_stop; ora non ancora impostata.
 Lettore SD, OLED e RTC ricevuti il 19/10/2026; verifiche hardware a cura dell'utente
@@ -121,7 +123,7 @@ e cablaggio posteriore OBD non ancora rilasciati per acquisto/installazione.
 
 ## K-line autocostruita
 
-Scelta D-013 registrata: [circuito a banco rev D](docs/kline-autocostruita.md),
+Scelta D-013 registrata: [circuito a banco rev E](docs/kline-autocostruita.md), isteresi R10 (D-022),
 NPN 2N5551 e comparatore LM2903B. UART 10400 con solo TX invertito.
 Schema e modello DC prodotti; componenti non confermati, nessun montaggio,
 collaudo. Driver K-line implementato nella 0.3.0, non ancora caricato.

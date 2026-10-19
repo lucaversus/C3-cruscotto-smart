@@ -28,6 +28,7 @@ chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 | 1 ciascuna | Resistenze 68 kohm, 150 kohm e 4,7 kohm, 0,25 W, 1% | K-line |
 | 2 | Resistenze 10 kohm, 0,25 W, 1% | K-line |
 | 1 | Resistenza 1 kohm, 0,25 W | K-line |
+| 1 | Resistenza 330 kohm, 0,25 W, 1% | K-line, isteresi R10 (rev E) |
 | 1 ciascuno | Condensatore ceramico 100 nF ed elettrolitico 10 microfarad, 16 V | Alimentazione a 5 V del ricevitore |
 | 1 | Basetta millefori | Montaggio interfaccia K-line |
 | 1 insieme | Morsetti, filo flessibile per segnali e alimentazione, guaina termorestringente e fascette | Lunghezze dipendenti dalla collocazione; niente acquisto di controconnettori presunti |
@@ -199,7 +200,7 @@ Riferimenti: [progetto dell'autore con schemi alternativi](https://github.com/mu
 
 Il 18/10/2026 l’utente sceglie circuito autocostruito. Le precedenti proposte
 MIKROE/Freematics restano tracciate, non sono acquisti o materiale posseduto.
-La soluzione tecnica corrente è [prototipo NPN + comparatore, rev A](kline-autocostruita.md).
+La soluzione tecnica corrente è [prototipo NPN + comparatore, rev E](kline-autocostruita.md).
 Distinta componenti per banco e schema con cartiglio allegati; progetto auto
 protetto e collaudi ancora aperti. Due soli NPN e PC817 non sono la soluzione
 implementata nel disegno.

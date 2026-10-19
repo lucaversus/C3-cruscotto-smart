@@ -105,3 +105,26 @@ dall'autore di [VanBus](https://github.com/0xCAFEDECAF/VanBus#-schematics).
 Non è una certificazione TI di compatibilità VAN né un collaudo sul nostro modulo.
 Controllare resistenza di terminazione, livelli, protezioni e inibizione del
 trasmettitore prima dell'uso. Non ordinare un secondo modulo VAN ora.
+
+## Prerequisiti bloccanti per l'ascolto VAN — 20/10/2026 (D-022)
+
+Prima di collegare HW-CAN-VP230 alla linea dietro al quadro (D-016, D-017), tutti
+i punti seguenti devono risultare superati e registrati in `verifiche-moduli.md`.
+Se uno manca, il collegamento non si esegue. Motivo: il bus VAN comfort serve
+quadro, display e radio; un carico o un trasmettitore attivo possono disturbarli.
+
+1. **Terminazione rimossa.** La resistenza marcata 121 (120 ohm) del modulo, se
+   collegata tra H e L, va scollegata. A modulo non alimentato, misurare H-L:
+   valore atteso nell'ordine dei kohm o superiore, non circa 120 ohm.
+2. **Trasmettitore inibito in hardware.** Il pin TX del modulo (ingresso D del
+   transceiver) collegato direttamente a 3V3 del modulo, mai flottante e mai a un
+   GPIO ESP32. Verificare continuità TX-3V3 a modulo non alimentato.
+3. **Stato recessivo a banco.** Modulo alimentato a 3,3 V, H e L scollegati da
+   qualsiasi bus: tensione differenziale H-L prossima a 0 V (recessivo). Un valore
+   dell'ordine di 2 V indica driver attivo: non collegare.
+4. **Uscita RX.** Livello a 3,3 V sul pin RX verso GPIO34; nessuna tensione oltre 3,3 V.
+5. **Punto di collegamento identificato** su fonte documentale della variante
+   (biblioteca tecnica) e conferma elettrica, come richiesto da D-008.
+
+Il firmware non trasmette su VAN, ma non può garantire queste condizioni:
+sono verifiche fisiche a cura dell'utente (D-020). Nessuna di esse risulta eseguita.

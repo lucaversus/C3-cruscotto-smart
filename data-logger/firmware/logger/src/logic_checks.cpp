@@ -60,6 +60,17 @@ constexpr bool vanBounded() {
   return d.length == 64 && d.overflow;
 }
 constexpr bool badPulse() { logger::VanDecoder d; d.pulse(true, 65535, 8, false); return d.timingError && d.length == 0; }
+constexpr bool slowRotationSkipsPriority() {
+  bool s[256] = {}; s[0x05] = s[0x0c] = s[0x20] = s[0x2f] = true;
+  return logger::nextSlowPid(s, 0) == 0x05 && logger::nextSlowPid(s, 0x05) == 0x2f &&
+         logger::nextSlowPid(s, 0x2f) == 0x05 && logger::nextSlowPid(s, 255) == 0x05;
+}
+constexpr bool noSlowPid() {
+  bool s[256] = {}; s[0x0c] = s[0x0d] = s[0x40] = true;
+  return logger::nextSlowPid(s, 0) == 0 && logger::isLivePid(s, 0x0c) && !logger::isLivePid(s, 0x40);
+}
+static_assert(slowRotationSkipsPriority(), "Slow PID rotation wrong");
+static_assert(noSlowPid(), "Bitmap or priority PID treated as slow PID");
 static_assert(stopBounceAndLatch(), "STOP debounce/release restarted acquisition");
 static_assert(stopAtBoot(), "Held STOP at boot must latch");
 static_assert(stopWrap(), "STOP millis wraparound failed");

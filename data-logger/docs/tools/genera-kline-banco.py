@@ -4,23 +4,41 @@ from itertools import product
 
 ROOT = Path(__file__).resolve().parents[1]
 # Static bounds only: no SPICE simulation, dynamic or automotive qualification.
-thresholds=[]
-for a,b,c,d in product((.99,1.01), repeat=4):
-    ak=10000*b/(68000*a+10000*b)
-    ar=10000*d/(150000*c+10000*d)
+# Rev. E: R10 positive feedback from OUT1 (pin 1) to IN1+ (VSENSE) gives hysteresis.
+# Output high = R8 pull-up to 3V3 (3.135-3.465 V); output low = 0-0.4 V (LM2903B VOL).
+# Thresholds are the K voltages at which VSENSE crosses VREF in each output state.
+R10=330000
+def vsense(k,r4,r5,r10,vout,r8=None):
+    # Node VSENSE fed by K through R4, GND through R5, output through R10.
+    # Output high: R8 to 3V3 in series with R10 (ESP32 input through R9 neglected).
+    rfb=r10+(r8 or 0)
+    return (k/r4+vout/rfb)/(1/r4+1/r5+1/rfb)
+def k_at(vref,r4,r5,r10,vout,r8=None):
+    rfb=r10+(r8 or 0)
+    return (vref*(1/r4+1/r5+1/rfb)-vout/rfb)*r4
+falling=[];rising=[];hyst=[]
+for a,b,c,d,e,f in product((.99,1.01), repeat=6):
+    r4,r5,r6,r7,r10,r8=68000*a,10000*b,150000*c,10000*d,R10*e,4700*f
     for supply in (9,16):
+        vref=supply*r7/(r6+r7)
         for offset in (-.003,.003):
-            thresholds.append((supply*ar+offset)/(supply*ak))
+            for v3 in (3.135,3.465):
+                for vol in (0,.4):
+                    kl=k_at(vref+offset,r4,r5,r10,v3,r8)   # K falling, output high
+                    kh=k_at(vref+offset,r4,r5,r10,vol)     # K rising, output low
+                    falling.append(kl/supply);rising.append(kh/supply);hyst.append(kh-kl)
+thresholds=falling+rising
 assert min(thresholds)>.3 and max(thresholds)<.7
-max_input=16*10100/(67320+10100)
+assert min(hyst)>.4, 'hysteresis below 0.4 V at K'
+max_input=vsense(16,67320,10100,R10*.99,3.465,4700*.99)
 assert max_input < 4.75-2
 base_min=(2.5-1.2)/(330*1.05)-1.2/(47000*.95)
 collector_max=16/(510*.99)
 assert collector_max/base_min<10
-print(f"DC model: threshold/VBAT={min(thresholds):.4f}..{max(thresholds):.4f}; input_max={max_input:.3f}V; forced_beta_max={collector_max/base_min:.2f}; R3_power_max={16**2/(510*.99):.3f}W")
+print(f"DC model: falling/VBAT={min(falling):.4f}..{max(falling):.4f}; rising/VBAT={min(rising):.4f}..{max(rising):.4f}; hysteresis_K={min(hyst):.3f}..{max(hyst):.3f}V; input_max={max_input:.3f}V; forced_beta_max={collector_max/base_min:.2f}; R3_power_max={16**2/(510*.99):.3f}W")
 
 
-s=['<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1750" viewBox="0 0 2200 1750"><rect width="2200" height="1750" fill="white"/>']
+s=['<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1760" viewBox="0 0 2200 1760"><rect width="2200" height="1760" fill="white"/>']
 INK='#20364b'
 def text(x,y,t,size=23,bold=False,anchor='start',color=None):
  s.append(f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-family="Arial,sans-serif" font-size="{size}" fill="{color or INK}" font-weight="{700 if bold else 400}">{escape(t)}</text>')
@@ -37,9 +55,9 @@ def cap(x,y,ref,value,polar=False):
  wire(f'M{x} {y} v30 m-20 0 h40 m-40 12 h40 m-20 0 v38')
  text(x+28,y+32,ref,20,True);text(x+28,y+60,value,20)
  if polar:text(x-38,y+22,'+',22,True)
-box(25,25,2150,1700)
+box(25,25,2150,1725)
 text(65,80,'INTERFACCIA K-LINE — SCHEMA ELETTRICO',35,True)
-text(65,118,'Rev. D · integrato con piedinatura completa · alimentazione stabilizzata da banco · non collaudato',23)
+text(65,118,'Rev. E · isteresi R10 sul comparatore · alimentazione stabilizzata da banco · non collaudato',23)
 # Transmission and K bus
 text(80,182,'TRASMISSIONE',24,True)
 text(80,470,'TX_INV',23,True,color='#1763a3');wire('M80 490 H210');res(210,490,'R1','330 Ω');wire('M305 490 H470');dot(360,490)
@@ -75,6 +93,7 @@ for num,label,y in [(8,'VCC',440),(7,'OUT2',520),(6,'IN2−',600),(5,'IN2+',680)
 # Output loops above chip, pullup and RX
 wire('M1080 440 H1060 V305 H1770');dot(1730,305)
 text(1680,157,'3V3',22,True);wire('M1730 170 V190');res(1730,190,'R8','4,7 kΩ',True);wire('M1730 270 V305')
+dot(1400,305);wire('M1400 305 V250 H1260');res(1165,250,'R10','330 kΩ');wire('M1165 250 H1000 V330');dot(1000,330);text(1290,282,'isteresi',19)
 wire('M1770 305 H1850');res(1850,305,'R9','1 kΩ');wire('M1945 305 H2090');s.append('<rect x="1880" y="330" width="260" height="68" rx="8" fill="#e6f5ed" stroke="#157348" stroke-width="3"/>');text(1895,357,'RX_3V3 → ESP32',23,True,color='#157348');text(1895,384,'USCITA logica a 3,3 V',19,color='#157348')
 # VREF label on input and divider, no ambiguous crossings
 wire('M1080 520 H1100');text(1095,500,'VREF',20,True,'end')
@@ -96,7 +115,7 @@ text(80,990,'Alimentazioni esterne: +5V, 3V3 e riferimento VBENCH 9–16 V; GND 
 text(80,956,'R3 appartiene solo al simulatore esterno: non montarla nel modulo. UART 10400 baud, 8N1; RX normale.',22)
 # Complete bill of materials, same sheet
 text(80,1020,'DISTINTA BASE — MODULO E SIMULATORE ESTERNO',27,True)
-rows=[('U1','1','LM2903B, SOIC-8','Con adattatore SOIC-8 → DIP-8 e zoccolo'),('Q1','1','2N5551, NPN TO-92','Piedinatura E/B/C secondo produttore'),('R1 / R2','1 + 1','330 Ω / 47 kΩ','0,25 W · 5%'),('R3','1','510 Ω','1 W · 1% · ESTERNA al modulo, solo simulatore'),('R4 / R6','1 + 1','68 kΩ / 150 kΩ','0,25 W · 1%'),('R5, R7','2','10 kΩ','0,25 W · 1%'),('R8 / R9','1 + 1','4,7 kΩ / 1 kΩ','0,25 W · R8 1%, R9 non vincolata'),('C1 / C2','1 + 1','100 nF / 10 µF 16 V','Ceramico / elettrolitico polarizzato'),('Montaggio','1 insieme','Millefori, morsetti e fili','Adattatore e zoccolo inclusi nella voce U1')]
+rows=[('U1','1','LM2903B, SOIC-8','Con adattatore SOIC-8 → DIP-8 e zoccolo'),('Q1','1','2N5551, NPN TO-92','Piedinatura E/B/C secondo produttore'),('R1 / R2','1 + 1','330 Ω / 47 kΩ','0,25 W · 5%'),('R3','1','510 Ω','1 W · 1% · ESTERNA al modulo, solo simulatore'),('R4 / R6','1 + 1','68 kΩ / 150 kΩ','0,25 W · 1%'),('R5, R7','2','10 kΩ','0,25 W · 1%'),('R8 / R9','1 + 1','4,7 kΩ / 1 kΩ','0,25 W · R8 1%, R9 non vincolata'),('R10','1','330 kΩ','0,25 W · 1% · retroazione OUT1 → IN1+ (isteresi)'),('C1 / C2','1 + 1','100 nF / 10 µF 16 V','Ceramico / elettrolitico polarizzato'),('Montaggio','1 insieme','Millefori, morsetti e fili','Adattatore e zoccolo inclusi nella voce U1')]
 cols=[80,340,470,1070,2120];top=1040;rh=40
 box(80,top,2040,rh,'#eaf0f5')
 for x,t in zip(cols,['Riferimento','Qtà','Componente / valore','Specifiche / note']):text(x+12,top+28,t,22,True)
@@ -104,12 +123,12 @@ for i,row in enumerate(rows):
  y=top+rh*(i+1);box(80,y,2040,rh,'white' if i%2 else '#f7f9fb')
  for x,t in zip(cols,row):text(x+12,y+27,t,21)
 for x in cols[1:-1]:wire(f'M{x} {top} V{top+rh*(len(rows)+1)}')
-text(80,1525,'Rev. D: porte esterne evidenziate. TX = ingresso; RX = uscita; K-line = bidirezionale. Pinout U1: TI §4.',20)
+text(80,1565,'Rev. E: R10 aggiunta (isteresi circa 0,6–0,8 V sulla linea K). TX = ingresso; RX = uscita; K-line = bidirezionale. Pinout U1: TI §4.',20)
 # Title block
-box(80,1560,2040,135);wire('M80 1605 H2120 M80 1650 H2120 M1370 1605 V1695 M1710 1605 V1695')
-text(100,1591,'Cruscotto C3+AI  /  Data Logger',28,True)
-text(100,1637,'Interfaccia K-line autocostruita',24,True);text(1390,1637,'REV. D',25,True);text(1730,1637,'18/10/2026',24)
-text(100,1680,'C3AI-DL-KL-001 · Foglio 1/1 · Sorgente SVG modificabile',22)
-text(1390,1680,'NON COLLAUDATO',21,True);text(1730,1680,'SOLO BANCO',24,True)
+box(80,1585,2040,135);wire('M80 1630 H2120 M80 1675 H2120 M1370 1630 V1720 M1710 1630 V1720')
+text(100,1616,'Cruscotto C3+AI  /  Data Logger',28,True)
+text(100,1662,'Interfaccia K-line autocostruita',24,True);text(1390,1662,'REV. E',25,True);text(1730,1662,'20/10/2026',24)
+text(100,1705,'C3AI-DL-KL-001 · Foglio 1/1 · Sorgente SVG modificabile',22)
+text(1390,1705,'NON COLLAUDATO',21,True);text(1730,1705,'SOLO BANCO',24,True)
 s.append('</svg>')
 (ROOT/'schema-kline-banco.svg').write_text(''.join(s),encoding='utf-8')

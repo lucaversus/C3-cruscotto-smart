@@ -1,4 +1,4 @@
-# Verifica software firmware 0.3.0
+# Verifica software firmware 0.3.x
 
 Cruscotto C3+AI / Data Logger — 19/10/2026.
 
@@ -25,3 +25,14 @@ Profilo banco caricato su COM3 con BOOT manuale, hash verificati da esptool.
 Avvio confermato dalla seriale: version=0.3.0, kwp=0 van=0, ATTESA SD,
 rtc=oscillator_stop. SD non collegata; nessuna prova di scrittura o arresto SD.
 Questo aggiornamento supera il solo stato non caricato del rapporto 19/10.
+
+## Release 0.3.1 — 20/10/2026 (D-022)
+
+- Due nuovi gruppi di static_assert sulla rotazione dei PID non prioritari
+  e sull'esclusione di PID bitmap/prioritari; controllo d'intervallo SPI 0,4-25 MHz.
+- Controlli logici verificati anche con g++ host (`-std=gnu++14 -fsyntax-only`):
+  verifica parziale, non sostituisce la build ESP32.
+- Build ESP32 dei due profili affidata alla pipeline `Project checks` sul branch
+  di pubblicazione, prima dell'unione in main: nell'ambiente di sviluppo usato
+  l'installazione di PlatformIO da PyPI non era consentita.
+- Nessun caricamento su ESP32; nessun collaudo KWP, VAN o SD a frequenze > 1 MHz.
