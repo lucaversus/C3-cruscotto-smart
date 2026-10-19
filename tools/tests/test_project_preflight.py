@@ -53,7 +53,7 @@ class ProjectPreflightTests(unittest.TestCase):
         self.assertIn("senza evidenze", self.errors())
 
     def test_changed_status_requires_updated_markdown(self):
-        self.change_inventory(lambda d: d["items"][3].update(status="present_declared"), render=False)
+        self.change_inventory(lambda d: d["items"][3].update(evidence=d["items"][3]["evidence"] + " nuova evidenza"), render=False)
         self.assertIn("non aggiornata", self.errors())
 
     def test_delivery_can_be_recorded_consistently(self):
@@ -64,6 +64,14 @@ class ProjectPreflightTests(unittest.TestCase):
         path = self.root / "data-logger/firmware/logger/include/config.h"
         path.write_text(path.read_text(encoding="utf-8-sig").replace("kSdCs = 27", "kSdCs = 5"), encoding="utf-8")
         self.assertIn("GPIO incoerente kSdCs", self.errors())
+
+    def test_output_cannot_use_input_only_gpio(self):
+        self.change_inventory(lambda d: d["wiring_proposal"]["pins"].update(kKwpTx=35))
+        self.assertIn("sola entrata", self.errors())
+
+    def test_duplicate_capture_gpio_is_rejected(self):
+        self.change_inventory(lambda d: d["wiring_proposal"]["pins"].update(kVanRx=16))
+        self.assertIn("GPIO duplicato", self.errors())
 
     def test_missing_decision_is_detected(self):
         path = self.root / "README.md"

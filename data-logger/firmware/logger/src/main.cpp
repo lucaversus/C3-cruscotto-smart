@@ -1,185 +1,118 @@
 #include <Arduino.h>
-#include <SPI.h>
-#include <SD.h>
-#include <Wire.h>
 #include <esp_timer.h>
 #include <inttypes.h>
-#include "calendar.h"
-#include "config.h"
+#include "acquisition.h"
+#include "logger_logic.h"
+#include "peripherals.h"
+#include "storage.h"
 
-// Bench logger only. No vehicle bus, radio, OLED, buttons or RTC clock writes.
 namespace {
-constexpr char kHeader[] = "schema_version,source,sequence,uptime_us,rtc_state,rtc_calendar,heap_free_bytes,heap_min_bytes,missed_intervals\n";
-SPIClass sdSpi(VSPI);
-bool wireReady = false, sdReady = false;
-const char *rtcState = "not_read";
-const char *sdState = "not_started";
-char rtcCalendar[32] = {};
-char sessionPath[32] = {};
-uint64_t rowsWritten = 0, missedIntervals = 0, writeErrors = 0;
-uint32_t lastSampleMs = 0, lastStatusMs = 0, lastRetryMs = 0;
-
-bool readRtcRegisters(uint8_t reg, uint8_t *data, size_t count) {
-  if (!wireReady) return false;
-  Wire.beginTransmission(logger::kRtcAddress);
-  Wire.write(reg); // Only the register pointer is written, never a register value.
-  if (Wire.endTransmission(false) != 0) return false;
-  if (Wire.requestFrom(logger::kRtcAddress, count, true) != count) return false;
-  for (size_t i = 0; i < count; ++i) data[i] = static_cast<uint8_t>(Wire.read());
-  return true;
+QueueHandle_t queue = nullptr;
+LogStorage storage;
+logger::SaveGate gate;
+uint32_t lastRtc = 0, lastFlush = 0, lastStatus = 0, lastMount = 0;
+bool firstMount = true;
+void buttonTask(void *) {
+  logger::StopButton button;
+  for (;;) {
+    if (button.update(digitalRead(logger::kStopPin) == LOW, millis())) capture.stop = true;
+    vTaskDelay(pdMS_TO_TICKS(5));
+  }
 }
-
-void pollRtc() {
-  rtcCalendar[0] = '\0';
-  uint8_t status = 0, raw[7] = {};
-  if (!readRtcRegisters(0x0f, &status, 1) || !readRtcRegisters(0x00, raw, 7)) {
-    rtcState = "unavailable";
-    return;
+const char *title() {
+  switch (gate.state) {
+    case logger::SaveState::Recording: return "REGISTRAZIONE";
+    case logger::SaveState::Stopping: return "SALVATAGGIO";
+    case logger::SaveState::Saved: return "SALVATO";
+    case logger::SaveState::Error: return "ERRORE SD/SIST";
+    case logger::SaveState::NoSession: return "NESSUN FILE";
+    default: return "ATTESA SD";
   }
-  if (status & 0x80) { // Oscillator Stop Flag; do not silently clear it.
-    rtcState = "oscillator_stop";
-    return;
-  }
-  logger::Calendar c{};
-  if (!logger::decodeCalendar(raw, c)) {
-    rtcState = "invalid_calendar";
-    return;
-  }
-  const int calendarLength = snprintf(rtcCalendar, sizeof(rtcCalendar), "%04u-%02u-%02uT%02u:%02u:%02u",
-           static_cast<unsigned>(c.year), static_cast<unsigned>(c.month),
-           static_cast<unsigned>(c.day), static_cast<unsigned>(c.hour),
-           static_cast<unsigned>(c.minute), static_cast<unsigned>(c.second));
-  if (calendarLength != 19) {
-    rtcCalendar[0] = '\0';
-    rtcState = "invalid_calendar";
-    return;
-  }
-  rtcState = "calendar_ok"; // Not a UTC/synchronization guarantee.
 }
-
-void storageFailed(const char *reason) {
-  sdReady = false;
-  sdState = reason;
-  SD.end();
-  sessionPath[0] = '\0';
-  lastRetryMs = millis();
-  Serial.printf("storage state=%s retry_ms=%lu\n", reason,
-                static_cast<unsigned long>(logger::kRetryMs));
-}
-
-// Arduino FS flush/close do not expose durable-commit errors. This checks byte
-// count and stream errors, not power-loss safety or physical media persistence.
-bool writeAndClose(File &file, const char *data, size_t length) {
-  const size_t written = file.write(reinterpret_cast<const uint8_t *>(data), length);
-  file.flush();
-  const bool ok = written == length && file.getWriteError() == 0;
-  file.close();
-  return ok;
-}
-
-void startSession() {
-  SD.end();
-  // format_if_empty=false: never format a user's card automatically.
-  if (!SD.begin(logger::kSdCs, sdSpi, logger::kSpiHz, "/sd", 1, false) ||
-      SD.cardType() == CARD_NONE) {
-    storageFailed("mount_failed");
-    return;
-  }
-  // New, bounded file namespace; never truncate an existing recording.
-  for (unsigned index = 1; index <= 9999; ++index) {
-    snprintf(sessionPath, sizeof(sessionPath), "/bench_%04u.csv", index);
-    if (SD.exists(sessionPath)) continue;
-    File file = SD.open(sessionPath, FILE_WRITE);
-    if (!file || !writeAndClose(file, kHeader, sizeof(kHeader) - 1)) {
-      ++writeErrors;
-      storageFailed("header_failed");
-      return;
-    }
-    sdReady = true;
-    sdState = "recording";
-    Serial.printf("session file=%s source=bench_esp32 vehicle=disabled\n", sessionPath);
-    return;
-  }
-  storageFailed("namespace_full");
-}
-
-void recordSample() {
-  if (!sdReady) return;
-  // Do not recreate a removed session with a headerless CSV.
-  if (!SD.exists(sessionPath)) {
-    ++writeErrors;
-    storageFailed("session_missing");
-    return;
-  }
-  char row[224];
-  const int length = snprintf(row, sizeof(row),
-      "1,bench_esp32,%" PRIu64 ",%" PRId64 ",%s,%s,%u,%u,%" PRIu64 "\n",
-      rowsWritten + 1, esp_timer_get_time(), rtcState, rtcCalendar,
-      ESP.getFreeHeap(), ESP.getMinFreeHeap(), missedIntervals);
-  if (length <= 0 || static_cast<size_t>(length) >= sizeof(row)) {
-    ++writeErrors;
-    storageFailed("row_overflow");
-    return;
-  }
-  File file = SD.open(sessionPath, FILE_APPEND);
-  if (!file || !writeAndClose(file, row, static_cast<size_t>(length))) {
-    ++writeErrors;
-    storageFailed("write_failed");
-    return;
-  }
-  ++rowsWritten;
-}
-
 void printStatus() {
-  Serial.printf("status uptime_us=%" PRId64 " sd=%s rtc=%s rows=%" PRIu64
-                " write_errors=%" PRIu64 " missed_intervals=%" PRIu64
-                " heap_free_bytes=%u file=%s\n",
-                esp_timer_get_time(), sdState, rtcState, rowsWritten,
-                writeErrors, missedIntervals, ESP.getFreeHeap(),
-                sessionPath[0] ? sessionPath : "none");
+  Serial.printf("status state=%s file=%s rows=%" PRIu64 " dropped=%lu rtc=%s van_frames=%lu van_bad=%lu kwp_frames=%lu kwp_errors=%lu storage=%s heap=%u\n",
+    title(), storage.path, storage.rows, static_cast<unsigned long>(capture.dropped.load()), rtc.state,
+    static_cast<unsigned long>(capture.vanFrames.load()), static_cast<unsigned long>(capture.vanBad.load()),
+    static_cast<unsigned long>(capture.kwpFrames.load()), static_cast<unsigned long>(capture.kwpErrors.load()), storage.error, ESP.getFreeHeap());
+}
+void fail() { gate.fail(); capture.stop = true; storage.abandon(); printStatus(); }
+void command(const char *text) {
+  if (!strcmp(text, "stop")) capture.stop = true;
+  else if (!strcmp(text, "s") || !strcmp(text, "status")) printStatus();
+  else if (!strncmp(text, "time ", 5)) {
+    const bool ok = setRtcUtc(text + 5); Serial.printf("rtc_set=%s\n", ok ? "ok" : "failed");
+    if (gate.state == logger::SaveState::Recording) systemRecord(ok ? "rtc_set" : "rtc_set_failed");
+  } else if (!strncmp(text, "oled ", 5)) Serial.printf("oled_select=%s\n", selectOled(text + 5) ? "ok" : "failed");
+  else Serial.println("commands (Enter): status | stop | time YYYY-MM-DDTHH:MM:SSZ | oled sh1106 | oled ssd1306 | help");
+}
+void serialCommands() {
+  static char line[64] = {};
+  static size_t used = 0;
+  static bool overflow = false;
+  for (unsigned count = 0; count < 64 && Serial.available(); ++count) {
+    const char c = Serial.read();
+    if (c == '\r' || c == '\n') {
+      if (overflow) Serial.println("command_too_long");
+      else if (used) { line[used] = 0; command(line); }
+      used = 0; overflow = false;
+    } else if (c >= 32 && c <= 126) {
+      if (used + 1 < sizeof(line) && !overflow) line[used++] = c; else overflow = true;
+    }
+  }
 }
 } // namespace
-
+bool submitRecord(const Record &record) {
+  if (queue && xQueueSend(queue, &record, 0) == pdPASS) return true;
+  ++capture.dropped; return false;
+}
+void systemRecord(const char *event, uint32_t id) {
+  Record row{}; row.monoUs = esp_timer_get_time(); row.event = event; row.id = id; submitRecord(row);
+}
 void setup() {
   Serial.begin(115200);
-  delay(250);
-  Serial.println("\nc3_datalogger version=0.2.0 mode=bench_health auto_start=1");
-  Serial.println("vehicle=disabled oled=disabled buttons=disabled rtc_write=disabled");
-  Serial.println("commands: h=help s=status; RTC calendar has no assumed timezone");
-  wireReady = Wire.begin(logger::kSda, logger::kScl, 100000);
-  Wire.setTimeOut(50);
-  sdSpi.begin(logger::kSck, logger::kMiso, logger::kMosi, logger::kSdCs);
-  pollRtc();
-  startSession();
-  const uint32_t now = millis();
-  lastRetryMs = lastSampleMs = lastStatusMs = now;
-  printStatus();
+  pinMode(logger::kUnusedCanCs, OUTPUT); digitalWrite(logger::kUnusedCanCs, HIGH);
+  pinMode(logger::kKwpTx, OUTPUT); digitalWrite(logger::kKwpTx, LOW);
+  pinMode(logger::kStopPin, INPUT_PULLUP);
+  queue = xQueueCreate(logger::kQueueDepth, sizeof(Record));
+  if (!queue || xTaskCreatePinnedToCore(buttonTask, "stop_button", 2048, nullptr, 4, nullptr, 0) != pdPASS) { gate.fail(); capture.stop = true; }
+  beginPeripherals();
+  Serial.printf("\nc3_datalogger version=%s auto_start=1 kwp=%u van=%u no_radio=1 no_format=1\n", logger::kVersion, LOGGER_ENABLE_KWP, LOGGER_ENABLE_VAN);
+  Serial.println("RTC is never set from build time. Use explicit time command with UTC Z.");
+  command("help"); lastRtc = lastFlush = lastStatus = millis();
 }
-
 void loop() {
-  for (unsigned count = 0; count < 32 && Serial.available() > 0; ++count) {
-    const int command = Serial.read();
-    if (command == 's') printStatus();
-    if (command == 'h') Serial.println("h=help s=status; automatic bench logging; no vehicle commands");
+  serialCommands();
+  const uint32_t now = millis();
+  if (capture.stop) gate.stop();
+  if (gate.state == logger::SaveState::Waiting && !capture.stop && (firstMount || logger::elapsed(now, lastMount, logger::kRetryMs))) {
+    firstMount = false; lastMount = now;
+    if (storage.begin()) {
+      if (capture.stop) { gate.opened(); gate.stop(); }
+      else {
+        gate.opened(); systemRecord("boot");
+        systemRecord(LOGGER_ENABLE_KWP || LOGGER_ENABLE_VAN ? "profile_vehicle" : "profile_bench");
+        if (LOGGER_ENABLE_KWP) systemRecord("kwp_profile", 10400);
+        if (LOGGER_ENABLE_VAN) systemRecord("van_profile", LOGGER_VAN_BODY ? 62500 : 125000);
+        if (!startAcquisition()) fail();
+      }
+    } else { Serial.printf("storage=%s retry_ms=%lu\n", storage.error, static_cast<unsigned long>(logger::kRetryMs)); storage.abandon(); }
   }
-  uint32_t now = millis();
-  if (!sdReady && logger::elapsed(now, lastRetryMs, logger::kRetryMs)) {
-    lastRetryMs = now;
-    startSession();
+  if (gate.state == logger::SaveState::Recording || gate.state == logger::SaveState::Stopping) {
+    Record row{};
+    for (unsigned i = 0; i < 32 && xQueueReceive(queue, &row, 0) == pdPASS; ++i) { if (!storage.append(row)) { fail(); break; } }
+    if (gate.state == logger::SaveState::Recording && logger::elapsed(now, lastFlush, logger::kFlushMs)) { lastFlush = now; if (!storage.sync()) fail(); }
+    if (gate.state == logger::SaveState::Stopping && capture.kwpDone && capture.vanDone && uxQueueMessagesWaiting(queue) == 0) {
+      const bool ok = storage.finish("stop_footer");
+      gate.finish(true, true, ok, ok, ok);
+      if (!ok) storage.abandon();
+      printStatus(); drawStatus(title(), ok ? "SD CHIUSA" : "SALVATAGGIO KO", storage.rows, capture.dropped);
+    }
   }
-  now = millis();
-  if (logger::elapsed(now, lastSampleMs, logger::kSampleMs)) {
-    // No burst of invented samples after blocking SD operations.
-    const uint32_t intervals = static_cast<uint32_t>(now - lastSampleMs) / logger::kSampleMs;
-    missedIntervals += intervals - 1;
-    lastSampleMs = now;
-    pollRtc();
-    recordSample();
+  if (logger::elapsed(now, lastRtc, logger::kSampleMs)) {
+    lastRtc = now; pollRtc();
+    if (gate.state == logger::SaveState::Recording) systemRecord("health", ESP.getFreeHeap());
+    drawStatus(title(), gate.state == logger::SaveState::Saved ? "SD CHIUSA" : gate.state == logger::SaveState::Error ? "NON SPEGNERE" : "", storage.rows, capture.dropped);
   }
-  now = millis();
-  if (logger::elapsed(now, lastStatusMs, logger::kStatusMs)) {
-    lastStatusMs = now;
-    printStatus();
-  }
-  delay(5);
+  if (logger::elapsed(now, lastStatus, logger::kStatusMs)) { lastStatus = now; printStatus(); }
+  delay(1);
 }

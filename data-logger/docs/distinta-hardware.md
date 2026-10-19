@@ -12,7 +12,9 @@ Questa sezione sostituisce le precedenti proposte: D-013, D-014, D-015, D-016.
 Le sezioni successive restano come storico tecnico, non come carrello corrente.
 
 Gia presenti: ESP32 HW-394, basetta a morsetti, MCP2515 e modulo blu VP230.
-Gia ordinati: lettore MicroSD, RTC DS3231 e OLED. Non ricomprarli.
+Lettore MicroSD, OLED e RTC DS3231 ricevuti e fotografati il 19/10/2026,
+non collaudati. MicroSD presente nel lettore, capacita da riscontrare. Il modulo
+chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 
 | Quantita | Da procurare se non gia disponibile | Destinazione / limite |
 | --- | --- | --- |

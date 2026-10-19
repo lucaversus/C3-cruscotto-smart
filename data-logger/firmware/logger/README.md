@@ -1,107 +1,158 @@
-# Data Logger — firmware a banco 0.2.0
+# Data Logger — firmware 0.3.0
 
-Progetto **Cruscotto C3+AI**, sottoprogetto **Data Logger**.
-Prima base di registrazione automatica per ESP32 HW-394. Separata dalla
-[diagnostica 0.1.0](../diagnostic/README.md), conservata per il collaudo del solo ESP32.
+Progetto **Cruscotto C3+AI**, sottoprogetto **Data Logger**. Revisione software
+19/10/2026. Implementazione per HW-ESP32; compilazione distinta dal caricamento
+e dal collaudo. Dal 20/10/2026 sulla scheda e caricata la 0.3.0 banco, con avvio seriale verificato.
 
-## Comportamento implementato
+## Funzionamento
 
-- All'accensione tenta il montaggio MicroSD e apre una nuova sessione, senza pulsanti.
-- Produce un campione di salute ESP32 ogni circa un secondo, non dati del veicolo.
-- Crea `/bench_0001.csv`, poi il primo nome libero fino a `/bench_9999.csv`.
-  Non cancella file né formatta automaticamente la scheda. Se i nomi sono esauriti,
-  segnala `namespace_full`. I file già presenti vengono saltati con `SD.exists`.
-- Scrive l'intestazione una volta. Ogni riga viene scritta, seguita da flush e chiusura.
-- Se la MicroSD manca o la scrittura segnala errore, continua la diagnostica seriale
-  e ritenta dopo 10 secondi. Al recupero crea una nuova sessione. Non conserva in RAM
-  i campioni persi e non ricostruisce dati retroattivi.
-- Legge solo il dispositivo I2C 0x68 e i registri DS3231 necessari. Non imposta
-  l'orologio, non cancella OSF, non scrive AT24C32 e non esegue scansioni I2C.
-- Accetta calendario BCD valido e formati 12/24 ore; il flag OSF rende l'ora non valida.
-  Senza RTC valido registra comunque il campione con tempo monotono e data vuota.
-- Seriale a 115200 baud: stato ogni 5 secondi, `s` stato, `h` aiuto.
-- Nessun driver OBD/BSI, Wi-Fi, Bluetooth, display o pulsanti inizializzato.
+Avvio automatico: monta la MicroSD, crea il primo `/c3_000001.csv` libero
+(fino a 999999), quindi avvia le sorgenti abilitate. Non formatta e non sovrascrive
+file. Senza SD ritenta ogni 10 s; non acquisisce dati prima dell'apertura riuscita.
+Registra stato ESP32, calendario DS3231, pacchetti originali e PID decodificati.
+Buffer di scrittura 8 KiB, coda 256 record, sincronizzazione nominale ogni secondo,
+rotazione a circa 64 MiB. SdFat espone gli errori di scrittura/sync/chiusura.
 
-La scelta confermata dall'utente è avvio automatico. I pulsanti restano inutilizzati;
-non occorrono per questa fase. Il driver OLED aspetta l'identificazione del controller.
+Premendo STOP (o inviando `stop`), interrompe nuove richieste OBD, completa la
+risposta già in corso entro il timeout, ferma VAN, svuota la coda, aggiunge il footer,
+sincronizza e chiude. Riapre in lettura e verifica dimensione e ultima riga.
+Solo se tutti i controlli riescono mostra **SALVATO / PUOI SPEGNERE**.
+Lo STOP è definitivo fino al riavvio; non interrompe elettricamente l'alimentazione.
+STOP tenuto all'avvio impedisce la registrazione. In errore non dichiara SALVATO,
+non riparte automaticamente e non nasconde la sessione incompleta.
 
-## Collegamenti proposti
+L'OLED 128×64 mostra stato, righe, perdite della coda, ora e stato delle sorgenti.
+Profili SH1106 (iniziale) e SSD1306 selezionabili: non identificano il controller
+fisico. OLED assente non blocca il logger: stato disponibile su seriale 115200.
+RTC assente, calendario invalido o flag OSF non bloccano la registrazione monotona.
+Nessun Wi-Fi/Bluetooth, nessuna scrittura AT24C32, nessuna simulazione dati auto.
 
-| Funzione | GPIO ESP32 |
+## Profili e GPIO proposti
+
+[Schema dei collegamenti per la prova USB](../../docs/collegamenti-banco-030.md),
+rev. A: SD, RTC, OLED e STOP, senza connessioni al veicolo.
+
+| Profilo PlatformIO | Funzioni |
 | --- | --- |
-| I2C SDA / SCL | 21 / 22 |
-| MicroSD SCK / MISO / MOSI | 18 / 19 / 23 |
-| MicroSD CS | 27 |
+| `esp32-hw394-logger` (predefinito) | Banco: SD, RTC, OLED, STOP; sorgenti auto disabilitate |
+| `esp32-hw394-vehicle` | Stesse funzioni, più OBD KWP e ricezione VAN |
 
-Sono coerenti con lo [schema collegamenti](../../docs/schema-collegamenti.svg).
-Impostazioni in `include/config.h`. I2C 100 kHz, timeout 50 ms, SPI iniziale 1 MHz.
-Queste velocità sono valori di partenza, non prestazioni misurate sui moduli.
-Non usare lo schema come layout fisico dei connettori.
+| Collegamento logico HW-ESP32 | GPIO |
+| --- | --- |
+| HW-RTC e HW-OLED: SDA / SCL | 21 / 22 |
+| HW-SD-MODULE: CLK / MISO / MOSI / CS | 18 / 19 / 23 / 27 |
+| Pulsante STOP normalmente aperto verso GND, pull-up interna | 32 |
+| Interfaccia K-line: RX / TX ESP32 | 16 / 17 |
+| HW-CAN-VP230: uscita RX verso ESP32 (solo ingresso) | 34 |
+| CS MCP2515 eventuale sullo stesso SPI, mantenuto HIGH | 26 |
 
-**Moduli ordinati ma non ancora disponibili:** prima del caricamento e cablaggio
-verificare serigrafie, livelli 3,3 V, pull-up, circuito batteria RTC e corrente disponibile
-con picchi MicroSD. Usare solo alimentazione USB a banco, veicolo scollegato.
-Questa versione inizializza SPI/I2C, a differenza della diagnostica 0.1.0.
+Configurazione unica in `include/config.h`, riscontrata dal preflight con
+`hardware.json`. I2C 100 kHz, SPI 1 MHz. Sono assegnazioni firmware proposte,
+non una verifica di cablaggio né pin del connettore auto. Lo schema generale
+storico rimane illustrativo: per questa release vale la tabella, GPIO33 inutilizzato.
+Le verifiche fisiche sono a cura dell'utente (D-020); nessun loro esito è presunto.
+RTC: rimozione resistenza 201 scelta in D-019, esecuzione ancora non confermata.
 
-## Formato CSV versione 1
+## Acquisizione OBD e VAN
+
+**K-line**: UART2 10400 8N1, TX invertito/RX normale per l'interfaccia discreta
+D-013 (2N5551 + LM2903B), non per collegamento diretto. Fast init 25/25 ms,
+StartCommunication funzionale indirizzo 0x33; apprende l'indirizzo ECU dalla
+risposta valida. Intervalli temporali da verificare sull'interfaccia assemblata.
+Richiede eco TX coerente. Scopre le bitmap dei PID mode 01 e interroga tutti
+quelli dichiarati, esclusi i PID bitmap, con pausa 250 ms fra richieste.
+Dopo tre errori consecutivi riconnette. Registra anche risposte negative,
+sconosciute, frammenti e checksum errati. Decodifica carico, farfalla, livello
+carburante, temperature, pressioni, giri, velocità, portata aria e tensione
+soltanto per i PID implementati; gli altri restano nei byte originali.
+Non cancella DTC, non comanda attuatori, non richiede VIN. Non implementa slow init
+né rilevamento automatico del protocollo; il profilo KWP resta da provare sull'auto.
+
+**VAN**: ricezione passiva via RMT e HW-CAN-VP230, nessun MCP2515 e nessuna
+trasmissione VAN. Profilo iniziale comfort 125 kbit/s; `LOGGER_VAN_BODY=1`
+seleziona 62,5 kbit/s, `LOGGER_VAN_INVERT=1` cambia polarità logica: scegliere
+solo sulla base del segnale identificato. Conserva fino a 64 byte per frame,
+ID e stato CRC/timing/overflow, inclusi gli ID non interpretati.
+Il transceiver deve essere predisposto fisicamente in sola ricezione e senza
+terminazione aggiunta alla rete: il software non può garantire questa condizione.
+Non promette di registrare ogni segnale o ogni pacchetto: RMT, buffer e SD hanno
+limiti; overflow della coda è contato, perdite prima della coda non sono quantificate.
+Timestamp VAN alla consegna RMT, non al SOF. Non conserva le forme d'onda originali.
+
+## Comandi seriali (Invio)
+
+- `status` oppure `s`: stato, file, contatori, RTC e memoria.
+- `stop`: stesso arresto del pulsante.
+- `time YYYY-MM-DDTHH:MM:SSZ`: imposta esplicitamente UTC nel DS3231,
+  rilegge i registri, quindi cancella OSF. Non usa la data di compilazione.
+- `oled sh1106` oppure `oled ssd1306`: selezione persistente in NVS.
+- `help`: elenco comandi.
+
+## CSV versione 2
 
 ```text
-schema_version,source,sequence,uptime_us,rtc_state,rtc_calendar,heap_free_bytes,heap_min_bytes,missed_intervals
+schema_version,session_id,sequence,source,mono_us,rtc_calendar,rtc_state,rtc_read_mono_us,event,frame_id,id,chunk_offset,raw_hex,value,unit,queue_dropped,van_bad,kwp_errors
 ```
 
-- `source=bench_esp32`: distingue questi file da acquisizioni automobilistiche future.
-- `sequence`: numero delle righe scritte nell'avvio corrente, anche tra sessioni di recupero.
-- `uptime_us`: tempo monotono a 64 bit dall'avvio, si azzera al reset.
-- `rtc_state`: `unavailable`, `oscillator_stop`, `invalid_calendar` o `calendar_ok`.
-- `rtc_calendar`: `YYYY-MM-DDTHH:MM:SS`, vuoto se non valido. Nessun suffisso Z:
-  fuso orario, sincronizzazione e correttezza dell'ora non sono ancora certificati.
-  `calendar_ok` significa soltanto calendario formalmente valido con OSF non impostato.
-- `heap_*`: byte. `missed_intervals`: intervalli aggiuntivi da 1 secondo saltati per
-  ritardi del ciclo; non misura le perdite del bus o tutti i campioni senza SD.
+`session_id` casuale all'avvio della sessione, `sequence` crescente anche tra
+segmenti; `source`: system, van_rx, kwp_tx, kwp_rx, obd_pid. ID numerici decimali;
+per obd_pid: `(indirizzo ECU << 8) | PID`. `raw_hex` conserva byte esadecimali;
+frame KWP lunghi sono divisi in blocchi da 64 byte con frame_id e chunk_offset.
+Il checksum finale e gli header fanno parte dei byte grezzi KWP.
 
-Le operazioni SD sono sincrone e possono ritardare il ciclo. La frequenza di 1 Hz è
-nominale; nessuna garanzia di acquisizione real-time. Non si formano raffiche di campioni
-per riempire intervalli mancanti. Nessuna misura automobilistica viene simulata.
+`mono_us` è il tempo monotono ESP32 al rilevamento software, non UTC.
+`rtc_calendar` è l'ultima lettura RTC, associata a `rtc_read_mono_us`, non l'ora
+esatta della cattura. I task possono produrre dati in ordine diverso dai timestamp:
+per l'analisi usare mono_us e l'ancora RTC, non l'ordine delle righe come orologio.
+Senza impostazione UTC esplicita: `calendar_timezone_unknown`; dopo comando
+verificato: `utc_set_by_user`; altrimenti calendario vuoto e causa di invalidità.
+Questo stato non certifica la precisione o sincronizzazione dell'orologio.
+I contatori sono quelli osservati al momento della scrittura.
+`stop_footer` conclude una sessione arrestata; `segment_end` chiude un segmento.
+`health` riporta heap libero nel campo id. I valori fisici hanno unità esplicita.
 
-## Compilazione e verifiche
+Sync, chiusura e rilettura riducono il rischio ma non certificano la persistenza
+fisica dopo un'interruzione improvvisa. Non esiste UPS; STOP prima di togliere
+alimentazione rimane necessario. File senza footer vanno considerati incompleti.
 
-Stesso stack della diagnostica: PlatformIO Core 6.1.18, Espressif32 6.12.0,
-Arduino-ESP32 2.0.17. Usa soltanto FS/SD, SPI e Wire già inclusi nel framework;
-nessuna nuova libreria esterna. C++14 per i controlli `static_assert`.
+## Compilazione riproducibile e controlli
 
-Dalla radice del repository:
+PlatformIO 6.1.18, Espressif32 6.12.0, Arduino-ESP32 2.0.17, C++14.
+SdFat 2.3.1 e U8g2 Arduino 2.37.1 fissate a commit in platformio.ini;
+licenze e provenienza in [THIRD_PARTY.md](THIRD_PARTY.md).
 
 ```powershell
-$env:PLATFORMIO_CORE_DIR = Join-Path $env:USERPROFILE 'Documents\Codex\pio-c3'
-& .\.tools\pio-venv\Scripts\python.exe -m platformio run --project-dir data-logger/firmware/logger
+$env:PLATFORMIO_CORE_DIR = Join-Path $env:USERPROFILE 'Documents/Codex/pio-c3'
+& .tools/pio-venv/Scripts/python.exe -m platformio run --project-dir data-logger/firmware/logger -e esp32-hw394-logger -e esp32-hw394-vehicle
 ```
 
-`src/calendar_checks.cpp` esercita a tempo di compilazione il decoder effettivamente
-usato dal firmware: 18 controlli su date normali e non valide, BCD, anni bisestili,
-secolo 2100, ore AM/PM, preservazione dell'output in errore e overflow del timer.
-La compilazione fallisce se un controllo non passa. Non sono test hardware né
-una simulazione dei guasti SD/I2C.
+`calendar_checks.cpp` e `logic_checks.cpp` esercitano il codice realmente usato:
+calendario/UTC, debounce e overflow timer, STOP e condizioni di salvataggio,
+checksum/header KWP, bitmap PID, limiti decoder VAN. Sono controlli a compilazione,
+non un emulatore di ESP32, UART, RMT o guasti del supporto SD.
+Collaudi completi di registrazione SD, sorgenti veicolo e spegnimento fisico ancora
+da eseguire; avvio a banco e raggiungibilita RTC verificati il 20/10/2026.
+Il 20/10/2026 e stata caricata la 0.3.0 banco su COM3 con hash verificati,
+avvio ATTESA SD e RTC oscillator_stop; modulo SD ancora scollegato.
 
-Stato: compilazione verificata il 18/10/2026; nessun caricamento di questa versione.
-Esito SUCCESS, 22544 byte RAM statica e 352725 byte programma; tutti i 18
-controlli a tempo di compilazione superati. Build finale senza avvisi applicativi.
-Collaudo RTC/MicroSD e avvio automatico su scheda ancora da eseguire all'arrivo dei moduli.
-Il backup originale e il firmware diagnostico restano disponibili.
+## Caricamento con terminale visibile
 
-## Limiti e collaudo successivo
+Dalla radice del repository, in PowerShell:
 
-Flush e close dell'API Arduino non espongono tutte le condizioni di errore del supporto:
-il controllo del numero di byte e dello stream non certifica persistenza fisica.
-Non è ancora implementata la verifica di rilettura, il recupero di file troncati,
-la rotazione per dimensione o un'alimentazione che consenta arresto controllato.
-Spegnimento improvviso, scheda piena o rimozione possono perdere righe e corrompere FAT.
-Non rimuovere la scheda durante la registrazione e non considerare questi file un dataset
-operativo. Politiche di arresto e alimentazione automotive saranno affrontate prima dell'auto.
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -NoExit -File .\tools\carica-logger-visibile.ps1 -Porta COM3
+```
 
-Il collaudo dovrà coprire: SD assente, RTC assente/OSF/calendario valido, CSV reale
-riletto su PC, due avvii con file distinti, errori di montaggio/scrittura e scheda piena.
-La regolazione iniziale del RTC sarà un passaggio esplicito; non viene usata l'ora di build.
+Il criterio Bypass vale soltanto per questo processo, non modifica le impostazioni
+Windows. Lo script mostra build e upload, poi apre automaticamente il monitor
+seriale 115200 baud, DTR/RTS inattivi dopo impulso EN di avvio,
+con copia dei dati in .tools/serial/monitor-*.log.
+Ctrl+C chiude il monitor. Il profilo predefinito e esp32-hw394-logger (banco).
+Chiudere un precedente monitor prima di un nuovo caricamento.
 
-Riferimenti: [API SD Arduino-ESP32 2.0.17](https://github.com/espressif/arduino-esp32/blob/2.0.17/libraries/SD/src/SD.h),
-[API Wire](https://github.com/espressif/arduino-esp32/blob/2.0.17/libraries/Wire/src/Wire.h),
-[datasheet DS3231, registri calendario e OSF](https://www.analog.com/media/en/technical-documentation/data-sheets/DS3231.pdf).
+Se HW-394 segnala Wrong boot mode, aggiungere `-AttendiBoot`: il terminale
+attende Invio mentre si mantiene BOOT premuto; rilasciarlo alla prima scrittura.
+
+Per riaprire soltanto il monitor aggiungere `-SoloMonitor` (nessun reset).
+`-Riavvia` richiede esplicitamente un impulso EN: non usarlo su una registrazione
+aperta. Dopo upload il riavvio normale e automatico.

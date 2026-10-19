@@ -1,6 +1,6 @@
 # Inventario hardware — Cruscotto C3+AI / Data Logger
 
-Aggiornato: **2026-10-18**. Vista generata da [hardware.json](hardware.json).
+Aggiornato: **2026-10-20**. Vista generata da [hardware.json](hardware.json).
 Non modificare manualmente: usare `python tools/project_preflight.py --render-inventory`.
 
 Il materiale presente ma non collaudato va valutato prima di proporre acquisti sostitutivi.
@@ -20,7 +20,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_verified` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Identificazione e collaudo a banco nella chat; data-logger/backups/esp32-hw394/README.md e firmware/diagnostic/README.md. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json.
+**Fonte:** Identificazione e collaudo a banco nella chat; data-logger/backups/esp32-hw394/README.md e firmware/diagnostic/README.md. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json. 20/10/2026: collegamento USB confermato dall utente; Windows rileva USB-SERIAL CH340 (COM3), apertura seriale riuscita. Primo upload logger 0.3.0 fallito prima della scrittura: esptool rileva boot mode 0x13 e richiede download mode; preparata ripetizione con BOOT manuale. Nessuna nuova versione dichiarata caricata.
 
 **Foto archiviate:** [esp32-hw394-fronte.jpg](hardware-photos/esp32-hw394-fronte.jpg)
 
@@ -31,6 +31,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Backup flash completo con SHA-256 verificato; ripristino non provato
 - Foto frontale archiviata: HW-394 / ESP-32D e basetta di espansione a morsetti visibili; nessuna verifica elettrica della basetta.
 - 18/10/2026: firmware mcp2515-spi-test 0.1.0 caricato su COM3 con BOOT manuale; esptool conferma hash dei segmenti scritti. Sostituisce sulla scheda la diagnostica 0.1.0, i cui sorgenti sono conservati. Avvio verificato tramite stato seriale SPI_TEST=PASS (M-010).
+- 20/10/2026: logger 0.3.0 profilo esp32-hw394-logger caricato su COM3 con BOOT manuale a 115200 baud; esptool conferma hash dei segmenti, SUCCESS. Dopo impulso EN tramite RTS, seriale conferma version=0.3.0, kwp=0 van=0 e ATTESA SD. Log locali .tools/serial/upload-20261020-000840.log e monitor successivo. Sostituisce il test MCP2515 sulla scheda; sorgenti storici conservati.
 
 **Da verificare:**
 
@@ -85,43 +86,59 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
-**Stato:** `ordered_pending` · **Quantità:** non confermata · **Ambito:** Data Logger
+**Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente.
+**Fonte:** Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: modulo non collegato, pin ancora da saldare; saldatore non disponibile sul posto.
+
+**Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Foto del pezzo: contatti serigrafati 3V3, CS, MOSI, CLK, MISO, GND; presenza scheda MicroSD inserita. Alimentazione e SPI non misurate.
+- SD-M001, 19/10/2026: utente riferisce 3 MOhm in risposta alla misura richiesta fra 3V3 e GND del lettore scollegato. Rimozione della scheda e condizioni effettive non confermate separatamente. Non prova tensione ammissibile, SPI o funzionamento SD.
 
 **Da verificare:**
 
 - Quantità, modello e serigrafie del materiale ricevuto
 - Alimentazione, livelli SPI e picchi di corrente
+- Saldare la strip pin prima del collegamento; modulo escluso dalla prima prova USB senza SD del 20/10/2026.
 
-### HW-RTC — RTC DS3231 / AT24C32 — riferimento consigliato TECNOIOT B07LH592FM
+### HW-RTC — RTC DS3231SN con AT24C32 e portabatteria sul retro da verificare
 
-**Stato:** `ordered_pending` · **Quantità:** non confermata · **Ambito:** Data Logger
+**Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata.
+**Fonte:** Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Risolta la voce temporanea HW-BATTERY-MODULE-UNIDENTIFIED: coincide con HW-RTC. Utente 19/10/2026: sul retro nessuna scritta, visibile soltanto il portabatteria. Verifica ricarica ancora aperta; non richiedere altra foto del retro per cercare scritte assenti. Utente 19/10/2026 identifica la pila come CR2032, confermando prefisso CR dopo 2032. Utente 19/10/2026 sceglie rimozione della resistenza marcata 201 per evitare ricarica CR2032 (D-019). Dichiarazione al futuro: non ancora eseguita o collaudata. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.
+
+**Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Foto: marcatura DS3231SN e serigrafie DS3231; connettori GND/VCC/SDA/SCL/SQW/32K. Il modulo chiamato batteria e questo RTC, non un UPS.
+- RTC-M001, 19/10/2026: utente riferisce OL dopo richiesta prova diodi, rosso VCC e nero contatto positivo portabatteria, modulo scollegato e pila rimossa. Identificazione del contatto positivo e condizioni effettive non confermate separatamente; nessuna conclusione su assenza di ricarica.
+- RTC-M002, 19/10/2026: utente riferisce OL anche invertendo i puntali sugli stessi due contatti. Non e ancora identificato con certezza il polo del portabatteria misurato: i due OL non dimostrano assenza di ricarica.
+- RTC-M003, 19/10/2026: utente riferisce 0 alla misura richiesta in ohm fra GND modulo e contatto centrale sul fondo del portabatteria vuoto. Coerente con contatto centrale negativo collegato a massa; precedenti OL non utilizzabili per escludere ricarica.
+- RTC-M004, 19/10/2026: dopo identificazione centrale negativo tramite RTC-M003, utente riferisce 1,35 V in prova diodi, rosso VCC e nero altro contatto superiore/laterale positivo, modulo scollegato e pila rimossa come richiesto. Esiste un percorso conduttivo in questa polarita; ricarica non esclusa. Non e una misura della tensione o corrente di carica in funzionamento.
+- RTC-M005, 19/10/2026: utente riferisce OL nel verso inverso sul contatto positivo corretto (rosso positivo portabatteria, nero VCC). Insieme a RTC-M004 1,35 V diretto indica percorso unidirezionale compatibile con ramo di ricarica; nessuna misura di corrente o tensione di carica a modulo alimentato.
+- 20/10/2026: logger 0.3.0 legge DS3231 via I2C e riferisce rtc=oscillator_stop. Raggiungibilita registri verificata, ora non valida; mantenimento, pila e interruzione ricarica ancora non collaudati.
 
 **Da verificare:**
 
 - Modello, quantità, pull-up I2C e circuito di ricarica batteria
 - Non inserire una CR2032 non ricaricabile prima di verificare il circuito
+- Pila CR2032 confermata: disabilitare e verificare assenza percorso di ricarica prima di inserirla; nessuna modifica eseguita. Identificare ramo sul modulo tramite foto e continuita, senza rimuovere componenti alla cieca.
+- D-019: attendere conferma rimozione resistenza 201 e verificare interruzione ramo, assenza ponti di stagno e mantenimento RTC. Pila fuori e modulo scollegato durante intervento. Non segnare come verificata prima della prova.
 
 ### HW-OLED — Display OLED monocromatico I2C consigliato — modello e controller non riscontrati
 
-**Stato:** `ordered_pending` · **Quantità:** non confermata · **Ambito:** Data Logger
+**Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Conferma ordine dei componenti consigliati; non è disponibile un riepilogo ordine che identifichi esattamente il display. Non richiedere di nuovo tutti i link già in chat.
+**Fonte:** Conferma ordine dei componenti consigliati; non è disponibile un riepilogo ordine che identifichi esattamente il display. Non richiedere di nuovo tutti i link già in chat. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.
+
+**Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Foto del pezzo: scheda nera, quattro contatti GND VCC SCL SDA; controller, risoluzione e tensioni non ancora verificati.
 
 **Da verificare:**
 
@@ -145,17 +162,19 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-SD-CARD — Scheda MicroSD (supporto di memoria, distinta dal lettore)
 
-**Stato:** `not_confirmed` · **Quantità:** non confermata · **Ambito:** Data Logger
+**Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Nessuna conferma esplicita nel contesto disponibile.
+**Fonte:** Nessuna conferma esplicita nel contesto disponibile. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo.
+
+**Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Scheda MicroSD presente e inserita nel lettore nella foto; marca Samsung visibile. Capacita nominale/effettiva, formato e contenuto ancora da riscontrare.
 
 **Da verificare:**
 
-- Possesso, capacità e formattazione da confermare prima di ordinare un duplicato
+- Capacita, formato e contenuti da riscontrare prima di scrivere; nessuna formattazione o cancellazione senza autorizzazione.
 
 ### HW-AUTO-POWER — Alimentazione temporanea proposta: Uadme 5 V, arresto manuale STOP
 
@@ -266,7 +285,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Possesso/ordine non confermato; GPIO e cablaggio da fissare nel firmware.
+- Possesso/ordine non confermato; firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.
 - Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione.
 
 ### HW-DASH-HARNESS — Cablaggio temporaneo con fili volanti dietro al cruscotto
@@ -314,9 +333,24 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Riscontrare tipo e modello sul pezzo ricevuto; non proporre altro portafusibile prima del riscontro.
 - Fusibile da 2 A previsto per ramo 12 V prima del convertitore; acquisto non confermato, valore da verificare con cavi e assorbimento reali.
 
+### HW-RTC-BATTERY — Pila CR2032 non ricaricabile per RTC
+
+**Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
+
+**Fonte:** Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Non inserire mentre rimane attivo il percorso VCC verso positivo portabatteria rilevato in RTC-M004/M005.
+- Tensione e stato pila non misurati.
+
 ## Proposta di collegamento — non validata fisicamente
 
-GPIO proposti nel firmware 0.2.0, non cablaggio fisico approvato. GPIO32/33 illustrati per pulsanti eventuali, non inizializzati.
+GPIO firmware 0.3.0 proposti, non cablaggio fisico approvato: STOP normalmente aperto GPIO32-GND; UART2 RX16/TX17 attraverso interfaccia K-line; VAN RX34 attraverso HW-CAN-VP230. GPIO26 mantiene deselezionato MCP2515 eventualmente sullo stesso SPI. Nessun GPIO collegabile direttamente ai fili auto. Verifiche hardware a cura dell utente, non dichiarate superate.
 
 | Funzione firmware | GPIO proposto |
 | --- | --- |
@@ -326,5 +360,10 @@ GPIO proposti nel firmware 0.2.0, non cablaggio fisico approvato. GPIO32/33 illu
 | `kMiso` | 19 |
 | `kMosi` | 23 |
 | `kSdCs` | 27 |
+| `kStopPin` | 32 |
+| `kKwpRx` | 16 |
+| `kKwpTx` | 17 |
+| `kVanRx` | 34 |
+| `kUnusedCanCs` | 26 |
 
 L'illustrazione dei moduli non è la disposizione fisica dei pin.

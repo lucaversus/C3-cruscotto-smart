@@ -5,7 +5,7 @@
 | Progetto | **Cruscotto C3+AI** |
 | Sottoprogetto | **Data Logger** |
 | Documento | C3AI-DL-PH-001 |
-| Revisione | B — 18/10/2026 |
+| Revisione | C — 19/10/2026 |
 | Stato | Identificazione visiva; esiti elettrici separati nel registro MCP2515 |
 
 Foto già fornite dall'utente, recuperate dai Download e archiviate qui per
@@ -67,3 +67,13 @@ Non sono archiviate foto del retro dei moduli. Il tester è ora identificato;
 le sue prese inferiori non sono visibili nell'immagine fornita.
 Chiedere una vista aggiuntiva solo se necessaria per una misura specifica;
 non richiedere nuovamente le sei immagini già disponibili qui.
+
+## HW-SD-MODULE, HW-SD-CARD, HW-OLED e HW-RTC — arrivo
+
+![Moduli SD, OLED e RTC ricevuti](sd-oled-rtc-arrivo.jpg)
+
+Foto del 19/10/2026: a sinistra RTC marcato DS3231SN, al centro lettore
+MicroSD con scheda Samsung inserita, a destra OLED con GND/VCC/SCL/SDA.
+Il modulo definito batteria e l RTC: nessun UPS aggiuntivo identificato.
+Retro RTC e OLED non mostrati; nel lettore SD manca la vista del lato opposto.
+Nessun collaudo o tensione ammissibile dimostrati dalla sola foto.

@@ -16,6 +16,13 @@ Comando prima di decidere e prima di pubblicare:
 python tools/project_preflight.py
 ```
 
+## Biblioteca tecnica della vettura
+
+[Indice dei manuali e ricerca per argomento](docs/manuali/indice.md), rev. 1,
+19/10/2026: consultare prima di cercare nuovamente documentazione su diagnosi,
+BSI/VAN, quadro, alimentazioni e motore DV4TD. Distingue fonte documentale,
+pagina e variante da una misura sul veicolo. Originali e dati personali esclusi da Git.
+
 ## Decisioni definitive
 
 Registro iniziale consolidato il **18/10/2026** dalle conferme dell'utente.
@@ -44,6 +51,9 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 
 | D-018 | approvata | Modulo K-line senza jumper JP1 e senza richiamo R3 integrato; resistenza 510 ohm soltanto nel simulatore esterno da banco. | Conferma utente 18/10/2026: collaudare il modulo collegandolo alla linea simulata come alla vettura; nessuna risposta ECU simulata dalla sola resistenza. |
 
+| D-019 | approvata | Usare CR2032 nel RTC e rimuovere la resistenza marcata 201 per interrompere il ramo di ricarica. | Utente 19/10/2026: intervento scelto ma non ancora dichiarato eseguito; confermare interruzione del percorso prima di inserire la pila. Nessuna qualifica hardware dal solo intento. |
+| D-020 | approvata | Proseguire con il firmware completo; verifiche tecniche dei moduli a cura dell'utente. Implementare SD/RTC/OLED, STOP D-015, OBD KWP D-013 e ricezione VAN D-008/D-016. | Utente 19/10/2026: "ci penso io alle verifiche". Non equivale a collaudo superato o ad autorizzazione a presumere pin auto. GPIO firmware 0.3.0 documentati come proposti. |
+
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
 approvata serve una nuova indicazione utente o la risoluzione esplicita di un conflitto.
@@ -62,11 +72,12 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
   Il MCP2515 non decodifica VAN e nessun modulo CAN gestisce K-line; il
   VP230 separato è candidato come ricevitore fisico VAN con decoder ESP32,
   da collaudare. Vedere [distinta hardware](data-logger/docs/distinta-hardware.md).
-- MicroSD, RTC e OLED ordinati e ancora in consegna. I riferimenti commerciali
-  sono indicazioni dal contesto; modello OLED, quantità e pezzi consegnati da riscontrare.
+- Lettore MicroSD, OLED e RTC DS3231 ricevuti il 19/10/2026 e fotografati,
+  non collaudati. Il modulo chiamato batteria e HW-RTC, non un UPS.
+  Presente anche una MicroSD inserita; capacita e contenuti ancora da riscontrare.
 - GPIO21/22 I2C e GPIO18/19/23 + CS27 sono una **proposta firmware**, registrata
   in hardware.json e verificata contro config.h, non il pinout fisico HW-394 approvato.
-- Regolazione iniziale RTC, alimentazione di mantenimento, driver OLED, capacità
+- Regolazione iniziale RTC su hardware, alimentazione di mantenimento, identificazione OLED, capacità
   della scheda MicroSD e formato finale dei dati auto restano da completare.
 
 Cruscotto digitale custom per Citroën C3 Phase 1, 1.4 HDi, motore DV4TD / 8HZ.
@@ -149,8 +160,10 @@ PSRAM della scheda da 5″ dovranno essere verificati.
 
 Il data logger dispone di un primo [firmware diagnostico per il solo ESP32](data-logger/firmware/diagnostic/README.md),
 con configurazione PlatformIO. Non acquisisce ancora dati dal veicolo.
-Una [base logger 0.2.0](data-logger/firmware/logger/README.md) separata prepara
-registrazione automatica MicroSD e RTC: compilata, non ancora collaudata su hardware.
+Il [logger 0.3.0](data-logger/firmware/logger/README.md) implementa registrazione
+MicroSD, RTC, OLED, STOP, OBD KWP e ricezione VAN. Profili banco/veicolo separati;
+sorgenti e GPIO proposti, non collaudati sul veicolo. Profilo banco 0.3.0 caricato e avviato il 20/10/2026: ATTESA SD
+(modulo scollegato), RTC oscillator_stop; nessun collaudo veicolo.
 Per il cruscotto digitale non sono ancora presenti firmware, simulatore o test
 eseguibili: le dipendenze e la configurazione hardware saranno fissate dopo
 l'identificazione della scheda display. Il layout della UI e il simulatore PC
@@ -162,7 +175,8 @@ HW-CAN-MCP2515 alimentato a 3,3 V (M-009); firmware separato
 [data-logger/firmware/mcp2515-spi-test](data-logger/firmware/mcp2515-spi-test/README.md)
 compilato e caricato su HW-ESP32 con hash dei segmenti verificati da esptool.
 Esito letto direttamente su COM3: `SPI_TEST=PASS` (M-010), SPI a 100 kHz mode 0.
-Questo programma è ora sulla scheda, in sostituzione della diagnostica 0.1.0
+Questo programma era sulla scheda fino al caricamento logger 0.3.0 del 20/10/2026;
+aveva sostituito la diagnostica 0.1.0
 i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veicolo.
 
 ### Interfaccia K-line autocostruita

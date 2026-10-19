@@ -72,12 +72,14 @@ def inventory_errors(data):
         errors.append("Proposta GPIO mancante.")
     else:
         pins = proposal["pins"]
-        if set(pins) != {"kSda", "kScl", "kSck", "kMiso", "kMosi", "kSdCs"}:
+        if set(pins) != {"kSda", "kScl", "kSck", "kMiso", "kMosi", "kSdCs", "kStopPin", "kKwpRx", "kKwpTx", "kVanRx", "kUnusedCanCs"}:
             errors.append("La proposta GPIO non contiene tutte le funzioni previste.")
         if any(type(pin) is not int or pin < 0 or pin > 39 for pin in pins.values()):
             errors.append("Valore GPIO non valido per ESP32 classico.")
         elif len(set(pins.values())) != len(pins):
             errors.append("GPIO duplicato nella proposta di cablaggio.")
+        if any(type(pins.get(key)) is int and pins[key] >= 34 for key in ("kSda", "kScl", "kSck", "kMosi", "kSdCs", "kKwpTx", "kUnusedCanCs")):
+            errors.append("GPIO di sola entrata assegnato a una uscita.")
         if proposal.get("status") != "proposed_not_hardware_validated":
             errors.append("Stato GPIO cambiato: aggiornare esplicitamente procedura e collaudo.")
         if not isinstance(proposal.get("firmware"), str):

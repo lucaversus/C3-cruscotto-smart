@@ -1,0 +1,1143 @@
+{
+  "revision": 1,
+  "date": "2026-10-19",
+  "page_numbering": "PDF, one-based; keyword candidates, not verified pinouts",
+  "documents": [
+    {
+      "id": "MAN-003",
+      "source_sha256": "f0570a63d153d10d5c1e95cf6ee7a1f1a9a596cded986799d587cd13e74e7c49",
+      "pdf_pages": 271,
+      "topics": {
+        "K-line e diagnosi": [
+          168
+        ],
+        "Quadro strumenti": [
+          168
+        ],
+        "Alimentazione e batteria": [
+          7,
+          10,
+          13,
+          15,
+          16,
+          23,
+          24,
+          25,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          88,
+          90,
+          91,
+          92,
+          93,
+          97,
+          100,
+          102,
+          110,
+          111,
+          112,
+          116,
+          124,
+          128,
+          133,
+          135,
+          136,
+          140,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          166,
+          167,
+          168,
+          169,
+          183,
+          193,
+          206,
+          207,
+          223,
+          224
+        ],
+        "Fusibili": [
+          265
+        ],
+        "Temperatura e raffreddamento": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          26,
+          41,
+          50,
+          54,
+          57,
+          60,
+          64,
+          67,
+          130,
+          138,
+          141,
+          146,
+          147,
+          148,
+          195,
+          260,
+          261,
+          262,
+          263,
+          268
+        ],
+        "Pressione e sovralimentazione": [
+          7,
+          9,
+          11,
+          14,
+          50,
+          54,
+          57,
+          60,
+          64,
+          66,
+          67,
+          75,
+          77,
+          78,
+          90,
+          92,
+          93,
+          96,
+          116,
+          117,
+          119,
+          120,
+          121,
+          122,
+          126,
+          131,
+          133,
+          136,
+          138,
+          141,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          187,
+          198,
+          209,
+          214,
+          236,
+          237,
+          242,
+          251,
+          258,
+          259,
+          262,
+          263,
+          267,
+          268,
+          269,
+          270
+        ],
+        "Aria ed EGR": [
+          7,
+          44,
+          70,
+          150,
+          151
+        ],
+        "Motore DV4TD e 8HZ": [
+          2,
+          3,
+          7,
+          10,
+          13,
+          15,
+          19,
+          20,
+          21,
+          46,
+          51,
+          52,
+          53,
+          54,
+          61,
+          62,
+          63,
+          64,
+          82,
+          84,
+          93,
+          94,
+          98,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          141,
+          142,
+          143,
+          146,
+          151,
+          154,
+          155,
+          160,
+          161,
+          199,
+          200,
+          201,
+          202,
+          203,
+          206,
+          212,
+          223,
+          226,
+          227,
+          237,
+          238,
+          242
+        ],
+        "Identificazione e OPR": [
+          7,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          19,
+          20,
+          21,
+          164,
+          205,
+          222,
+          238,
+          253
+        ],
+        "Olio e manutenzione": [
+          7,
+          8,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          50,
+          52,
+          54,
+          57,
+          60,
+          62,
+          63,
+          66,
+          67,
+          75,
+          100,
+          102,
+          110,
+          111,
+          112,
+          130,
+          138,
+          141,
+          183,
+          184,
+          185,
+          186,
+          187,
+          189,
+          194,
+          195,
+          196,
+          252,
+          257,
+          258,
+          259
+        ],
+        "Velocita e regime": [
+          16,
+          45,
+          46,
+          91,
+          118,
+          122,
+          129,
+          130,
+          132,
+          137,
+          138,
+          139,
+          141,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          153,
+          171,
+          183,
+          207,
+          224,
+          260,
+          261
+        ]
+      }
+    },
+    {
+      "id": "MAN-006",
+      "source_sha256": "81e372ab8218075c9ff10cdce72b943bd46f9f6eccc6277ad4f44ce001e10524",
+      "pdf_pages": 128,
+      "topics": {
+        "BSI": [
+          5,
+          10,
+          11,
+          13,
+          25,
+          26,
+          63,
+          76,
+          77,
+          88,
+          89,
+          90,
+          91,
+          103,
+          110
+        ],
+        "VAN": [
+          90,
+          103
+        ],
+        "CAN": [
+          12,
+          60,
+          76
+        ],
+        "K-line e diagnosi": [
+          11,
+          63,
+          76,
+          77,
+          89,
+          90,
+          91,
+          103,
+          110
+        ],
+        "Quadro strumenti": [
+          3,
+          9,
+          10,
+          11,
+          13,
+          24,
+          25,
+          26,
+          27,
+          76,
+          77,
+          90,
+          91,
+          103,
+          106,
+          107,
+          108,
+          110
+        ],
+        "Alimentazione e batteria": [
+          2,
+          3,
+          7,
+          10,
+          11,
+          12,
+          13,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          40,
+          41,
+          45,
+          48,
+          54,
+          60,
+          63,
+          64,
+          65,
+          71,
+          76,
+          77,
+          85,
+          86,
+          88,
+          89,
+          90,
+          91,
+          101,
+          103,
+          106,
+          107,
+          110,
+          118
+        ],
+        "Fusibili": [
+          3,
+          5,
+          11,
+          12,
+          13,
+          40,
+          60,
+          63,
+          65,
+          76,
+          77,
+          88,
+          89,
+          90,
+          91,
+          103,
+          107,
+          108,
+          110
+        ],
+        "Temperatura e raffreddamento": [
+          2,
+          3,
+          9,
+          10,
+          11,
+          12,
+          13,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          29,
+          31,
+          34,
+          37,
+          38,
+          40,
+          41,
+          60,
+          90,
+          110,
+          118,
+          119
+        ],
+        "Pressione e sovralimentazione": [
+          1,
+          2,
+          5,
+          7,
+          9,
+          10,
+          11,
+          12,
+          13,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          32,
+          33,
+          35,
+          36,
+          37,
+          38,
+          40,
+          41,
+          42,
+          44,
+          68,
+          75,
+          76,
+          77,
+          82,
+          85,
+          86,
+          88,
+          110,
+          120
+        ],
+        "Aria ed EGR": [
+          11,
+          12,
+          13,
+          23,
+          24,
+          25,
+          26,
+          33,
+          35,
+          38,
+          40,
+          88
+        ],
+        "Motore DV4TD e 8HZ": [
+          5,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          15,
+          17,
+          21,
+          23,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          36,
+          39,
+          43,
+          44,
+          47,
+          57,
+          58,
+          60,
+          61,
+          66,
+          67,
+          71,
+          75,
+          77,
+          78,
+          82,
+          83,
+          84,
+          88,
+          112,
+          115
+        ],
+        "Identificazione e OPR": [
+          4,
+          5,
+          9,
+          13,
+          46,
+          47,
+          51,
+          52,
+          60,
+          76,
+          85,
+          88,
+          91
+        ],
+        "Olio e manutenzione": [
+          2,
+          4,
+          7,
+          9,
+          10,
+          23,
+          24,
+          27,
+          32,
+          33,
+          37,
+          38,
+          40,
+          41,
+          42,
+          43,
+          44,
+          47,
+          49,
+          53,
+          55,
+          57,
+          58,
+          88,
+          110,
+          120
+        ],
+        "Velocita e regime": [
+          1,
+          5,
+          10,
+          11,
+          12,
+          13,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          37,
+          41,
+          42,
+          47,
+          50,
+          51,
+          52,
+          56,
+          63,
+          66,
+          69,
+          72,
+          73,
+          76,
+          77,
+          85,
+          88,
+          90,
+          101,
+          103,
+          110
+        ]
+      }
+    },
+    {
+      "id": "MAN-010",
+      "source_sha256": "3ab809cff66a8886d3fb0df4c91c7ca1ea62d97d4d360b8468b2d8cc4a81d561",
+      "pdf_pages": 2,
+      "topics": {
+        "Quadro strumenti": [
+          2
+        ],
+        "Alimentazione e batteria": [
+          1,
+          2
+        ],
+        "Fusibili": [
+          2
+        ],
+        "Temperatura e raffreddamento": [
+          1,
+          2
+        ],
+        "Pressione e sovralimentazione": [
+          1
+        ],
+        "Olio e manutenzione": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MAN-011",
+      "source_sha256": "14a52079b92243f954af68c2b4f40dd7aa7d1a7f5bf83d02af66c96ba310bfe3",
+      "pdf_pages": 37,
+      "topics": {
+        "BSI": [
+          4,
+          5,
+          7,
+          19,
+          20
+        ],
+        "CAN": [
+          6
+        ],
+        "K-line e diagnosi": [
+          5,
+          7
+        ],
+        "Quadro strumenti": [
+          3,
+          4,
+          5,
+          7,
+          18,
+          19,
+          20,
+          21
+        ],
+        "Alimentazione e batteria": [
+          1,
+          4,
+          5,
+          6,
+          7,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          35
+        ],
+        "Fusibili": [
+          5,
+          6,
+          7,
+          34
+        ],
+        "Temperatura e raffreddamento": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          23,
+          25,
+          28,
+          31,
+          32,
+          34,
+          35
+        ],
+        "Pressione e sovralimentazione": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          26,
+          27,
+          29,
+          30,
+          31,
+          32,
+          34,
+          35,
+          36
+        ],
+        "Aria ed EGR": [
+          5,
+          6,
+          7,
+          17,
+          18,
+          19,
+          20,
+          27,
+          29,
+          32,
+          34
+        ],
+        "Motore DV4TD e 8HZ": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          9,
+          11,
+          15,
+          17,
+          21,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          33,
+          37
+        ],
+        "Identificazione e OPR": [
+          3,
+          7
+        ],
+        "Olio e manutenzione": [
+          1,
+          3,
+          4,
+          17,
+          18,
+          21,
+          26,
+          27,
+          31,
+          32,
+          34,
+          35,
+          36,
+          37
+        ],
+        "Velocita e regime": [
+          4,
+          5,
+          6,
+          7,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          31,
+          35,
+          36
+        ]
+      }
+    },
+    {
+      "id": "MAN-012",
+      "source_sha256": "a88ae8bba0806d8eb9d42c7e7f0a4eb979be77b0f61e4dfc49d38bcd7affa68a",
+      "pdf_pages": 3,
+      "topics": {
+        "Alimentazione e batteria": [
+          2
+        ],
+        "Pressione e sovralimentazione": [
+          1
+        ],
+        "Motore DV4TD e 8HZ": [
+          1
+        ],
+        "Identificazione e OPR": [
+          3
+        ],
+        "Olio e manutenzione": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MAN-013",
+      "source_sha256": "6c18e97df46a4631a31fd4b09e7b915ca7de7bfb28a470f847329ca22e238786",
+      "pdf_pages": 10,
+      "topics": {
+        "Alimentazione e batteria": [
+          2,
+          8
+        ],
+        "Motore DV4TD e 8HZ": [
+          1
+        ],
+        "Identificazione e OPR": [
+          1,
+          5,
+          6
+        ],
+        "Olio e manutenzione": [
+          1,
+          3,
+          7,
+          9
+        ],
+        "Velocita e regime": [
+          1,
+          4,
+          5,
+          6,
+          10
+        ]
+      }
+    },
+    {
+      "id": "MAN-014",
+      "source_sha256": "e3acb9a5181b8ae9108e8cd664eddcb372d70a3f3ee18da98bd839c1098e6302",
+      "pdf_pages": 11,
+      "topics": {
+        "BSI": [
+          1
+        ],
+        "K-line e diagnosi": [
+          1
+        ],
+        "Quadro strumenti": [
+          1
+        ],
+        "Alimentazione e batteria": [
+          1,
+          9
+        ],
+        "Fusibili": [
+          1
+        ],
+        "Temperatura e raffreddamento": [
+          1,
+          9,
+          10
+        ],
+        "Pressione e sovralimentazione": [
+          1,
+          11
+        ],
+        "Motore DV4TD e 8HZ": [
+          3,
+          6
+        ],
+        "Olio e manutenzione": [
+          1,
+          11
+        ],
+        "Velocita e regime": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MAN-015",
+      "source_sha256": "9da7ea48edb784ef198210a5ac658b9eb415325adca614b038a580a93a6a6e77",
+      "pdf_pages": 3,
+      "topics": {
+        "Motore DV4TD e 8HZ": [
+          1,
+          2
+        ],
+        "Olio e manutenzione": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "MAN-016",
+      "source_sha256": "f23c13fdf6c82e25834babf450f50dbc1e6eb8c5f4b9f05f9200003e55296e28",
+      "pdf_pages": 6,
+      "topics": {
+        "BSI": [
+          4
+        ],
+        "CAN": [
+          1
+        ],
+        "K-line e diagnosi": [
+          4
+        ],
+        "Alimentazione e batteria": [
+          1,
+          4,
+          5,
+          6
+        ],
+        "Fusibili": [
+          1,
+          4,
+          6
+        ],
+        "Temperatura e raffreddamento": [
+          1
+        ],
+        "Motore DV4TD e 8HZ": [
+          1,
+          2
+        ],
+        "Identificazione e OPR": [
+          1
+        ],
+        "Velocita e regime": [
+          4
+        ]
+      }
+    },
+    {
+      "id": "MAN-017",
+      "source_sha256": "3d8702c9eeb2204670d9dab82b9777392a4c325a9b469bdb209fcfe0330f76e6",
+      "pdf_pages": 15,
+      "topics": {
+        "BSI": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "VAN": [
+          3
+        ],
+        "K-line e diagnosi": [
+          2,
+          3,
+          4
+        ],
+        "Quadro strumenti": [
+          3,
+          4
+        ],
+        "Alimentazione e batteria": [
+          1,
+          2,
+          3,
+          4,
+          14
+        ],
+        "Fusibili": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "Temperatura e raffreddamento": [
+          3
+        ],
+        "Pressione e sovralimentazione": [
+          1
+        ],
+        "Aria ed EGR": [
+          1
+        ],
+        "Motore DV4TD e 8HZ": [
+          1
+        ],
+        "Identificazione e OPR": [
+          1,
+          4
+        ],
+        "Olio e manutenzione": [
+          1
+        ],
+        "Velocita e regime": [
+          1,
+          3,
+          14
+        ]
+      }
+    },
+    {
+      "id": "MAN-018",
+      "source_sha256": "a67e59a6dc64c71a7e9a2597f48e7b69e668a6b14c37952a89eed3c1c2e621ae",
+      "pdf_pages": 8,
+      "topics": {}
+    },
+    {
+      "id": "MAN-019",
+      "source_sha256": "36dec01224fa7a3a5fc68b4181c29fea39af28b35900e84d9ad69a33e698e546",
+      "pdf_pages": 1,
+      "topics": {
+        "BSI": [
+          1
+        ],
+        "VAN": [
+          1
+        ],
+        "K-line e diagnosi": [
+          1
+        ],
+        "Quadro strumenti": [
+          1
+        ],
+        "Alimentazione e batteria": [
+          1
+        ],
+        "Fusibili": [
+          1
+        ],
+        "Velocita e regime": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MAN-021",
+      "source_sha256": "f0b2fe0ad47eecf0c620a3a7014e6b184aee5dc60e43a33784795520993fc86a",
+      "pdf_pages": 4,
+      "topics": {
+        "BSI": [
+          3
+        ],
+        "Fusibili": [
+          3
+        ],
+        "Pressione e sovralimentazione": [
+          1,
+          3
+        ],
+        "Motore DV4TD e 8HZ": [
+          3
+        ],
+        "Identificazione e OPR": [
+          2,
+          3
+        ],
+        "Olio e manutenzione": [
+          2
+        ],
+        "Velocita e regime": [
+          1,
+          3
+        ]
+      }
+    }
+  ]
+}

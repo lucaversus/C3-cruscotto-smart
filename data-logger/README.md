@@ -82,15 +82,18 @@ insieme ai dati decodificati per consentire verifiche successive.
 
 È presente un primo [firmware diagnostico a banco](firmware/diagnostic/README.md)
 per il solo ESP32, con configurazione PlatformIO e uscita seriale.
-Non implementa ancora acquisizione BSI/OBD2, MicroSD o RTC. Le funzioni
-di registrazione descritte sono obiettivi da implementare e validare,
-non capacità già disponibili. Le prove sulla scheda sono separate dalla compilazione.
+Non implementa ancora acquisizione BSI/OBD2, MicroSD o RTC. Le funzioni del logger 0.3.0 sono implementate nei sorgenti separati,
+non ancora caricate o validate sui moduli. Le prove sulla scheda sono separate dalla compilazione.
 
-È inoltre presente la prima [base logger 0.2.0](firmware/logger/README.md),
-separata dalla diagnostica: avvio automatico, CSV di salute ESP32 su MicroSD
-e lettura DS3231 con stato di validità. Compilazione e 18 controlli sul decoder
-verificati; non ancora caricata né collaudata con i moduli, ancora in consegna.
-Pulsanti, OLED e acquisizione automobilistica restano disabilitati.
+Il [logger 0.3.0](firmware/logger/README.md) implementa avvio automatico,
+MicroSD con rotazione e verifica di chiusura, DS3231, OLED e pulsante STOP.
+Il profilo veicolo aggiunge OBD KWP fast init e ricezione VAN con salvataggio
+anche dei byte non interpretati. Profili/GPIO proposti descritti nel README firmware.
+Profilo banco 0.3.0 caricato e avviato il 20/10/2026 su COM3: ATTESA SD
+(modulo scollegato) e RTC oscillator_stop; ora non ancora impostata.
+Lettore SD, OLED e RTC ricevuti il 19/10/2026; verifiche hardware a cura dell'utente
+(D-020), nessun esito positivo presunto. Rimozione resistenza RTC 201 ancora
+non dichiarata eseguita. Il programma sulla scheda ora e logger 0.3.0 banco.
 
 La cartella `docs/` ospiterà la documentazione tecnica di dettaglio.
 Il modello ESP32-S3 e il display previsti per il cruscotto non vincolano
@@ -105,7 +108,8 @@ HW-CAN-MCP2515 con HW-ESP32, secondo D-006 e D-010: reset, verifica modalità
 configurazione e scrittura/rilettura registri a 100 kHz, senza traffico CAN.
 Caricato il 18/10/2026 con hash verificati da esptool; letto su COM3
 `status SPI_TEST=PASS uptime_ms=15545`. CAN non collaudato.
-Sulla scheda sostituisce la diagnostica, i cui sorgenti sono conservati.
+Ha sostituito la diagnostica; dal 20/10/2026 e a sua volta sostituito dal logger
+0.3.0 banco. Sorgenti dei test conservati.
 GPIO del solo test: SCK18, MISO19, MOSI23, CS26; H/L e INT scollegati.
 
 ## Distinta hardware
@@ -120,7 +124,8 @@ e cablaggio posteriore OBD non ancora rilasciati per acquisto/installazione.
 Scelta D-013 registrata: [circuito a banco rev D](docs/kline-autocostruita.md),
 NPN 2N5551 e comparatore LM2903B. UART 10400 con solo TX invertito.
 Schema e modello DC prodotti; componenti non confermati, nessun montaggio,
-firmware K-line o collaudo. Nessun collegamento alla vettura.
+collaudo. Driver K-line implementato nella 0.3.0, non ancora caricato.
+Nessun collegamento alla vettura.
 
 ## Alimentazione e arresto manuale
 
@@ -128,5 +133,11 @@ D-015: logger temporaneo per pochi giorni. Avvio automatico; pulsante STOP
 chiude la SD e mostra SALVATO - PUOI SPEGNERE, poi acquisizione arrestata fino
 al prossimo avvio. Niente UPS, mantenimento MOSFET o arresto automatico IGN.
 [Alimentazione e STOP rev B](docs/alimentazione-spegnimento.md).
-Funzione richiesta, non ancora implementata nel firmware; stato ARRESTATO
+Funzione implementata nella 0.3.0, non collaudata sul modulo; stato ARRESTATO
 non significa disconnessione elettrica dell'ESP32. Uadme candidato, non collaudato.
+
+## Collegamenti per la prima prova USB
+
+[Schema banco firmware 0.3.0](docs/collegamenti-banco-030.md), rev. A:
+SD, RTC, OLED e STOP. Nessun collegamento al veicolo e nessun caricamento
+eseguito durante la preparazione del disegno.

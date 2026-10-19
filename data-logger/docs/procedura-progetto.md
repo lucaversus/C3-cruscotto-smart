@@ -95,3 +95,21 @@ non bastano da soli a dichiarare che tutto è pubblicato.
 Questa procedura rende i controlli ripetibili. AGENTS.md fornisce le istruzioni
 alle future sessioni nel repository; nessun file può garantire da solo che un
 assistente in un'altra chat, senza accesso al repository, lo abbia consultato.
+
+## Consultazione della biblioteca tecnica — 19/10/2026
+
+Prima di cercare nuove fonti sulla vettura, consultare
+[la biblioteca tecnica](../../docs/manuali/indice.md) e il relativo indice per
+argomenti.
+Indicare ID MAN, pagina PDF, pagina stampata e variante; aprire la pagina prima
+di ricavare un pinout. Testo estratto non equivale a verifica grafica degli schemi.
+Le decisioni utente e l'inventario restano vincolanti. Non pubblicare manuali o
+documenti personali; nel repository solo catalogo tecnico e riferimenti necessari.
+
+## Caricamenti sempre visibili — 20/10/2026
+
+Richiesta utente: mostrare ogni caricamento nel terminale, seguito dal monitor
+seriale. Usare tools/carica-logger-visibile.ps1 in una finestra visibile, profilo
+banco predefinito; non aprire contemporaneamente altri monitor sulla stessa porta.
+Lo script conserva log locali sotto .tools/serial e apre il monitor soltanto
+dopo upload riuscito. Nessuna modifica ai criteri PowerShell permanenti.

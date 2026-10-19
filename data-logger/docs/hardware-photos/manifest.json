@@ -2,8 +2,8 @@
   "project": "Cruscotto C3+AI",
   "subproject": "Data Logger",
   "drawing_code": "C3AI-DL-PH-001",
-  "revision": "B",
-  "date": "2026-10-18",
+  "revision": "C",
+  "date": "2026-10-19",
   "note": "Fotografie sorgenti: identificazione visiva, non collaudo elettrico. Metadati EXIF/XMP/IPTC e commenti rimossi senza ricompressione. Originali integrali conservati solo localmente in .tools/hardware-photo-originals/.",
   "photos": [
     {
@@ -47,6 +47,19 @@
       "source_filename": "tester.jpg",
       "source_sha256": "a0a97650c5673c79cd457e64804929bd85923de0dd15558d7f9811c92082be2b",
       "sha256": "977030a9e1f593068c34e9258fe649b2d1c0aa0b1a8d6098141d52092093af30"
+    },
+    {
+      "hardware_id": "HW-SD-MODULE",
+      "hardware_ids": [
+        "HW-SD-MODULE",
+        "HW-SD-CARD",
+        "HW-OLED",
+        "HW-RTC"
+      ],
+      "file": "sd-oled-rtc-arrivo.jpg",
+      "source_filename": "PXL_20261019_210229701.jpg",
+      "source_sha256": "bee9de73fe520f1d065d585c2e254939cf4c1e646a954fcdee70f570a45d951e",
+      "sha256": "0cf81ae40de5fa81b1ca670dd5f4119a41050d14cfadda3e7a79b516e0b0a172"
     }
   ]
 }
