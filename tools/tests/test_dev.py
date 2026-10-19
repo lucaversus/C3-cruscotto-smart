@@ -33,3 +33,15 @@ class EnvironmentTests(unittest.TestCase):
         env = dev.build_environment(root=root, windows=False, environ={})
         self.assertEqual(env['PLATFORMIO_CORE_DIR'], str(root / '.tools/pio-core'))
         self.assertNotIn('PLATFORMIO_WORKSPACE_DIR', env)
+
+
+class CompilerTests(unittest.TestCase):
+    def test_cxx_variable_has_priority(self):
+        self.assertEqual(dev.cpp_compiler(environ={'CXX': 'my-c++'}, which=lambda name: None), 'my-c++')
+
+    def test_first_available_compiler_is_chosen(self):
+        found = {'clang++'}
+        self.assertEqual(dev.cpp_compiler(environ={}, which=lambda name: name if name in found else None), 'clang++')
+
+    def test_missing_compiler_is_reported_as_none(self):
+        self.assertIsNone(dev.cpp_compiler(environ={}, which=lambda name: None))

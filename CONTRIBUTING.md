@@ -25,7 +25,9 @@ Non modifica l'installazione Python globale. Piattaforma ESP32 e librerie firmwa
 sono fissate in [platformio.ini](data-logger/firmware/logger/platformio.ini).
 Le dipendenze Python transitive sono risolte da pip: non e un lock completo del sistema.
 
-`check` esegue preflight, test Python e controllo whitespace. Funziona anche prima
+`check` esegue preflight, test Python, test C++ host della logica firmware
+(se e disponibile un compilatore C++: g++, clang++ o `CXX`) e controllo whitespace.
+`lint` esegue cppcheck sui sorgenti del logger, se installato; la CI esegue entrambi. Funziona anche prima
 di `setup`, senza USB, rete o manuali originali. `build` compila i profili banco
 e veicolo, compresi i controlli statici C++; **non carica firmware**.
 La prima build scarica toolchain e dipendenze. Su Windows la cache corta predefinita
