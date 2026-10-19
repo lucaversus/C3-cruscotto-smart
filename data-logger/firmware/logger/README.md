@@ -163,6 +163,16 @@ python tools/dev.py build
 calendario/UTC, debounce e overflow timer, STOP e condizioni di salvataggio,
 checksum/header KWP, bitmap PID, limiti decoder VAN. Sono controlli a compilazione,
 non un emulatore di ESP32, UART, RMT o guasti del supporto SD.
+
+`host-tests/test_logic.cpp` (D-023) esegue sul PC, con gli stessi header, test
+su dati generati: andata e ritorno VAN con encoder enhanced Manchester di
+riferimento a 125 e 62,5 kbit/s, CRC-15 confrontato con un'implementazione
+indipendente dai coefficienti del polinomio, rilevamento di ogni errore su un
+singolo bit, tolleranza temporale RMT, parsing KWP incrementale, bitmap PID,
+equità della pianificazione 0.3.1, rimbalzi casuali dello STOP e calendario UTC
+confrontato con la libreria C. Verificata la sensibilità con difetti introdotti
+di proposito (decoder, polinomio, XOR finale, rotazione PID, debounce).
+`python tools/dev.py lint` esegue cppcheck su sorgenti e test.
 Collaudi completi di registrazione SD, sorgenti veicolo e spegnimento fisico ancora
 da eseguire; avvio a banco e raggiungibilita RTC verificati il 20/10/2026.
 Il 20/10/2026 e stata caricata la 0.3.0 banco su COM3 con hash verificati,

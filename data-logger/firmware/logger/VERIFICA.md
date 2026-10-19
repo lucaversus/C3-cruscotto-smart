@@ -36,3 +36,13 @@ Questo aggiornamento supera il solo stato non caricato del rapporto 19/10.
   di pubblicazione, prima dell'unione in main: nell'ambiente di sviluppo usato
   l'installazione di PlatformIO da PyPI non era consentita.
 - Nessun caricamento su ESP32; nessun collaudo KWP, VAN o SD a frequenze > 1 MHz.
+
+## Test host e analisi statica — 20/10/2026 (D-023)
+
+- `host-tests/test_logic.cpp`: 481.849 controlli superati con g++ e clang++
+  (`-Wall -Wextra -Werror`). Cinque difetti introdotti di proposito nelle copie
+  degli header sono stati tutti rilevati.
+- Il CRC-15 del firmware coincide con un'implementazione di riferimento
+  indipendente su 2000 sequenze casuali.
+- cppcheck eseguito dalla pipeline (non disponibile nell'ambiente di sviluppo usato).
+- Sorgenti firmware invariati rispetto alla 0.3.1: nessuna nuova versione.

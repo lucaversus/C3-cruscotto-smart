@@ -4,12 +4,15 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import venv
 
 ROOT = Path(__file__).resolve().parents[1]
 ENVIRONMENT = ROOT / '.tools/pio-venv'
+LOGGER = ROOT / 'data-logger/firmware/logger'
+HOST_TEST = LOGGER / 'host-tests/test_logic.cpp'
 
 
 def python_path():
@@ -18,6 +21,47 @@ def python_path():
 
 def run(*args, env=None):
     subprocess.run([str(arg) for arg in args], cwd=ROOT, env=env, check=True)
+
+
+def cpp_compiler(environ=None, which=shutil.which):
+    """Compilatore C++ del PC: CXX se impostato, altrimenti g++, clang++ o c++."""
+    env = os.environ if environ is None else environ
+    if env.get('CXX'):
+        return env['CXX']
+    for name in ('g++', 'clang++', 'c++'):
+        if which(name):
+            return name
+    return None
+
+
+def run_host_tests(required=False):
+    """Test della logica firmware sul PC (D-023); non sostituiscono la build ESP32."""
+    compiler = cpp_compiler()
+    if not compiler:
+        message = 'Test C++ host non eseguiti: nessun compilatore C++ trovato (la CI li esegue).'
+        if required:
+            raise SystemExit(message)
+        print(message, flush=True)
+        return
+    output = ROOT / '.tools/host-tests' / ('test_logic.exe' if os.name == 'nt' else 'test_logic')
+    output.parent.mkdir(parents=True, exist_ok=True)
+    run(compiler, '-std=gnu++14', '-Wall', '-Wextra', '-Werror', '-O1',
+        '-I', LOGGER / 'include', HOST_TEST, '-o', output)
+    run(output)
+
+
+def run_lint():
+    """Analisi statica cppcheck dei sorgenti logger (D-023)."""
+    cppcheck = shutil.which('cppcheck')
+    if not cppcheck:
+        raise SystemExit('cppcheck non trovato: installarlo (gratuito, open source) o affidarsi alla CI.')
+    common = [cppcheck, '--std=c++14', '--language=c++', '--enable=warning,performance,portability',
+              '--inline-suppr', '--error-exitcode=1', '--quiet',
+              '--suppress=missingIncludeSystem', '--suppress=missingInclude',
+              '--suppress=unmatchedSuppression', '-I', LOGGER / 'include']
+    for profile in (['-DLOGGER_ENABLE_KWP=0', '-DLOGGER_ENABLE_VAN=0'],
+                    ['-DLOGGER_ENABLE_KWP=1', '-DLOGGER_ENABLE_VAN=1']):
+        run(*common, *profile, LOGGER / 'src', HOST_TEST)
 
 
 def build_environment(root=ROOT, windows=os.name == 'nt', environ=None):
@@ -34,7 +78,7 @@ def build_environment(root=ROOT, windows=os.name == 'nt', environ=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('setup', 'check', 'build', 'paths'))
+    parser.add_argument('action', choices=('setup', 'check', 'build', 'lint', 'paths'))
     args = parser.parse_args()
     if args.action == 'setup':
         if sys.version_info < (3, 10):
@@ -50,6 +94,9 @@ def main():
         run(sys.executable, '-m', 'unittest', 'discover', '-s', 'tools/tests', '-v')
         run('git', '-c', 'core.safecrlf=false', 'diff', '--check')
         run('git', '-c', 'core.safecrlf=false', 'diff', '--cached', '--check')
+        run_host_tests(required=bool(os.environ.get('CI')))
+    elif args.action == 'lint':
+        run_lint()
     elif args.action == 'paths':
         env = build_environment()
         print(json.dumps({key: value for key, value in env.items()
