@@ -1,6 +1,6 @@
 # K-line autocostruita — Cruscotto C3+AI / Data Logger
 
-Revisione E, 20/10/2026. Disegno C3AI-DL-KL-001, rev E (D-022: isteresi R10).
+Revisione F, 20/10/2026. Disegno C3AI-DL-KL-001, rev F (D-022: isteresi R10; D-024: disegno IEC/ISO).
 **Prototipo da banco non collaudato: nessun collegamento al veicolo.**
 Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
 il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
@@ -143,6 +143,16 @@ alla linea simulata come alla linea della vettura, con alimentazioni e masse
 corrette. Il solo richiamo resistivo simula il carico statico, non risposte ECU,
 disturbi o transitori della vettura; non costituisce collaudo KWP completo.
 In auto non montare R3 aggiuntiva senza riscontro del richiamo gia presente.
+
+## Revisione F — ridisegno secondo le norme, 20/10/2026
+
+D-024. Schema elettrico IEC 61082-1 su foglio ISO 5457 A3 con cartiglio ISO 7200.
+U1 rappresentato con il simbolo funzionale IEC 60617 dell'amplificatore
+(U1A ricezione, U1B inutilizzato con ingressi definiti, U1C alimentazione con
+pin 8 e 4) invece della vista del contenitore SOIC-8; morsetti -X1 (verso ESP32)
+e -X2 (verso la linea) sul confine del modulo -A1; simulatore R3 nel gruppo
+esterno -A2; distinta componenti sul foglio. Nessuna variazione elettrica:
+collegamenti e valori identici alla rev E; il modello DC del generatore è invariato.
 
 ## Revisione E — isteresi del comparatore, 20/10/2026
 

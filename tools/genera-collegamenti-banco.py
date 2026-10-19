@@ -1,127 +1,125 @@
-"""Schema vettoriale riproducibile del banco logger, pin da hardware.json."""
+"""Schema di collegamento del banco logger (C3AI-DL-EL-003), GPIO letti da hardware.json.
+
+Rev. B (D-024): IEC 61082-1 schema di collegamento, simboli IEC 60617, foglio ISO 5457 A3,
+cartiglio ISO 7200, tabella dei collegamenti con fili numerati.
+"""
 from pathlib import Path
-import html
 import json
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'data-logger/docs/tools'))
+from iso_drawing import Sheet  # noqa: E402
+
 PINS = json.loads((ROOT / 'data-logger/docs/hardware.json').read_text(encoding='utf-8'))['wiring_proposal']['pins']
-parts = ['<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1320" viewBox="0 0 1800 1320">',
-         '<title>Cruscotto C3+AI — Data Logger — Collegamenti banco 0.3.0</title>',
-         '<rect width="1800" height="1320" fill="white"/>',
-         '<g font-family="Arial, sans-serif" fill="#172b42">']
+g = {k: PINS[k] for k in ('kSda', 'kScl', 'kSck', 'kMiso', 'kMosi', 'kSdCs', 'kStopPin')}
 
-def rect(x,y,w,h,fill,stroke='#24384c',radius=0):
-    parts.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}" stroke="{stroke}" stroke-width="2"/>')
+d = Sheet('C3AI-DL-EL-003 rev B — Collegamenti banco logger')
+d.frame()
+d.text(25, 20, 'COLLEGAMENTI PER LA PROVA A BANCO DEL LOGGER — SCHEMA DI COLLEGAMENTO', 5, bold=True)
+d.text(25, 25, f'Firmware 0.3.x, profilo esp32-hw394-logger. Alimentazione soltanto da USB. GPIO da hardware.json (proposta, non collaudo).', 2.5)
 
-def text(x,y,value,size=21,color='#172b42',bold=False):
-    parts.append(f'<text x="{x}" y="{y}" font-size="{size}" fill="{color}" font-weight="{"bold" if bold else "normal"}">{html.escape(str(value))}</text>')
+# -A1 ESP32: morsetti usati, in ordine logico (non la posizione sul connettore della scheda).
+rows = [None] * 21
+def put(i, pin, label): rows[i] = (pin, label)
+put(0, '3V3', '3V3'); put(2, 'GND', 'GND')
+put(5, f'D{g["kSdCs"]}', f'GPIO{g["kSdCs"]}'); put(7, f'D{g["kMosi"]}', f'GPIO{g["kMosi"]}')
+put(9, f'D{g["kSck"]}', f'GPIO{g["kSck"]}'); put(11, f'D{g["kMiso"]}', f'GPIO{g["kMiso"]}')
+put(14, f'D{g["kSda"]}', f'GPIO{g["kSda"]}'); put(16, f'D{g["kScl"]}', f'GPIO{g["kScl"]}')
+put(20, f'D{g["kStopPin"]}', f'GPIO{g["kStopPin"]}')
+right = [r if r else (None, None) for r in rows]
+a1 = d.element(70, 40, 40, 125, '-A1', 'ESP32 HW-394 (30 pin)', pins_right=right, first=10, pitch=5,
+               pins_bottom=[('USB', 'USB')], )
+d.text(90, 100, 'HW-ESP32', 3.5, 'middle', True)
+d.text(90, 105, 'ESP-32D', 2.5, 'middle')
+usb = a1['USB']
+d.wire(usb, (usb[0], 178)); d.text(usb[0] - 2, 182, '-X1  USB verso PC: alimentazione e seriale', 2.5, 'end')
+# Alimentazione di -A1 verso i moduli: riferimenti di potenziale (IEC 61082-1).
+d.wire(a1['3V3'], (120, 50)); d.supply_side(120, 50, '+3V3', 1)
+d.wire(a1['GND'], (120, 60)); d.ground_side(120, 60, 1)
 
-def wire(path,color,width=3):
-    parts.append(f'<path d="{path}" fill="none" stroke="{color}" stroke-width="{width}" stroke-linejoin="round"/>')
+# Moduli con morsetti nell'ordine della serigrafia documentata in hardware.json.
+X = 225
+sd = d.element(X, 45, 40, 35, '-A2', 'Lettore MicroSD (HW-SD-MODULE)', pins_left=[
+    ('', '3V3'), ('', 'CS'), ('', 'MOSI'), ('', 'CLK'), ('', 'MISO'), ('', 'GND')], first=5, pitch=5)
+rtc = d.element(X, 100, 40, 35, '-A3', 'RTC DS3231 (HW-RTC)', pins_left=[
+    ('', 'GND'), ('', 'VCC'), ('', 'SDA'), ('', 'SCL'), ('', 'SQW'), ('', '32K')], first=5, pitch=5)
+oled = d.element(X, 150, 40, 25, '-A4', 'OLED I²C (HW-OLED)', pins_left=[
+    ('', 'GND'), ('', 'VCC'), ('', 'SCL'), ('', 'SDA')], first=5, pitch=5)
 
-def dot(x,y,color,r=5):
-    parts.append(f'<circle cx="{x}" cy="{y}" r="{r}" fill="{color}"/>')
+def to_module(src, trunk_x, dst, wire_no):
+    d.wire(src, (trunk_x, src[1]), (trunk_x, dst[1]), dst)
+    d.text(dst[0] - 2, dst[1] - 0.8, wire_no, 2, 'end')
 
-def holes(x,y,w,h):
-    for a,b in [(x+14,y+14),(x+w-14,y+14),(x+14,y+h-14),(x+w-14,y+h-14)]:
-        parts.append(f'<circle cx="{a}" cy="{b}" r="7" fill="white" stroke="#9aa8b0" stroke-width="3"/>')
+# Bus SPI: tronchi verticali crescenti verso il basso, senza incroci.
+to_module(a1[f'GPIO{g["kSdCs"]}'], 150, sd['CS'], 'W3')
+to_module(a1[f'GPIO{g["kMosi"]}'], 157.5, sd['MOSI'], 'W4')
+to_module(a1[f'GPIO{g["kSck"]}'], 165, sd['CLK'], 'W5')
+to_module(a1[f'GPIO{g["kMiso"]}'], 172.5, sd['MISO'], 'W6')
 
-VCC='#bd2834'; GND='#283b4a'; SDA='#167b45'; SCL='#2566c0'
-text(55,65,'COLLEGAMENTI PER LA PRIMA PROVA A BANCO',33,bold=True)
-text(55,105,'Firmware 0.3.0 · profilo esp32-hw394-logger · alimentazione soltanto USB',24)
-text(55,140,'Pin disposti per leggibilità: usare le serigrafie dei pezzi, non la posizione nel disegno.',21)
+# Bus I²C condiviso: giunzioni a T con punto.
+sda, scl = a1[f'GPIO{g["kSda"]}'], a1[f'GPIO{g["kScl"]}']
+d.wire(sda, (185, sda[1])); d.dot(185, sda[1])
+d.wire((185, sda[1]), (185, rtc['SDA'][1]), rtc['SDA']); d.text(rtc['SDA'][0] - 2, rtc['SDA'][1] - 0.8, 'W9', 2, 'end')
+d.wire((185, sda[1]), (185, oled['SDA'][1]), oled['SDA']); d.text(oled['SDA'][0] - 2, oled['SDA'][1] - 0.8, 'W13', 2, 'end')
+d.wire(scl, (195, scl[1])); d.dot(195, scl[1])
+d.wire((195, scl[1]), (195, rtc['SCL'][1]), rtc['SCL']); d.text(rtc['SCL'][0] - 2, rtc['SCL'][1] - 0.8, 'W10', 2, 'end')
+d.wire((195, scl[1]), (195, oled['SCL'][1]), oled['SCL']); d.text(oled['SCL'][0] - 2, oled['SCL'][1] - 0.8, 'W14', 2, 'end')
+d.text(186, sda[1] - 1.5, 'SDA', 2.2); d.text(196, scl[1] - 1.5, 'SCL', 2.2)
 
-# ESP32 illustrated PCB. GPIO ordering is logical, explicitly not a footprint.
-rect(110,240,390,780,'#173d36',radius=16); holes(110,240,390,780)
-rect(176,320,255,355,'#bac2c6',radius=8)
-text(198,390,'ESP-32D',29,bold=True)
-text(196,433,'ESP32 HW-394',23)
-text(198,475,'30 pin / 4 MB',20)
-for dy in range(5):
-    wire(f'M205 {540+dy*19} h170', '#73858e', 5)
-rect(218,730,150,100,'#1e242b',radius=3)
-text(238,790,'CH340',22,'#e0e7ed')
-for y in range(280,980,38):
-    rect(122,y,15,15,'#cbb77b'); rect(473,y,15,15,'#cbb77b')
-rect(239,1000,128,50,'#c4c9ce',radius=5)
-wire('M303 1050 V1110 H150',GND,9)
-text(70,1145,'USB verso PC',22,bold=True)
-text(140,219,'HW-ESP32',25,bold=True)
+# Alimentazione dei moduli: riferimenti +3V3 e massa, fili W1/W2, W7/W8, W11/W12 in tabella.
+def power(pt, kind, wire_no):
+    x = pt[0] - 7.5
+    d.wire(pt, (x, pt[1]))
+    if kind == 'vcc': d.supply_side(x, pt[1], '+3V3')
+    else: d.ground_side(x, pt[1])
+    d.text(pt[0] - 2, pt[1] - 0.8, wire_no, 2, 'end')
+power(sd['3V3'], 'vcc', 'W1'); power(sd['GND'], 'gnd', 'W2')
+power(rtc['VCC'], 'vcc', 'W7'); power(rtc['GND'], 'gnd', 'W8')
+power(oled['VCC'], 'vcc', 'W11'); power(oled['GND'], 'gnd', 'W12')
+for name in ('SQW', '32K'):
+    p = rtc[name]; d.wire(p, (p[0] - 3, p[1])); d.not_connected(p[0] - 3, p[1])
 
-# Continuous supply rails, separated from signal wiring.
-wire('M500 280 H555 V175 H1640 V980',VCC)
-wire('M500 310 H585 V205 H1710 V1080',GND)
-text(1445,168,'3V3',21,VCC,True); text(1625,200,'GND',21,GND,True)
-text(415,272,'3V3',20,'#ffb7bd',True); text(415,304,'GND',20,'white',True)
+# -S1 pulsante STOP normalmente aperto verso massa.
+stop = a1[f'GPIO{g["kStopPin"]}']
+d.wire(stop, (130, stop[1])); end = d.push_button_no(130, stop[1], '-S1', 'STOP (NO)')
+d.wire(end, (147.5, stop[1])); d.ground(147.5, stop[1])
+d.text(131, stop[1] + 7.5, 'W15 / W16', 2)
 
-# MicroSD module and six labelled contacts.
-rect(1100,240,435,285,'#16699a',radius=7); holes(1100,240,435,285)
-text(1110,234,'HW-SD-MODULE · MicroSD SPI',23,bold=True)
-rect(1230,290,205,155,'#abb8c1',radius=5)
-rect(1273,410,120,90,'#20282f',radius=3)
-text(1288,461,'microSD',19,'white')
-for pin,y in [('MOSI',340),('CLK',380),('MISO',420),('CS',460)]:
-    dot(1100,y,'#d1b975'); text(1115,y-7,pin,18,'white')
-for pin,y,color,rail in [('3V3',270,VCC,1640),('GND',310,GND,1710)]:
-    dot(1535,y,'#d1b975'); text(1465,y-8,pin,19,'white');wire(f'M1535 {y} H{rail}',color);dot(rail,y,color)
-for key,y,label,color in [('kMosi',340,'MOSI','#b47112'),('kSck',380,'CLK','#8b4caa'),('kMiso',420,'MISO','#147e8c'),('kSdCs',460,'CS','#bd6b25')]:
-    wire(f'M500 {y} H1100',color)
-    text(520,y-10,f'GPIO{PINS[key]} → {label}',21,color,True)
+d.notes(285, 45, 'NOTE', [
+    '1. Cablare a USB scollegata. Moduli a 3,3 V, masse comuni.',
+    '2. Non usare VIN per alimentare i moduli al banco.',
+    f'3. -S1: due contatti che si chiudono solo premendo. Pull-up interna',
+    f'  attivata dal firmware su GPIO{g["kStopPin"]}.',
+    '4. -A3: CR2032 fuori finché il ramo di ricarica non è disabilitato',
+    '  (D-019). SQW e 32K non collegati (×).',
+    '5. Ordine dei morsetti di -A2/-A3/-A4 come da serigrafia; -A1 in ordine',
+    '  logico: collegare per nome (D23 = GPIO23), non per posizione.',
+    '6. Scollegati per questa prova: MCP2515, VP230, interfaccia K-line',
+    '  e tutti i fili dell\'auto.',
+    '7. Tutti i riferimenti +3V3 sono il morsetto 3V3 di -A1; tutte le masse',
+    '  il morsetto GND di -A1 (fili W1–W16 in tabella).',
+    '8. Simboli IEC 60617; schema IEC 61082-1. Incrocio senza punto:',
+    '  nessun contatto.',
+], step=3.8)
 
-# RTC DS3231, visible IC and unused SQW/32K explicitly marked.
-text(1110,570,'HW-RTC · DS3231',25,bold=True)
-rect(1100,590,435,170,'#176d9e',radius=7);holes(1100,590,435,170)
-rect(1260,620,138,100,'#252b32',radius=3)
-for y in range(630,710,12):
-    wire(f'M1245 {y} H1260 M1398 {y} H1413','#b7bec4',5)
-text(1270,660,'DS3231',20,'white')
-text(1270,690,'RTC',19,'#c5d7dc')
-for pin,y,c in [('SDA',650,SDA),('SCL',700,SCL)]:
-    dot(1100,y,'#d1b975');text(1115,y-8,pin,18,'white')
-for pin,y,c,rail in [('VCC',620,VCC,1640),('GND',660,GND,1710)]:
-    dot(1535,y,'#d1b975');text(1465,y-8,pin,18,'white');wire(f'M1535 {y} H{rail}',c);dot(rail,y,c)
-text(1130,747,'SQW e 32K: non collegati',19,'white')
-
-# OLED illustrated module, not a claim of controller identification.
-text(1110,807,'HW-OLED · I2C',25,bold=True)
-rect(1100,825,435,170,'#24292f',radius=7);holes(1100,825,435,170)
-rect(1222,849,208,111,'#080f18',stroke='#8ca1ab',radius=2)
-text(1232,891,'C3+AI LOGGER',18,'#59cee8')
-text(1232,922,'STATO / RIGHE',17,'#59cee8')
-for pin,y,c in [('SDA',880,SDA),('SCL',930,SCL)]:
-    dot(1100,y,'#d1b975');text(1115,y-8,pin,18,'white')
-for pin,y,c,rail in [('VCC',850,VCC,1640),('GND',890,GND,1710)]:
-    dot(1535,y,'#d1b975');text(1465,y-8,pin,18,'white');wire(f'M1535 {y} H{rail}',c);dot(rail,y,c)
-
-# Shared I2C buses, joined only at marked junctions.
-wire('M500 650 H865 V880 H1100',SDA);wire('M865 650 H1100',SDA);dot(865,650,SDA)
-wire('M500 700 H935 V930 H1100',SCL);wire('M935 700 H1100',SCL);dot(935,700,SCL)
-text(520,630,f'GPIO{PINS["kSda"]} → SDA comune',21,SDA,True)
-text(520,740,f'GPIO{PINS["kScl"]} → SCL comune',21,SCL,True)
-text(540,790,'Incrocio senza punto = nessun contatto',18)
-
-# Normally-open STOP, no series interruption of power.
-wire('M500 975 H715 V1060 H830 M935 1060 H1710',GND)
-dot(1710,1060,GND)
-dot(830,1060,GND);dot(935,1060,GND)
-wire('M830 1060 L920 1025 M880 1027 V1000',GND)
-text(525,959,f'GPIO{PINS["kStopPin"]}',21,bold=True)
-text(1005,1050,'STOP · normalmente aperto',23,bold=True)
-text(1005,1081,'Premuto: collega GPIO32 a GND',20)
-
-# Notes and full title block.
-text(60,1190,'Collegare a USB scollegata. Moduli alimentati a 3,3 V, masse in comune.',21,bold=True)
-text(60,1223,'RTC: lasciare fuori la CR2032 finché il ramo di ricarica non è disabilitato (D-019).',19)
-text(60,1255,'Per questo banco: MCP2515, VP230, K-line e tutti i fili auto scollegati.',19)
-rect(25,25,1750,1270,'none')
-rect(1010,1125,740,145,'white')
-wire('M1010 1172 H1750 M1010 1220 H1750 M1430 1220 V1270',GND,2)
-text(1025,1157,'Cruscotto C3+AI · Data Logger',25,bold=True)
-text(1025,1204,'Collegamenti banco · Firmware 0.3.0',22)
-text(1025,1249,'C3AI-DL-EL-003 · REV A',21,bold=True)
-text(1445,1242,'19/10/2026 · 1/1',19)
-text(1445,1263,'PROPOSTO / NON COLLAUDATO',14)
-parts.extend(['</g>','</svg>'])
-out=ROOT/'data-logger/docs/collegamenti-banco-030.svg'
-out.write_text('\n'.join(parts)+'\n',encoding='utf-8')
+conn = [
+    ('W1', '-A1:3V3', '-A2:3V3', '+3V3'), ('W2', '-A1:GND', '-A2:GND', 'GND'),
+    ('W3', f'-A1:D{g["kSdCs"]}', '-A2:CS', 'SPI CS'), ('W4', f'-A1:D{g["kMosi"]}', '-A2:MOSI', 'SPI MOSI'),
+    ('W5', f'-A1:D{g["kSck"]}', '-A2:CLK', 'SPI SCK'), ('W6', f'-A1:D{g["kMiso"]}', '-A2:MISO', 'SPI MISO'),
+    ('W7', '-A1:3V3', '-A3:VCC', '+3V3'), ('W8', '-A1:GND', '-A3:GND', 'GND'),
+    ('W9', f'-A1:D{g["kSda"]}', '-A3:SDA', 'I²C SDA'), ('W10', f'-A1:D{g["kScl"]}', '-A3:SCL', 'I²C SCL'),
+    ('W11', '-A1:3V3', '-A4:VCC', '+3V3'), ('W12', '-A1:GND', '-A4:GND', 'GND'),
+    ('W13', f'-A1:D{g["kSda"]}', '-A4:SDA', 'I²C SDA'), ('W14', f'-A1:D{g["kScl"]}', '-A4:SCL', 'I²C SCL'),
+    ('W15', f'-A1:D{g["kStopPin"]}', '-S1:1', 'STOP'), ('W16', '-A1:GND', '-S1:2', 'GND'),
+]
+d.parts_list(25, 192, conn, widths=(15, 35, 35, 30), heads=('Filo', 'Da', 'A', 'Segnale'))
+d.text(25, 190, 'TABELLA DEI COLLEGAMENTI', 3.5, bold=True)
+d.title_block(title=['Collegamenti banco', 'logger'], subtitle='Data Logger',
+              doc_type='Schema di collegamento', status='PROPOSTO · NON COLLAUDATO',
+              code='C3AI-DL-EL-003', rev='B', date='20/10/2026', sheet='1/1',
+              revisions=[('A', 'Prima emissione per firmware 0.3.0, moduli illustrati', '19/10/2026'),
+                         ('B', 'Ridisegno IEC 61082-1 / IEC 60617 / ISO 5457 / ISO 7200; fili numerati (D-024)', '20/10/2026')])
+out = ROOT / 'data-logger/docs/collegamenti-banco-030.svg'
+out.write_text(d.svg('Schema di collegamento IEC 61082-1 per la prova USB a banco; non collaudo fisico.'), encoding='utf-8')
 print(out)

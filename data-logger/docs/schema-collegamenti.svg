@@ -1,281 +1,323 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1600" viewBox="0 0 2000 1600"><title>Cruscotto C3+AI - Data Logger - Schema collegamenti Rev D</title><desc>Schema a livello di moduli con fili continui. Incroci senza punto non collegati. Disposizione simbolica, non posizione fisica dei connettori.</desc><rect width="2000" height="1600" fill="white"/>
-<text x="65" y="80" font-family="Arial,sans-serif" font-size="32" fill="#172b42" font-weight="bold">SCHEMA DEI COLLEGAMENTI · BANCO USB</text>
-<text x="65" y="120" font-family="Arial,sans-serif" font-size="21" fill="#172b42">Illustrazioni indicative: non riproducono la piedinatura fisica. Collegare per nome GPIO / pin, verificando le serigrafie.</text>
-<text x="65" y="155" font-family="Arial,sans-serif" font-size="20" fill="#172b42">Proposta GPIO per il futuro firmware. Prima del cablaggio: verificare moduli, pull-up I²C, alimentazione e batteria RTC.</text>
-<text x="566" y="264" font-family="Arial,sans-serif" font-size="25" fill="#172b42" font-weight="bold">U1 · ESP32 HW-394</text>
-<rect x="635" y="318" width="235" height="735" rx="17" fill="#172830" stroke="#263b50" stroke-width="2"/>
-<rect x="642" y="350" width="25" height="671" rx="2" fill="#14191e" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="362.0" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="407.35714285714283" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="452.7142857142857" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="498.07142857142856" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="543.4285714285714" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="588.7857142857142" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="634.1428571428571" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="679.5" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="724.8571428571429" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="770.2142857142858" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="815.5714285714286" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="860.9285714285714" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="906.2857142857143" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="951.6428571428571" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="647" y="997.0" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="839" y="350" width="25" height="671" rx="2" fill="#14191e" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="362.0" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="407.35714285714283" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="452.7142857142857" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="498.07142857142856" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="543.4285714285714" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="588.7857142857142" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="634.1428571428571" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="679.5" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="724.8571428571429" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="770.2142857142858" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="815.5714285714286" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="860.9285714285714" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="906.2857142857143" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="951.6428571428571" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="844" y="997.0" width="14" height="14" rx="1" fill="#c6a65c" stroke="#263b50" stroke-width="2"/>
-<rect x="683" y="345" width="140" height="270" rx="4" fill="#4a7848" stroke="#263b50" stroke-width="2"/>
-<path d="M696 370 h95 v16 h-80 v16 h80 v16 h-80 v16 h80" fill="none" stroke="#d6bb61" stroke-width="5"/>
-<rect x="683" y="455" width="140" height="158" rx="5" fill="#bac1c8" stroke="#6e7881" stroke-width="2"/>
-<text x="695" y="500" fill="#263b50" font-family="Arial,sans-serif" font-size="21">ESP-32D</text>
-<text x="695" y="530" fill="#263b50" font-family="Arial,sans-serif" font-size="13">RF MODULE</text>
-<rect x="707" y="682.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="788" y="682.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="707" y="692.4" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="788" y="692.4" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="707" y="702.8" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="788" y="702.8" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="707" y="713.2" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="788" y="713.2" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="707" y="723.6" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="788" y="723.6" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="707" y="734.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="788" y="734.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="715" y="673" width="75" height="70" rx="3" fill="#20252b" stroke="#263b50" stroke-width="2"/>
-<text x="722" y="713.0" fill="#d5dce4" font-family="Arial,sans-serif" font-size="13">USB-UART</text>
-<rect x="690" y="818" width="30" height="40" rx="4" fill="#e0e3e5" stroke="#263b50" stroke-width="2"/>
-<circle cx="705" cy="838" r="10" fill="#252b30"/>
-<rect x="791" y="818" width="30" height="40" rx="4" fill="#e0e3e5" stroke="#263b50" stroke-width="2"/>
-<circle cx="806" cy="838" r="10" fill="#252b30"/>
-<text x="683" y="879" fill="#ffffff" font-family="Arial,sans-serif" font-size="14">EN</text>
-<text x="788" y="879" fill="#ffffff" font-family="Arial,sans-serif" font-size="14">BOOT</text>
-<rect x="710" y="998" width="85" height="62" rx="7" fill="#bbc2c9" stroke="#263b50" stroke-width="2"/>
-<rect x="722" y="1018" width="61" height="28" rx="3" fill="#263b50" stroke="#263b50" stroke-width="2"/>
-<text x="687" y="783" fill="#ffffff" font-family="Arial,sans-serif" font-size="16">HW-394 / ESP32</text>
-<rect x="690" y="633" width="16" height="8" rx="1" fill="#c6b997" stroke="#263b50" stroke-width="2"/>
-<rect x="735" y="633" width="16" height="8" rx="1" fill="#c6b997" stroke="#263b50" stroke-width="2"/>
-<rect x="780" y="633" width="16" height="8" rx="1" fill="#c6b997" stroke="#263b50" stroke-width="2"/>
-<rect x="690" y="653" width="16" height="8" rx="1" fill="#c6b997" stroke="#263b50" stroke-width="2"/>
-<rect x="735" y="653" width="16" height="8" rx="1" fill="#c6b997" stroke="#263b50" stroke-width="2"/>
-<rect x="780" y="653" width="16" height="8" rx="1" fill="#c6b997" stroke="#263b50" stroke-width="2"/>
-<rect x="690" y="673" width="16" height="8" rx="1" fill="#c6b997" stroke="#263b50" stroke-width="2"/>
-<path d="M960 310 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="310" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="301" font-family="Arial,sans-serif" font-size="18" fill="#172b42">3V3</text>
-<path d="M960 310 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M960 380 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="380" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="371" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO21 · SDA</text>
-<path d="M960 380 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M960 420 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="420" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="411" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO22 · SCL</text>
-<path d="M960 420 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M960 860 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="860" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="851" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO18 · SCK</text>
-<path d="M960 860 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M960 900 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="900" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="891" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO23 · MOSI</text>
-<path d="M960 900 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M960 940 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="940" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="931" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO19 · MISO</text>
-<path d="M960 940 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M960 980 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="980" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="971" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO27 · CS</text>
-<path d="M960 980 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M960 1040 H980" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="980" cy="1040" r="4" fill="white" stroke="#172b42"/>
-<text x="942" y="1031" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GND</text>
-<path d="M960 1040 H870" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M560 880 H540" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="540" cy="880" r="4" fill="white" stroke="#172b42"/>
-<text x="340" y="871" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO32 · pagina</text>
-<path d="M560 880 H635" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M560 1000 H540" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="540" cy="1000" r="4" fill="white" stroke="#172b42"/>
-<text x="340" y="991" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GPIO33 · conferma</text>
-<path d="M560 1000 H635" fill="none" stroke="#607589" stroke-width="1.8"/>
-<text x="1436" y="264" font-family="Arial,sans-serif" font-size="25" fill="#172b42" font-weight="bold">U2 · RTC DS3231</text>
-<rect x="1530" y="288" width="175" height="180" rx="10" fill="#185a9d" stroke="#263b50" stroke-width="2"/>
-<circle cx="1636" cy="378" r="51" fill="#8e98a3" stroke="#c9d0d7" stroke-width="5"/>
-<circle cx="1636" cy="378" r="42" fill="#c9cfd5"/>
-<text x="1610" y="384" fill="#3a4652" font-family="Arial,sans-serif" font-size="18">BAT</text>
-<rect x="1535" y="337.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1586" y="337.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1535" y="346.4" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1586" y="346.4" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1535" y="355.8" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1586" y="355.8" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1535" y="365.2" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1586" y="365.2" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1535" y="374.6" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1586" y="374.6" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1535" y="384.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1586" y="384.0" width="10" height="4" rx="0" fill="#c5cbd1" stroke="#263b50" stroke-width="2"/>
-<rect x="1543" y="328" width="45" height="65" rx="3" fill="#20252b" stroke="#263b50" stroke-width="2"/>
-<text x="1550" y="365.5" fill="#d5dce4" font-family="Arial,sans-serif" font-size="13">RTC</text>
-<text x="1543" y="313" fill="#ffffff" font-family="Arial,sans-serif" font-size="16">DS3231</text>
-<text x="1542" y="458" fill="#ffffff" font-family="Arial,sans-serif" font-size="12">I²C RTC · illustrativo</text>
-<circle cx="1538" cy="296" r="5" fill="white" stroke="#c0a151" stroke-width="3"/>
-<circle cx="1697" cy="460" r="5" fill="white" stroke="#c0a151" stroke-width="3"/>
-<text x="1436" y="504" font-family="Arial,sans-serif" font-size="25" fill="#172b42" font-weight="bold">U3 · OLED I²C</text>
-<rect x="1510" y="537" width="215" height="175" rx="9" fill="#16518c" stroke="#263b50" stroke-width="2"/>
-<rect x="1522" y="552" width="191" height="140" rx="4" fill="#080f18" stroke="#263b50" stroke-width="2"/>
-<text x="1535" y="586" fill="#4bc5ed" font-family="Arial,sans-serif" font-size="18">DATA LOGGER</text>
-<text x="1535" y="624" fill="#4bc5ed" font-family="Arial,sans-serif" font-size="18">SD  --  RTC</text>
-<text x="1535" y="656" fill="#4bc5ed" font-family="Arial,sans-serif" font-size="16">STATO: BANCO</text>
-<circle cx="1518" cy="545" r="5" fill="white" stroke="#c0a151" stroke-width="3"/>
-<circle cx="1717" cy="704" r="5" fill="white" stroke="#c0a151" stroke-width="3"/>
-<text x="1436" y="784" font-family="Arial,sans-serif" font-size="25" fill="#172b42" font-weight="bold">U4 · MicroSD SPI 3,3 V</text>
-<rect x="1525" y="822" width="180" height="225" rx="10" fill="#1c6496" stroke="#263b50" stroke-width="2"/>
-<rect x="1543" y="844" width="144" height="150" rx="6" fill="#bdc6ce" stroke="#263b50" stroke-width="2"/>
-<path d="M1560 861 h95 l14 18 v96 h-109 Z" fill="#454c55" stroke="#8e969e" stroke-width="3"/>
-<text x="1573" y="914" fill="#e0e5e8" font-family="Arial,sans-serif" font-size="15">micro</text>
-<text x="1581" y="946" fill="#e0e5e8" font-family="Arial,sans-serif" font-size="30">SD</text>
-<text x="1550" y="1028" fill="#ffffff" font-family="Arial,sans-serif" font-size="18">SPI · 3V3</text>
-<circle cx="1533" cy="830" r="5" fill="white" stroke="#c0a151" stroke-width="3"/>
-<circle cx="1697" cy="1039" r="5" fill="white" stroke="#c0a151" stroke-width="3"/>
-<path d="M1430 380 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="380" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="371" font-family="Arial,sans-serif" font-size="18" fill="#172b42">SDA</text>
-<path d="M1430 380 H1530" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1430 620 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="620" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="611" font-family="Arial,sans-serif" font-size="18" fill="#172b42">SDA</text>
-<path d="M1430 620 H1510" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1430 420 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="420" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="411" font-family="Arial,sans-serif" font-size="18" fill="#172b42">SCL</text>
-<path d="M1430 420 H1530" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1430 660 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="660" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="651" font-family="Arial,sans-serif" font-size="18" fill="#172b42">SCL</text>
-<path d="M1430 660 H1510" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1430 860 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="860" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="851" font-family="Arial,sans-serif" font-size="18" fill="#172b42">CLK / SCK</text>
-<path d="M1430 860 H1525" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1430 900 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="900" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="891" font-family="Arial,sans-serif" font-size="18" fill="#172b42">MOSI / DI</text>
-<path d="M1430 900 H1525" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1430 940 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="940" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="931" font-family="Arial,sans-serif" font-size="18" fill="#172b42">MISO / DO</text>
-<path d="M1430 940 H1525" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1430 980 H1410" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1410" cy="980" r="4" fill="white" stroke="#172b42"/>
-<text x="1305" y="971" font-family="Arial,sans-serif" font-size="18" fill="#172b42">CS</text>
-<path d="M1430 980 H1525" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1800 310 H1820" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1820" cy="310" r="4" fill="white" stroke="#172b42"/>
-<text x="1782" y="301" font-family="Arial,sans-serif" font-size="18" fill="#172b42">VCC</text>
-<path d="M1800 310 H1705" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1800 550 H1820" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1820" cy="550" r="4" fill="white" stroke="#172b42"/>
-<text x="1782" y="541" font-family="Arial,sans-serif" font-size="18" fill="#172b42">VCC</text>
-<path d="M1800 550 H1725" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1800 830 H1820" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1820" cy="830" r="4" fill="white" stroke="#172b42"/>
-<text x="1782" y="821" font-family="Arial,sans-serif" font-size="18" fill="#172b42">3V3</text>
-<path d="M1800 830 H1705" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1800 450 H1820" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1820" cy="450" r="4" fill="white" stroke="#172b42"/>
-<text x="1782" y="441" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GND</text>
-<path d="M1800 450 H1705" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1800 690 H1820" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1820" cy="690" r="4" fill="white" stroke="#172b42"/>
-<text x="1782" y="681" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GND</text>
-<path d="M1800 690 H1725" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M1800 1030 H1820" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="1820" cy="1030" r="4" fill="white" stroke="#172b42"/>
-<text x="1782" y="1021" font-family="Arial,sans-serif" font-size="18" fill="#172b42">GND</text>
-<path d="M1800 1030 H1705" fill="none" stroke="#607589" stroke-width="1.8"/>
-<path d="M980 310 H1000 V205 H1860 V830" fill="none" stroke="#b42318" stroke-width="2.5"/>
-<path d="M980 1040 H1000 V1180 H1910 V450" fill="none" stroke="#17633b" stroke-width="2.5"/>
-<path d="M1820 310 H1860" fill="none" stroke="#b42318" stroke-width="2.5"/>
-<circle cx="1860" cy="310" r="5" fill="#b42318"/>
-<path d="M1820 550 H1860" fill="none" stroke="#b42318" stroke-width="2.5"/>
-<circle cx="1860" cy="550" r="5" fill="#b42318"/>
-<path d="M1820 830 H1860" fill="none" stroke="#b42318" stroke-width="2.5"/>
-<circle cx="1860" cy="830" r="5" fill="#b42318"/>
-<path d="M1820 450 H1910" fill="none" stroke="#17633b" stroke-width="2.5"/>
-<circle cx="1910" cy="450" r="5" fill="#17633b"/>
-<path d="M1820 690 H1910" fill="none" stroke="#17633b" stroke-width="2.5"/>
-<circle cx="1910" cy="690" r="5" fill="#17633b"/>
-<path d="M1820 1030 H1910" fill="none" stroke="#17633b" stroke-width="2.5"/>
-<circle cx="1910" cy="1030" r="5" fill="#17633b"/>
-<text x="1460" y="194" font-family="Arial,sans-serif" font-size="20" fill="#172b42">+3V3 · corrente del regolatore da verificare</text>
-<path d="M980 380 H1410 M1050 380 V620 H1410" fill="none" stroke="#145ca3" stroke-width="2.5"/>
-<path d="M980 420 H1410 M1100 420 V660 H1410" fill="none" stroke="#a85d00" stroke-width="2.5"/>
-<circle cx="1050" cy="380" r="5" fill="#145ca3"/>
-<circle cx="1100" cy="420" r="5" fill="#a85d00"/>
-<text x="1160" y="365" font-family="Arial,sans-serif" font-size="19" fill="#172b42">SDA</text>
-<text x="1160" y="406" font-family="Arial,sans-serif" font-size="19" fill="#172b42">SCL</text>
-<path d="M980 860 H1410" fill="none" stroke="#145ca3" stroke-width="2.5"/>
-<text x="1160" y="850" font-family="Arial,sans-serif" font-size="19" fill="#172b42">SCK</text>
-<path d="M980 900 H1410" fill="none" stroke="#145ca3" stroke-width="2.5"/>
-<text x="1160" y="890" font-family="Arial,sans-serif" font-size="19" fill="#172b42">MOSI</text>
-<path d="M980 940 H1410" fill="none" stroke="#145ca3" stroke-width="2.5"/>
-<text x="1160" y="930" font-family="Arial,sans-serif" font-size="19" fill="#172b42">MISO</text>
-<path d="M980 980 H1410" fill="none" stroke="#145ca3" stroke-width="2.5"/>
-<text x="1160" y="970" font-family="Arial,sans-serif" font-size="19" fill="#172b42">CS</text>
-<text x="160" y="838" font-family="Arial,sans-serif" font-size="22" fill="#172b42" font-weight="bold">S1 · PAGINA</text>
-<path d="M540 880 H330 M285 880 H100 M330 880 L290 855" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="285" cy="880" r="5" fill="white" stroke="#172b42"/>
-<circle cx="330" cy="880" r="5" fill="white" stroke="#172b42"/>
-<circle cx="100" cy="880" r="5" fill="#17633b"/>
-<rect x="267" y="852" width="75" height="56" rx="5" fill="#8896a3" stroke="#263b50" stroke-width="2"/>
-<circle cx="304" cy="880" r="21" fill="#232d37" stroke="#4a5965" stroke-width="3"/>
-<text x="160" y="958" font-family="Arial,sans-serif" font-size="22" fill="#172b42" font-weight="bold">S2 · CONFERMA</text>
-<path d="M540 1000 H330 M285 1000 H100 M330 1000 L290 975" fill="none" stroke="#263b50" stroke-width="2.5"/>
-<circle cx="285" cy="1000" r="5" fill="white" stroke="#172b42"/>
-<circle cx="330" cy="1000" r="5" fill="white" stroke="#172b42"/>
-<circle cx="100" cy="1000" r="5" fill="#17633b"/>
-<rect x="267" y="972" width="75" height="56" rx="5" fill="#8896a3" stroke="#263b50" stroke-width="2"/>
-<circle cx="304" cy="1000" r="21" fill="#232d37" stroke="#4a5965" stroke-width="3"/>
-<path d="M100 880 V1180 H1000" fill="none" stroke="#17633b" stroke-width="2.5"/>
-<circle cx="1000" cy="1180" r="5" fill="#17633b"/>
-<text x="150" y="1165" font-family="Arial,sans-serif" font-size="20" fill="#172b42">GND comune</text>
-<text x="70" y="245" font-family="Arial,sans-serif" font-size="18" fill="#172b42" font-weight="bold">NOTE DI PROGETTO</text>
-<text x="70" y="272" font-family="Arial,sans-serif" font-size="18" fill="#172b42">• Pulsanti opzionali NO: INPUT_PULLUP e</text>
-<text x="70" y="299" font-family="Arial,sans-serif" font-size="18" fill="#172b42">antirimbalzo nel firmware.</text>
-<text x="70" y="326" font-family="Arial,sans-serif" font-size="18" fill="#172b42"></text>
-<text x="70" y="353" font-family="Arial,sans-serif" font-size="18" fill="#172b42">• I²C: verificare pull-up montate e valore</text>
-<text x="70" y="380" font-family="Arial,sans-serif" font-size="18" fill="#172b42">equivalente; solo verso 3,3 V.</text>
-<text x="70" y="407" font-family="Arial,sans-serif" font-size="18" fill="#172b42"></text>
-<text x="70" y="434" font-family="Arial,sans-serif" font-size="18" fill="#172b42">• RTC: SQW / 32K non collegati. Verificare</text>
-<text x="70" y="461" font-family="Arial,sans-serif" font-size="18" fill="#172b42">ricarica prima della batteria.</text>
-<text x="70" y="488" font-family="Arial,sans-serif" font-size="18" fill="#172b42"></text>
-<text x="70" y="515" font-family="Arial,sans-serif" font-size="18" fill="#172b42">• MicroSD: verificare picchi di corrente e</text>
-<text x="70" y="542" font-family="Arial,sans-serif" font-size="18" fill="#172b42">disaccoppiamento.</text>
-<text x="70" y="569" font-family="Arial,sans-serif" font-size="18" fill="#172b42"></text>
-<text x="70" y="596" font-family="Arial,sans-serif" font-size="18" fill="#172b42">• Firmware 0.1.0: solo seriale; GPIO non</text>
-<text x="70" y="623" font-family="Arial,sans-serif" font-size="18" fill="#172b42">ancora configurati.</text>
-<text x="70" y="650" font-family="Arial,sans-serif" font-size="18" fill="#172b42"></text>
-<text x="70" y="1230" font-family="Arial,sans-serif" font-size="21" fill="#172b42" font-weight="bold">AUTO — COLLEGAMENTI ANCORA DA DEFINIRE</text>
-<text x="70" y="1263" font-family="Arial,sans-serif" font-size="21" fill="#172b42">OBD: verificare i moduli CAN esistenti; BSI: protocollo e punto di accesso da identificare.</text>
-<text x="70" y="1296" font-family="Arial,sans-serif" font-size="21" fill="#172b42">Alimentazione 12 V: convertitore automotive, fusibile e protezioni da dimensionare.</text>
-<text x="70" y="1329" font-family="Arial,sans-serif" font-size="21" fill="#172b42">Nessun collegamento diretto auto → GPIO. La sezione auto sarà completata dopo le verifiche.</text>
-<text x="65" y="1435" font-family="Arial,sans-serif" font-size="21" fill="#172b42" font-weight="bold">LEGENDA</text>
-<text x="65" y="1475" font-family="Arial,sans-serif" font-size="20" fill="#172b42">Punto pieno = giunzione elettrica.</text>
-<text x="65" y="1510" font-family="Arial,sans-serif" font-size="20" fill="#172b42">Incrocio senza punto = nessun contatto.</text>
-<text x="65" y="1545" font-family="Arial,sans-serif" font-size="20" fill="#172b42">Rosso: 3V3 · verde: GND · altri: segnali.</text>
-<g id="cartiglio"><rect x="25" y="25" width="1950" height="1550" fill="none" stroke="#172b42" stroke-width="2"/><rect x="1000" y="1395" width="975" height="180" fill="white" stroke="#172b42" stroke-width="2"/><path d="M1000 1443 H1975 M1000 1489 H1975 M1000 1535 H1975 M1500 1489 V1575 M1680 1489 V1575" fill="none" stroke="#263b50" stroke-width="2.5"/><text x="1016" y="1427" font-family="Arial,sans-serif" font-size="27" fill="#172b42" font-weight="bold">Cruscotto C3+AI</text><text x="1016" y="1474" font-family="Arial,sans-serif" font-size="23" fill="#172b42">Sottoprogetto: Data Logger</text><text x="1016" y="1520" font-family="Arial,sans-serif" font-size="20" fill="#172b42" font-weight="bold">Collegamenti con moduli illustrati</text><text x="1515" y="1520" font-family="Arial,sans-serif" font-size="23" fill="#172b42" font-weight="bold">REV. D</text><text x="1695" y="1520" font-family="Arial,sans-serif" font-size="22" fill="#172b42">18/10/2026</text><text x="1016" y="1563" font-family="Arial,sans-serif" font-size="21" fill="#172b42">Codice: C3AI-DL-EL-001</text><text x="1515" y="1563" font-family="Arial,sans-serif" font-size="19" fill="#172b42">Foglio 1/1</text><text x="1695" y="1563" font-family="Arial,sans-serif" font-size="16" fill="#172b42">PRELIMINARE · NON VALIDATO</text></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297"><title>C3AI-DL-EL-001 rev E — Collegamenti proposta iniziale (storico)</title><desc>Documento storico, sostituito da C3AI-DL-EL-003.</desc><rect width="420" height="297" fill="white"/><rect x="20" y="10" width="390" height="277" fill="none" stroke="#000000" stroke-width="0.7"/>
+<text x="44.375" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">1</text>
+<text x="44.375" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">1</text>
+<path d="M68.75 10 L68.75 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M68.75 287 L68.75 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="93.125" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">2</text>
+<text x="93.125" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">2</text>
+<path d="M117.5 10 L117.5 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M117.5 287 L117.5 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="141.875" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">3</text>
+<text x="141.875" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">3</text>
+<path d="M166.25 10 L166.25 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M166.25 287 L166.25 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="190.625" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">4</text>
+<text x="190.625" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">4</text>
+<path d="M215 10 L215 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M215 287 L215 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="239.375" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">5</text>
+<text x="239.375" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">5</text>
+<path d="M263.75 10 L263.75 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M263.75 287 L263.75 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="288.125" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">6</text>
+<text x="288.125" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">6</text>
+<path d="M312.5 10 L312.5 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312.5 287 L312.5 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="336.875" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">7</text>
+<text x="336.875" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">7</text>
+<path d="M361.25 10 L361.25 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M361.25 287 L361.25 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="385.625" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">8</text>
+<text x="385.625" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">8</text>
+<text x="17.5" y="34.283" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">A</text>
+<text x="415" y="34.283" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">A</text>
+<path d="M20 56.167 L15 56.167" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 56.167 L415 56.167" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="80.45" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">B</text>
+<text x="415" y="80.45" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">B</text>
+<path d="M20 102.333 L15 102.333" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 102.333 L415 102.333" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="126.617" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">C</text>
+<text x="415" y="126.617" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">C</text>
+<path d="M20 148.5 L15 148.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 148.5 L415 148.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="172.783" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">D</text>
+<text x="415" y="172.783" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">D</text>
+<path d="M20 194.667 L15 194.667" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 194.667 L415 194.667" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="218.95" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">E</text>
+<text x="415" y="218.95" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">E</text>
+<path d="M20 240.833 L15 240.833" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 240.833 L415 240.833" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="265.117" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">F</text>
+<text x="415" y="265.117" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">F</text>
+<path d="M210 0 L210 15" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M210 297 L210 282" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M0 148.5 L25 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M420 148.5 L405 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="25" y="20" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">COLLEGAMENTI DELLA PROPOSTA INIZIALE — SCHEMA DI COLLEGAMENTO (STORICO)</text>
+<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Contenuto invariato rispetto alla rev. D (firmware 0.1.0, pulsanti opzionali). Superato da D-015 e da C3AI-DL-EL-003.</text>
+<rect x="250" y="35" width="150" height="18" fill="none" stroke="#000000" stroke-width="0.7"/>
+<text x="325" y="43" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="middle" fill="#000000" font-weight="bold">DOCUMENTO SOSTITUITO — NON USARE</text>
+<text x="325" y="49" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000">Sostituito da C3AI-DL-EL-003 (collegamenti banco logger 0.3.x)</text>
+<rect x="95" y="50" width="40" height="125" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="115" y="45.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000" font-weight="bold">-A1</text>
+<text x="115" y="48.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000">ESP32 HW-394</text>
+<path d="M92.5 130 L95 130" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="92.5" cy="130" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="96.2" y="130.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO32</text>
+<text x="91.4" y="129" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000">D32</text>
+<path d="M92.5 150 L95 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="92.5" cy="150" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="96.2" y="150.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO33</text>
+<text x="91.4" y="149" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000">D33</text>
+<path d="M135 60 L137.5 60" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="60" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="60.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">3V3</text>
+<text x="138.6" y="59" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">3V3</text>
+<path d="M135 70 L137.5 70" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="70" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="70.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">GND</text>
+<text x="138.6" y="69" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">GND</text>
+<path d="M135 80 L137.5 80" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="80" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="80.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">GPIO21</text>
+<text x="138.6" y="79" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">D21</text>
+<path d="M135 85 L137.5 85" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="85" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="85.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">GPIO22</text>
+<text x="138.6" y="84" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">D22</text>
+<path d="M135 140 L137.5 140" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="140" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="140.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">GPIO18</text>
+<text x="138.6" y="139" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">D18</text>
+<path d="M135 145 L137.5 145" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="145" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="145.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">GPIO23</text>
+<text x="138.6" y="144" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">D23</text>
+<path d="M135 150 L137.5 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="150" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="150.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">GPIO19</text>
+<text x="138.6" y="149" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">D19</text>
+<path d="M135 155 L137.5 155" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="137.5" cy="155" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="133.8" y="155.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000">GPIO27</text>
+<text x="138.6" y="154" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">D27</text>
+<path d="M137.5 60 L145 60" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M145 60 L147.5 60" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M147.5 58 L147.5 62" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="148.5" y="60.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">+3V3</text>
+<path d="M137.5 70 L145 70" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M145 70 L147.5 70" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M147.5 67.5 L147.5 72.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M148.5 68.4 L148.5 71.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M149.5 69.3 L149.5 70.7" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="235" y="72.5" width="40" height="20" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="255" y="68" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000" font-weight="bold">-A2</text>
+<text x="255" y="71.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000">RTC DS3231</text>
+<path d="M232.5 75 L235 75" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="75" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="75.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">VCC</text>
+<text x="231.4" y="74" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 80 L235 80" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="80" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="80.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">SDA</text>
+<text x="231.4" y="79" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 85 L235 85" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="85" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="85.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">SCL</text>
+<text x="231.4" y="84" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 90 L235 90" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="90" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="90.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GND</text>
+<text x="231.4" y="89" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<rect x="235" y="102.5" width="40" height="20" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="255" y="98" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000" font-weight="bold">-A3</text>
+<text x="255" y="101.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000">OLED I²C</text>
+<path d="M232.5 105 L235 105" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="105" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="105.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">VCC</text>
+<text x="231.4" y="104" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 110 L235 110" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="110" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="110.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">SDA</text>
+<text x="231.4" y="109" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 115 L235 115" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="115" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="115.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">SCL</text>
+<text x="231.4" y="114" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 120 L235 120" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="120" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="120.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GND</text>
+<text x="231.4" y="119" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<rect x="235" y="132.5" width="40" height="30" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="255" y="128" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000" font-weight="bold">-A4</text>
+<text x="255" y="131.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000">MicroSD SPI 3,3 V</text>
+<path d="M232.5 135 L235 135" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="135" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="135.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">3V3</text>
+<text x="231.4" y="134" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 140 L235 140" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="140" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="140.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">CLK</text>
+<text x="231.4" y="139" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 145 L235 145" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="145" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="145.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">MOSI</text>
+<text x="231.4" y="144" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 150 L235 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="150" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="150.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">MISO</text>
+<text x="231.4" y="149" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 155 L235 155" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="155" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="155.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">CS</text>
+<text x="231.4" y="154" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 160 L235 160" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="232.5" cy="160" r="0.6" fill="white" stroke="#000000" stroke-width="0.35"/>
+<text x="236.2" y="160.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GND</text>
+<text x="231.4" y="159" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="end" fill="#000000"></text>
+<path d="M232.5 75 L225 75" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M225 75 L222.5 75" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.5 73 L222.5 77" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="221.5" y="75.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000" font-weight="bold">+3V3</text>
+<path d="M232.5 90 L225 90" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M225 90 L222.5 90" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.5 87.5 L222.5 92.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M221.5 88.4 L221.5 91.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M220.5 89.3 L220.5 90.7" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M232.5 105 L225 105" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M225 105 L222.5 105" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.5 103 L222.5 107" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="221.5" y="105.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000" font-weight="bold">+3V3</text>
+<path d="M232.5 120 L225 120" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M225 120 L222.5 120" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.5 117.5 L222.5 122.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M221.5 118.4 L221.5 121.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M220.5 119.3 L220.5 120.7" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M232.5 135 L225 135" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M225 135 L222.5 135" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.5 133 L222.5 137" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="221.5" y="135.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="end" fill="#000000" font-weight="bold">+3V3</text>
+<path d="M232.5 160 L225 160" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M225 160 L222.5 160" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M222.5 157.5 L222.5 162.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M221.5 158.4 L221.5 161.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M220.5 159.3 L220.5 160.7" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M137.5 80 L232.5 80" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="180" cy="80" r="0.7" fill="#000000"/>
+<path d="M180 80 L180 110 L232.5 110" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M137.5 85 L232.5 85" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="190" cy="85" r="0.7" fill="#000000"/>
+<path d="M190 85 L190 115 L232.5 115" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M137.5 140 L232.5 140" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M137.5 145 L232.5 145" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M137.5 150 L232.5 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M137.5 155 L232.5 155" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M92.5 130 L82.5 130" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M72.5 130 L75.5 130" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M79.5 130 L82.5 130" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M75.5 130 L80.1 127.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M77.5 128.7 L77.5 124.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 0.8"/>
+<path d="M76 124.5 L79 124.5 L79 123.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M76 124.5 L76 123.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="77.5" y="122" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000" font-weight="bold">-S1</text>
+<text x="77.5" y="134" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000">PAGINA</text>
+<path d="M72.5 130 L60 130" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60 130 L57.5 130" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M57.5 127.5 L57.5 132.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M56.5 128.4 L56.5 131.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M55.5 129.3 L55.5 130.7" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M92.5 150 L82.5 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M72.5 150 L75.5 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M79.5 150 L82.5 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M75.5 150 L80.1 147.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M77.5 148.7 L77.5 144.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 0.8"/>
+<path d="M76 144.5 L79 144.5 L79 143.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M76 144.5 L76 143.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="77.5" y="142" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000" font-weight="bold">-S2</text>
+<text x="77.5" y="154" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000">CONFERMA</text>
+<path d="M72.5 150 L60 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60 150 L57.5 150" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M57.5 147.5 L57.5 152.5" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M56.5 148.4 L56.5 151.6" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M55.5 149.3 L55.5 150.7" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="25" y="192" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">NOTE STORICHE</text>
+<text x="25" y="197" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">1. Proposta GPIO iniziale del 18/10/2026 per il futuro firmware; la 0.1.0 usava solo la seriale.</text>
+<text x="25" y="200.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">2. -S1/-S2 pulsanti opzionali: sostituiti dal solo STOP su GPIO32 (D-015, EL-003).</text>
+<text x="25" y="204.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">3. Collegamenti auto e alimentazione automotive: non trattati in questo documento.</text>
+<text x="25" y="208.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">4. Per il cablaggio attuale usare esclusivamente C3AI-DL-EL-003.</text>
+<rect x="230" y="255" width="180" height="32" fill="white"/>
+<rect x="230" y="255" width="180" height="32" fill="none" stroke="#000000" stroke-width="0.7"/>
+<rect x="230" y="255" width="80" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="257.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Proprietario legale</text>
+<text x="231.5" y="261.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Cruscotto C3+AI</text>
+<rect x="310" y="255" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="257.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Creato da</text>
+<text x="311.5" y="261.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">C3+AI · agente Claude</text>
+<rect x="360" y="255" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="257.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Approvato da</text>
+<text x="361.5" y="261.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">— (non approvato)</text>
+<rect x="230" y="263" width="80" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="265.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Titolo supplementare</text>
+<text x="231.5" y="269.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">Data Logger</text>
+<rect x="310" y="263" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="265.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Tipo di documento</text>
+<text x="311.5" y="269.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">Schema di collegamento</text>
+<rect x="360" y="263" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="265.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Stato del documento</text>
+<text x="361.5" y="269.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">SOSTITUITO da EL-003</text>
+<rect x="230" y="271" width="80" height="16" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Titolo</text>
+<text x="231.5" y="279.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">Collegamenti proposta</text>
+<text x="231.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">iniziale (storico)</text>
+<rect x="310" y="271" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Numero di identificazione</text>
+<text x="311.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C3AI-DL-EL-001</text>
+<rect x="360" y="271" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Rev.</text>
+<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">E</text>
+<rect x="375" y="271" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="376" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Data di emissione</text>
+<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">20/10/2026</text>
+<rect x="310" y="279" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Riferimento tecnico</text>
+<text x="311.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">D-024 · IEC 61082-1</text>
+<rect x="360" y="279" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Lingua</text>
+<text x="361.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">it</text>
+<rect x="375" y="279" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="376" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Foglio</text>
+<text x="376.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">1/1</text>
+<rect x="230" y="230" width="180" height="25" fill="white"/>
+<rect x="230" y="230" width="180" height="25" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="230" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="233.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<rect x="242" y="230" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="233.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<rect x="385" y="230" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="233.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
+<rect x="230" y="235" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
+<rect x="242" y="235" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Fili continui, cornice e cartiglio</text>
+<rect x="385" y="235" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">18/10/2026</text>
+<rect x="230" y="240" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">C</text>
+<rect x="242" y="240" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Componenti illustrati</text>
+<rect x="385" y="240" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">18/10/2026</text>
+<rect x="230" y="245" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">D</text>
+<rect x="242" y="245" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Note sui moduli CAN già presenti</text>
+<rect x="385" y="245" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">18/10/2026</text>
+<rect x="230" y="250" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">E</text>
+<rect x="242" y="250" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Ridisegno IEC/ISO (D-024); marcato come sostituito da EL-003</text>
+<rect x="385" y="250" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">20/10/2026</text></svg>

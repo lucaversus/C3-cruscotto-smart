@@ -1,8 +1,10 @@
 from pathlib import Path
-from html import escape
 from itertools import product
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from iso_drawing import Sheet
 # Static bounds only: no SPICE simulation, dynamic or automotive qualification.
 # Rev. E: R10 positive feedback from OUT1 (pin 1) to IN1+ (VSENSE) gives hysteresis.
 # Output high = R8 pull-up to 3V3 (3.135-3.465 V); output low = 0-0.4 V (LM2903B VOL).
@@ -38,97 +40,114 @@ assert collector_max/base_min<10
 print(f"DC model: falling/VBAT={min(falling):.4f}..{max(falling):.4f}; rising/VBAT={min(rising):.4f}..{max(rising):.4f}; hysteresis_K={min(hyst):.3f}..{max(hyst):.3f}V; input_max={max_input:.3f}V; forced_beta_max={collector_max/base_min:.2f}; R3_power_max={16**2/(510*.99):.3f}W")
 
 
-s=['<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1760" viewBox="0 0 2200 1760"><rect width="2200" height="1760" fill="white"/>']
-INK='#20364b'
-def text(x,y,t,size=23,bold=False,anchor='start',color=None):
- s.append(f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-family="Arial,sans-serif" font-size="{size}" fill="{color or INK}" font-weight="{700 if bold else 400}">{escape(t)}</text>')
-def wire(d):s.append(f'<path d="{d}" stroke="{INK}" stroke-width="3" fill="none"/>')
-def dot(x,y):s.append(f'<circle cx="{x}" cy="{y}" r="5" fill="{INK}"/>')
-def box(x,y,w,h,fill='white'):s.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" stroke="{INK}" stroke-width="2"/>')
-def ground(x,y):wire(f'M{x} {y} v10 m-18 0 h36 m-29 8 h22 m-16 8 h10')
-def res(x,y,ref,value,v=False):
- if v:
-  wire(f'M{x} {y} v15 m0 50 v15');box(x-10,y+15,20,50);text(x+22,y+32,ref,20,True);text(x+22,y+59,value,20)
- else:
-  wire(f'M{x} {y} h15 m65 0 h15');box(x+15,y-10,65,20);text(x+46,y-43,ref,20,True,'middle');text(x+46,y-18,value,20,False,'middle')
-def cap(x,y,ref,value,polar=False):
- wire(f'M{x} {y} v30 m-20 0 h40 m-40 12 h40 m-20 0 v38')
- text(x+28,y+32,ref,20,True);text(x+28,y+60,value,20)
- if polar:text(x-38,y+22,'+',22,True)
-box(25,25,2150,1725)
-text(65,80,'INTERFACCIA K-LINE — SCHEMA ELETTRICO',35,True)
-text(65,118,'Rev. E · isteresi R10 sul comparatore · alimentazione stabilizzata da banco · non collaudato',23)
-# Transmission and K bus
-text(80,182,'TRASMISSIONE',24,True)
-text(80,470,'TX_INV',23,True,color='#1763a3');wire('M80 490 H210');res(210,490,'R1','330 Ω');wire('M305 490 H470');dot(360,490)
-wire('M360 490 V570');res(360,570,'R2','47 kΩ',True);wire('M360 650 V710');ground(360,710)
-wire('M470 450 V530 M470 470 L530 425 V330 M470 510 L530 555 V710')
-s.append(f'<path d="M512 532 L528 553 L505 544 Z" fill="{INK}"/>');ground(530,710)
-text(545,515,'Q1',24,True);text(545,545,'2N5551',23);text(540,414,'C',20);text(445,445,'B',20);text(540,585,'E',20)
-text(80,785,'TX invertita: livello basso = linea rilasciata.',21)
-text(80,818,'Q1: verificare E/B/C del produttore ordinato.',21)
-wire('M530 330 H850');dot(650,330)
-# External signal ports; directions refer to the K-line module.
-s.append('<rect x="70" y="230" width="365" height="70" rx="8" fill="#fff2dc" stroke="#b76500" stroke-width="3"/>')
-text(90,258,'K-LINE ↔ LINEA ESTERNA',23,True,color='#a45100')
-text(90,284,'Bidirezionale · banco: K_BENCH',19,color='#a45100')
-wire('M250 300 V330 H530');dot(530,330)
-text(80,420,'INGRESSO DA ESP32 ↓',21,True,color='#1763a3')
-s.append(f'<rect x="605" y="135" width="245" height="175" rx="5" fill="none" stroke="{INK}" stroke-width="2" stroke-dasharray="8 6"/>')
-text(618,158,'SIMULATORE ESTERNO',17,True)
-text(680,195,'VBENCH',21,True);wire('M650 180 V210')
-res(650,210,'R3','510 Ω / 1 W',True);wire('M650 290 V330')
-# Receive divider
-res(850,330,'R4','68 kΩ');wire('M945 330 H1020 V600 H1080');dot(1020,600)
-wire('M1020 600 V745');res(1020,745,'R5','10 kΩ',True);wire('M1020 825 V855');ground(1020,855)
-text(960,215,'RICEZIONE',24,True)
-# Central complete package
-box(1160,380,390,390,'#f0f5f8');wire('M1315 380 a40 30 0 0 0 80 0')
-text(1355,346,'U1 · LM2903B',27,True,'middle')
-text(1355,735,'SOIC-8 · vista dall’alto',21,False,'middle')
-for num,label,y in [(1,'OUT1',440),(2,'IN1−',520),(3,'IN1+',600),(4,'GND',680)]:
- wire(f'M1080 {y} H1160');text(1120,y-12,str(num),20,True,'middle');text(1182,y+7,label,23)
-for num,label,y in [(8,'VCC',440),(7,'OUT2',520),(6,'IN2−',600),(5,'IN2+',680)]:
- wire(f'M1550 {y} H1630');text(1590,y-12,str(num),20,True,'middle');text(1528,y+7,label,23,False,'end')
-# Output loops above chip, pullup and RX
-wire('M1080 440 H1060 V305 H1770');dot(1730,305)
-text(1680,157,'3V3',22,True);wire('M1730 170 V190');res(1730,190,'R8','4,7 kΩ',True);wire('M1730 270 V305')
-dot(1400,305);wire('M1400 305 V250 H1260');res(1165,250,'R10','330 kΩ');wire('M1165 250 H1000 V330');dot(1000,330);text(1290,282,'isteresi',19)
-wire('M1770 305 H1850');res(1850,305,'R9','1 kΩ');wire('M1945 305 H2090');s.append('<rect x="1880" y="330" width="260" height="68" rx="8" fill="#e6f5ed" stroke="#157348" stroke-width="3"/>');text(1895,357,'RX_3V3 → ESP32',23,True,color='#157348');text(1895,384,'USCITA logica a 3,3 V',19,color='#157348')
-# VREF label on input and divider, no ambiguous crossings
-wire('M1080 520 H1100');text(1095,500,'VREF',20,True,'end')
-wire('M1080 680 H1100 V855');ground(1100,855)
-# unused comparator explicitly connected
-wire('M1630 520 H1670');wire('M1660 510 l20 20 m0 -20 l-20 20');text(1700,528,'NC',21)
-wire('M1630 600 H1680');text(1695,608,'VREF',22,True)
-wire('M1630 680 H1670 V855');ground(1670,855)
-# +5V and real bypass caps
-wire('M1630 440 H1990');dot(1840,440);dot(1990,440);text(1865,420,'+5V',24,True)
-wire('M1840 440 V595');cap(1840,595,'C1','100 nF');wire('M1840 675 V855');ground(1840,855)
-wire('M1990 440 V595');cap(1990,595,'C2','10 µF / 16 V',True);wire('M1990 675 V855');ground(1990,855)
-# Reference, adjacent below transmit stage
-text(650,470,'RIFERIMENTO',22,True);text(680,515,'VBENCH',21,True);wire('M730 530 V550');res(730,550,'R6','150 kΩ',True)
-wire('M730 630 V665 H880');dot(730,665);text(805,645,'VREF',22,True)
-wire('M730 665 V710');res(730,710,'R7','10 kΩ',True);wire('M730 790 V855');ground(730,855)
-text(80,923,'VREF: stesso nodo sui pin 2 e 6. Tutte le masse GND sono comuni. NC = piedino lasciato libero.',22)
-text(80,990,'Alimentazioni esterne: +5V, 3V3 e riferimento VBENCH 9–16 V; GND comune anche con ESP32.',21)
-text(80,956,'R3 appartiene solo al simulatore esterno: non montarla nel modulo. UART 10400 baud, 8N1; RX normale.',22)
-# Complete bill of materials, same sheet
-text(80,1020,'DISTINTA BASE — MODULO E SIMULATORE ESTERNO',27,True)
-rows=[('U1','1','LM2903B, SOIC-8','Con adattatore SOIC-8 → DIP-8 e zoccolo'),('Q1','1','2N5551, NPN TO-92','Piedinatura E/B/C secondo produttore'),('R1 / R2','1 + 1','330 Ω / 47 kΩ','0,25 W · 5%'),('R3','1','510 Ω','1 W · 1% · ESTERNA al modulo, solo simulatore'),('R4 / R6','1 + 1','68 kΩ / 150 kΩ','0,25 W · 1%'),('R5, R7','2','10 kΩ','0,25 W · 1%'),('R8 / R9','1 + 1','4,7 kΩ / 1 kΩ','0,25 W · R8 1%, R9 non vincolata'),('R10','1','330 kΩ','0,25 W · 1% · retroazione OUT1 → IN1+ (isteresi)'),('C1 / C2','1 + 1','100 nF / 10 µF 16 V','Ceramico / elettrolitico polarizzato'),('Montaggio','1 insieme','Millefori, morsetti e fili','Adattatore e zoccolo inclusi nella voce U1')]
-cols=[80,340,470,1070,2120];top=1040;rh=40
-box(80,top,2040,rh,'#eaf0f5')
-for x,t in zip(cols,['Riferimento','Qtà','Componente / valore','Specifiche / note']):text(x+12,top+28,t,22,True)
-for i,row in enumerate(rows):
- y=top+rh*(i+1);box(80,y,2040,rh,'white' if i%2 else '#f7f9fb')
- for x,t in zip(cols,row):text(x+12,y+27,t,21)
-for x in cols[1:-1]:wire(f'M{x} {top} V{top+rh*(len(rows)+1)}')
-text(80,1565,'Rev. E: R10 aggiunta (isteresi circa 0,6–0,8 V sulla linea K). TX = ingresso; RX = uscita; K-line = bidirezionale. Pinout U1: TI §4.',20)
-# Title block
-box(80,1585,2040,135);wire('M80 1630 H2120 M80 1675 H2120 M1370 1630 V1720 M1710 1630 V1720')
-text(100,1616,'Cruscotto C3+AI  /  Data Logger',28,True)
-text(100,1662,'Interfaccia K-line autocostruita',24,True);text(1390,1662,'REV. E',25,True);text(1730,1662,'20/10/2026',24)
-text(100,1705,'C3AI-DL-KL-001 · Foglio 1/1 · Sorgente SVG modificabile',22)
-text(1390,1705,'NON COLLAUDATO',21,True);text(1730,1705,'SOLO BANCO',24,True)
-s.append('</svg>')
-(ROOT/'schema-kline-banco.svg').write_text(''.join(s),encoding='utf-8')
+
+def it(v, n): return f'{v:.{n}f}'.replace('.', ',')
+
+# --- Disegno C3AI-DL-KL-001 rev F (D-024): IEC 60617 / IEC 61082-1, foglio ISO 5457 A3 ---
+d = Sheet('C3AI-DL-KL-001 rev F — Interfaccia K-line autocostruita')
+d.frame()
+d.text(25, 20, 'INTERFACCIA K-LINE AUTOCOSTRUITA — SCHEMA ELETTRICO', 5, bold=True)
+d.text(25, 25, 'Prototipo da banco, non collaudato. Nessun collegamento al veicolo autorizzato da questo documento.', 2.5)
+
+d.enclosure(65, 30, 265, 152, '-A1  Modulo interfaccia K-line')
+# Morsetti verso ESP32 (X1) e verso la linea (X2), sul confine del modulo.
+d.terminal(65, 40, '-X1:1', 'RX_3V3 → ESP32 GPIO16')
+d.terminal(65, 140, '-X1:2', 'TX_INV ← ESP32 GPIO17')
+d.terminal(65, 155, '-X1:3', '+5V'); d.terminal(65, 162.5, '-X1:4', '+3V3'); d.terminal(65, 170, '-X1:5', 'GND')
+d.wire((65.9, 155), (75, 155)); d.net_label(75, 155, '+5V', 'start')
+d.wire((65.9, 162.5), (75, 162.5)); d.net_label(75, 162.5, '+3V3', 'start')
+d.wire((65.9, 170), (75, 170)); d.ground(75, 170)
+d.terminal(330, 115, '-X2:1', 'K', side='right')
+d.terminal(330, 140, '-X2:2', 'VBENCH (riferimento)', side='right')
+d.terminal(330, 155, '-X2:3', 'GND', side='right')
+d.wire((329.1, 140), (320, 140)); d.net_label(320, 140, 'VBENCH')
+d.wire((329.1, 155), (320, 155)); d.ground(320, 155)
+
+# Ricezione: K -> R4/R5 -> U1A (+); VREF su (-); uscita a collettore aperto.
+plus, minus, out = d.amplifier(200, 75, 'U1A', {'in+': '3', 'in-': '2', 'out': '1'})
+d.wire((147.5, 115), (147.5, 80))
+d.resistor(147.5, 80, 172.5, 80, 'R4', '68 kΩ')
+d.wire((172.5, 80), plus)
+d.dot(182.5, 80); d.resistor(182.5, 80, 182.5, 100, 'R5', '10 kΩ', 'left'); d.ground(182.5, 100)
+d.wire(minus, (195, 85)); d.net_label(196.5, 85, 'VREF')
+# Isteresi: R10 da uscita a ingresso +.
+d.dot(190, 80); d.wire((190, 80), (190, 60), (205, 60))
+d.resistor(205, 60, 230, 60, 'R10', '330 kΩ')
+d.wire(out, (262.5, 82.5)); d.dot(230, 82.5); d.wire((230, 82.5), (230, 60))
+d.text(206, 66, 'isteresi', 2.2)
+d.dot(242.5, 82.5); d.resistor(242.5, 82.5, 242.5, 62.5, 'R8', '4,7 kΩ'); d.supply(242.5, 62.5, '+3V3')
+d.text(232, 87, 'RX_RAW', 2.2)
+d.wire((262.5, 82.5), (262.5, 40), (92.5, 40))
+d.resistor(92.5, 40, 72.5, 40, 'R9', '1 kΩ'); d.wire((72.5, 40), (65.9, 40))
+
+# Trasmissione: TX_INV -> R1 -> base Q1; R2 base-massa; collettore su K.
+d.wire((65.9, 140), (70, 140)); d.resistor(70, 140, 85, 140, 'R1', '330 Ω')
+d.wire((85, 140), (105, 140))
+d.dot(90, 140); d.resistor(90, 140, 90, 160, 'R2', '47 kΩ'); d.ground(90, 160)
+c, e = d.npn(105, 140, 'Q1', '2N5551')
+d.wire(c, (c[0], 115), (329.1, 115)); d.dot(147.5, 115)
+d.wire(e, (e[0], 152.5)); d.ground(e[0], 152.5)
+d.text(150, 113, 'K', 2.5, bold=True)
+
+# Riferimento VREF dal partitore R6/R7 su VBENCH.
+d.supply(260, 125, 'VBENCH'); d.resistor(260, 125, 260, 142.5, 'R6', '150 kΩ', 'left')
+d.wire((260, 142.5), (260, 145)); d.dot(260, 145); d.wire((260, 145), (270, 145)); d.net_label(270, 145, 'VREF', 'start')
+d.resistor(260, 145, 260, 165, 'R7', '10 kΩ', 'left'); d.ground(260, 165)
+
+# Sezione inutilizzata U1B: ingressi a potenziale definito, uscita libera.
+p2, m2, o2 = d.amplifier(200, 125, 'U1B', {'in+': '5', 'in-': '6', 'out': '7'})
+d.wire(p2, (180, 130), (180, 140)); d.ground(180, 140)
+d.wire(m2, (195, 135)); d.net_label(196.5, 135, 'VREF')
+d.wire(o2, (217.5, 132.5)); d.not_connected(217.5, 132.5)
+
+# Alimentazione di U1 (unità separata U1C) e disaccoppiamento.
+top, bottom = d.power_unit(270, 60, 'U1C', '8', '4')
+d.wire(top, (275, 52.5), (310, 52.5)); d.supply(275, 52.5, '+5V'); d.dot(275, 52.5)
+d.ground(bottom[0], bottom[1])
+d.dot(292.5, 52.5); d.wire((292.5, 52.5), (292.5, 57.5)); d.capacitor(292.5, 57.5, 72.5, 'C1', '100 nF'); d.ground(292.5, 72.5)
+d.wire((310, 52.5), (310, 57.5)); d.capacitor(310, 57.5, 72.5, 'C2', '10 µF 16 V', polarized=True); d.ground(310, 72.5)
+
+# Simulatore esterno da banco: non fa parte del modulo.
+d.enclosure(352.5, 92, 52.5, 80, '-A2  Simulatore linea')
+d.text(355, 178, 'solo banco, esterno ad -A1', 2.2)
+d.wire((330.9, 115), (375, 115)); d.resistor(375, 115, 375, 100, 'R3', '510 Ω 1 W')
+d.supply(375, 100, 'VBENCH')
+d.wire((330.9, 140), (385, 140)); d.supply(385, 140, 'VBENCH')
+d.wire((330.9, 155), (385, 155)); d.ground(385, 155)
+d.text(355, 166, '-G1 alimentatore 9–16 V', 2.2); d.text(355, 169.5, 'limitato in corrente', 2.2)
+
+parts = [
+    ('1', 'Q1', '1', 'NPN 2N5551, TO-92', 'Piedinatura E/B/C secondo produttore'),
+    ('2', 'U1', '1', 'Doppio comparatore LM2903B, SOIC-8', 'Adattatore SOIC-8 → DIP-8 e zoccolo'),
+    ('3', 'R1', '1', '330 Ω, 0,25 W, 5 %', ''),
+    ('4', 'R2', '1', '47 kΩ, 0,25 W, 5 %', 'Q1 spento con GPIO flottante'),
+    ('5', 'R4', '1', '68 kΩ, 0,25 W, 1 %', 'Partitore K'),
+    ('6', 'R5, R7', '2', '10 kΩ, 0,25 W, 1 %', ''),
+    ('7', 'R6', '1', '150 kΩ, 0,25 W, 1 %', 'Riferimento da VBENCH'),
+    ('8', 'R8', '1', '4,7 kΩ, 0,25 W, 1 %', 'Richiamo uscita a +3V3'),
+    ('9', 'R9', '1', '1 kΩ, 0,25 W', 'Serie verso ESP32'),
+    ('10', 'R10', '1', '330 kΩ, 0,25 W, 1 %', 'Isteresi (rev E, D-022)'),
+    ('11', 'C1', '1', '100 nF, ceramico', 'Vicino ai pin 8 e 4 di U1'),
+    ('12', 'C2', '1', '10 µF, 16 V, elettrolitico', 'Rispettare la polarità'),
+    ('13', 'R3', '1', '510 Ω, 1 W, 1 %', 'Solo -A2 simulatore, non nel modulo'),
+    ('14', '—', '1 ins.', 'Millefori, morsetti, fili', ''),
+]
+d.parts_list(25, 192, parts, widths=(10, 15, 11, 62, 82))
+d.notes(212, 196, 'NOTE', [
+    '1. Modello DC (tolleranze 1 %, offset ±3 mV, VBENCH 9–16 V): soglia in discesa',
+    f'\u2003\u2003{it(min(falling), 3)}–{it(max(falling), 3)} VBENCH, in salita {it(min(rising), 3)}–{it(max(rising), 3)} VBENCH;'
+    f' isteresi {it(min(hyst), 2)}–{it(max(hyst), 2)} V. Nessuna simulazione dinamica.',
+    '2. UART 10 400 baud 8N1: TX invertito (TX basso = linea rilasciata), RX non invertito.',
+    '3. U1B inutilizzato: ingressi a potenziale definito, uscita 7 non collegata (×).',
+    '4. Protezioni automotive (inversione, transitori, load dump, ESD) NON comprese.',
+    '5. Simboli IEC 60617, schema IEC 61082-1. Incrocio senza punto: nessun contatto.',
+    '\u2003\u2003Sigle con lettere di uso corrente (Q, U) coerenti con distinta e firmware.',
+], step=3.6)
+d.title_block(title=['Interfaccia K-line', 'autocostruita'], subtitle='Data Logger',
+              doc_type='Schema elettrico', status='NON COLLAUDATO · solo banco',
+              code='C3AI-DL-KL-001', rev='F', date='20/10/2026', sheet='1/1',
+              revisions=[('C', 'Eliminato JP1; R3 solo nel simulatore esterno (D-018)', '18/10/2026'),
+                         ('D', 'Porte esterne evidenziate; nessuna variazione elettrica', '18/10/2026'),
+                         ('E', 'Aggiunta R10 per isteresi del comparatore (D-022)', '20/10/2026'),
+                         ('F', 'Ridisegno secondo IEC 60617 / IEC 61082-1 / ISO 5457 / ISO 7200 (D-024)', '20/10/2026')])
+(ROOT/'schema-kline-banco.svg').write_text(d.svg('Schema elettrico IEC 61082-1 dell\'interfaccia K-line da banco; non collaudato.'), encoding='utf-8')

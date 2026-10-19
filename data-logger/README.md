@@ -123,7 +123,7 @@ e cablaggio posteriore OBD non ancora rilasciati per acquisto/installazione.
 
 ## K-line autocostruita
 
-Scelta D-013 registrata: [circuito a banco rev E](docs/kline-autocostruita.md), isteresi R10 (D-022),
+Scelta D-013 registrata: [circuito a banco rev F](docs/kline-autocostruita.md), isteresi R10 (D-022),
 NPN 2N5551 e comparatore LM2903B. UART 10400 con solo TX invertito.
 Schema e modello DC prodotti; componenti non confermati, nessun montaggio,
 collaudo. Driver K-line implementato nella 0.3.0, non ancora caricato.
@@ -140,6 +140,6 @@ non significa disconnessione elettrica dell'ESP32. Uadme candidato, non collauda
 
 ## Collegamenti per la prima prova USB
 
-[Schema banco firmware 0.3.0](docs/collegamenti-banco-030.md), rev. A:
+[Schema di collegamento banco](docs/collegamenti-banco-030.md), rev. B (IEC 61082-1, D-024):
 SD, RTC, OLED e STOP. Nessun collegamento al veicolo e nessun caricamento
 eseguito durante la preparazione del disegno.

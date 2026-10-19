@@ -1,14 +1,16 @@
 # Collegamenti per il caricamento e la prima prova del logger
 
-**Cruscotto C3+AI / Data Logger** — C3AI-DL-EL-003, revisione A, 19/10/2026.
-Stato: proposta coerente con firmware 0.3.0 e hardware.json; non collaudo fisico.
-Decisioni D-004, D-009, D-010, D-015, D-019 e D-020.
+**Cruscotto C3+AI / Data Logger** — C3AI-DL-EL-003, revisione B, 20/10/2026.
+Stato: proposta coerente con firmware 0.3.x e hardware.json; non collaudo fisico.
+Decisioni D-004, D-009, D-010, D-015, D-019, D-020 e D-024.
 
 ![Schema dei collegamenti a banco](collegamenti-banco-030.png)
 
 [Sorgente SVG](collegamenti-banco-030.svg). Rigenerare con
 `python tools/genera-collegamenti-banco.py`; PNG ottenuto renderizzando l'SVG.
-Le illustrazioni rappresentano i moduli e i nomi dei segnali: non sono footprint.
+Rev. B (D-024): schema di collegamento IEC 61082-1, moduli come elementi con i
+morsetti nell'ordine della serigrafia documentata (ESP32 in ordine logico), fili
+numerati W1–W16 con tabella dei collegamenti sul foglio. Non sono footprint.
 Foto effettive consultate nel [dossier](hardware-photos/README.md):
 ESP32 HW-394 e SD/OLED/RTC ricevuti il 19/10/2026.
 

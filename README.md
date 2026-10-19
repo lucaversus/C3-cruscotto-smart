@@ -40,7 +40,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-006 | approvata | **Non acquistare CAN Pal o un altro modulo CAN ora**: verificare prima HW-CAN-MCP2515 e HW-CAN-VP230 già disponibili. | Correzione utente: “ma non abbiamo già il modulo can?”. La raccomandazione CAN Pal è ritirata. |
 | D-007 | approvata | Lasciare **libera frontalmente la presa OBD**. | Preferenza esplicita utente; soluzione posteriore da identificare, non adattatore già approvato. |
 | D-008 | approvata | Non presumere CAN sulla BSI; identificare rete e punto di accesso. Primo ascolto BSI passivo; diagnostica OBD di sola lettura. | Progetto iniziale; aggiornamento 18/10/2026: nuova schermata OBD indica KWP, in conflitto con CAN del Creader. Nessuna delle due identifica la rete BSI. |
-| D-009 | approvata | Tutti i documenti visivi di progetto con cornice e cartiglio: progetto, sottoprogetto, titolo, codice, revisione, data, foglio e stato di validazione. | Richiesta esplicita utente; componenti illustrati e fili continui nello schema collegamenti. |
+| D-009 | approvata | Tutti i documenti visivi di progetto con cornice e cartiglio: progetto, sottoprogetto, titolo, codice, revisione, data, foglio e stato di validazione. | Richiesta esplicita utente; componenti illustrati e fili continui nello schema collegamenti. Dal 20/10/2026 la parte "componenti illustrati" è superata da D-024 (simboli IEC); cornice, cartiglio e fili continui restano validi. |
 | D-010 | approvata | Prima fase firmware a banco USB: preservare diagnostica 0.1.0; base 0.2.0 separata, nessuna acquisizione auto finché le interfacce non sono verificate. | 0.1.0 caricata e collaudata; 0.2.0 compilata, non caricata né collaudata sui moduli. |
 | D-011 | approvata | Inventario e decisioni versionati, consultati prima di ogni scelta pertinente e aggiornati nello stesso cambiamento. | Richiesta utente del 18/10/2026: non delegare il controllo della memoria all'utente. |
 | D-012 | approvata | Archiviare nel repository le foto hardware già disponibili e collegarle all'inventario; consultarle prima di richiederle nuovamente. | Richiesta utente del 18/10/2026. Conservare evidenze e SHA-256, senza metadati personali nelle copie pubblicate. |
@@ -58,6 +58,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-021 | approvata | Controllo di compatibilita a fine blocco, prima di ogni pubblicazione; riscontro decisioni/inventario/configurazioni, check e build quando pertinente. Dopo pubblicazione verificare ref e pipeline sul commit esatto. | Utente 20/10/2026: rendere il controllo una regola. Esecuzione prima di GitHub e conferma CI dopo; non sostituisce collaudi hardware. Build invariata riutilizzabile per sole modifiche documentali, dichiarandolo. |
 | D-022 | approvata | Applicare le proposte della revisione del 20/10/2026: firmware 0.3.1 (PID OBD prioritari, pausa KWP ridotta sopra P3min, SPI MicroSD configurabile, predefinita 1 MHz); K-line rev E con isteresi R10; verifiche VAN bloccanti prima del collegamento; prove a banco P-001/P-002 su interruzione e calo di tensione; controllo NVS del backup. | Utente 20/10/2026: "procedere con tutto quello che hai scritto, aggiornando il Git". Non è collaudo: 0.3.1 non caricata, rev E non montata, verifiche VAN e P-001/P-002 non eseguite. D-013, D-015, D-016 restano valide. |
 | D-023 | approvata | Qualità del progetto: test C++ host della logica firmware in `dev.py check`, analisi statica cppcheck nella CI (`dev.py lint`), procedure guidate nel repository (`.claude/skills/`: chiusura-blocco, registro-collaudo, revisione-firmware). | Utente 20/10/2026: "Sono d'accordo con quello che hai scritto". Strumenti gratuiti e open source (D-003); procedure nel repository, non sul PC di Luca (AGENTS.md). Non sostituiscono collaudi hardware. |
+| D-024 | approvata | Elaborati grafici secondo le norme: simboli IEC 60617, schemi IEC 61082-1, foglio A3 ISO 5457 con zone di riferimento, cartiglio ISO 7200 con tabella revisioni, scrittura ISO 3098, spessori ISO 128. Rifatti KL-001 rev F, EL-003 rev B, EL-001 rev E (storico, sostituito da EL-003) e BL-001 rev D, da una libreria comune `iso_drawing.py`. | Utente 20/10/2026: schemi "non costruiti seguendo le regole ISO", chiede di correggerli tutti. Supera la parte "componenti illustrati" di D-009. Nessuna variazione elettrica: reti, valori e GPIO invariati. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -188,7 +189,7 @@ i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veico
 ### Interfaccia K-line autocostruita
 
 Scelta D-013: [schema e distinta del prototipo a banco](data-logger/docs/kline-autocostruita.md),
-rev E (isteresi R10, D-022). NPN e comparatore, calcoli DC verificati; non montato o collaudato.
+rev F (isteresi R10 D-022, disegno IEC D-024). NPN e comparatore, calcoli DC verificati; non montato o collaudato.
 Installazione auto e protezioni ancora da progettare.
 
 ### Logger temporaneo: arresto manuale

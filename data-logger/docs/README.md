@@ -33,11 +33,11 @@ I controlli software non certificano l'hardware.
 
 ## Schema del sistema
 
-- **Collegamenti correnti per firmware 0.3.0:** [EL-003 rev. A](collegamenti-banco-030.md),
+- **Collegamenti correnti per firmware 0.3.x:** [EL-003 rev. B](collegamenti-banco-030.md),
   con [SVG](collegamenti-banco-030.svg) e [PNG](collegamenti-banco-030.png).
   Banco USB: SD, RTC, OLED, STOP GPIO32. GPIO33 inutilizzato; OBD/VAN scollegati.
   Mappa GPIO proposta coerente con `hardware.json` e `config.h`, non validazione fisica.
-- **Disegno storico:** [schema di collegamento Rev. D](schema-collegamenti.svg),
+- **Disegno storico, sostituito da EL-003:** [EL-001 rev. E](schema-collegamenti.svg),
   con [anteprima PNG](schema-collegamenti.png): proposta pin per pin a livello
   di moduli, per alimentazione USB a banco. Fili continui collegano i terminali;
   un punto pieno indica una giunzione, gli incroci senza punto non sono collegati.
@@ -62,7 +62,36 @@ le pull-up I2C, la corrente del regolatore e i picchi MicroSD. Non applicare
   esecutivo e non assegna pin. Per stato hardware e versione sulla scheda consultare
   inventario e registro moduli; reti del veicolo e protezioni restano da verificare.
 
-## Formato dei documenti visivi
+## Formato dei documenti visivi — norme applicate (D-024)
+
+Dal 20/10/2026 tutti gli elaborati sono generati da `tools/iso_drawing.py`, che
+applica in modo uniforme:
+
+| Aspetto | Norma | Applicazione nel progetto |
+| --- | --- | --- |
+| Foglio e cornice | ISO 5457 | A3 orizzontale 420 × 297 mm; margine sinistro 20 mm, altri 10 mm; zone 1–8 / A–F; segni di centraggio |
+| Cartiglio | ISO 7200 | 180 mm in basso a destra: proprietario, titolo, titolo supplementare, tipo e stato, codice, revisione, data, lingua, foglio, creato/approvato; tabella revisioni sopra |
+| Simboli | IEC 60617 | Resistore rettangolare, condensatore (polarizzato con +), NPN con involucro, amplificatore/comparatore in forma rettangolare con uscita a collettore aperto, massa, morsetto, contatto NO a pulsante, unità di alimentazione separata |
+| Impostazione schemi | IEC 61082-1 | Collegamenti solo orizzontali/verticali, giunzioni a T con punto, nessuna giunzione a quattro vie, incrocio senza punto = nessun contatto, riferimenti di potenziale per nome, recinzioni a tratto e punto, schemi a blocchi con frecce di flusso |
+| Sigle | IEC 81346-1 | Prefisso "-" (-A1, -X1:1, -S1); lettere di classe d'uso corrente (R, C, Q, U) mantenute per coerenza con distinte e firmware |
+| Scrittura e linee | ISO 3098, ISO 128 | Testo diritto 2–7 mm; linee 0,25 / 0,35 / 0,7 mm |
+
+Gli SVG sono la fonte; i PNG sono anteprime a 200 dpi in 16 livelli di grigio,
+ottenute con resvg (open source) e controllate visivamente. Rigenerare con:
+
+```text
+python data-logger/docs/tools/genera-kline-banco.py
+python data-logger/docs/tools/genera-schemi.py
+python tools/genera-collegamenti-banco.py
+```
+
+Elaborati correnti: KL-001 rev F (schema elettrico K-line), EL-003 rev B (schema
+di collegamento banco, con tabella dei fili W1–W16), BL-001 rev D (schema a
+blocchi aggiornato al 20/10/2026). EL-001 rev E è conservato come storico e
+marcato SOSTITUITO: non usarlo per cablare. Il ridisegno non modifica reti,
+valori o GPIO e non costituisce verifica del cablaggio.
+
+## Formato dei documenti visivi — regole iniziali (D-009)
 
 Tutti gli elaborati visivi prodotti per il progetto devono avere una cornice
 e un cartiglio in basso a destra, coerente tra sorgente ed esportazioni:
