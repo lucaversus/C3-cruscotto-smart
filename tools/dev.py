@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ENVIRONMENT = ROOT / '.tools/pio-venv'
 LOGGER = ROOT / 'data-logger/firmware/logger'
 HOST_TEST = LOGGER / 'host-tests/test_logic.cpp'
+DISPLAY_TEST = ROOT / 'cruscotto/firmware/display-test'
+UI_TEST = ROOT / 'cruscotto/firmware/ui-test'
 
 
 def python_path():
@@ -108,6 +110,10 @@ def main():
         run(python_path(), '-m', 'platformio', 'run', '--project-dir',
             ROOT / 'data-logger/firmware/logger', '-e', 'esp32-hw394-logger',
             '-e', 'esp32-hw394-vehicle', env=env)
+        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
+            DISPLAY_TEST, '-e', 'esp32-8048s050-display-test', env=env)
+        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
+            UI_TEST, '-e', 'esp32-8048s050-ui-test', env=env)
     return 0
 
 
