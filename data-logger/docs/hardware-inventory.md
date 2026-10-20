@@ -102,7 +102,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Quantità, modello e serigrafie del materiale ricevuto
 - Alimentazione, livelli SPI e picchi di corrente
-- Saldare la strip pin prima del collegamento; modulo escluso dalla prima prova USB senza SD del 20/10/2026.
+- SD-M002, 20/10/2026: utente dichiara il modulo sistemato (strip pin); continuita, ponti di stagno, cablaggio EL-003 W1-W6 e prova di scrittura ancora da verificare.
 - Prove a banco P-001 (interruzione senza STOP, 20-30 volte) e P-002 (calo tensione da avviamento) prima dell'auto, D-022; procedura in docs/alimentazione-spegnimento.md. Frequenza SPI oltre 1 MHz non collaudata.
 
 ### HW-RTC — RTC DS3231SN con AT24C32 e portabatteria sul retro da verificare
@@ -128,7 +128,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Modello, quantità, pull-up I2C e circuito di ricarica batteria
 - Non inserire una CR2032 non ricaricabile prima di verificare il circuito
 - Pila CR2032 confermata: disabilitare e verificare assenza percorso di ricarica prima di inserirla; nessuna modifica eseguita. Identificare ramo sul modulo tramite foto e continuita, senza rimuovere componenti alla cieca.
-- D-019: attendere conferma rimozione resistenza 201 e verificare interruzione ramo, assenza ponti di stagno e mantenimento RTC. Pila fuori e modulo scollegato durante intervento. Non segnare come verificata prima della prova.
+- D-019: rimozione resistenza 201 dichiarata eseguita il 20/10/2026 (RTC-M006). Da verificare: ripetizione RTC-M004 con esito OL atteso (prima 1,35 V), assenza ponti di stagno, poi mantenimento ora con pila. Non segnare come verificata prima della prova.
 
 ### HW-OLED — Display OLED monocromatico I2C consigliato — modello e controller non riscontrati
 
@@ -347,7 +347,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Non inserire mentre rimane attivo il percorso VCC verso positivo portabatteria rilevato in RTC-M004/M005.
+- Non inserire finche la ripetizione di RTC-M004 dopo la rimozione della 201 (RTC-M006) non conferma OL sul percorso VCC verso positivo portabatteria.
 - Tensione e stato pila non misurati.
 
 ## Proposta di collegamento — non validata fisicamente

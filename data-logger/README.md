@@ -94,8 +94,8 @@ prioritari, pausa KWP ridotta e SPI MicroSD configurabile; solo compilata, non c
 Profilo banco 0.3.0 caricato e avviato il 20/10/2026 su COM3: ATTESA SD
 (modulo scollegato) e RTC oscillator_stop; ora non ancora impostata.
 Lettore SD, OLED e RTC ricevuti il 19/10/2026; verifiche hardware a cura dell'utente
-(D-020), nessun esito positivo presunto. Rimozione resistenza RTC 201 ancora
-non dichiarata eseguita. Il programma sulla scheda ora e logger 0.3.0 banco.
+(D-020), nessun esito positivo presunto. Rimozione resistenza RTC 201 dichiarata eseguita il 20/10/2026 (RTC-M006), interruzione del ramo ancora
+da misurare. Il programma sulla scheda ora e logger 0.3.0 banco.
 
 La cartella `docs/` ospiterà la documentazione tecnica di dettaglio.
 Il modello ESP32-S3 e il display previsti per il cruscotto non vincolano

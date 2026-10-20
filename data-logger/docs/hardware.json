@@ -228,7 +228,7 @@
       "open_checks": [
         "Quantità, modello e serigrafie del materiale ricevuto",
         "Alimentazione, livelli SPI e picchi di corrente",
-        "Saldare la strip pin prima del collegamento; modulo escluso dalla prima prova USB senza SD del 20/10/2026.",
+        "SD-M002, 20/10/2026: utente dichiara il modulo sistemato (strip pin); continuita, ponti di stagno, cablaggio EL-003 W1-W6 e prova di scrittura ancora da verificare.",
         "Prove a banco P-001 (interruzione senza STOP, 20-30 volte) e P-002 (calo tensione da avviamento) prima dell'auto, D-022; procedura in docs/alimentazione-spegnimento.md. Frequenza SPI oltre 1 MHz non collaudata."
       ],
       "evidence": "Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: modulo non collegato, pin ancora da saldare; saldatore non disponibile sul posto.",
@@ -255,7 +255,7 @@
         "Modello, quantità, pull-up I2C e circuito di ricarica batteria",
         "Non inserire una CR2032 non ricaricabile prima di verificare il circuito",
         "Pila CR2032 confermata: disabilitare e verificare assenza percorso di ricarica prima di inserirla; nessuna modifica eseguita. Identificare ramo sul modulo tramite foto e continuita, senza rimuovere componenti alla cieca.",
-        "D-019: attendere conferma rimozione resistenza 201 e verificare interruzione ramo, assenza ponti di stagno e mantenimento RTC. Pila fuori e modulo scollegato durante intervento. Non segnare come verificata prima della prova."
+        "D-019: rimozione resistenza 201 dichiarata eseguita il 20/10/2026 (RTC-M006). Da verificare: ripetizione RTC-M004 con esito OL atteso (prima 1,35 V), assenza ponti di stagno, poi mantenimento ora con pila. Non segnare come verificata prima della prova."
       ],
       "evidence": "Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Risolta la voce temporanea HW-BATTERY-MODULE-UNIDENTIFIED: coincide con HW-RTC. Utente 19/10/2026: sul retro nessuna scritta, visibile soltanto il portabatteria. Verifica ricarica ancora aperta; non richiedere altra foto del retro per cercare scritte assenti. Utente 19/10/2026 identifica la pila come CR2032, confermando prefisso CR dopo 2032. Utente 19/10/2026 sceglie rimozione della resistenza marcata 201 per evitare ricarica CR2032 (D-019). Dichiarazione al futuro: non ancora eseguita o collaudata. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.",
       "photos": [
@@ -478,7 +478,7 @@
       "evidence": "Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate.",
       "verified": [],
       "open_checks": [
-        "Non inserire mentre rimane attivo il percorso VCC verso positivo portabatteria rilevato in RTC-M004/M005.",
+        "Non inserire finche la ripetizione di RTC-M004 dopo la rimozione della 201 (RTC-M006) non conferma OL sul percorso VCC verso positivo portabatteria.",
         "Tensione e stato pila non misurati."
       ]
     }
