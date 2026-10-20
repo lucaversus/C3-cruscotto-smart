@@ -1,6 +1,6 @@
 # Alimentazione e STOP manuale — Cruscotto C3+AI / Data Logger
 
-Revisione C, 20/10/2026 (prove a banco D-022). Scelta utente D-015: logger temporaneo per pochi giorni.
+Revisione D, 20/10/2026: aggiunti i punti di prelievo del cruscotto (D-030). Revisione C: prove a banco D-022. Scelta utente D-015: logger temporaneo per pochi giorni.
 
 La precedente proposta rev A di +12 permanente, IGN separato, MOSFET mantenuto,
 TVS dedicato e arresto automatico e ritirata per questa versione. Non comprare
@@ -60,3 +60,34 @@ Un riavvio produce un nuovo file e lascia il precedente senza footer: è accetta
 solo se P-001 è superata. Se si riavvia, registrare la soglia osservata.
 
 Entrambe richiedono alimentatore da banco non ancora censito come disponibile.
+
+## Punti di prelievo per il cruscotto (D-029, D-030) — 20/10/2026
+
+Fonte: MAN-017 PDF 2, pag. 91, tabella vie della presa diagnosi C001 e tabella
+fusibili abitacolo (testo del manuale, non ancora misurato sulla vettura).
+
+| Presa diagnosi C001 | Funzione dichiarata dal manuale |
+| --- | --- |
+| via 16 | + batteria (permanente) |
+| via 1 | + dopo contatto (sotto chiave) |
+| vie 4 e 5 | massa scocca |
+| via 7 | linea K, controllo motore |
+| vie 11 / 12 | linea K3 BSI / K4 ABS-ESP |
+
+Conseguenza: la presa OBD, situata sopra la BSI sotto il coperchio fusibili,
+offre in un solo punto **+12 V permanente, segnale chiave, massa e K-line**. La
+derivazione posteriore della presa (HW-OBD-HARNESS, fronte libero D-007) diventa
+il candidato principale per l'alimentazione D-030 e per la K-line. La via 1 non
+è standard OBD: la sua presenza sull'esemplare va verificata.
+
+Fusibili correlati (stessa tabella): F1 15 A e F6 10 A "connettore diagnosi";
+F15 15 A "quadro, frontalino climatizzatore, autoradio, ..." (tipo di linea non
+indicato); F22 30 A accendisigari e prese 12 V. Il ramo del cruscotto richiede
+comunque un proprio fusibile in linea vicino al prelievo (HW-FUSE-HOLDER).
+
+**Verifica proposta all'utente, sicura:** tester in V DC, nero su via 4 o 5,
+rosso su via 16 (atteso ~12 V sempre) e su via 1 (atteso ~12 V solo con chiave
+inserita). Puntali solo su quelle vie; non toccare le vie 7, 11, 12 né cortocircuitare
+contatti vicini. La stessa via 16 è adatta anche alla misura del calo
+all'avviamento: l'accendisigari potrebbe essere escluso durante l'avviamento e
+falsare la misura.

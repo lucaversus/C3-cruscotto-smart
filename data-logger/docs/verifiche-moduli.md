@@ -213,3 +213,42 @@ Non verifica stabilità prolungata né comportamento termico.
 **Esito:** superata (sfarfallio cifre risolto).
 **Prossimo passo:** definire con l'utente contenuti e disposizione della prima
 schermata reale del cruscotto.
+
+## DSP-M004 — continuità P2 "IO19" ↔ P3 IO19 — 20/10/2026
+
+**Misura riferita:** utente "c'è continuità" alla prova richiesta: scheda
+ESP32-8048S050 scollegata da USB e alimentazione, UT210E in continuità/Ω, puntali
+sul pin serigrafato IO19 di P2 e sul pin IO19 di P3.
+**Interpretazione:** il primo pin di P2 è sullo stesso nodo di IO19 di P3: P2
+espone IO19, IO11, IO12, IO13; la selezione della MicroSD (IO10 secondo la fonte
+comunitaria) non è portata su P2. Non prova che il nodo sia proprio GPIO19 del
+modulo né l'assenza di altri componenti sullo stesso nodo.
+**Esito:** superata (serigrafia confermata come stesso collegamento).
+**Prossimo passo:** tono di prova su IO17/IO18 con altoparlante su P6 per
+identificare la funzione di U1.
+
+## DSP-M005 — speak-test 0.1.0, tono 1 kHz, P6 in V~ — 20/10/2026
+
+**Prova:** speak-test 0.1.0 caricato (hash verificati); ciclo 10 s tono 1 kHz su
+IO17, 10 s su IO18, 10 s pausa, confermato dalla seriale. UT210E in V~ sui due
+contatti di P6, nient'altro collegato.
+**Misura riferita:** "rimane sempre praticamente a 0" in tutte le fasi.
+**Interpretazione:** non conclusiva. Possibili cause: U1 non pilotato da IO17/IO18;
+amplificatore con abilitazione su un altro pin; banda V~ del tester insufficiente
+a 1 kHz (tipicamente decine-centinaia di Hz). Non dimostra l'assenza di
+collegamento fra U1 e IO17/IO18.
+**Esito:** non conclusiva.
+**Prossimo passo:** ripetere con tono a 200 Hz (speak-test 0.1.1).
+
+## DSP-M006 — speak-test 0.1.1, tono 200 Hz, funzione Hz — 20/10/2026
+
+**Prova:** speak-test 0.1.1 caricato (hash verificati), ciclo confermato dalla
+seriale. UT210E in Hz: prima sui due contatti di P6 ("niente"), poi come
+riferimento con nero su GND di P4 e rosso su IO17/IO18 di P4 ("niente").
+**Interpretazione:** il tester non si aggancia nemmeno al segnale diretto da
+3,3 V sul pin che lo genera: con questo strumento la prova non distingue la
+presenza del tono. Non dimostra né esclude il collegamento U1 ↔ IO17/IO18.
+**Esito:** non conclusiva (limite dello strumento).
+**Prossimo passo:** prova d'ascolto con un piccolo altoparlante su P6 quando
+disponibile; nel frattempo l'assegnazione proposta evita comunque IO17/IO18
+per la K-line.

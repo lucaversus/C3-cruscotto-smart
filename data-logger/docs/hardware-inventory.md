@@ -229,6 +229,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - DSP-M001, 20/10/2026: firmware display-test 0.1.0 caricato (COM4, hash verificati); seriale psram_found=1, 8386215 byte, panel=ESP_OK, nessun dispositivo I2C su GPIO19/20; utente riferisce barre colore 'tutto conforme'. Pinout RGB, temporizzazioni 16 MHz, ordine colori, retroilluminazione GPIO2 e PSRAM octal verificati per questa scheda. Sostituisce sulla scheda il firmware di fabbrica (backup conservato).
 - DSP-M002, 20/10/2026: ui-test LVGL 0.1.0 caricato; seriale fps=32 (limitato dai dati simulati a 33 ms), rendering medio 11 ms, 230 KB SRAM e 7,6 MB PSRAM liberi; utente: arco abbastanza fluido, cifre giri con lieve sfarfallio, indicatore LVGL 62 FPS / 34% CPU.
 - DSP-M003, 20/10/2026: ui-test 0.1.1 con cifre in celle fisse; rendering medio 8 ms; utente riferisce numeri senza sfarfallio. Causa DSP-M002 risolta; tearing non visibile in questa prova, non escluso con schermate più pesanti.
+- Utente 20/10/2026, connettori serigrafati (coerenti con foto retro): pulsanti BOOT/RST sotto il modulo, FPC1 accanto (probabile flat touch, non usato su variante senza touch), slot MicroSD; P2 'SPI' IO19(?)-11-12-13 (lettura IO19 da confermare, la fonte comunitaria indica IO10 come CS della MicroSD); P3 IO17-18 'UART1' + IO19-20 'USB'; P4 GND-3.3V-IO17-18; P5 come P4 con JST a passo minore; P6 'Speak'; P1 5V-TXD-RXD-GND sopra la USB-C. Dichiarazione e foto, nessuna misura.
+- Utente 20/10/2026, ispezione visiva piste: i due contatti di P6 'Speak' entrano in U1, marcatura riferita 'AKK 7HG' (componente non identificato); da U1 piste verso IO17 e IO18. Utente: P2 serigrafato IO19-11-12-13. Nessuna misura.
+- DSP-M004, 20/10/2026: continuità tra pin 'IO19' di P2 e IO19 di P3 a scheda scollegata (utente). P2 espone IO19, IO11, IO12, IO13; CS MicroSD non su P2.
 
 **Da verificare:**
 
@@ -236,6 +239,24 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)
 - Variante senza touch: nessun dispositivo I2C su GPIO19/20 (DSP-M001); assenza fisica del GT911 non ispezionata. GPIO19/20 riusabili solo dopo nuova decisione.
+- U1 ('AKK 7HG') collegato a P6 e, da ispezione visiva, a IO17/IO18: conflitto con la K-line proposta su IO17/IO18. Confermare funzione di U1 con tono di prova. P1 TXD/RXD presumibilmente UART0 (GPIO43/44) condiviso con il CH340.
+
+### HW-IMU-BMI270 — Modulo IMU BMI270 V1.3 (accelerometro + giroscopio 6 assi), I2C/SPI
+
+**Stato:** `ordered_pending` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029)
+
+**Fonte:** Utente 20/10/2026: richiesta sensore giroscopio e accelerazione; scelto BMI270 a 4,79 € (AliExpress, venditore Module Maker Space Co., Ltd Store, articolo 1005010561882473), "ok lo ordino". Foto del venditore viste nel browser: pin VCC, GND, AD0/MISO, SDA/MOSI, SCL/SCLK, CS, INT1 e SDX, SCX, INT2. Ordine dichiarato, conferma e consegna non riscontrate; consegna stimata dal sito 28/10-05/11/2026.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- All'arrivo: riscontrare marcatura BMI270 e serigrafie; foto da archiviare.
+- Regolatore 3,3 V sul modulo dedotto dalla foto del venditore: verificare prima di alimentare; tensione non indicata nelle specifiche.
+- Indirizzo I2C 0x69 con AD0 a VCC (0x68 coincide con RTC DS3231); CS a VCC per modo I2C. Collegamento proposto: bus I2C HW-394 GPIO21/22, non verificato.
+- Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto.
 
 ### HW-MULTIMETER — UNI-T UT210E — multimetro / pinza amperometrica
 
