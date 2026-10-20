@@ -33,6 +33,7 @@ chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 | 1 | Basetta millefori | Montaggio interfaccia K-line |
 | 1 insieme | Morsetti, filo flessibile per segnali e alimentazione, guaina termorestringente e fascette | Lunghezze dipendenti dalla collocazione; niente acquisto di controconnettori presunti |
 | 1 | Contenitore isolante con fissaggi per le schede | Dimensioni da scegliere sul montaggio reale |
+| 1 | Pila CR2032 3 V, non ricaricabile | RTC DS3231; inserimento consentito dopo RTC-M007 (ramo di ricarica interrotto) |
 | 1 se manca | MicroSD 16-32 GB | Possesso non confermato; verificare prima di duplicare l'acquisto |
 
 Restano da identificare soltanto per completare il cablaggio specifico auto:

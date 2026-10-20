@@ -113,3 +113,48 @@ RTC raggiungibile ma OSF attivo: ora non valida, nessuna impostazione effettuata
 Nessun collaudo SD, visualizzazione OLED, pulsante, batteria RTC o rete auto.
 Il firmware sulla scheda ora e logger 0.3.0 banco, non piu il test SPI.
 Terminale seriale lasciato aperto per l utente; salvataggi GitHub differiti.
+
+## SD-M002 — lettore MicroSD sistemato (dichiarazione) — 20/10/2026
+
+**Riferito:** utente "ho sistemato il modulo sd". Riferito al punto aperto
+"saldare la strip pin prima del collegamento" (montaggio banco del 20/10/2026).
+**Interpretazione:** intervento di montaggio dichiarato eseguito. Non dimostra
+saldature prive di ponti, continuità dei sei contatti, alimentazione a 3,3 V o
+funzionamento SPI/scrittura.
+**Esito:** non conclusivo (intervento, non misura).
+**Prossimo passo:** cablaggio W1–W6 secondo EL-003 rev B e prova di
+registrazione a banco con firmware 0.3.0 già caricato.
+
+## RTC-M006 — resistenza 201 rimossa (dichiarazione, D-019) — 20/10/2026
+
+**Riferito:** utente "dissaldato la resistenza per evitare il caricamento della
+pila". Riferito alla resistenza marcata 201 scelta in D-019.
+**Interpretazione:** intervento D-019 dichiarato eseguito. Non dimostra ancora
+l'interruzione del ramo VCC → positivo della pila rilevato in RTC-M004
+(1,35 V in prova diodi), né l'assenza di ponti di stagno o di altri percorsi.
+**Esito:** non conclusivo fino alla misura di verifica.
+**Prossimo passo:** ripetere RTC-M004 nelle stesse condizioni (modulo scollegato,
+pila fuori, prova diodi, rosso su VCC, nero sul contatto positivo del
+portabatteria). Atteso OL al posto di 1,35 V. CR2032 ancora da non inserire.
+
+## RTC-M007 — verifica interruzione ramo di ricarica: OL — 20/10/2026
+
+**Misura riferita:** utente "ol". Condizioni richieste: modulo scollegato, pila
+fuori, prova diodi, rosso su VCC, nero sul contatto positivo del portabatteria
+(stessi punti di RTC-M004).
+**Interpretazione:** il percorso VCC → positivo pila, che in RTC-M004 dava 1,35 V,
+non conduce più dopo la rimozione della 201 (RTC-M006). Con RTC-M005 (OL nel
+verso inverso, misurato prima dell'intervento) non risulta conduzione nella prova
+diodi in nessuno dei due versi. Non misura la corrente reale a modulo alimentato,
+la tensione della pila né il mantenimento dell'ora.
+**Esito:** superata rispetto al criterio di RTC-M006 (OL atteso). D-019 eseguita.
+**Prossimo passo:** misurare la tensione della CR2032 (attesi circa 3 V) e
+inserirla nel portabatteria, con il modulo ancora scollegato.
+
+## Pausa del progetto — 20/10/2026 (D-025)
+
+Utente: CR2032 non disponibile ("la pila non ce l'ho") e progetto messo in pausa.
+HW-RTC-BATTERY corretta da present_declared a candidate (da procurare).
+Punto di ripresa: procurare la CR2032, misurarne la tensione e inserirla; poi
+cablare la SD (W1–W6, EL-003 rev B) e fare la prima registrazione a banco con
+impostazione UTC (`time ...Z`) e prova di mantenimento dell'ora dopo lo spegnimento.
