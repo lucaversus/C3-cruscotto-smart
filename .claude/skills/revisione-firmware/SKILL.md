@@ -11,7 +11,7 @@ Ogni punto si risponde con "verificato in codice", "verificato da test",
 
 ## Sicurezza verso il veicolo
 
-- OBD solo lettura: nessun servizio diverso da 0x01 (e 0x81 per l'avvio) senza
+- OBD solo lettura: servizi ammessi 0x01, 0x02 e 0x03 (D-035) e 0x81 per l'avvio; altri servizi solo con
   decisione D-xxx; mai cancellazione DTC, attuatori o scritture.
 - VAN solo ricezione: nessun GPIO collegato al TX del transceiver.
 - Nessun pin, bitrate o protocollo del veicolo dedotto senza fonte (D-008).
