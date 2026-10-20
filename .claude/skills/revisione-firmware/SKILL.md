@@ -1,6 +1,6 @@
 ---
 name: revisione-firmware
-description: Checklist di revisione per modifiche al firmware del Data Logger C3 (ESP32, KWP/K-line, VAN via RMT, MicroSD, RTC, STOP). Usare prima di proporre, scrivere o approvare una modifica in data-logger/firmware.
+description: Checklist di revisione per modifiche al firmware del Data Logger e del cruscotto C3 (ESP32 front-end, ESP32-S3; KWP/K-line, VAN via RMT, MicroSD, RTC, STOP, display, audio, ventola). Usare prima di proporre, scrivere o approvare una modifica in data-logger/firmware o cruscotto/firmware.
 ---
 
 # Revisione di una modifica firmware
@@ -47,3 +47,16 @@ Ogni punto si risponde con "verificato in codice", "verificato da test",
 - `python tools/dev.py check`, `build` e, se possibile, `lint`.
 - Versione in `config.h`, README e `VERIFICA.md`; distinguere compilato,
   caricato e collaudato. Pubblicazione con la skill `chiusura-blocco`.
+
+## Firmware del cruscotto (cruscotto/firmware, D-026…D-031)
+
+- Pinout della scheda S3 solo da `cruscotto/firmware/common/include/board_8048s050.h`
+  (verificato DSP-M001); MicroSD dell'S3 esclusa con IO10 alto finché vale la ripartizione D-029.
+- L'S3 non ha collegamenti diretti al veicolo (D-029): ogni dato dell'auto arriva dal
+  front-end; nessun pin dell'S3 verso fili dell'auto.
+- Relè audio (D-028) e ventola (D-031) spenti al reset e in caso di errore; nessuna
+  uscita attiva prima dell'inizializzazione.
+- Funzionamento a motore spento (D-031): rispettare soglia di guardia della batteria,
+  isteresi e tempo massimo; consumo a riposo verificato, non presunto.
+- Display: retroilluminazione ridotta con temperatura alta; valori dell'auto distinti
+  da quelli simulati (scritta DEMO nei firmware di prova).

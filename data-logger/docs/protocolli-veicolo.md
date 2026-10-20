@@ -211,3 +211,6 @@ DV4TD", PDF 111 "Ventilazione - riscaldamento"). Coerente in tutti e quattro:
 - Schemi di manuale generale RTA: variante e numerazione da riscontrare a vista
   sul connettore reale prima di qualsiasi derivazione; nessuna misura con
   multimetro sui fili multiplex (MAN-017 PDF 3).
+
+Aggiornamento 21/10/2026, D-032: il VIN (IDEN E24) non viene filtrato dal logger;
+va mascherato in post-elaborazione prima di qualsiasi pubblicazione o condivisione.

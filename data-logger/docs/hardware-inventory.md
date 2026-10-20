@@ -190,7 +190,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Da verificare:**
 
 - Uadme B0BFFDSNRC: nessun ordine/possesso confermato; verificare uscita 5 V e funzionamento col carico.
-- Prelievo alimentazione auto e fusibile di ramo da verificare; non collegare 12 V ai GPIO. Nessun pin auto assegnato.
+- Prelievo alimentazione auto e fusibile di ramo da verificare; non collegare 12 V ai GPIO. Punto candidato da manuale: presa OBD via 16/1 (D-030), non ancora misurato.
 - Arresto manuale STOP e conferma a display da implementare/collaudare con SD reale. Il pulsante non toglie fisicamente corrente.
 - Nessuna garanzia su transitori oltre specifica, cadute in avviamento o spegnimento senza STOP; nessuna qualifica automotive dichiarata.
 
@@ -206,6 +206,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
+- Candidato principale per alimentazione e K-line del cruscotto (D-030): da MAN-017 PDF 2 via 16 + batteria, via 1 + dopo contatto, vie 4/5 massa, via 7 linea K; da verificare con la prova C3AI-CR-PR-001 prima di qualsiasi derivazione.
 - Connettore posteriore C3, accesso fisico, lunghezza derivazione e massa di riferimento
 - Identificare controconnettori posteriori della presa per derivazione a T con fronte libero, oppure punto equivalente documentato. Nessun ordine basato sulla sola foto frontale.
 
@@ -235,6 +236,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
+- Firmware attualmente caricato (21/10/2026): speak-test 0.1.1; ui-test 0.1.1 e display-test 0.1.0 ricaricabili dai sorgenti.
 - Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili
 - Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)
