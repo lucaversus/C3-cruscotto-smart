@@ -56,7 +56,7 @@ Configurazione unica in `include/config.h`, riscontrata dal preflight con
 non una verifica di cablaggio né pin del connettore auto. Lo schema generale
 storico rimane illustrativo: per questa release vale la tabella, GPIO33 inutilizzato.
 Le verifiche fisiche sono a cura dell'utente (D-020); nessun loro esito è presunto.
-RTC: rimozione resistenza 201 (D-019) dichiarata eseguita il 20/10/2026, interruzione del ramo da misurare (RTC-M006).
+RTC: resistenza 201 rimossa (D-019), ramo di ricarica interrotto verificato il 20/10/2026 (RTC-M007).
 
 ## Acquisizione OBD e VAN
 

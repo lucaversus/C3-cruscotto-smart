@@ -136,3 +136,17 @@ l'interruzione del ramo VCC → positivo della pila rilevato in RTC-M004
 **Prossimo passo:** ripetere RTC-M004 nelle stesse condizioni (modulo scollegato,
 pila fuori, prova diodi, rosso su VCC, nero sul contatto positivo del
 portabatteria). Atteso OL al posto di 1,35 V. CR2032 ancora da non inserire.
+
+## RTC-M007 — verifica interruzione ramo di ricarica: OL — 20/10/2026
+
+**Misura riferita:** utente "ol". Condizioni richieste: modulo scollegato, pila
+fuori, prova diodi, rosso su VCC, nero sul contatto positivo del portabatteria
+(stessi punti di RTC-M004).
+**Interpretazione:** il percorso VCC → positivo pila, che in RTC-M004 dava 1,35 V,
+non conduce più dopo la rimozione della 201 (RTC-M006). Con RTC-M005 (OL nel
+verso inverso, misurato prima dell'intervento) non risulta conduzione nella prova
+diodi in nessuno dei due versi. Non misura la corrente reale a modulo alimentato,
+la tensione della pila né il mantenimento dell'ora.
+**Esito:** superata rispetto al criterio di RTC-M006 (OL atteso). D-019 eseguita.
+**Prossimo passo:** misurare la tensione della CR2032 (attesi circa 3 V) e
+inserirla nel portabatteria, con il modulo ancora scollegato.

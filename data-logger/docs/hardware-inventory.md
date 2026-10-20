@@ -122,13 +122,12 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - RTC-M004, 19/10/2026: dopo identificazione centrale negativo tramite RTC-M003, utente riferisce 1,35 V in prova diodi, rosso VCC e nero altro contatto superiore/laterale positivo, modulo scollegato e pila rimossa come richiesto. Esiste un percorso conduttivo in questa polarita; ricarica non esclusa. Non e una misura della tensione o corrente di carica in funzionamento.
 - RTC-M005, 19/10/2026: utente riferisce OL nel verso inverso sul contatto positivo corretto (rosso positivo portabatteria, nero VCC). Insieme a RTC-M004 1,35 V diretto indica percorso unidirezionale compatibile con ramo di ricarica; nessuna misura di corrente o tensione di carica a modulo alimentato.
 - 20/10/2026: logger 0.3.0 legge DS3231 via I2C e riferisce rtc=oscillator_stop. Raggiungibilita registri verificata, ora non valida; mantenimento, pila e interruzione ricarica ancora non collaudati.
+- RTC-M007, 20/10/2026: dopo rimozione resistenza 201 (RTC-M006, D-019) utente riferisce OL in prova diodi rosso VCC, nero positivo portabatteria, modulo scollegato e pila fuori; prima 1,35 V (RTC-M004). Ramo di ricarica interrotto. Mantenimento ora non ancora provato.
 
 **Da verificare:**
 
-- Modello, quantità, pull-up I2C e circuito di ricarica batteria
-- Non inserire una CR2032 non ricaricabile prima di verificare il circuito
-- Pila CR2032 confermata: disabilitare e verificare assenza percorso di ricarica prima di inserirla; nessuna modifica eseguita. Identificare ramo sul modulo tramite foto e continuita, senza rimuovere componenti alla cieca.
-- D-019: rimozione resistenza 201 dichiarata eseguita il 20/10/2026 (RTC-M006). Da verificare: ripetizione RTC-M004 con esito OL atteso (prima 1,35 V), assenza ponti di stagno, poi mantenimento ora con pila. Non segnare come verificata prima della prova.
+- Modello, quantità e pull-up I2C (circuito di ricarica risolto con D-019, RTC-M007)
+- D-019 eseguita e ramo interrotto (RTC-M007). Da verificare: mantenimento dell ora con pila dopo impostazione UTC e spegnimento.
 
 ### HW-OLED — Display OLED monocromatico I2C consigliato — modello e controller non riscontrati
 
@@ -347,7 +346,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Non inserire finche la ripetizione di RTC-M004 dopo la rimozione della 201 (RTC-M006) non conferma OL sul percorso VCC verso positivo portabatteria.
+- Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).
 - Tensione e stato pila non misurati.
 
 ## Proposta di collegamento — non validata fisicamente

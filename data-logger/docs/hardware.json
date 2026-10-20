@@ -249,13 +249,12 @@
         "RTC-M003, 19/10/2026: utente riferisce 0 alla misura richiesta in ohm fra GND modulo e contatto centrale sul fondo del portabatteria vuoto. Coerente con contatto centrale negativo collegato a massa; precedenti OL non utilizzabili per escludere ricarica.",
         "RTC-M004, 19/10/2026: dopo identificazione centrale negativo tramite RTC-M003, utente riferisce 1,35 V in prova diodi, rosso VCC e nero altro contatto superiore/laterale positivo, modulo scollegato e pila rimossa come richiesto. Esiste un percorso conduttivo in questa polarita; ricarica non esclusa. Non e una misura della tensione o corrente di carica in funzionamento.",
         "RTC-M005, 19/10/2026: utente riferisce OL nel verso inverso sul contatto positivo corretto (rosso positivo portabatteria, nero VCC). Insieme a RTC-M004 1,35 V diretto indica percorso unidirezionale compatibile con ramo di ricarica; nessuna misura di corrente o tensione di carica a modulo alimentato.",
-        "20/10/2026: logger 0.3.0 legge DS3231 via I2C e riferisce rtc=oscillator_stop. Raggiungibilita registri verificata, ora non valida; mantenimento, pila e interruzione ricarica ancora non collaudati."
+        "20/10/2026: logger 0.3.0 legge DS3231 via I2C e riferisce rtc=oscillator_stop. Raggiungibilita registri verificata, ora non valida; mantenimento, pila e interruzione ricarica ancora non collaudati.",
+        "RTC-M007, 20/10/2026: dopo rimozione resistenza 201 (RTC-M006, D-019) utente riferisce OL in prova diodi rosso VCC, nero positivo portabatteria, modulo scollegato e pila fuori; prima 1,35 V (RTC-M004). Ramo di ricarica interrotto. Mantenimento ora non ancora provato."
       ],
       "open_checks": [
-        "Modello, quantità, pull-up I2C e circuito di ricarica batteria",
-        "Non inserire una CR2032 non ricaricabile prima di verificare il circuito",
-        "Pila CR2032 confermata: disabilitare e verificare assenza percorso di ricarica prima di inserirla; nessuna modifica eseguita. Identificare ramo sul modulo tramite foto e continuita, senza rimuovere componenti alla cieca.",
-        "D-019: rimozione resistenza 201 dichiarata eseguita il 20/10/2026 (RTC-M006). Da verificare: ripetizione RTC-M004 con esito OL atteso (prima 1,35 V), assenza ponti di stagno, poi mantenimento ora con pila. Non segnare come verificata prima della prova."
+        "Modello, quantità e pull-up I2C (circuito di ricarica risolto con D-019, RTC-M007)",
+        "D-019 eseguita e ramo interrotto (RTC-M007). Da verificare: mantenimento dell ora con pila dopo impostazione UTC e spegnimento."
       ],
       "evidence": "Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Risolta la voce temporanea HW-BATTERY-MODULE-UNIDENTIFIED: coincide con HW-RTC. Utente 19/10/2026: sul retro nessuna scritta, visibile soltanto il portabatteria. Verifica ricarica ancora aperta; non richiedere altra foto del retro per cercare scritte assenti. Utente 19/10/2026 identifica la pila come CR2032, confermando prefisso CR dopo 2032. Utente 19/10/2026 sceglie rimozione della resistenza marcata 201 per evitare ricarica CR2032 (D-019). Dichiarazione al futuro: non ancora eseguita o collaudata. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.",
       "photos": [
@@ -478,7 +477,7 @@
       "evidence": "Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate.",
       "verified": [],
       "open_checks": [
-        "Non inserire finche la ripetizione di RTC-M004 dopo la rimozione della 201 (RTC-M006) non conferma OL sul percorso VCC verso positivo portabatteria.",
+        "Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).",
         "Tensione e stato pila non misurati."
       ]
     }
