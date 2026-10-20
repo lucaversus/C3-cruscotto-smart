@@ -1,6 +1,6 @@
 """Schema a blocchi preliminare della scheda madre del cruscotto (C3AI-CR-BL-001), D-028…D-030.
 
-Rev. A: architettura funzionale, connettori J1 (auto) e J2 (verso l'S3), ripartizione dei
+Rev. B (D-031): ventola 12 V, NTC, dominio sempre acceso. Rev. A: architettura funzionale, connettori J1 (auto) e J2 (verso l'S3), ripartizione dei
 GPIO del front-end. Proposta di progetto, non schema elettrico esecutivo.
 """
 from pathlib import Path
@@ -34,8 +34,8 @@ d.rect(105, 32, 200, 178, width=0.35, dash='12 3 0.5 3')
 d.text(108, 37, '-A1  SCHEDA MADRE (circuito stampato dedicato, montaggio in fabbrica)', 3, bold=True)
 
 # Alimentazione
-d.block(110, 48, 58, 34, 'Ingresso 12 V', ['fusibile di ramo (F, nel cablaggio)', 'protezione inversione polarità',
-        'TVS (ISO 16750-2) + filtro LC', 'interruttore di mantenimento', '(MOSFET lato alto)'], ref='-U1…U3')
+d.block(110, 48, 58, 34, 'Ingresso 12 V', ['fusibile di ramo (F, nel cablaggio)', 'inversione polarità, TVS, filtro',
+        'dominio sempre acceso: LDO a basso', 'consumo, ventola 12 V PWM (D-031)', 'mantenimento: MOSFET lato alto'], ref='-U1…U3')
 d.block(110, 88, 58, 24, 'Riserva avviamento', ['diodo + supercondensatore', 'carica limitata', 'capacità da calcolare (D-030)'],
         ref='-C1')
 d.block(110, 118, 58, 22, 'Convertitore 12 → 5 V', ['buck, ingresso ≥ 40 V, 5 V 2-3 A', '+ LDO 3,3 V basso consumo'],
@@ -50,7 +50,8 @@ d.arrow((168, 132), (172, 132), (172, 156), (176, 156)); d.text(170.5, 145, '5 V
 d.block(176, 48, 64, 86, 'Front-end ESP32', ['ESP32-WROOM-32E-H4/H8', '(senza PSRAM, −40…105 °C)', '',
         'GPIO16/17  UART2 K-line', 'GPIO34     VAN RX', 'GPIO21/22  I2C (IMU, RTC)',
         'GPIO25/33  UART1 verso S3', 'GPIO35     tensione batteria', 'GPIO39     segnale chiave',
-        'GPIO13     mantenimento', 'GPIO4      LED di stato', 'MicroSD opz. 18/19/23/27',
+        'GPIO13     mantenimento', 'GPIO4      LED di stato', 'GPIO26/14  ventola PWM/giri (D-031)',
+        'GPIO36/32  NTC display/scheda', 'MicroSD opz. 18/19/23/27',
         '(stessi pin del logger 0.3.x)'], ref='-U6')
 d.block(246, 48, 54, 18, 'Ricevitore VAN', ['SN65HVD230, solo RX', 'D a 3V3, nessuna 120 Ω'], ref='-U7')
 d.block(246, 72, 54, 18, 'Interfaccia K-line', ['circuito KL-001 rev F', '2N5551 + LM2903B'], ref='-U8')
@@ -100,8 +101,9 @@ d.notes(315, 40, 'NOTE', [
 
 d.title_block(title=['Scheda madre', 'schema a blocchi'], subtitle='Cruscotto digitale',
               doc_type='Schema a blocchi', status='PRELIMINARE · NON VERIFICATO',
-              code='C3AI-CR-BL-001', rev='A', date='20/10/2026', sheet='1/1',
-              revisions=[('A', 'Prima emissione preliminare (D-028, D-029, D-030)', '20/10/2026')])
+              code='C3AI-CR-BL-001', rev='B', date='21/10/2026', sheet='1/1',
+              revisions=[('A', 'Prima emissione preliminare (D-028, D-029, D-030)', '20/10/2026'),
+                         ('B', 'Ventola, NTC e dominio sempre acceso (D-031)', '21/10/2026')])
 out = ROOT / 'cruscotto/docs/scheda-madre-blocchi.svg'
 out.write_text(d.svg('Schema a blocchi preliminare della scheda madre; proposta, non schema esecutivo.'), encoding='utf-8')
 print(out)

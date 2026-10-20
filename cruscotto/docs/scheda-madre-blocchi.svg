@@ -101,10 +101,10 @@
 <text x="112" y="53" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U1…U3</text>
 <text x="112" y="57" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Ingresso 12 V</text>
 <text x="112" y="61.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">fusibile di ramo (F, nel cablaggio)</text>
-<text x="112" y="65.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">protezione inversione polarità</text>
-<text x="112" y="68.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">TVS (ISO 16750-2) + filtro LC</text>
-<text x="112" y="72.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">interruttore di mantenimento</text>
-<text x="112" y="75.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">(MOSFET lato alto)</text>
+<text x="112" y="65.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">inversione polarità, TVS, filtro</text>
+<text x="112" y="68.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">dominio sempre acceso: LDO a basso</text>
+<text x="112" y="72.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">consumo, ventola 12 V PWM (D-031)</text>
+<text x="112" y="75.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">mantenimento: MOSFET lato alto</text>
 <rect x="110" y="88" width="58" height="24" fill="none" stroke="#000000" stroke-width="0.35"/>
 <text x="112" y="93" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-C1</text>
 <text x="112" y="97" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Riserva avviamento</text>
@@ -144,8 +144,10 @@
 <text x="178" y="90.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO39     segnale chiave</text>
 <text x="178" y="93.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO13     mantenimento</text>
 <text x="178" y="97.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO4      LED di stato</text>
-<text x="178" y="101.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">MicroSD opz. 18/19/23/27</text>
-<text x="178" y="104.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">(stessi pin del logger 0.3.x)</text>
+<text x="178" y="101.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO26/14  ventola PWM/giri (D-031)</text>
+<text x="178" y="104.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO36/32  NTC display/scheda</text>
+<text x="178" y="108.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">MicroSD opz. 18/19/23/27</text>
+<text x="178" y="111.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">(stessi pin del logger 0.3.x)</text>
 <rect x="246" y="48" width="54" height="18" fill="none" stroke="#000000" stroke-width="0.35"/>
 <text x="248" y="53" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U7</text>
 <text x="248" y="57" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Ricevitore VAN</text>
@@ -265,10 +267,10 @@
 <text x="311.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C3AI-CR-BL-001</text>
 <rect x="360" y="271" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="361" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Rev.</text>
-<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">A</text>
+<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">B</text>
 <rect x="375" y="271" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="376" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Data di emissione</text>
-<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">20/10/2026</text>
+<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">21/10/2026</text>
 <rect x="310" y="279" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="311" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Riferimento tecnico</text>
 <text x="311.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">D-024 · IEC 61082-1</text>
@@ -278,17 +280,23 @@
 <rect x="375" y="279" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="376" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Foglio</text>
 <text x="376.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">1/1</text>
-<rect x="230" y="245" width="180" height="10" fill="white"/>
-<rect x="230" y="245" width="180" height="10" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="240" width="180" height="15" fill="white"/>
+<rect x="230" y="240" width="180" height="15" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="240" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<rect x="242" y="240" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<rect x="385" y="240" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
 <rect x="230" y="245" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">A</text>
 <rect x="242" y="245" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Prima emissione preliminare (D-028, D-029, D-030)</text>
 <rect x="385" y="245" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
+<text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">20/10/2026</text>
 <rect x="230" y="250" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">A</text>
+<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
 <rect x="242" y="250" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Prima emissione preliminare (D-028, D-029, D-030)</text>
+<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Ventola, NTC e dominio sempre acceso (D-031)</text>
 <rect x="385" y="250" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">20/10/2026</text></svg>
+<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">21/10/2026</text></svg>

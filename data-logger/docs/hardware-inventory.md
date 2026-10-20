@@ -240,6 +240,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)
 - Variante senza touch: nessun dispositivo I2C su GPIO19/20 (DSP-M001); assenza fisica del GT911 non ispezionata. GPIO19/20 riusabili solo dopo nuova decisione.
 - U1 ('AKK 7HG') collegato a P6 e, da ispezione visiva, a IO17/IO18: conflitto con la K-line proposta su IO17/IO18. Confermare funzione di U1 con tono di prova. P1 TXD/RXD presumibilmente UART0 (GPIO43/44) condiviso con il CH340.
+- Limiti termici dichiarati dal rivenditore Spotpear per ESP32-8048S050N/C (https://spotpear.com/index.php/index/product/detail/id/1426.html, letto 21/10/2026): funzionamento −20…+70 °C, magazzinaggio −30…+80 °C, assorbimento 320 mA a 5 V (non precisato se con retroilluminazione). Dato commerciale, nessun datasheet del pannello trovato; temperatura reale dietro la copertura del quadro da misurare (auto al sole, ferma e in marcia).
 
 ### HW-IMU-LSM6DS3 — Seeed Grove 6 assi accelerometro + giroscopio LSM6DS3 (cod. 105020012)
 
