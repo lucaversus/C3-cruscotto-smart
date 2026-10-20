@@ -259,6 +259,22 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Connettore Grove 4 vie (GND, VCC, SDA, SCL): serve cavo Grove-pin o saldatura; collegamento proposto sul bus I2C HW-394 GPIO21/22, non verificato.
 - Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto.
 
+### HW-FE-MODULE — Modulo ESP32-WROOM-32E-H4/H8 per il front-end, montato in fabbrica sulla scheda madre (D-029)
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale (scheda madre)
+
+**Fonte:** Ricerca 20/10/2026: Reichelt offre ESP32WROOM32E (N4, 3,70 €), ESP32WROOM32E8 (8 MB, 4,18 €) ed ESP32WROOM32E16 (N16, 4,43 €), tutte −40…+85 °C; variante H non disponibile (utente: "non la trovo la h8 nel sito"). H4 presente nel catalogo componenti JLCPCB (C3013935) per montaggio in fabbrica. Utente 20/10/2026: "ok la faremo montare sulla mainboard": nessun acquisto separato del modulo.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Variante H4 o H8 (−40…+105 °C, senza PSRAM) da far montare dal produttore della scheda madre (utente 20/10/2026: "la faremo montare sulla mainboard"); varianti R2 escluse (PSRAM su GPIO16/17).
+- Temperatura reale dietro il quadro da misurare prima della versione definitiva.
+- Nessun acquisto deciso: prototipo con HW-ESP32 (HW-394).
+
 ### HW-MULTIMETER — UNI-T UT210E — multimetro / pinza amperometrica
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger — strumento di verifica
