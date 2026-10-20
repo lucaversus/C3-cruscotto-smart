@@ -5,7 +5,7 @@
 | Progetto | **Cruscotto C3+AI** |
 | Sottoprogetto | **Data Logger** |
 | Documento | C3AI-DL-PH-001 |
-| Revisione | C — 19/10/2026 |
+| Revisione | D — 20/10/2026 |
 | Stato | Identificazione visiva; esiti elettrici separati nel registro MCP2515 |
 
 Foto già fornite dall'utente, recuperate dai Download e archiviate qui per
@@ -77,3 +77,16 @@ MicroSD con scheda Samsung inserita, a destra OLED con GND/VCC/SCL/SDA.
 Il modulo definito batteria e l RTC: nessun UPS aggiuntivo identificato.
 Retro RTC e OLED non mostrati; nel lettore SD manca la vista del lato opposto.
 Nessun collaudo o tensione ammissibile dimostrati dalla sola foto.
+
+## HW-DASH-DISPLAY — scheda display 5″, retro e fronte
+
+![Scheda ESP32-8048S050, retro](dash-display-retro.jpg)
+
+![Scheda ESP32-8048S050, fronte con pannello](dash-display-fronte.jpg)
+
+Foto del 20/10/2026 (D-026), fornite in chat a bassa risoluzione. Retro:
+serigrafia **ESP32-8048S050**, modulo Espressif ESP32-S3-WROOM-1 (lettura confermata dall utente),
+slot MicroSD, USB-C, due pulsanti, cavo flat verso il pannello, connettori
+serigrafati SPI, UART1 IO17/IO18, USB IO19/IO20, due GND/3.3V/IO17/IO18 e Speak.
+Non leggibili: sigla di memoria del modulo, revisione PCB, controller touch ed
+etichetta sul fronte. Manca una vista ravvicinata del modulo; nessuna misura.

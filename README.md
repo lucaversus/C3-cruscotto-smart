@@ -39,7 +39,7 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | ID | Stato | Decisione | Fondamento / vincolo |
 | --- | --- | --- | --- |
 | D-001 | approvata | Progetto principale **Cruscotto C3+AI**, sottoprogetto **Data Logger**. | Nomi richiesti dall'utente per tutti i cartigli. |
-| D-002 | approvata | Sviluppare prima il Data Logger; solo repository **lucaversus/C3-cruscotto-smart**. | Ordine di lavoro e perimetro richiesti. |
+| D-002 | approvata | Sviluppare prima il Data Logger; solo repository **lucaversus/C3-cruscotto-smart**. | Ordine di lavoro e perimetro richiesti. Dal 20/10/2026 l'ordine è aggiornato da D-026 (cruscotto avviato durante la pausa D-025); perimetro invariato. |
 | D-003 | approvata | Strumenti software gratuiti, preferibilmente open source; riutilizzare l'hardware disponibile prima di nuovi acquisti. | Vincoli utente; controllare anche moduli non collaudati e in consegna. |
 | D-004 | approvata | Registrazione ad **avvio automatico**, senza conferma tramite pulsante. | Utente: “non sono arrivati e facciamola partire in automatico”. |
 | D-005 | superata | Inizialmente nessun pulsante richiesto nella prima versione; sostituita da D-015. | Scelta iniziale conservata; il 18/10/2026 l’utente richiede STOP manuale per il logger temporaneo. |
@@ -66,6 +66,8 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-023 | approvata | Qualità del progetto: test C++ host della logica firmware in `dev.py check`, analisi statica cppcheck nella CI (`dev.py lint`), procedure guidate nel repository (`.claude/skills/`: chiusura-blocco, registro-collaudo, revisione-firmware). | Utente 20/10/2026: "Sono d'accordo con quello che hai scritto". Strumenti gratuiti e open source (D-003); procedure nel repository, non sul PC di Luca (AGENTS.md). Non sostituiscono collaudi hardware. |
 | D-024 | approvata | Elaborati grafici secondo le norme: simboli IEC 60617, schemi IEC 61082-1, foglio A3 ISO 5457 con zone di riferimento, cartiglio ISO 7200 con tabella revisioni, scrittura ISO 3098, spessori ISO 128. Rifatti KL-001 rev F, EL-003 rev B, EL-001 rev E (storico, sostituito da EL-003) e BL-001 rev D, da una libreria comune `iso_drawing.py`. | Utente 20/10/2026: schemi "non costruiti seguendo le regole ISO", chiede di correggerli tutti. Supera la parte "componenti illustrati" di D-009. Nessuna variazione elettrica: reti, valori e GPIO invariati. |
 | D-025 | approvata | Data Logger in pausa dal 20/10/2026 fino a quando il modulo K-line (KL-001) sarà pronto. Alla ripresa: CR2032 da procurare, cablaggio SD (EL-003 rev B) e prima registrazione a banco con prova di mantenimento dell'ora. | Utente 20/10/2026: "al momento metterei in pausa questo progetto secondario", precisato: "finché non avrò pronto il modulo K". Nessuna decisione tecnica modificata; verifiche aperte invariate. |
+| D-026 | approvata | Avviare il **Cruscotto digitale** durante la pausa del Data Logger (D-025). Aggiorna l'ordine di lavoro di D-002; perimetro invariato (unico repository). Primo passo: diagnosi della scheda RCmall ESP32-S3 5″ (HW-DASH-DISPLAY) secondo la sezione "Diagnosi all'arrivo della scheda". | Utente 20/10/2026: "voglio iniziare con il progetto del cruscotto"; dichiara di possedere la scheda ("Ce l'ho"). Possesso dichiarato, modello e variante non riscontrati; nessun driver o GPIO fissato. |
+| D-027 | approvata | Cruscotto **senza interazione touch**: display dietro la copertura trasparente del quadro; variante ordinata senza touch. Nessun input tattile nella UI. | Utente 20/10/2026: "l'ho ordinato non touch perché tanto andrà dietro la copertura trasparente del cruscotto e non ci sarà modo di interagire con il tocco". Comandi eventuali (es. cambio pagina) da definire separatamente. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -178,10 +180,11 @@ Il [logger 0.3.0](data-logger/firmware/logger/README.md) implementa registrazion
 MicroSD, RTC, OLED, STOP, OBD KWP e ricezione VAN. Profili banco/veicolo separati;
 sorgenti e GPIO proposti, non collaudati sul veicolo. Profilo banco 0.3.0 caricato e avviato il 20/10/2026: ATTESA SD
 (modulo scollegato), RTC oscillator_stop; nessun collaudo veicolo.
-Per il cruscotto digitale non sono ancora presenti firmware, simulatore o test
-eseguibili: le dipendenze e la configurazione hardware saranno fissate dopo
-l'identificazione della scheda display. Il layout della UI e il simulatore PC
-possono essere sviluppati prima dell'arrivo dell'hardware.
+Cruscotto digitale (D-026): scheda ESP32-8048S050 identificata (ESP32-S3, 16 MB
+flash, 8 MB PSRAM, esptool), variante senza touch (D-027), backup di fabbrica in
+[data-logger/backups/esp32-8048s050](data-logger/backups/esp32-8048s050/README.md).
+[Prova display 0.1.0](cruscotto/firmware/display-test/README.md): compilata,
+caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. UI e simulatore PC non ancora presenti.
 
 ### Collaudo SPI a banco — 18/10/2026
 

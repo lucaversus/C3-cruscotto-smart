@@ -209,20 +209,33 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Connettore posteriore C3, accesso fisico, lunghezza derivazione e massa di riferimento
 - Identificare controconnettori posteriori della presa per derivazione a T con fronte libero, oppure punto equivalente documentato. Nessun ordine basato sulla sola foto frontale.
 
-### HW-DASH-DISPLAY — Scheda RCmall ESP32-S3 con display 5 pollici — variante da identificare
+### HW-DASH-DISPLAY — Scheda RCmall ESP32-S3 con display 5 pollici — PCB serigrafato ESP32-8048S050
 
-**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Cruscotto futuro
+**Stato:** `present_verified` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale
 
-**Fonte:** Osservazioni preliminari nel README originale; non attestano un ordine o un collaudo.
+**Fonte:** Osservazioni preliminari nel README originale. Utente 20/10/2026: alla domanda sul possesso risponde "Ce l'ho" (D-026). Possesso dichiarato. Foto retro e fronte fornite in chat il 20/10/2026, archiviate senza metadati; nessun collaudo. Chip, flash e PSRAM letti con esptool il 20/10/2026.
+
+**Foto archiviate:** [dash-display-retro.jpg](hardware-photos/dash-display-retro.jpg), [dash-display-fronte.jpg](hardware-photos/dash-display-fronte.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- Foto retro e fronte del 20/10/2026 archiviate con SHA-256: serigrafia PCB ESP32-8048S050 leggibile; modulo Espressif ESP32-S3-WROOM-1 probabile, sigla di memoria (es. N16R8) non leggibile alla risoluzione disponibile.
+- Utente 20/10/2026: sul coperchio metallico del modulo è scritto "esp32-s3-wroom-1". Modulo identificato per lettura dichiarata; sigla di memoria (flash/PSRAM) non riferita.
+- Visibili sul retro: slot MicroSD, USB-C, due pulsanti, cavo flat verso il pannello e connettori serigrafati SPI (IO10/IO11/IO12/IO13 da confermare), UART1 IO17/IO18, USB IO19/IO20, due connettori GND/3.3V/IO17/IO18 e uscita Speak. Identificazione visiva, nessuna misura.
+- 20/10/2026: esptool 4.9.0 flash_id in sola lettura su COM4 (USB-SERIAL CH340, reset automatico DTR/RTS): ESP32-S3 (QFN56) rev v0.2, WiFi/BLE, Embedded PSRAM 8MB (AP_3v3), quarzo 40 MHz; flash produttore 0xc8 device 0x4018, 16 MB rilevati, quad da eFuse, 3,3 V. Coerente con WROOM-1 N16R8. Nessuna scrittura; log locale .tools/serial/dash-flash-id-20261020.log (MAC non pubblicato).
+- 20/10/2026: backup completo flash 16 MB con esptool read_flash a 921600 baud su COM4 (216,3 s), SHA-256 90bdef73…c03b; nessuna scrittura. Dettagli in data-logger/backups/esp32-8048s050/README.md. Ripristino non provato.
+- 20/10/2026: all'accensione il firmware di fabbrica mostra la LVGL Widgets Demo (stringhe nel backup: LVGL v8, Arduino-ESP32 / ESP-IDF v4.4.3, compilato 20/12/2022). Utente riferisce immagine visibile sul display: pannello e retroilluminazione funzionanti con il firmware di fabbrica.
+- Utente 20/10/2026: variante ordinata senza touch, lo schermo non è touch (D-027). Probabile sigla commerciale ESP32-8048S050N, non riscontrata su etichetta.
+- DSP-M001, 20/10/2026: firmware display-test 0.1.0 caricato (COM4, hash verificati); seriale psram_found=1, 8386215 byte, panel=ESP_OK, nessun dispositivo I2C su GPIO19/20; utente riferisce barre colore 'tutto conforme'. Pinout RGB, temporizzazioni 16 MHz, ordine colori, retroilluminazione GPIO2 e PSRAM octal verificati per questa scheda. Sostituisce sulla scheda il firmware di fabbrica (backup conservato).
+- DSP-M002, 20/10/2026: ui-test LVGL 0.1.0 caricato; seriale fps=32 (limitato dai dati simulati a 33 ms), rendering medio 11 ms, 230 KB SRAM e 7,6 MB PSRAM liberi; utente: arco abbastanza fluido, cifre giri con lieve sfarfallio, indicatore LVGL 62 FPS / 34% CPU.
+- DSP-M003, 20/10/2026: ui-test 0.1.1 con cifre in celle fisse; rendering medio 8 ms; utente riferisce numeri senza sfarfallio. Causa DSP-M002 risolta; tearing non visibile in questa prova, non escluso con schermate più pesanti.
 
 **Da verificare:**
 
-- Possesso e modello non confermati per questa fase; non trasferire i dati della variante 1,9 pollici
-- PCB, flash, PSRAM, interfaccia display e pinout da verificare
+- Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili
+- Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
+- Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)
+- Variante senza touch: nessun dispositivo I2C su GPIO19/20 (DSP-M001); assenza fisica del GT911 non ispezionata. GPIO19/20 riusabili solo dopo nuova decisione.
 
 ### HW-MULTIMETER — UNI-T UT210E — multimetro / pinza amperometrica
 

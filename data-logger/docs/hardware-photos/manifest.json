@@ -2,8 +2,8 @@
   "project": "Cruscotto C3+AI",
   "subproject": "Data Logger",
   "drawing_code": "C3AI-DL-PH-001",
-  "revision": "C",
-  "date": "2026-10-19",
+  "revision": "D",
+  "date": "2026-10-20",
   "note": "Fotografie sorgenti: identificazione visiva, non collaudo elettrico. Metadati EXIF/XMP/IPTC e commenti rimossi senza ricompressione. Originali integrali conservati solo localmente in .tools/hardware-photo-originals/.",
   "photos": [
     {
@@ -60,6 +60,20 @@
       "source_filename": "PXL_20261019_210229701.jpg",
       "source_sha256": "bee9de73fe520f1d065d585c2e254939cf4c1e646a954fcdee70f570a45d951e",
       "sha256": "0cf81ae40de5fa81b1ca670dd5f4119a41050d14cfadda3e7a79b516e0b0a172"
+    },
+    {
+      "hardware_id": "HW-DASH-DISPLAY",
+      "file": "dash-display-retro.jpg",
+      "source_filename": "chat-20261020-dash-retro.jpg",
+      "source_sha256": "f87227fdacd12d3113a730fc557c378217d89f13b284f1431bafd907bc6401dd",
+      "sha256": "c80fb98765006eb377627e6f5051aebcb64944944c1b2bf4dc66aa8ee5e80bfc"
+    },
+    {
+      "hardware_id": "HW-DASH-DISPLAY",
+      "file": "dash-display-fronte.jpg",
+      "source_filename": "chat-20261020-dash-fronte.jpg",
+      "source_sha256": "035f1c7771ac4c511373059decd774d85135a264c8d2ae0272d94057b74efb30",
+      "sha256": "a0591a3a53a971c8e2c6975aee5c349a2851f376efde1a6e037f1c873f7c4c3f"
     }
   ]
 }

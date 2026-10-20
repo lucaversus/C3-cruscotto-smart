@@ -159,3 +159,57 @@ HW-RTC-BATTERY corretta da present_declared a candidate (da procurare).
 Punto di ripresa: modulo K-line pronto; inoltre procurare la CR2032, misurarne la tensione e inserirla; poi
 cablare la SD (W1–W6, EL-003 rev B) e fare la prima registrazione a banco con
 impostazione UTC (`time ...Z`) e prova di mantenimento dell'ora dopo lo spegnimento.
+
+## DSP-M001 — scheda display ESP32-8048S050, prova display 0.1.0 — 20/10/2026
+
+Cruscotto digitale (D-026), HW-DASH-DISPLAY. Registrata qui come unico registro
+moduli del repository.
+**Prova eseguita:** firmware [display-test 0.1.0](../../cruscotto/firmware/display-test/README.md)
+caricato su COM4 (CH340) a 921600 baud, hash verificati da esptool, dopo backup
+della flash di fabbrica. Seriale letta dall'agente: `psram_found=1
+psram_bytes=8386215 psram_free=7617827 panel=ESP_OK i2c_sda=19 i2c_scl=20 i2c_devices=0`.
+**Osservazione riferita:** utente "tutto conforme" alla richiesta di otto barre
+bianco, giallo, ciano, verde, magenta, rosso, blu, nero, senza sfarfallio o righe spostate.
+**Interpretazione:** PSRAM in modo octal (qio_opi) funzionante con framebuffer
+800×480 RGB565; pinout RGB (DE 40, VSYNC 41, HSYNC 39, PCLK 42, dati
+8/3/46/9/1, 5/6/7/15/16/4, 45/48/47/21/14), ordine dei colori, temporizzazioni
+a 16 MHz e retroilluminazione GPIO2 confermati per questa scheda. Nessun dispositivo
+I2C su GPIO19/20, coerente con la variante senza touch (D-027). Non dimostra
+stabilità prolungata, fluidità (FPS), comportamento termico, MicroSD o
+alimentazione in auto; la luminosità non è regolata (solo acceso).
+**Esito:** superata rispetto al criterio del README della prova.
+**Prossimo passo:** prima interfaccia LVGL di prova con misura di FPS e memoria.
+
+## DSP-M002 — prova UI LVGL 0.1.0 su ESP32-8048S050 — 20/10/2026
+
+**Prova eseguita:** firmware [ui-test 0.1.0](../../cruscotto/firmware/ui-test/README.md)
+(LVGL 8.3.11, dati simulati) caricato su COM4, hash verificati. Seriale letta
+dall'agente: `panel=ESP_OK fps=32 refr_avg_ms=11 heap_int_free=230836 psram_free=7617827`,
+stabile per oltre 10 s.
+**Osservazione riferita:** "l'arco scorre abbastanza fluidamente, i numeri dei giri
+hanno un po' di sfarfallio"; indicatore LVGL 62 FPS e 34% CPU.
+**Interpretazione:** il rendering non è il limite (11 ms per aggiornamento). Il
+contatore seriale (32) segue l'aggiornamento dei dati ogni 33 ms; il valore LVGL
+(62) conta i cicli di refresh, non i quadri effettivamente mostrati dal pannello,
+stimati in circa 39 Hz da PCLK 16 MHz e porch (calcolo, non misura). Lo sfarfallio
+delle cifre è compatibile con copia nel framebuffer singolo non sincronizzata con
+la scansione (tearing) e con lo spostamento dell'etichetta a larghezza variabile:
+causa non ancora isolata.
+**Esito:** non conclusiva per la fluidità; funzionamento LVGL su pannello superato.
+**Prossimo passo:** etichetta a posizione e larghezza fisse, poi eventuale
+sincronizzazione della copia con il vsync, confrontando l'osservazione.
+
+## DSP-M003 — prova UI LVGL 0.1.1, cifre a posizione fissa — 20/10/2026
+
+**Modifica:** ui-test 0.1.1, giri in quattro celle fisse da 34 px, una per cifra,
+ridisegnate solo se cambiano. Caricato su COM4, hash verificati. Seriale:
+`fps=32 refr_avg_ms=8 heap_int_free=230092 psram_free=7617827`.
+**Osservazione riferita:** "no i numeri vanno bene" alla domanda se le cifre
+sfarfallano ancora.
+**Interpretazione:** lo sfarfallio di DSP-M002 era dovuto allo spostamento
+dell'etichetta a larghezza variabile; il tearing del framebuffer singolo non è
+risultato visibile in questa prova, ma non è escluso con schermate più pesanti.
+Non verifica stabilità prolungata né comportamento termico.
+**Esito:** superata (sfarfallio cifre risolto).
+**Prossimo passo:** definire con l'utente contenuti e disposizione della prima
+schermata reale del cruscotto.
