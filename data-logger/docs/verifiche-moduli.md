@@ -153,8 +153,9 @@ inserirla nel portabatteria, con il modulo ancora scollegato.
 
 ## Pausa del progetto — 20/10/2026 (D-025)
 
-Utente: CR2032 non disponibile ("la pila non ce l'ho") e progetto messo in pausa.
+Utente: CR2032 non disponibile ("la pila non ce l'ho"); Data Logger in pausa
+finché il modulo K-line non sarà pronto ("finché non avrò pronto il modulo K").
 HW-RTC-BATTERY corretta da present_declared a candidate (da procurare).
-Punto di ripresa: procurare la CR2032, misurarne la tensione e inserirla; poi
+Punto di ripresa: modulo K-line pronto; inoltre procurare la CR2032, misurarne la tensione e inserirla; poi
 cablare la SD (W1–W6, EL-003 rev B) e fare la prima registrazione a banco con
 impostazione UTC (`time ...Z`) e prova di mantenimento dell'ora dopo lo spegnimento.
