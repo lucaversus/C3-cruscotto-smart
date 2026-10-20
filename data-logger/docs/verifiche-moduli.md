@@ -150,3 +150,11 @@ la tensione della pila né il mantenimento dell'ora.
 **Esito:** superata rispetto al criterio di RTC-M006 (OL atteso). D-019 eseguita.
 **Prossimo passo:** misurare la tensione della CR2032 (attesi circa 3 V) e
 inserirla nel portabatteria, con il modulo ancora scollegato.
+
+## Pausa del progetto — 20/10/2026 (D-025)
+
+Utente: CR2032 non disponibile ("la pila non ce l'ho") e progetto messo in pausa.
+HW-RTC-BATTERY corretta da present_declared a candidate (da procurare).
+Punto di ripresa: procurare la CR2032, misurarne la tensione e inserirla; poi
+cablare la SD (W1–W6, EL-003 rev B) e fare la prima registrazione a banco con
+impostazione UTC (`time ...Z`) e prova di mantenimento dell'ora dopo lo spegnimento.

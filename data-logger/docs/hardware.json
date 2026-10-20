@@ -470,15 +470,15 @@
     },
     {
       "id": "HW-RTC-BATTERY",
-      "name": "Pila CR2032 non ricaricabile per RTC",
+      "name": "Pila CR2032 non ricaricabile per RTC — da procurare",
       "scope": "Data Logger",
       "quantity": null,
-      "status": "present_declared",
-      "evidence": "Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate.",
+      "status": "candidate",
+      "evidence": "Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: \"la pila non ce l'ho\". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare).",
       "verified": [],
       "open_checks": [
-        "Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).",
-        "Tensione e stato pila non misurati."
+        "Da procurare: una CR2032 (3 V, non ricaricabile). Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).",
+        "Prima dell inserimento misurare la tensione (attesi circa 3 V; sotto 2,7 V scarica)."
       ]
     }
   ],
