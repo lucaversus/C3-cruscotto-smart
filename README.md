@@ -78,7 +78,7 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
 
 ## Questioni ancora aperte — non sono decisioni definitive
 
-- Sensore inerziale (accelerometro + giroscopio) richiesto dall'utente il 20/10/2026 per il cruscotto: modello, scheda di collegamento (front-end o S3), fissaggio e orientamento da definire; da valutare anche nel Data Logger perché il dataset contenga gli stessi dati. Modello scelto: BMI270 (HW-IMU-BMI270), ordinato dall'utente il 20/10/2026, non ancora arrivato.
+- Sensore inerziale (accelerometro + giroscopio) richiesto dall'utente il 20/10/2026 per il cruscotto: modello, scheda di collegamento (front-end o S3), fissaggio e orientamento da definire; da valutare anche nel Data Logger perché il dataset contenga gli stessi dati. Modello scelto: LSM6DS3 Seeed Grove (HW-IMU-LSM6DS3), ordine da confermare; il BMI270 ordinato in precedenza è stato annullato dal venditore (nessuna spedizione nella zona).
 - Mappa collegamenti del cruscotto (in definizione, 20/10/2026): ipotesi utente "molto probabilmente" scheda del quadro originale collegata e nascosta dietro il display, per evitare errori BSI (MAN-017 PDF 3: DATA/DATAB tra BSI e quadro, avvisi integrati nel quadro). Comandi al volante della radio originale da valutare come ingresso del cruscotto: percorso (VAN tramite COM 2000 o filo diretto alla radio) non verificato.
 - Alimentazione dal quadro: possibilità proposta dall'utente, non pin, circuito,
   corrente aggiuntiva o convertitore già approvati. Protezioni automotive e arresto

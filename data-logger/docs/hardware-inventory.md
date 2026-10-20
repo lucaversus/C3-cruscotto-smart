@@ -241,11 +241,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Variante senza touch: nessun dispositivo I2C su GPIO19/20 (DSP-M001); assenza fisica del GT911 non ispezionata. GPIO19/20 riusabili solo dopo nuova decisione.
 - U1 ('AKK 7HG') collegato a P6 e, da ispezione visiva, a IO17/IO18: conflitto con la K-line proposta su IO17/IO18. Confermare funzione di U1 con tono di prova. P1 TXD/RXD presumibilmente UART0 (GPIO43/44) condiviso con il CH340.
 
-### HW-IMU-BMI270 — Modulo IMU BMI270 V1.3 (accelerometro + giroscopio 6 assi), I2C/SPI
+### HW-IMU-LSM6DS3 — Seeed Grove 6 assi accelerometro + giroscopio LSM6DS3 (cod. 105020012)
 
-**Stato:** `ordered_pending` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029)
+**Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029)
 
-**Fonte:** Utente 20/10/2026: richiesta sensore giroscopio e accelerazione; scelto BMI270 a 4,79 € (AliExpress, venditore Module Maker Space Co., Ltd Store, articolo 1005010561882473), "ok lo ordino". Foto del venditore viste nel browser: pin VCC, GND, AD0/MISO, SDA/MOSI, SCL/SCLK, CS, INT1 e SDX, SCX, INT2. Ordine dichiarato, conferma e consegna non riscontrate; consegna stimata dal sito 28/10-05/11/2026.
+**Fonte:** Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026.
 
 **Verifiche documentate:**
 
@@ -253,9 +253,10 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- All'arrivo: riscontrare marcatura BMI270 e serigrafie; foto da archiviare.
-- Regolatore 3,3 V sul modulo dedotto dalla foto del venditore: verificare prima di alimentare; tensione non indicata nelle specifiche.
-- Indirizzo I2C 0x69 con AD0 a VCC (0x68 coincide con RTC DS3231); CS a VCC per modo I2C. Collegamento proposto: bus I2C HW-394 GPIO21/22, non verificato.
+- Ordine non ancora confermato dall'utente: Reichelt GRV 6AXIS ACC GY, 10,24 € IVA inclusa, disponibile, consegna dichiarata 3-5 giorni lavorativi.
+- All'arrivo: riscontrare chip e serigrafie; foto da archiviare. Alimentazione 3,3 V o 5 V dichiarata dalla pagina del rivenditore.
+- Indirizzo I2C atteso 0x6A (documentazione Seeed, non indicato dal rivenditore): da verificare con scansione; nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C.
+- Connettore Grove 4 vie (GND, VCC, SDA, SCL): serve cavo Grove-pin o saldatura; collegamento proposto sul bus I2C HW-394 GPIO21/22, non verificato.
 - Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto.
 
 ### HW-MULTIMETER — UNI-T UT210E — multimetro / pinza amperometrica
