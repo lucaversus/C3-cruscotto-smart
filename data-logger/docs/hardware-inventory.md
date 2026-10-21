@@ -296,6 +296,21 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Taratura assoluta e stato completo dello strumento non verificati.
 
+### HW-BENCH-PSU — Alimentatore da banco (modello da riscontrare)
+
+**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger — strumento di verifica
+
+**Fonte:** Utente 22/10/2026: "l'alimentatore da banco ce l'ho". Dichiarazione, nessuna foto o misura.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Modello, campo di tensione e limitazione di corrente da riscontrare: per KL-001 servono 9-16 V stabilizzati con limite di corrente (VBENCH).
+- Utilizzabile anche per le prove P-001/P-002 del logger (alimentazione-spegnimento.md), se il campo lo consente.
+
 ### HW-ESP32-TERMINAL-BASE — Basetta di espansione a morsetti per ESP32 HW-394, visibile in foto
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
@@ -316,7 +331,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale. Revisione B 18/10/2026: schema completo U1 e distinta sul foglio; pinout TI SLCS005AH sezione 4. Corretto contenitore LM2903B: SOIC-8 con adattatore DIP-8, non PDIP-8. Nessun acquisto o collaudo aggiuntivo. Revisione C, D-018: eliminato JP1; R3 510 ohm solo nel simulatore esterno da banco, non nel modulo. Nessun nuovo acquisto o collaudo. Revisione D: evidenziate porte TX ingresso, RX uscita e K-line bidirezionale; nessuna variazione elettrica. Revisione E 20/10/2026, D-022: R10 330 kohm 1% da OUT1 a IN1+ per isteresi 0,545-0,721 V sulla linea K (modello DC); possesso di R10 non confermato, nessun collaudo. Revisione F 20/10/2026, D-024: ridisegno IEC 60617 / IEC 61082-1 su foglio ISO, nessuna variazione elettrica.
+**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale. Revisione B 18/10/2026: schema completo U1 e distinta sul foglio; pinout TI SLCS005AH sezione 4. Corretto contenitore LM2903B: SOIC-8 con adattatore DIP-8, non PDIP-8. Nessun acquisto o collaudo aggiuntivo. Revisione C, D-018: eliminato JP1; R3 510 ohm solo nel simulatore esterno da banco, non nel modulo. Nessun nuovo acquisto o collaudo. Revisione D: evidenziate porte TX ingresso, RX uscita e K-line bidirezionale; nessuna variazione elettrica. Revisione E 20/10/2026, D-022: R10 330 kohm 1% da OUT1 a IN1+ per isteresi 0,545-0,721 V sulla linea K (modello DC); possesso di R10 non confermato, nessun collaudo. Revisione F 20/10/2026, D-024: ridisegno IEC 60617 / IEC 61082-1 su foglio ISO, nessuna variazione elettrica. Utente 22/10/2026: "sto acquistando i pezzi per fare questo circuito"; saldatura disponibile in azienda ("il saldatore [...] quello in azienda al lavoro"). Acquisto in corso, componenti non ancora ricevuti.
 
 **Verifiche documentate:**
 
@@ -324,8 +339,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
+- Componenti in acquisto (22/10/2026): riscontrare all'arrivo valori, LM2903B versione B in SOIC-8 e adattatore SOIC-8→DIP-8.
 - Possesso e ordine dei singoli componenti non confermati; distinta di costruzione in docs/kline-autocostruita.md.
-- Verifica montaggio, pin transistor secondo produttore, assenza corti e alimentazioni su banco limitato in corrente; alimentatore banco non confermato.
+- Verifica montaggio, pin transistor secondo produttore, assenza corti e alimentazioni su banco limitato in corrente; alimentatore banco dichiarato (HW-BENCH-PSU).
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
 - Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.
 

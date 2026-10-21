@@ -172,3 +172,23 @@ RX_3V3 e uscita dal modulo verso RX ESP32; TX_INV e ingresso dal TX ESP32.
 K-line e bidirezionale verso linea esterna, simulata da K_BENCH nella prova.
 Porte colorate e direzioni visibili sul disegno; collegamenti elettrici invariati.
 Alimentazioni: +5 V, 3V3, riferimento VBENCH 9–16 V e GND comune.
+
+## Tavole di montaggio — 22/10/2026
+
+Richiesta dell'utente: oltre allo schema tecnico, una rappresentazione con i moduli
+disegnati e la disposizione su millefori con i collegamenti da componente a componente.
+
+- [Collegamenti illustrati della prova a banco](kline-collegamenti-illustrati.png),
+  C3AI-DL-KL-002 rev A ([SVG](kline-collegamenti-illustrati.svg), generatore
+  `tools/genera-kline-illustrato.py`): ESP32 HW-394, modulo, alimentatore da banco
+  (HW-BENCH-PSU) e R3 del simulatore; tabella dei fili W1-W9 e sequenza di accensione.
+  Piedini dell'ESP32 in posizione indicativa: fa fede la serigrafia.
+- [Disposizione su millefori](kline-millefori.png), C3AI-DL-KL-003 rev A
+  ([SVG](kline-millefori.svg), generatore `tools/genera-kline-millefori.py`):
+  basetta 24 × 16 fori passo 2,54 mm, scala 4:1, fili colorati per rete, elenco dei 32
+  fili con i fori di partenza e arrivo, ordine di montaggio. Il generatore instrada i
+  fili e **verifica che realizzino esattamente le reti della netlist rev F**, senza fori
+  condivisi tra reti, tratti sovrapposti o fili sopra piedini di altre reti.
+
+Stato invariato: componenti in acquisto, nulla montato o collaudato. Prima prova:
+continuità e assenza di corti a circuito spento, senza LM2903B nell'adattatore.
