@@ -156,7 +156,7 @@ Architettura e collegamenti: D-028…D-031, [scheda madre](cruscotto/docs/scheda
 Il data logger dispone di un primo [firmware diagnostico per il solo ESP32](data-logger/firmware/diagnostic/README.md),
 con configurazione PlatformIO. Non acquisisce ancora dati dal veicolo.
 Sorgenti logger aggiornati alla 0.3.1 (D-022), solo compilata; sulla scheda HW-394 resta la 0.3.0.
-Sulla scheda del cruscotto è caricato ora **ui-idf 0.2.1** (ESP-IDF 5.5, doppio framebuffer, DSP-M008); gli altri firmware di prova si ricaricano dai sorgenti. [Protocollo front-end ↔ S3](cruscotto/docs/protocollo-fe-s3.md) v1 con libreria comune `fe_link.h` e test host.
+Sulla scheda del cruscotto è caricato ora **ui-idf 0.3.0** (ESP-IDF 5.5, doppio framebuffer, compiti separati e collegamento simulato, DSP-M009); gli altri firmware di prova si ricaricano dai sorgenti. [Protocollo front-end ↔ S3](cruscotto/docs/protocollo-fe-s3.md) v1 con libreria comune `fe_link.h` e test host.
 Il [logger 0.3.0](data-logger/firmware/logger/README.md) implementa registrazione
 MicroSD, RTC, OLED, STOP, OBD KWP e ricezione VAN. Profili banco/veicolo separati;
 sorgenti e GPIO proposti, non collaudati sul veicolo. Profilo banco 0.3.0 caricato e avviato il 20/10/2026: ATTESA SD

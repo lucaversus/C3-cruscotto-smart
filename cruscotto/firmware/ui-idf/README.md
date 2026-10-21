@@ -1,8 +1,8 @@
-# Prova UI su ESP-IDF 5.5 — versione 0.2.1
+# Firmware S3 su ESP-IDF 5.5 — versione 0.3.0
 
 Cruscotto C3+AI, HW-DASH-DISPLAY (D-026, D-037, D-039). Base del futuro firmware
 dell'S3 su **ESP-IDF 5.5** (piattaforma PlatformIO ufficiale espressif32@6.12.0),
-al posto di Arduino-ESP32 2.x. Stato: **0.2.1 caricata il 21/10/2026**: DSP-M007 (0.2.0, stabile ma 13 FPS) e DSP-M008 (0.2.1 direct mode, superata: fluido, nessun artefatto, pannello 39 Hz misurati).
+al posto di Arduino-ESP32 2.x. Stato: **0.3.0 caricata il 21/10/2026** (DSP-M009: compiti separati, collegamento fe_link simulato in loopback). Precedenti: DSP-M007 (0.2.0, stabile ma 13 FPS) e DSP-M008 (0.2.1 direct mode, superata: fluido, nessun artefatto, pannello 39 Hz misurati).
 
 ## Cosa cambia rispetto a ui-test 0.1.1
 

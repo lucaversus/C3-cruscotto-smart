@@ -370,7 +370,7 @@
         "DSP-M007/M008, 21/10/2026: ESP-IDF 5.5, doppio framebuffer con scambio al vsync; frequenza del pannello misurata 39 Hz (PCLK 16 MHz); ui-idf 0.2.1 in direct mode: fluido, nessun artefatto riferito dall'utente, 26 FPS dati / 34-45 FPS indicatore LVGL."
       ],
       "open_checks": [
-        "Firmware attualmente caricato (21/10/2026): ui-idf 0.2.1 (ESP-IDF 5.5, partizioni OTA D-039); speak-test, ui-test e display-test ricaricabili dai sorgenti.",
+        "Firmware attualmente caricato (21/10/2026): ui-idf 0.3.0 (ESP-IDF 5.5, partizioni OTA D-039, collegamento fe_link simulato); speak-test, ui-test e display-test ricaricabili dai sorgenti.",
         "Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili",
         "Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare",
         "Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)",

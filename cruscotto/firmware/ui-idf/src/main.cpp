@@ -1,7 +1,6 @@
-// Prova UI su ESP-IDF 5.5 0.2.1 — Cruscotto C3+AI (D-026, D-027, D-037).
-// Doppio framebuffer in PSRAM, direct mode con sincronizzazione delle zone cambiate,
-// scambio al vsync, dati SIMULATI.
-// Misura sulla seriale la frequenza reale del pannello (vsync al secondo).
+// Firmware S3 su ESP-IDF 5.5 0.3.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039).
+// Struttura: collegamento fe_link e sorgente simulata sul core 0, interfaccia LVGL sul
+// core 1, report e autotest nel compito principale. Doppio framebuffer, scambio al vsync.
 #include <atomic>
 #include <cmath>
 #include <cstdio>
@@ -17,10 +16,12 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
+#include "link.h"
 #include "lvgl.h"
+#include "signal_store.h"
 
 namespace {
-constexpr char kVersion[] = "0.2.1";  // + tabella OTA e autotest (D-039)
+constexpr char kVersion[] = "0.3.0";  // compiti separati, archivio segnali, collegamento fe_link
 constexpr int kRpmMax = 5000;
 constexpr int kRpmDigits = 4;
 constexpr int kDigitWidth = 34;
@@ -37,6 +38,8 @@ lv_obj_t* rpmArc = nullptr;
 lv_obj_t* rpmDigits[kRpmDigits] = {};
 lv_obj_t* tempBar = nullptr;
 lv_obj_t* tempLabel = nullptr;
+lv_obj_t* statusLabel = nullptr;
+const char* shownStatus = nullptr;
 int shownRpm = -1, shownTemp = -1;
 uint32_t refreshes = 0, refreshMs = 0;
 
@@ -181,17 +184,21 @@ void buildUi() {
   lv_obj_set_style_text_color(tempLabel, lv_color_white(), 0);
   lv_obj_align_to(tempLabel, tempBar, LV_ALIGN_OUT_TOP_LEFT, 0, -12);
 
-  lv_obj_t* demo = lv_label_create(screen);
-  lv_label_set_text(demo, "DEMO - dati simulati - IDF 5.5");
-  lv_obj_set_style_text_font(demo, &lv_font_montserrat_28, 0);
-  lv_obj_set_style_text_color(demo, lv_color_hex(0xFF4040), 0);
-  lv_obj_align(demo, LV_ALIGN_TOP_RIGHT, -30, 20);
+  statusLabel = lv_label_create(screen);
+  lv_label_set_text_static(statusLabel, "");
+  lv_obj_set_style_text_font(statusLabel, &lv_font_montserrat_28, 0);
+  lv_obj_set_style_text_color(statusLabel, lv_color_hex(0xFF4040), 0);
+  lv_obj_align(statusLabel, LV_ALIGN_TOP_RIGHT, -30, 20);
 }
 
+// Legge l'archivio dei segnali (mai i dati grezzi) e aggiorna solo ciò che cambia.
 void updateValues() {
-  const float t = esp_timer_get_time() / 1e6f;
-  const int rpm = 800 + static_cast<int>(1900.0f * (1.0f + sinf(t * 1.3f)));
-  const int temp = 85 + static_cast<int>(10.0f * sinf(t * 0.2f));
+  SignalStore& store = signalStore();
+  const int64_t now = esp_timer_get_time();
+  const SignalValue rpmV = store.get(felink::sig::kRpm, now, 500000);
+  const SignalValue tempV = store.get(felink::sig::kCoolantC, now, 3000000);
+  const int rpm = rpmV.quality == felink::Quality::kStale ? 0 : static_cast<int>(rpmV.value + 0.5f);
+  const int temp = tempV.quality == felink::Quality::kStale ? -1 : static_cast<int>(tempV.value + 0.5f);
   lv_arc_set_value(rpmArc, rpm);
   if (rpm != shownRpm) {
     static const char* const kDigitText[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -205,24 +212,37 @@ void updateValues() {
     shownRpm = rpm;
   }
   if (temp != shownTemp) {
-    lv_bar_set_value(tempBar, temp, LV_ANIM_OFF);
-    lv_label_set_text_fmt(tempLabel, "Acqua %d C", temp);
+    lv_bar_set_value(tempBar, temp < 0 ? 40 : temp, LV_ANIM_OFF);
+    if (temp < 0) lv_label_set_text_static(tempLabel, "Acqua --");
+    else lv_label_set_text_fmt(tempLabel, "Acqua %d C", temp);
     shownTemp = temp;
+  }
+  // Stato: DEMO se il dato è simulato, avviso se il collegamento è perso (D-016, D-037).
+  const char* status = !linkAlive(now) ? "COLLEGAMENTO ASSENTE"
+                       : rpmV.quality == felink::Quality::kSimulated ? "DEMO - dati simulati" : "";
+  if (status != shownStatus) {
+    lv_label_set_text_static(statusLabel, status);
+    shownStatus = status;
   }
 }
 
 void report() {
-  static uint32_t lastVsync = 0;
+  static uint32_t lastVsync = 0, lastFrames = 0;
   const uint32_t vs = vsyncCount.load(std::memory_order_relaxed);
+  const LinkStats ls = linkStats();
   const uint32_t avg = refreshes ? refreshMs / refreshes : 0;
-  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u panel_hz=%u heap_int_free=%u "
-         "psram_free=%u uptime_ms=%u\n",
-         kVersion, esp_ota_get_running_partition()->label, esp_err_to_name(panelStatus), static_cast<unsigned>(refreshes / 5),
-         static_cast<unsigned>(avg), static_cast<unsigned>((vs - lastVsync) / 5),
+  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u panel_hz=%u link=%s frames_s=%u "
+         "link_err=%u link_lost=%u heap_int_free=%u psram_free=%u uptime_ms=%u\n",
+         kVersion, esp_ota_get_running_partition()->label, esp_err_to_name(panelStatus),
+         static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg),
+         static_cast<unsigned>((vs - lastVsync) / 5), ls.simulated ? "sim" : "uart",
+         static_cast<unsigned>((ls.frames - lastFrames) / 5), static_cast<unsigned>(ls.errors),
+         static_cast<unsigned>(ls.lostSeq),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_INTERNAL)),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_SPIRAM)),
          static_cast<unsigned>(esp_timer_get_time() / 1000));
   lastVsync = vs;
+  lastFrames = ls.frames;
   refreshes = 0;
   refreshMs = 0;
 }
@@ -232,11 +252,26 @@ void outputLow(gpio_num_t pin, int level) {
   gpio_set_direction(pin, GPIO_MODE_OUTPUT);
   gpio_set_level(pin, level);
 }
+
+// Compito dell'interfaccia sul core 1: unico punto che chiama LVGL.
+void uiTask(void*) {
+  int64_t lastUpdate = 0;
+  while (true) {
+    const int64_t now = esp_timer_get_time();
+    if (now - lastUpdate >= 33000) {
+      lastUpdate = now;
+      updateValues();
+    }
+    const uint32_t waitMs = lv_timer_handler();
+    vTaskDelay(pdMS_TO_TICKS(waitMs < 1 ? 1 : (waitMs > 10 ? 10 : waitMs)));
+  }
+}
 }  // namespace
 
 extern "C" void app_main() {
   outputLow(static_cast<gpio_num_t>(board::kBacklight), 0);
   outputLow(kSdCs, 1);
+  linkStart(true);  // 0.3.0: front-end non ancora presente, sorgente simulata in loopback
   vsyncSem = xSemaphoreCreateBinary();
   panelStatus = startPanel();
   if (panelStatus == ESP_OK) panelStatus = startLvgl();
@@ -245,34 +280,23 @@ extern "C" void app_main() {
     updateValues();
     lv_timer_handler();
     gpio_set_level(static_cast<gpio_num_t>(board::kBacklight), 1);
+    xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 5, nullptr, 1);
   }
-  int64_t lastUpdate = 0, lastReport = esp_timer_get_time();
-  bool confirmed = false;
   esp_ota_img_states_t state = ESP_OTA_IMG_UNDEFINED;
   esp_ota_get_state_partition(esp_ota_get_running_partition(), &state);
   printf("ui_idf ota_state=%d (pending=%d)\n", static_cast<int>(state), ESP_OTA_IMG_PENDING_VERIFY);
-  report();
+  bool confirmed = false;
   while (true) {
+    vTaskDelay(pdMS_TO_TICKS(5000));
+    report();
+    // Autotest (D-039): display inizializzato, collegamento attivo, 10 s senza blocchi.
+    // Se la nuova versione non arriva qui, al riavvio successivo il bootloader torna alla precedente.
     const int64_t now = esp_timer_get_time();
-    if (panelStatus == ESP_OK) {
-      if (now - lastUpdate >= 33000) {
-        lastUpdate = now;
-        updateValues();
-      }
-      lv_timer_handler();
-    }
-    // Autotest (D-039): display inizializzato e 10 s senza blocchi. Se la nuova versione
-    // non arriva qui, al riavvio successivo il bootloader torna alla precedente.
-    if (!confirmed && panelStatus == ESP_OK && now >= kSelfTestUs) {
+    if (!confirmed && panelStatus == ESP_OK && linkAlive(now) && now >= kSelfTestUs) {
       confirmed = true;
       if (state == ESP_OTA_IMG_PENDING_VERIFY) {
         printf("ui_idf autotest superato: %s\n", esp_err_to_name(esp_ota_mark_app_valid_cancel_rollback()));
       }
     }
-    if (now - lastReport >= 5000000) {
-      lastReport = now;
-      report();
-    }
-    vTaskDelay(pdMS_TO_TICKS(1));
   }
 }

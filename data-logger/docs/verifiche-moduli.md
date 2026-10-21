@@ -303,3 +303,19 @@ stato della batteria non conclusivi.
 misura manuale a riposo: soglia di guardia D-031 da tarare con le tensioni a riposo
 registrate dal logger (D-033); misura
 del calo con campionamento rapido quando il logger/front-end misurerà la batteria.
+
+## DSP-M009 — firmware S3 0.3.0, compiti separati e collegamento simulato — 21/10/2026
+
+**Prova:** ui-idf 0.3.0 caricato su COM4 (hash verificati). Struttura: ricezione
+fe_link e sorgente simulata sul core 0 (UART1 reale in loopback interno), interfaccia
+LVGL sul core 1. Seriale: `fps=26 refr_avg_ms=25-27 panel_hz=39 link=sim frames_s=31-32
+link_err=0 link_lost=0 heap_int_free≈306-310 KB psram_free≈6,3 MB`.
+**Osservazione riferita:** contagiri "come prima", nessun artefatto; indicatore LVGL
+35-50 FPS, CPU tra 55 e 80%.
+**Interpretazione:** catena completa simulata funzionante (codifica fe_link, UART,
+decodifica, archivio segnali, display) senza errori né trame perse; fluidità invariata.
+La CPU riferita da LVGL include ancora l'attesa del vsync dentro il flush (attesa
+bloccante conteggiata come lavoro): misura del carico reale da aggiungere.
+Presenza della scritta "DEMO" non riferita esplicitamente.
+**Esito:** superata (struttura e collegamento simulato).
+**Prossimo passo:** scatola nera ed etichette dal volante con i dati simulati.

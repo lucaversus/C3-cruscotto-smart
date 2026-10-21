@@ -237,7 +237,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Firmware attualmente caricato (21/10/2026): ui-idf 0.2.1 (ESP-IDF 5.5, partizioni OTA D-039); speak-test, ui-test e display-test ricaricabili dai sorgenti.
+- Firmware attualmente caricato (21/10/2026): ui-idf 0.3.0 (ESP-IDF 5.5, partizioni OTA D-039, collegamento fe_link simulato); speak-test, ui-test e display-test ricaricabili dai sorgenti.
 - Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili
 - Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)
