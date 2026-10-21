@@ -1,6 +1,6 @@
 # Distinta hardware — Cruscotto C3+AI / Data Logger
 
-Revisione J — 18/10/2026. Proposta tecnica consolidata, non ordine di acquisto
+Revisione K — 21/10/2026 (R3 al 5%, D-028). Proposta tecnica consolidata, non ordine di acquisto
 né schema esecutivo auto. Fonte per disponibilità e collaudi: hardware.json.
 Vincoli D-002, D-003, D-004, D-005, D-006, D-007, D-008, D-010 e D-011.
 La richiesta di definire l'hardware non equivale ad approvazione di moduli
@@ -24,7 +24,7 @@ chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 | 1 | 2N5551 NPN TO-92 | K-line, pinout secondo produttore |
 | 1 + 1 + 1 | LM2903B SOIC-8, adattatore SOIC-8 → DIP-8 e zoccolo DIP-8 | Ricevitore K-line del prototipo documentato |
 | 1 ciascuna | Resistenze 330 ohm e 47 kohm, 0,25 W, 5% | K-line |
-| 1 | Resistenza 510 ohm, 1 W, 1% | Solo simulatore esterno da banco, non montata nel modulo K-line |
+| 1 | Resistenza 510 ohm, 1 W, 5% | Solo simulatore esterno da banco, non montata nel modulo K-line (D-028) |
 | 1 ciascuna | Resistenze 68 kohm, 150 kohm e 4,7 kohm, 0,25 W, 1% | K-line |
 | 2 | Resistenze 10 kohm, 0,25 W, 1% | K-line |
 | 1 | Resistenza 1 kohm, 0,25 W | K-line |

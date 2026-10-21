@@ -1,6 +1,6 @@
 # K-line autocostruita — Cruscotto C3+AI / Data Logger
 
-Revisione F, 20/10/2026. Disegno C3AI-DL-KL-001, rev F (D-022: isteresi R10; D-024: disegno IEC/ISO).
+Revisione G, 21/10/2026. Disegno C3AI-DL-KL-001, rev G (D-022: isteresi R10; D-024: disegno IEC/ISO; D-028: R3 al 5%).
 **Prototipo da banco non collaudato: nessun collegamento al veicolo.**
 Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
 il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
@@ -19,7 +19,7 @@ Non e una piedinatura del veicolo o una scheda automotive certificata.
 
 ## Distinta per un prototipo da banco
 
-Tutte le resistenze dei partitori a tolleranza 1%; valori da acquistare solo
+Tutte le resistenze dei partitori a tolleranza 1% (R3 del simulatore 5%, D-028); valori da acquistare solo
 se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 
 | Rif. | Quantita | Valore / componente | Nota |
@@ -28,7 +28,7 @@ se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 | U1 | 1 | LM2903B, versione SOIC-8 | Adattatore SOIC-8 → DIP-8; non scambiare con LM2903 senza B |
 | R1 | 1 | 330 ohm, 0,25 W, 5% | Base TX |
 | R2 | 1 | 47 kohm, 0,25 W, 5% | Base-emettitore, Q1 spento a GPIO flottante |
-| R3 | 1 | 510 ohm, 1 W, 1% | Solo simulatore esterno da banco; non montare nel modulo |
+| R3 | 1 | 510 ohm, 1 W, 5% | Solo simulatore esterno da banco; non montare nel modulo (D-028) |
 | R4 | 1 | 68 kohm, 0,25 W, 1% | Partitore K |
 | R5, R7 | 2 | 10 kohm, 0,25 W, 1% | Partitori verso massa |
 | R6 | 1 | 150 kohm, 0,25 W, 1% | Riferimento VBENCH |
@@ -103,9 +103,10 @@ Con resistori all'1% (partitori, R8 e R10), offset assunto +/-3 mV, 3V3 a
 - isteresi riferita alla linea K 0,545-0,721 V, indipendente da VBENCH
   (circa 3,3 V × R4 / (R10 + R8)); in rev D era assente;
 - massimo ingresso comparatore 2,123 V, sotto 4,75-2 V;
-- beta forzato massimo calcolato circa 8,51 con TX minimo assunto 2,5 V,
+- beta forzato massimo calcolato circa 8,87 con TX minimo assunto 2,5 V,
   VBE massimo assunto 1,2 V e tolleranze resistenze base;
-- R3 massimo calcolato 0,507 W a 16 V: selezionata 1 W per il banco.
+- R3 al 5% (minimo 484,5 ohm): massimo calcolato 0,528 W a 16 V, corrente
+  di collettore massima 33 mA; selezionata 1 W per il banco (D-028).
 
 Sono calcoli con ipotesi esplicite: non provano VCEsat al punto reale,
 commutazione del transistor, isteresi, margini ai disturbi, propagazione,
@@ -123,6 +124,7 @@ Schema e generatore prodotti per questo repository, senza copia di immagini
 esterne. Riferimenti funzionali e limiti dei componenti:
 
 - [TI LM2903B datasheet](https://www.ti.com/lit/ds/symlink/lm2903b.pdf): pinout, uscita open collector, alimentazione e campo ingressi; verificare codice ordinato.
+- [ST LM2903B datasheet](https://www.st.com/resource/en/datasheet/lm2903b.pdf): codice candidato LM2903BYDT (SO-8, AEC-Q100); stessa piedinatura del TI, modo comune fino a VCC − 2 V, VOL massima 350 mV a 4 mA e 5 V.
 - [onsemi 2N5551 datasheet](https://www.onsemi.com/pdf/datasheet/2n5551t-d.pdf): NPN TO-92 e caratteristiche; il collaudo resta necessario.
 - [ELM327 DSL](https://elmelectronics.com/wp-content/uploads/2020/05/ELM327DSL.pdf): distinzione KWP fast init da solo invio UART.
 
@@ -143,6 +145,23 @@ alla linea simulata come alla linea della vettura, con alimentazioni e masse
 corrette. Il solo richiamo resistivo simula il carico statico, non risposte ECU,
 disturbi o transitori della vettura; non costituisce collaudo KWP completo.
 In auto non montare R3 aggiuntiva senza riscontro del richiamo gia presente.
+
+## Revisione G — tolleranza di R3, 21/10/2026
+
+D-028. R3 (510 ohm, 1 W) passa da 1% a 5%: all'1% risulta reperibile solo
+una versione da 0,6 W, che a 16 V lavorerebbe all'85% della potenza nominale.
+R3 è solo nel simulatore esterno -A2 e non entra nel calcolo di soglie e
+isteresi, che dipendono da R4-R7, R8 e R10 (invariate all'1%). Il generatore
+ricalcola corrente e dissipazione con 510 ohm − 5%: 0,528 W e beta forzato
+massimo 8,87, entro il limite di 10. Nessun'altra variazione elettrica.
+
+Codici candidati individuati dall'utente su Farnell il 21/10/2026, non ordinati:
+
+| Rif. | Codice | Riscontro sul datasheet |
+| --- | --- | --- |
+| U1 | ST LM2903BYDT (Farnell 4122371) | Versione B in SO-8, piedinatura identica a TI; uscita a collettore aperto dedotta (corrente di fuga specificata a 36 V), non dichiarata da ST |
+| Q1 | onsemi 2N5551BU (Farnell 9846751) | TO-92 sfuso, terminali dritti; datasheet già in fonti. Piedinatura E/B/C da verificare con prova diodo |
+| R3 | TE Neohm EP1WSS510RJ (Farnell 4219432) | 510 ohm, 1 W, 5%, assiale a filo |
 
 ## Revisione F — ridisegno secondo le norme, 20/10/2026
 

@@ -79,7 +79,7 @@ d.title_block(title=['Collegamenti proposta', 'iniziale (storico)'], subtitle='D
 (ROOT / 'schema-collegamenti.svg').write_text(d.svg('Documento storico, sostituito da C3AI-DL-EL-003.'), encoding='utf-8')
 
 # ---------------------------------------------------------------- BL-001 ---
-b = Sheet('C3AI-DL-BL-001 rev D — Architettura funzionale del Data Logger')
+b = Sheet('C3AI-DL-BL-001 rev E — Architettura funzionale del Data Logger')
 b.frame()
 b.text(25, 20, 'ARCHITETTURA FUNZIONALE DEL DATA LOGGER — SCHEMA A BLOCCHI', 5, bold=True)
 b.text(25, 25, 'Stato al 20/10/2026. Schema funzionale: non usare per cablare. Pin e protocolli del veicolo restano da verificare (D-008).', 2.5)
@@ -89,7 +89,7 @@ b.block(33, 42, 60, 30, 'Presa OBD', ['Diagnosi motore', 'ISO 14230-4 KWP, fast 
 b.block(33, 82, 60, 30, 'Linea dietro al quadro', ['BSI Siemens Light 2001 VAN', 'VAN comfort 125 kbit/s', '(documentale, D-016/D-017)', 'Pin da identificare'], ref='VAN')
 b.block(33, 135, 60, 30, 'Alimentazione 12 V', ['Punto di prelievo', 'da identificare', 'Fusibile 2 A (HW-FUSE-HOLDER)'], ref='12 V')
 
-b.block(118, 42, 62, 30, 'Interfaccia K-line', ['2N5551 + LM2903B, isteresi', 'C3AI-DL-KL-001 rev F', 'Non montata · non collaudata'], ref='HW-KLINE-INTERFACE')
+b.block(118, 42, 62, 30, 'Interfaccia K-line', ['2N5551 + LM2903B, isteresi', 'C3AI-DL-KL-001 rev G', 'Non montata · non collaudata'], ref='HW-KLINE-INTERFACE')
 b.block(118, 82, 62, 30, 'Ricevitore VAN', ['SN65HVD230 (VP230), solo RX', 'Senza 120 Ω, TX a 3V3', 'Prerequisiti bloccanti'], ref='HW-CAN-VP230')
 b.block(118, 135, 62, 30, 'Convertitore 12 V → 5 V', ['Uadme GYVRM-K240505', 'Candidato, non collaudato', 'Arresto con STOP (D-015)'], ref='HW-AUTO-POWER')
 
@@ -124,10 +124,11 @@ b.notes(25, 188, 'LEGENDA E NOTE', [
 ])
 b.title_block(title=['Architettura funzionale', 'del Data Logger'], subtitle='Data Logger',
               doc_type='Schema a blocchi', status='PRELIMINARE',
-              code='C3AI-DL-BL-001', rev='D', date='20/10/2026', sheet='1/1',
+              code='C3AI-DL-BL-001', rev='E', date='21/10/2026', sheet='1/1',
               revisions=[('B', 'Cornice e cartiglio; stato aggiornato', '18/10/2026'),
                          ('C', 'Note sui moduli CAN già presenti', '18/10/2026'),
-                         ('D', 'Ridisegno IEC 61082-1/ISO; aggiornato a KWP, VAN, logger 0.3.x (D-024)', '20/10/2026')])
+                         ('D', 'Ridisegno IEC 61082-1/ISO; aggiornato a KWP, VAN, logger 0.3.x (D-024)', '20/10/2026'),
+                         ('E', 'Riferimento a KL-001 rev G; nessuna variazione funzionale', '21/10/2026')])
 (ROOT / 'schema-sistema.svg').write_text(b.svg('Schema a blocchi funzionale preliminare, non schema di cablaggio.'), encoding='utf-8')
 
 for f in ROOT.glob('*.svg'):

@@ -123,7 +123,7 @@ e cablaggio posteriore OBD non ancora rilasciati per acquisto/installazione.
 
 ## K-line autocostruita
 
-Scelta D-013 registrata: [circuito a banco rev F](docs/kline-autocostruita.md), isteresi R10 (D-022),
+Scelta D-013 registrata: [circuito a banco rev G](docs/kline-autocostruita.md), isteresi R10 (D-022), R3 al 5% (D-028),
 NPN 2N5551 e comparatore LM2903B. UART 10400 con solo TX invertito.
 Schema e modello DC prodotti; componenti non confermati, nessun montaggio,
 collaudo. Driver K-line implementato nella 0.3.0, non ancora caricato.
