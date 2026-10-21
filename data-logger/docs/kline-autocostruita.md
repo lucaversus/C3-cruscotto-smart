@@ -163,6 +163,7 @@ Codici candidati individuati dall'utente su Farnell il 21/10/2026, non ordinati:
 | Q1 | onsemi 2N5551BU (Farnell 9846751) | TO-92 sfuso, terminali dritti; datasheet già in fonti. Piedinatura E/B/C da verificare con prova diodo |
 | R3 | TE Neohm EP1WSS510RJ (Farnell 4219432) | 510 ohm, 1 W, 5%, assiale a filo avvolto |
 | C2 | Panasonic EEEHB1C100R (Farnell 9696792) | 10 µF, 16 V, 105 °C, polarizzato; **SMD**, accettato dall'utente per il montaggio su millefori; minimo d'ordine 100 pezzi su nastro |
+| C1 | KEMET C0603C104K3RACTU (Farnell 1650835) | 100 nF, 25 V, X7R, 10%, SMD 0603 (1,6 × 0,85 mm); da saldare il più vicino possibile ai pin 8 e 4 di U1 |
 
 ## Revisione F — ridisegno secondo le norme, 20/10/2026
 
