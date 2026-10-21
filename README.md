@@ -1,7 +1,7 @@
 # Cruscotto C3+AI
 
 > **Data Logger in pausa dal 20/10/2026 (D-025), fino a quando il modulo K-line
-> ([KL-001 rev F](data-logger/docs/kline-autocostruita.md)) sarà pronto.**
+> ([KL-001 rev G](data-logger/docs/kline-autocostruita.md)) sarà pronto.**
 > Alla ripresa: procurare anche una CR2032 per l'RTC (ramo di ricarica già
 > interrotto, RTC-M007), cablare la SD secondo [EL-003 rev B](data-logger/docs/collegamenti-banco-030.md)
 > e fare la prima registrazione a banco. Dettagli nel [registro moduli](data-logger/docs/verifiche-moduli.md).
@@ -68,6 +68,8 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-025 | approvata | Data Logger in pausa dal 20/10/2026 fino a quando il modulo K-line (KL-001) sarà pronto. Alla ripresa: CR2032 da procurare, cablaggio SD (EL-003 rev B) e prima registrazione a banco con prova di mantenimento dell'ora. | Utente 20/10/2026: "al momento metterei in pausa questo progetto secondario", precisato: "finché non avrò pronto il modulo K". Nessuna decisione tecnica modificata; verifiche aperte invariate. |
 | D-026 | approvata | Avviare il **Cruscotto digitale** durante la pausa del Data Logger (D-025). Aggiorna l'ordine di lavoro di D-002; perimetro invariato (unico repository). Primo passo: diagnosi della scheda RCmall ESP32-S3 5″ (HW-DASH-DISPLAY) secondo la sezione "Diagnosi all'arrivo della scheda". | Utente 20/10/2026: "voglio iniziare con il progetto del cruscotto"; dichiara di possedere la scheda ("Ce l'ho"). Possesso dichiarato, modello e variante non riscontrati; nessun driver o GPIO fissato. |
 | D-027 | approvata | Cruscotto **senza interazione touch**: display dietro la copertura trasparente del quadro; variante ordinata senza touch. Nessun input tattile nella UI. | Utente 20/10/2026: "l'ho ordinato non touch perché tanto andrà dietro la copertura trasparente del cruscotto e non ci sarà modo di interagire con il tocco". Comandi eventuali (es. cambio pagina) da definire separatamente. |
+| D-036 | approvata | R3 del simulatore da banco K-line: 510 ohm, **1 W, 5%** invece di 1 W, 1%. KL-001 rev G, distinta rev K. Soglie e isteresi invariate (dipendono da R4-R8 e R10 all'1%). | Utente 21/10/2026: all'1% trova solo una 600 mW, che a 16 V lavorerebbe all'85% della nominale (0,51 W); su proposta di usare la 1 W al 5%, risponde "aggiorna". Candidato individuato TE Neohm EP1WSS510RJ, non ordinato. |
+| D-037 | approvata | Resistenze **a foro passante (THT, reofori assiali)**: tutte, nel prototipo K-line e nella futura scheda principale del front end, da progettare con impronte THT per le resistenze. Non riguarda gli integrati (LM2903B resta in SOIC-8 su adattatore DIP-8). | Utente 21/10/2026: "le resistenze sono tutte a filo passante", precisato come affermazione; "così quando progetterai la mainboard del front end saprai il tipo di montaggio". Nessuna scheda del front end ancora progettata. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -199,7 +201,7 @@ i cui sorgenti sono conservati. CAN non collaudato; nessuna connessione al veico
 ### Interfaccia K-line autocostruita
 
 Scelta D-013: [schema e distinta del prototipo a banco](data-logger/docs/kline-autocostruita.md),
-rev F (isteresi R10 D-022, disegno IEC D-024). NPN e comparatore, calcoli DC verificati; non montato o collaudato.
+rev G (isteresi R10 D-022, disegno IEC D-024, R3 al 5% D-036). NPN e comparatore, calcoli DC verificati; non montato o collaudato.
 Installazione auto e protezioni ancora da progettare.
 
 ### Logger temporaneo: arresto manuale

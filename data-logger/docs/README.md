@@ -77,7 +77,10 @@ applica in modo uniforme:
 | Scrittura e linee | ISO 3098, ISO 128 | Testo diritto 2–7 mm; linee 0,25 / 0,35 / 0,7 mm |
 
 Gli SVG sono la fonte; i PNG sono anteprime a 200 dpi in 16 livelli di grigio,
-ottenute con resvg (open source) e controllate visivamente. Rigenerare con:
+ottenute con resvg (open source) e controllate visivamente. Eccezione: le
+anteprime di KL-001 rev G e BL-001 rev E (21/10/2026) sono rese con Chromium
+headless, perché resvg non era installabile nell'ambiente; stesso formato,
+controllate visivamente. Rigenerarle con resvg alla prossima modifica. Rigenerare con:
 
 ```text
 python data-logger/docs/tools/genera-kline-banco.py
@@ -85,9 +88,9 @@ python data-logger/docs/tools/genera-schemi.py
 python tools/genera-collegamenti-banco.py
 ```
 
-Elaborati correnti: KL-001 rev F (schema elettrico K-line), EL-003 rev B (schema
-di collegamento banco, con tabella dei fili W1–W16), BL-001 rev D (schema a
-blocchi aggiornato al 20/10/2026). EL-001 rev E è conservato come storico e
+Elaborati correnti: KL-001 rev G (schema elettrico K-line), EL-003 rev B (schema
+di collegamento banco, con tabella dei fili W1–W16), BL-001 rev E (schema a
+blocchi aggiornato al 21/10/2026). EL-001 rev E è conservato come storico e
 marcato SOSTITUITO: non usarlo per cablare. Il ridisegno non modifica reti,
 valori o GPIO e non costituisce verifica del cablaggio.
 
