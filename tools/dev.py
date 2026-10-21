@@ -16,6 +16,7 @@ HOST_TEST = LOGGER / 'host-tests/test_logic.cpp'
 DISPLAY_TEST = ROOT / 'cruscotto/firmware/display-test'
 UI_TEST = ROOT / 'cruscotto/firmware/ui-test'
 SPEAK_TEST = ROOT / 'cruscotto/firmware/speak-test'
+UI_IDF = ROOT / 'cruscotto/firmware/ui-idf'
 
 
 def python_path():
@@ -117,6 +118,8 @@ def main():
             UI_TEST, '-e', 'esp32-8048s050-ui-test', env=env)
         run(python_path(), '-m', 'platformio', 'run', '--project-dir',
             SPEAK_TEST, '-e', 'esp32-8048s050-speak-test', env=env)
+        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
+            UI_IDF, '-e', 'esp32-8048s050-ui-idf', env=env)
     return 0
 
 

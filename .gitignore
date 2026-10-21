@@ -3,3 +3,7 @@
 __pycache__/
 *.pyc
 /data-logger/firmware/logger/logs/
+
+# ESP-IDF: sdkconfig generato da sdkconfig.defaults
+cruscotto/firmware/*/sdkconfig.*
+!cruscotto/firmware/*/sdkconfig.defaults

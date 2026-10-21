@@ -252,3 +252,32 @@ presenza del tono. Non dimostra né esclude il collegamento U1 ↔ IO17/IO18.
 **Prossimo passo:** prova d'ascolto con un piccolo altoparlante su P6 quando
 disponibile; nel frattempo l'assegnazione proposta evita comunque IO17/IO18
 per la K-line.
+
+## DSP-M007 — ui-idf 0.2.0 su ESP-IDF 5.5, doppio framebuffer — 21/10/2026
+
+**Prova:** ui-idf 0.2.0 caricato su COM4 (hash verificati), avvio da `ota_0` con
+la nuova tabella partizioni (D-039). Seriale: `panel=ESP_OK fps=13 refr_avg_ms=75
+panel_hz=39 heap_int_free=333039 psram_free=6316724`, stabile per oltre 15 s;
+`ota_state=2` (valido, caricamento via cavo).
+**Osservazione riferita:** "l'immagine è molto stabile"; arco "un po' a scattini"
+per i 13 FPS, "i numeri specialmente sono buoni".
+**Interpretazione:** frequenza del pannello **misurata 39 Hz** (prima stimata).
+Doppio framebuffer con scambio al vsync: nessun tearing riferito. Il ridisegno
+completo in PSRAM (`full_refresh`) costa 75 ms e limita a 13 FPS.
+**Esito:** superata per stabilità e assenza di tearing; fluidità non sufficiente.
+**Prossimo passo:** `direct_mode` con sincronizzazione delle sole zone cambiate
+tra i due framebuffer (ui-idf 0.2.1).
+
+## DSP-M008 — ui-idf 0.2.1, direct mode con zone sincronizzate — 21/10/2026
+
+**Prova:** ui-idf 0.2.1 caricato su COM4 (hash verificati), avvio da `ota_0`.
+Seriale: `fps=26 refr_avg_ms=27 panel_hz=39 heap_int_free=333035 psram_free=6316724`.
+**Osservazione riferita:** "l'arco è più fluido, non ci sono artefatti"; indicatore
+LVGL tra 34 e 45 FPS, CPU tra 70 e 80%.
+**Interpretazione:** il ridisegno delle sole zone cambiate con copia nell'altro
+framebuffer porta i quadri utili a circa il limite dei dati simulati (aggiornamento
+ogni 33 ms) mantenendo l'assenza di tearing. La CPU riferita dall'indicatore LVGL
+include l'attesa del vsync e la copia delle zone: da ottimizzare (compito dedicato,
+attesa non attiva) quando si separeranno i compiti sui due core.
+**Esito:** superata (fluidità e assenza di tearing).
+**Prossimo passo:** pubblicazione del blocco; poi protocollo front-end ↔ S3.

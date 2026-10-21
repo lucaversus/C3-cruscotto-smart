@@ -1,0 +1,26 @@
+# Prova UI su ESP-IDF 5.5 — versione 0.2.1
+
+Cruscotto C3+AI, HW-DASH-DISPLAY (D-026, D-037, D-039). Base del futuro firmware
+dell'S3 su **ESP-IDF 5.5** (piattaforma PlatformIO ufficiale espressif32@6.12.0),
+al posto di Arduino-ESP32 2.x. Stato: **0.2.1 caricata il 21/10/2026**: DSP-M007 (0.2.0, stabile ma 13 FPS) e DSP-M008 (0.2.1 direct mode, superata: fluido, nessun artefatto, pannello 39 Hz misurati).
+
+## Cosa cambia rispetto a ui-test 0.1.1
+
+- **Doppio framebuffer** in PSRAM (`num_fbs = 2`): LVGL disegna l'intera schermata
+  nel buffer non visibile (`full_refresh`); lo scambio avviene al **vsync**, per
+  eliminare il tearing. Bounce buffer da 10 righe e ripartenza al vsync
+  (`CONFIG_LCD_RGB_RESTART_IN_VSYNC`), utili anche con il Wi-Fi (D-036).
+- Seriale: `panel_hz` = vsync contati al secondo, cioè la frequenza **misurata** del
+  pannello (prima stimata ~39 Hz).
+- **Tabella partizioni OTA** (`partitions.csv`, D-039): `ota_0`/`ota_1` da 3 MB,
+  `recovery` (tipo test) da 1,5 MB, `coredump`, `storage` LittleFS da 8,3 MB per
+  messaggi audio e scatola nera.
+- **Ritorno automatico** (`CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE`): una versione
+  nuova si conferma da sola dopo 10 s con il display funzionante; altrimenti al
+  riavvio il bootloader torna alla precedente.
+- **Firmware di emergenza** (`CONFIG_BOOTLOADER_APP_TEST`, GPIO19 basso all'avvio):
+  partizione `recovery` riservata; il firmware di emergenza non è ancora scritto.
+
+Stessa schermata simulata di ui-test 0.1.1 (scritta "DEMO - dati simulati - IDF 5.5").
+`sdkconfig.defaults` è la sorgente della configurazione; il file `sdkconfig.*`
+generato è escluso da Git.

@@ -364,10 +364,11 @@
         "DSP-M003, 20/10/2026: ui-test 0.1.1 con cifre in celle fisse; rendering medio 8 ms; utente riferisce numeri senza sfarfallio. Causa DSP-M002 risolta; tearing non visibile in questa prova, non escluso con schermate più pesanti.",
         "Utente 20/10/2026, connettori serigrafati (coerenti con foto retro): pulsanti BOOT/RST sotto il modulo, FPC1 accanto (probabile flat touch, non usato su variante senza touch), slot MicroSD; P2 'SPI' IO19(?)-11-12-13 (lettura IO19 da confermare, la fonte comunitaria indica IO10 come CS della MicroSD); P3 IO17-18 'UART1' + IO19-20 'USB'; P4 GND-3.3V-IO17-18; P5 come P4 con JST a passo minore; P6 'Speak'; P1 5V-TXD-RXD-GND sopra la USB-C. Dichiarazione e foto, nessuna misura.",
         "Utente 20/10/2026, ispezione visiva piste: i due contatti di P6 'Speak' entrano in U1, marcatura riferita 'AKK 7HG' (componente non identificato); da U1 piste verso IO17 e IO18. Utente: P2 serigrafato IO19-11-12-13. Nessuna misura.",
-        "DSP-M004, 20/10/2026: continuità tra pin 'IO19' di P2 e IO19 di P3 a scheda scollegata (utente). P2 espone IO19, IO11, IO12, IO13; CS MicroSD non su P2."
+        "DSP-M004, 20/10/2026: continuità tra pin 'IO19' di P2 e IO19 di P3 a scheda scollegata (utente). P2 espone IO19, IO11, IO12, IO13; CS MicroSD non su P2.",
+        "DSP-M007/M008, 21/10/2026: ESP-IDF 5.5, doppio framebuffer con scambio al vsync; frequenza del pannello misurata 39 Hz (PCLK 16 MHz); ui-idf 0.2.1 in direct mode: fluido, nessun artefatto riferito dall'utente, 26 FPS dati / 34-45 FPS indicatore LVGL."
       ],
       "open_checks": [
-        "Firmware attualmente caricato (21/10/2026): speak-test 0.1.1; ui-test 0.1.1 e display-test 0.1.0 ricaricabili dai sorgenti.",
+        "Firmware attualmente caricato (21/10/2026): ui-idf 0.2.1 (ESP-IDF 5.5, partizioni OTA D-039); speak-test, ui-test e display-test ricaricabili dai sorgenti.",
         "Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili",
         "Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare",
         "Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)",
