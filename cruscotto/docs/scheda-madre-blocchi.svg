@@ -1,0 +1,302 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297"><title>C3AI-CR-BL-001 rev A — Scheda madre, schema a blocchi preliminare</title><desc>Schema a blocchi preliminare della scheda madre; proposta, non schema esecutivo.</desc><rect width="420" height="297" fill="white"/><rect x="20" y="10" width="390" height="277" fill="none" stroke="#000000" stroke-width="0.7"/>
+<text x="44.375" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">1</text>
+<text x="44.375" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">1</text>
+<path d="M68.75 10 L68.75 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M68.75 287 L68.75 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="93.125" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">2</text>
+<text x="93.125" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">2</text>
+<path d="M117.5 10 L117.5 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M117.5 287 L117.5 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="141.875" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">3</text>
+<text x="141.875" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">3</text>
+<path d="M166.25 10 L166.25 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M166.25 287 L166.25 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="190.625" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">4</text>
+<text x="190.625" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">4</text>
+<path d="M215 10 L215 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M215 287 L215 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="239.375" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">5</text>
+<text x="239.375" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">5</text>
+<path d="M263.75 10 L263.75 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M263.75 287 L263.75 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="288.125" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">6</text>
+<text x="288.125" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">6</text>
+<path d="M312.5 10 L312.5 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312.5 287 L312.5 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="336.875" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">7</text>
+<text x="336.875" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">7</text>
+<path d="M361.25 10 L361.25 5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M361.25 287 L361.25 292" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="385.625" y="8.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">8</text>
+<text x="385.625" y="291.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">8</text>
+<text x="17.5" y="34.283" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">A</text>
+<text x="415" y="34.283" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">A</text>
+<path d="M20 56.167 L15 56.167" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 56.167 L415 56.167" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="80.45" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">B</text>
+<text x="415" y="80.45" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">B</text>
+<path d="M20 102.333 L15 102.333" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 102.333 L415 102.333" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="126.617" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">C</text>
+<text x="415" y="126.617" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">C</text>
+<path d="M20 148.5 L15 148.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 148.5 L415 148.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="172.783" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">D</text>
+<text x="415" y="172.783" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">D</text>
+<path d="M20 194.667 L15 194.667" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 194.667 L415 194.667" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="218.95" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">E</text>
+<text x="415" y="218.95" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">E</text>
+<path d="M20 240.833 L15 240.833" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 240.833 L415 240.833" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="17.5" y="265.117" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">F</text>
+<text x="415" y="265.117" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000">F</text>
+<path d="M210 0 L210 15" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M210 297 L210 282" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M0 148.5 L25 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M420 148.5 L405 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="25" y="20" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">SCHEDA MADRE DEL CRUSCOTTO — SCHEMA A BLOCCHI PRELIMINARE</text>
+<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Schema funzionale (IEC 61082-1): non usare per cablare. Pin del veicolo da manuali generici, da verificare (D-008); componenti proposti, non scelti né collaudati.</text>
+<rect x="25" y="35" width="55" height="30" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="27" y="40" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">Veicolo</text>
+<text x="27" y="44" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Presa OBD C001 (retro)</text>
+<text x="27" y="48.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">via 16  + batteria</text>
+<text x="27" y="52.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">via 1   + dopo contatto</text>
+<text x="27" y="55.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">via 4/5 massa</text>
+<text x="27" y="59.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">via 7   linea K</text>
+<rect x="25" y="72" width="55" height="22" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="27" y="77" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">Veicolo</text>
+<text x="27" y="81" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Quadro 0004 (18 vie NR)</text>
+<text x="27" y="85.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">vie 1/3  VAN 9004A/9005A</text>
+<text x="27" y="89.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">via 9    massa M0004</text>
+<text x="27" y="92.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">via 7 XE1: NON collegare</text>
+<rect x="25" y="101" width="55" height="22" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="27" y="106" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">Veicolo</text>
+<text x="27" y="110" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Radio originale</text>
+<text x="27" y="114.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">uscite altoparlanti</text>
+<text x="27" y="118.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">anteriori Sx/Dx (a ponte)</text>
+<rect x="25" y="130" width="55" height="15" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="27" y="135" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">Veicolo</text>
+<text x="27" y="139" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Altoparlanti anteriori</text>
+<text x="27" y="143.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Sx / Dx</text>
+<rect x="88" y="35" width="12" height="160" fill="none" stroke="#000000" stroke-width="0.7"/>
+<text x="94" y="33" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="middle" fill="#000000" font-weight="bold">-J1</text>
+<text x="94" y="200" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="middle" fill="#000000">connettore</text>
+<text x="94" y="203" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="middle" fill="#000000">multipolare</text>
+<path d="M80 47 L88 47" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 47 L85.5 47.9 L85.5 46.1 Z" fill="#000000"/>
+<path d="M80 47 L82.5 46.1 L82.5 47.9 Z" fill="#000000"/>
+<path d="M80 80 L88 80" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 80 L85.5 80.9 L85.5 79.1 Z" fill="#000000"/>
+<path d="M80 80 L82.5 79.1 L82.5 80.9 Z" fill="#000000"/>
+<path d="M80 108 L88 108" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 108 L85.5 108.9 L85.5 107.1 Z" fill="#000000"/>
+<path d="M80 108 L82.5 107.1 L82.5 108.9 Z" fill="#000000"/>
+<path d="M80 137 L88 137" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 137 L85.5 137.9 L85.5 136.1 Z" fill="#000000"/>
+<path d="M80 137 L82.5 136.1 L82.5 137.9 Z" fill="#000000"/>
+<rect x="105" y="32" width="200" height="178" fill="none" stroke="#000000" stroke-width="0.35" stroke-dasharray="12 3 0.5 3"/>
+<text x="108" y="37" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="start" fill="#000000" font-weight="bold">-A1  SCHEDA MADRE (circuito stampato dedicato, montaggio in fabbrica)</text>
+<rect x="110" y="48" width="58" height="34" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="112" y="53" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U1…U3</text>
+<text x="112" y="57" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Ingresso 12 V</text>
+<text x="112" y="61.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">fusibile di ramo (F, nel cablaggio)</text>
+<text x="112" y="65.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">inversione polarità, TVS, filtro</text>
+<text x="112" y="68.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">dominio sempre acceso: LDO a basso</text>
+<text x="112" y="72.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">consumo, ventola 12 V PWM (D-031)</text>
+<text x="112" y="75.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">mantenimento: MOSFET lato alto</text>
+<rect x="110" y="88" width="58" height="24" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="112" y="93" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-C1</text>
+<text x="112" y="97" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Riserva avviamento</text>
+<text x="112" y="101.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">diodo + supercondensatore</text>
+<text x="112" y="105.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">carica limitata</text>
+<text x="112" y="108.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">capacità da calcolare (D-030)</text>
+<rect x="110" y="118" width="58" height="22" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="112" y="123" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U4/U5</text>
+<text x="112" y="127" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Convertitore 12 → 5 V</text>
+<text x="112" y="131.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">buck, ingresso ≥ 40 V, 5 V 2-3 A</text>
+<text x="112" y="135.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">+ LDO 3,3 V basso consumo</text>
+<path d="M100 59 L110 59" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110 59 L107.5 59.9 L107.5 58.1 Z" fill="#000000"/>
+<path d="M168 65 L176 65" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176 65 L173.5 65.9 L173.5 64.1 Z" fill="#000000"/>
+<path d="M139 82 L139 88" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M139 88 L138.1 85.5 L139.9 85.5 Z" fill="#000000"/>
+<path d="M139 112 L139 118" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M139 118 L138.1 115.5 L139.9 115.5 Z" fill="#000000"/>
+<path d="M168 124 L176 124" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176 124 L173.5 124.9 L173.5 123.1 Z" fill="#000000"/>
+<text x="172" y="122.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="middle" fill="#000000">3V3</text>
+<path d="M168 132 L172 132 L172 156 L176 156" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176 156 L173.5 156.9 L173.5 155.1 Z" fill="#000000"/>
+<text x="170.5" y="145" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="end" fill="#000000">5 V</text>
+<rect x="176" y="48" width="64" height="86" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="178" y="53" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U6</text>
+<text x="178" y="57" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Front-end ESP32</text>
+<text x="178" y="61.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">ESP32-WROOM-32E-H4/H8</text>
+<text x="178" y="65.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">(senza PSRAM, −40…105 °C)</text>
+<text x="178" y="68.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000"></text>
+<text x="178" y="72.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO16/17  UART2 K-line</text>
+<text x="178" y="75.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO34     VAN RX</text>
+<text x="178" y="79.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO21/22  I2C (IMU, RTC)</text>
+<text x="178" y="83.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO25/33  UART1 verso S3</text>
+<text x="178" y="86.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO35     tensione batteria</text>
+<text x="178" y="90.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO39     segnale chiave</text>
+<text x="178" y="93.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO13     mantenimento</text>
+<text x="178" y="97.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO4      LED di stato</text>
+<text x="178" y="101.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO26/14  ventola PWM/giri (D-031)</text>
+<text x="178" y="104.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">GPIO36/32  NTC display/scheda</text>
+<text x="178" y="108.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">MicroSD opz. 18/19/23/27</text>
+<text x="178" y="111.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">(stessi pin del logger 0.3.x)</text>
+<rect x="246" y="48" width="54" height="18" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="248" y="53" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U7</text>
+<text x="248" y="57" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Ricevitore VAN</text>
+<text x="248" y="61.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">SN65HVD230, solo RX</text>
+<text x="248" y="65.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">D a 3V3, nessuna 120 Ω</text>
+<rect x="246" y="72" width="54" height="18" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="248" y="77" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U8</text>
+<text x="248" y="81" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Interfaccia K-line</text>
+<text x="248" y="85.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">circuito KL-001 rev F</text>
+<text x="248" y="89.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">2N5551 + LM2903B</text>
+<rect x="246" y="96" width="54" height="22" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="248" y="101" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U9/U10</text>
+<text x="248" y="105" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">IMU + RTC (opz.)</text>
+<text x="248" y="109.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">LSM6DS3 0x6A, fissaggio</text>
+<text x="248" y="113.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">rigido, assi in serigrafia</text>
+<text x="248" y="116.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">DS3231 0x68 opzionale</text>
+<rect x="246" y="124" width="54" height="18" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="248" y="129" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-U11</text>
+<text x="248" y="133" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Programmazione</text>
+<text x="248" y="137.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">USB-seriale + reset auto</text>
+<text x="248" y="141.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">o connettore 6 poli</text>
+<path d="M246 57 L240 57" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M240 57 L242.5 56.1 L242.5 57.9 Z" fill="#000000"/>
+<path d="M246 57 L243.5 57.9 L243.5 56.1 Z" fill="#000000"/>
+<path d="M246 81 L240 81" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M240 81 L242.5 80.1 L242.5 81.9 Z" fill="#000000"/>
+<path d="M246 81 L243.5 81.9 L243.5 80.1 Z" fill="#000000"/>
+<path d="M246 107 L240 107" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M240 107 L242.5 106.1 L242.5 107.9 Z" fill="#000000"/>
+<path d="M246 107 L243.5 107.9 L243.5 106.1 Z" fill="#000000"/>
+<path d="M246 131 L240 131" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M240 131 L242.5 130.1 L242.5 131.9 Z" fill="#000000"/>
+<path d="M246 131 L243.5 131.9 L243.5 130.1 Z" fill="#000000"/>
+<path d="M100 42 L303 42 L303 81" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M303 57 L300 57" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M300 57 L302.5 56.1 L302.5 57.9 Z" fill="#000000"/>
+<circle cx="303" cy="57" r="0.7" fill="#000000"/>
+<path d="M303 81 L300 81" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M300 81 L302.5 80.1 L302.5 81.9 Z" fill="#000000"/>
+<path d="M208 42 L208 48" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M208 48 L207.1 45.5 L208.9 45.5 Z" fill="#000000"/>
+<circle cx="208" cy="42" r="0.7" fill="#000000"/>
+<text x="112" y="40.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">VAN (quadro vie 1/3) · K-line (OBD via 7) · chiave (OBD via 1, verso GPIO39 protetto)</text>
+<rect x="176" y="146" width="124" height="20" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="178" y="151" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-J2</text>
+<text x="178" y="155" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Connettore -J2 verso ESP32-S3</text>
+<text x="178" y="159.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">P1: 5 V, GND  ·  P2: IO11 RX, IO12 TX, IO13 relè, IO19 riserva</text>
+<text x="178" y="163.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">P6 Speak: uscita audio (funzione U1 da confermare)</text>
+<path d="M208 134 L208 146" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M208 146 L207.1 143.5 L208.9 143.5 Z" fill="#000000"/>
+<path d="M208 134 L208.9 136.5 L207.1 136.5 Z" fill="#000000"/>
+<text x="210" y="141" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">UART</text>
+<rect x="176" y="174" width="124" height="28" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="178" y="179" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-K1/K2</text>
+<text x="178" y="183" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Commutazione audio (D-028)</text>
+<text x="178" y="187.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">relè doppio scambio per canale: a riposo radio → altoparlanti</text>
+<text x="178" y="191.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">eccitato: uscita audio S3 → altoparlanti; mai a massa le uscite radio (a ponte)</text>
+<text x="178" y="194.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">pilotaggio a transistor + diodo di ricircolo, comando dall&#x27;S3, spento al reset</text>
+<path d="M238 166 L238 174" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M238 174 L237.1 171.5 L238.9 171.5 Z" fill="#000000"/>
+<text x="240" y="171" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">audio + comando relè</text>
+<path d="M100 188 L176 188" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176 188 L173.5 188.9 L173.5 187.1 Z" fill="#000000"/>
+<path d="M100 188 L102.5 187.1 L102.5 188.9 Z" fill="#000000"/>
+<text x="104" y="186.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">radio ⇄ altoparlanti (4 fili per canale)</text>
+<rect x="315" y="146" width="85" height="48" fill="none" stroke="#000000" stroke-width="0.35"/>
+<text x="317" y="151" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">-A2</text>
+<text x="317" y="155" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">ESP32-S3 8048S050</text>
+<text x="317" y="159.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">display 5″, IA, messaggi in flash</text>
+<text x="317" y="163.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">P1 ← 5 V</text>
+<text x="317" y="166.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">P2 ↔ UART, relè</text>
+<text x="317" y="170.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">P6 → audio</text>
+<text x="317" y="173.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">nessun filo diretto al veicolo</text>
+<text x="317" y="177.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">(D-029)</text>
+<path d="M300 156 L315 156" fill="none" stroke="#000000" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M315 156 L312.5 156.9 L312.5 155.1 Z" fill="#000000"/>
+<path d="M300 156 L302.5 155.1 L302.5 156.9 Z" fill="#000000"/>
+<text x="315" y="40" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">NOTE</text>
+<text x="315" y="45" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">1  J1: connettore multipolare unico verso il cablaggio</text>
+<text x="315" y="49.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">   auto (tipo da scegliere, es. Micro-Fit 3.0).</text>
+<text x="315" y="53.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">2  Il fusibile di ramo sta nel cablaggio, vicino al</text>
+<text x="315" y="57.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">   prelievo OBD via 16 (HW-FUSE-HOLDER).</text>
+<text x="315" y="61.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">3  Riferimento di massa VAN: via 9 del quadro.</text>
+<text x="315" y="66" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">4  VAN: quale filo sia DATA non è indicato dagli</text>
+<text x="315" y="70.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">   schemi; prerequisiti D-022 bloccanti.</text>
+<text x="315" y="74.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">5  Spento: consumo obiettivo &lt; 1 mA (D-030).</text>
+<text x="315" y="78.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">6  Front-end = logger 0.3.x senza OLED/STOP: stesso</text>
+<text x="315" y="82.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">   formato dati per l&#x27;addestramento dell&#x27;IA.</text>
+<text x="315" y="87" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">7  UART verso S3 su P2 (IO11/12): lascia IO17/18</text>
+<text x="315" y="91.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">   all&#x27;amplificatore U1 se confermato.</text>
+<rect x="230" y="255" width="180" height="32" fill="white"/>
+<rect x="230" y="255" width="180" height="32" fill="none" stroke="#000000" stroke-width="0.7"/>
+<rect x="230" y="255" width="80" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="257.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Proprietario legale</text>
+<text x="231.5" y="261.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">Cruscotto C3+AI</text>
+<rect x="310" y="255" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="257.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Creato da</text>
+<text x="311.5" y="261.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">C3+AI · agente Claude</text>
+<rect x="360" y="255" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="257.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Approvato da</text>
+<text x="361.5" y="261.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">— (non approvato)</text>
+<rect x="230" y="263" width="80" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="265.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Titolo supplementare</text>
+<text x="231.5" y="269.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">Cruscotto digitale</text>
+<rect x="310" y="263" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="265.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Tipo di documento</text>
+<text x="311.5" y="269.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">Schema a blocchi</text>
+<rect x="360" y="263" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="265.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Stato del documento</text>
+<text x="361.5" y="269.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000" font-weight="bold">PRELIMINARE · NON VERIFICATO</text>
+<rect x="230" y="271" width="80" height="16" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Titolo</text>
+<text x="231.5" y="279.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">Scheda madre</text>
+<text x="231.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">schema a blocchi</text>
+<rect x="310" y="271" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Numero di identificazione</text>
+<text x="311.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C3AI-CR-BL-001</text>
+<rect x="360" y="271" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Rev.</text>
+<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">B</text>
+<rect x="375" y="271" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="376" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Data di emissione</text>
+<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">21/10/2026</text>
+<rect x="310" y="279" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="311" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Riferimento tecnico</text>
+<text x="311.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">D-024 · IEC 61082-1</text>
+<rect x="360" y="279" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="361" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Lingua</text>
+<text x="361.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">it</text>
+<rect x="375" y="279" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="376" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Foglio</text>
+<text x="376.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">1/1</text>
+<rect x="230" y="240" width="180" height="15" fill="white"/>
+<rect x="230" y="240" width="180" height="15" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="240" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<rect x="242" y="240" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<rect x="385" y="240" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
+<rect x="230" y="245" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">A</text>
+<rect x="242" y="245" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Prima emissione preliminare (D-028, D-029, D-030)</text>
+<rect x="385" y="245" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">20/10/2026</text>
+<rect x="230" y="250" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
+<rect x="242" y="250" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Ventola, NTC e dominio sempre acceso (D-031)</text>
+<rect x="385" y="250" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">21/10/2026</text></svg>

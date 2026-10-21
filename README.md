@@ -68,6 +68,19 @@ Le date indicano la registrazione, non necessariamente la prima discussione.
 | D-025 | approvata | Data Logger in pausa dal 20/10/2026 fino a quando il modulo K-line (KL-001) sarà pronto. Alla ripresa: CR2032 da procurare, cablaggio SD (EL-003 rev B) e prima registrazione a banco con prova di mantenimento dell'ora. | Utente 20/10/2026: "al momento metterei in pausa questo progetto secondario", precisato: "finché non avrò pronto il modulo K". Nessuna decisione tecnica modificata; verifiche aperte invariate. |
 | D-026 | approvata | Avviare il **Cruscotto digitale** durante la pausa del Data Logger (D-025). Aggiorna l'ordine di lavoro di D-002; perimetro invariato (unico repository). Primo passo: diagnosi della scheda RCmall ESP32-S3 5″ (HW-DASH-DISPLAY) secondo la sezione "Diagnosi all'arrivo della scheda". | Utente 20/10/2026: "voglio iniziare con il progetto del cruscotto"; dichiara di possedere la scheda ("Ce l'ho"). Possesso dichiarato, modello e variante non riscontrati; nessun driver o GPIO fissato. |
 | D-027 | approvata | Cruscotto **senza interazione touch**: display dietro la copertura trasparente del quadro; variante ordinata senza touch. Nessun input tattile nella UI. | Utente 20/10/2026: "l'ho ordinato non touch perché tanto andrà dietro la copertura trasparente del cruscotto e non ci sarà modo di interagire con il tocco". Comandi eventuali (es. cambio pagina) da definire separatamente. |
+| D-028 | approvata | Messaggi audio dell'IA dall'S3 sugli altoparlanti dell'auto tramite **relè di commutazione**: a riposo altoparlanti collegati alla radio originale; durante il messaggio il relè li collega all'uscita audio dell'S3 (radio di fatto in muto). Funziona anche a radio spenta; nessun comando trasmesso sul VAN. | Utente 20/10/2026: messaggi "anche con radio spenta e in caso di radio accesa quest'ultima messa in muto"; "io avevo pensato alla proposta A, l'auto è quella originale". Amplificatore, relè, canali e altoparlanti da definire; uscite radio a ponte da non collegare a massa. |
+| D-029 | approvata | Architettura del cruscotto a **due microcontrollori**: un ESP32 **front-end** legge VAN (solo ricezione) e K-line e inoltra all'S3 dati compatti su UART a 2 fili; l'ESP32-S3 8048S050 gestisce display, IA, audio e relè, senza collegamenti diretti al veicolo. Prototipo con HW-ESP32 (HW-394) e moduli presenti; obiettivo finale una **scheda madre** dietro l'S3 con modulo ESP32-WROOM-32E senza PSRAM (N8 o N16: la PSRAM occupa GPIO16/17), protezioni 12 V, convertitore 5 V, interfacce VAN/K-line, relè audio e **connettore multipolare** verso l'auto. | Utente 20/10/2026: "allora passiamo a questa nuova architettura"; obiettivo scheda madre con "connettore multipolo per rendere il collegamento con l'auto più solido e di veloce e pulita installazione". Stesso hardware e codice tra raccolta dati e uso (dataset IA coerente). Nessun acquisto ordinato; GPIO S3 e protocollo UART da definire. |
+| D-030 | approvata | Alimentazione del cruscotto da **+12 V permanente con ingresso chiave**: accensione con la chiave (in futuro anche ad altri eventi), mantenimento di qualche secondo dopo lo spegnimento per salvare lo stato, poi autospegnimento; consumo a riposo da contenere (obiettivo indicativo < 1 mA). Avviamento superato con **condensatore di riserva sulla scheda madre**. Protezioni: fusibile, inversione polarità, TVS, filtro, massa comune con il quadro. | Utente 20/10/2026: "1.B e 2. condensatore lo vedo come più facile installare nella mainboard". Non sostituisce D-015 per il logger temporaneo. Calo reale all'avviamento, durata e capacità del condensatore da misurare/calcolare; punto di prelievo +12 V e segnale chiave da identificare. |
+| D-031 | approvata | **Raffreddamento attivo** del cruscotto: dissipatore in alluminio dietro l'S3 e **ventola 12 V** predisposta nelle staffe stampate, pilotata in PWM dal front-end. Funziona anche a **motore spento** finché la batteria a riposo resta sopra una **soglia di guardia (partenza 12,3 V)**, con isteresi e tempo massimo; scheda madre con **dominio sempre acceso** a basso consumo (front-end in sonno, NTC, misura batteria, ventola) separato dal dominio principale 5 V/S3. Sensori NTC vicino al display. | Utente 21/10/2026: "predisporrei immediatamente una ventola e applicherò un dissipatore in alluminio dietro il modulo S3", "se la ventola sarebbe possibile farla funzionare da macchina spenta fino ad un livello della batteria di guardia studiamolo"; conferma "procedi". Limiti pannello dichiarati dal rivenditore −20…+70 °C (magazzinaggio +80 °C). Soglie da tarare; efficacia da misurare la prossima estate. |
+| D-032 | approvata | **VIN nei dati grezzi VAN** (IDEN E24 secondo le decodifiche comunitarie): il logger continua a registrare tutto senza filtri (D-016); il VIN va **mascherato solo prima di pubblicare o condividere** i dati, in post-elaborazione. Gli originali con VIN restano solo in locale, esclusi da Git. | Utente 21/10/2026, alla questione A della revisione generale: "mascheriamolo solo prima della pubblicazione". Strumento di mascheramento da realizzare prima della prima pubblicazione di dati; nessuna modifica al firmware. |
+| D-033 | approvata | **Stessi canali nel Data Logger e nel front-end**: oltre a VAN e K-line il logger registra IMU (HW-IMU-LSM6DS3), tensione batteria, segnale chiave e temperature NTC, con gli stessi sensori, montaggi e frequenze previsti per il cruscotto, così che il dataset di addestramento corrisponda ai dati disponibili in uso. Fonti di dati aggiuntive per l'IA da valutare (questioni aperte). | Utente 21/10/2026, questione B della revisione: "assolutamente sì, anzi pensa possiamo dare in pasto altri dati all'AI". Firmware logger, schema EL-003 e GPIO del logger da aggiornare; nessun collegamento eseguito. |
+| D-034 | approvata | Licenza del repository **MIT** per codice, documenti e disegni del progetto; file `LICENSE` nella radice. Codice di terzi con la propria licenza (THIRD_PARTY.md); manuali e dati personali esclusi. Evitare librerie GPL nel firmware distribuito. | Utente 21/10/2026: "il progetto per me è totalmente open, chiunque vuole può utilizzarlo"; "ok mit". |
+| D-035 | approvata | Diagnosi OBD in **sola lettura** estesa ai servizi **0x03** (codici guasto memorizzati) e **0x02** (dati al momento del guasto), oltre a 0x01 e all'avvio KWP 0x81. Restano **vietati** 0x04 (cancellazione codici), comandi agli attuatori e qualsiasi scrittura. | Utente 21/10/2026, alla domanda della revisione: "si". Integra D-008 e la checklist revisione-firmware; nessuna implementazione o prova ancora eseguita. |
+| D-036 | approvata | **Wi-Fi dell'S3 spento di norma**, acceso solo su **attivazione specifica** dell'utente (modalità servizio) per scarico dati e aggiornamenti; mai durante la normale visualizzazione, per evitare disturbi al display e calore. Modalità di attivazione (es. comandi al volante a veicolo fermo) da definire; scarico solo verso la rete di casa (D-032). | Utente 21/10/2026: "il wifi lo implementerei soltanto su attivazione specifica, così risparmiamo un po' di problemi con il display e di temperature". Nessuna implementazione. |
+| D-037 | approvata | Requisiti del firmware dell'S3 da implementare: **IA multi-modello** con riferimento di "normalità" della vettura e analisi in frequenza delle vibrazioni; **scatola nera** (ultimo minuto di tutti i dati in PSRAM, salvato in flash su anomalia o codice guasto); **etichette** dell'utente con i comandi al volante; **grafica senza tearing** (doppio framebuffer sincronizzato); **pagina diagnostica** sul telefono (Wi-Fi o BLE solo su attivazione, D-036); **audio con coda di priorità** e volume legato alla velocità. | Utente 21/10/2026: "tutti gli altri punti implementiamoli nel FW". Ordine di implementazione e piattaforma (Arduino-ESP32 2.x / ESP-IDF 4.4 o versione 5.x) da definire; nessuna implementazione ancora. |
+| D-038 | approvata | **App per smartphone** di diagnostica, impostazioni e visualizzazione in tempo reale. **Impostazioni modificabili solo a veicolo fermo** (velocità nulla dal VAN, verifica nel firmware dell'S3); **vista in tempo reale e diagnostica anche in marcia** tramite **Bluetooth LE**. Precisa D-036: il Wi-Fi resta solo in modalità servizio, il BLE può restare attivo durante la guida. Abbinamento con codice; l'app non comanda mai il veicolo (D-035). | Utente 21/10/2026: "i settaggi solo a veicolo fermo per sicurezza, il resto anche a veicolo in movimento". Telefono dell'utente Android; scelta dell'utente: **app nativa Flutter** ("proverei lei", 21/10/2026), Android per primo, licenza MIT del progetto. Libreria BLE **flutter_reactive_ble** (BSD-3); esclusa flutter_blue_plus (licenza non open source per uso commerciale, in contrasto con D-034). Flutter SDK e Android SDK da installare sul PC; nessuna implementazione. |
+| D-039 | approvata | **Aggiornamenti e recupero del firmware S3** senza smontare: aggiornamento via **BLE** dall'app (veicolo fermo) o **Wi-Fi** in modalità servizio; livello 1 **doppia partizione OTA**; livello 2 **ritorno automatico** alla versione precedente se il nuovo firmware non supera l'autotest; livello 3 **firmware di emergenza** in partizione dedicata, avviato tenendo premuto un pulsante su **IO19** durante il reset (secondo pulsante su EN). Il front-end viene aggiornato dall'S3 tramite UART. | Utente 21/10/2026: "prevediamo i livelli 1 2 e 3". Livello 4 (prolunga USB-C) non scelto. Pulsanti originali del quadro o pulsanti nascosti da definire; EN dell'S3 da prelevare dalle piazzole del pulsante RST; firmware di emergenza da scrivere. |
+| D-040 | approvata | **Ruoli nella catena dell'IA**: (1) il **Data Logger** raccoglie il dataset completo per giorni, comprese le **etichette dal volante** (da aggiungere al logger alla ripresa, D-025); (2) l'**addestramento avviene sul PC**; (3) l'**S3 esegue** il modello addestrato e conserva la **scatola nera** degli eventi per spiegare gli allarmi e raccogliere casi (anche falsi allarmi) per **riaddestramenti periodici** sul PC, distribuiti con aggiornamento OTA (D-039). | Utente 21/10/2026, dopo la spiegazione dei ruoli: "sì, tutto chiaro". Logica di scatola nera ed etichette provata sull'S3 perché il logger è in pausa; formato riutilizzabile. |
 
 Nessuna nuova proposta tecnica è resa definitiva solo perché compare in una
 risposta, nella distinta proposta o in un disegno. Per cambiare una decisione
@@ -75,9 +88,12 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
 
 ## Questioni ancora aperte — non sono decisioni definitive
 
-- Alimentazione dal quadro: possibilità proposta dall'utente, non pin, circuito,
-  corrente aggiuntiva o convertitore già approvati. Protezioni automotive e arresto
-  controllato MicroSD da progettare; nessun modulo alimentatore da ordinare alla cieca.
+- Fonti di dati per l'IA (D-033): base prioritaria confermata dall'utente il 21/10/2026 ("sono i dati più importanti per valutare anomalie") = tutti i messaggi VAN, i PID OBD supportati, codici guasto e dati derivati. Sensori aggiuntivi rinviati dall'utente a dopo le prime acquisizioni ("li valuteremo dopo", 21/10/2026) (ricevitore GNSS anche per l'ora, microfono MEMS con sole caratteristiche del suono, sensore pressione/umidità). Posizione GNSS = dato personale, da trattare come il VIN (D-032).
+- Sensore inerziale (accelerometro + giroscopio) richiesto dall'utente il 20/10/2026 per il cruscotto: modello, scheda di collegamento (front-end o S3), fissaggio e orientamento da definire; da valutare anche nel Data Logger perché il dataset contenga gli stessi dati. Modello scelto: LSM6DS3 Seeed Grove (HW-IMU-LSM6DS3), ordine da confermare; il BMI270 ordinato in precedenza è stato annullato dal venditore (nessuna spedizione nella zona).
+- Mappa collegamenti del cruscotto (in definizione, 20/10/2026): ipotesi utente "molto probabilmente" scheda del quadro originale collegata e nascosta dietro il display, per evitare errori BSI (MAN-017 PDF 3: DATA/DATAB tra BSI e quadro, avvisi integrati nel quadro). Comandi al volante della radio originale da valutare come ingresso del cruscotto: percorso (VAN tramite COM 2000 o filo diretto alla radio) non verificato.
+- Alimentazione: per il cruscotto D-030 (presa OBD via 16 permanente, via 1 chiave,
+  da manuale e da verificare con la prova C3AI-CR-PR-001). Lo stesso punto è candidato
+  anche per il logger (D-015); protezioni automotive e convertitore da scegliere.
 - Adattatore dietro OBD, connettore posteriore C3 e massa di riferimento da identificare.
 - Moduli CAN: livelli, alimentazione e terminazione da verificare prima del riuso.
   TWAI interno + HW-CAN-VP230 è una possibilità; MCP2515 resta disponibile.
@@ -118,64 +134,30 @@ C++, con un simulatore PC basato su SDL per provare la UI prima del flash.
 La logica della dashboard dovrà ricevere gli stessi parametri da sorgenti
 intercambiabili: dati simulati, modalità demo e ingressi reali. Sono previsti
 filtri software (media mobile/EMA), soglie di allarme e test a banco con
-potenziometri e generatori di segnali. I 60 FPS sono un obiettivo da misurare
-sull'hardware, non una prestazione già verificata.
+potenziometri e generatori di segnali. Fluidità misurata a banco (DSP-M002/M003):
+rendering LVGL 8-11 ms, 32 aggiornamenti dati/s; con PCLK 16 MHz il pannello si
+ridisegna circa 39 volte al secondo (stima): l'obiettivo iniziale di 60 FPS va
+rivisto o richiede temporizzazioni diverse, da provare.
 
-## Hardware: osservazioni preliminari
+## Hardware del cruscotto — stato al 21/10/2026
 
-La scheda scelta è un modulo integrato RCmall ESP32 + display da 5″, ancora in
-attesa di diagnosi diretta. La foto del venditore mostra un modulo indicato come
-ESP32-S3-WROOM, USB-C, slot microSD, pulsanti BOOT/RESET, connettori di espansione
-e un connettore di alimentazione. La sigla del PCB sembra ESP32-8048S050:
-identificazione e revisione restano da confermare.
-
-Il display da 5″ è previsto come RGB 800×480; pin, temporizzazioni, memoria e
-controller touch non sono ancora verificati. La foto annotata descrive la
-disposizione dei componenti, ma non sostituisce uno schema elettrico.
-
-La documentazione della variante da 1,9″ riporta:
-
-| Caratteristica | Dato dichiarato per la sola variante 1,9″ |
-| --- | --- |
-| Scheda | ESP32-1732S019 |
-| Display | ST7789, 170×320 pixel |
-| Collegamento | SPI, con segnali CS/SCK/DC |
-| Memoria | Sigla ESP32-S3-R8N16: 8 MB PSRAM e 16 MB flash dichiarati |
-
-Questi dati non sono trasferibili automaticamente alla variante da 5″.
-L'affermazione del venditore secondo cui cambia soltanto la dimensione non è
-sufficiente per scegliere driver o assegnare GPIO: SPI e RGB richiedono
-configurazioni diverse.
-
-La descrizione commerciale generale contiene incongruenze: cita Bluetooth
-Classic BR/EDR e 520 KB di SRAM, mentre ESP32-S3 supporta Bluetooth LE e dispone
-di 512 KB di SRAM interna. Non viene quindi usata come riferimento definitivo
-per la configurazione.
-
-Un framebuffer 800×480 RGB565 occupa 750 KiB; due occupano circa 1,46 MiB,
-oltre alla memoria dell'applicazione. Quantità, tipo e funzionamento della
-PSRAM della scheda da 5″ dovranno essere verificati.
-
-## Diagnosi all'arrivo della scheda
-
-1. Fotografare e leggere le sigle di PCB e modulo ESP32, inclusa la revisione.
-2. Recuperare lo schema, la tabella dei pin e l'esempio Arduino/LVGL specifico
-   per la variante da 5″ dal venditore.
-3. Identificare il chip e verificare flash e PSRAM con strumenti diagnostici
-   e un firmware minimo, senza sovrascrivere alla cieca il firmware di fabbrica.
-4. Confermare i GPIO del display RGB, le temporizzazioni, il controllo della
-   retroilluminazione e il controller touch con i relativi collegamenti.
-5. Verificare alimentazione e ingressi utilizzabili; i segnali automobilistici
-   e i 12 V richiedono circuiti di alimentazione/protezione e adattamento,
-   prima di raggiungere la scheda o i suoi GPIO.
-6. Provare prima il display con l'esempio del produttore, poi configurare
-   PlatformIO/LVGL e misurare fluidità, memoria e stabilità in modalità demo.
+Scheda **ESP32-8048S050** (HW-DASH-DISPLAY), variante **senza touch** (D-027):
+ESP32-S3-WROOM-1, 16 MB flash, 8 MB PSRAM octal (esptool), pannello RGB 800×480
+con controller ST7262 secondo la fonte comunitaria. Pinout RGB, temporizzazioni a
+16 MHz, retroilluminazione GPIO2 e PSRAM verificati a banco (DSP-M001); connettori
+P1-P6 rilevati (DSP-M004). Backup della flash di fabbrica in
+[data-logger/backups/esp32-8048s050](data-logger/backups/esp32-8048s050/README.md).
+Limiti termici dichiarati dal rivenditore: −20…+70 °C, magazzinaggio +80 °C (D-031).
+Dettagli e verifiche aperte nell'[inventario](data-logger/docs/hardware-inventory.md);
+la precedente sezione "Diagnosi all'arrivo" è completata e sostituita da questa.
+Architettura e collegamenti: D-028…D-031, [scheda madre](cruscotto/docs/scheda-madre.md).
 
 ## Stato del repository
 
 Il data logger dispone di un primo [firmware diagnostico per il solo ESP32](data-logger/firmware/diagnostic/README.md),
 con configurazione PlatformIO. Non acquisisce ancora dati dal veicolo.
-Sorgenti logger aggiornati alla 0.3.1 (D-022), solo compilata; sulla scheda resta la 0.3.0.
+Sorgenti logger aggiornati alla 0.3.1 (D-022), solo compilata; sulla scheda HW-394 resta la 0.3.0.
+Sulla scheda del cruscotto è caricato ora **ui-idf 0.4.0** (ESP-IDF 5.5, doppio framebuffer, compiti separati, collegamento simulato, scatola nera ed etichette, DSP-M010); gli altri firmware di prova si ricaricano dai sorgenti. [Protocollo front-end ↔ S3](cruscotto/docs/protocollo-fe-s3.md) v1 con libreria comune `fe_link.h` e test host.
 Il [logger 0.3.0](data-logger/firmware/logger/README.md) implementa registrazione
 MicroSD, RTC, OLED, STOP, OBD KWP e ricezione VAN. Profili banco/veicolo separati;
 sorgenti e GPIO proposti, non collaudati sul veicolo. Profilo banco 0.3.0 caricato e avviato il 20/10/2026: ATTESA SD
@@ -184,7 +166,7 @@ Cruscotto digitale (D-026): scheda ESP32-8048S050 identificata (ESP32-S3, 16 MB
 flash, 8 MB PSRAM, esptool), variante senza touch (D-027), backup di fabbrica in
 [data-logger/backups/esp32-8048s050](data-logger/backups/esp32-8048s050/README.md).
 [Prova display 0.1.0](cruscotto/firmware/display-test/README.md): compilata,
-caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. UI e simulatore PC non ancora presenti.
+caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. [Prova UI LVGL](cruscotto/firmware/ui-test/README.md) 0.1.1 (DSP-M003). Mappa dei collegamenti in definizione (D-028…D-030); [istruzione di prova presa OBD](cruscotto/docs/prova-presa-obd.png) C3AI-CR-PR-001; [scheda madre preliminare](cruscotto/docs/scheda-madre.md) C3AI-CR-BL-001 rev B e studio d'ingombro C3AI-CR-PL-001.
 
 ### Collaudo SPI a banco — 18/10/2026
 

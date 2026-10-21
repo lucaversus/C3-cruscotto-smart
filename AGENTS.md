@@ -99,6 +99,7 @@ Riassumono le regole di questo file senza sostituirle: in caso di differenze val
 ## Vincoli del progetto
 
 Italiano, risposte brevi, un passaggio alla volta. Software gratuito, preferibilmente
-open source. Unico repository: lucaversus/C3-cruscotto-smart. Data Logger prima
-del cruscotto. Nessun collegamento veicolo basato su pin/protocolli presunti.
+open source; licenza del repository MIT (D-034). Unico repository: lucaversus/C3-cruscotto-smart.
+Data Logger in pausa (D-025); cruscotto avviato durante la pausa (D-026), con
+architettura front-end ESP32 + S3 (D-029). Nessun collegamento veicolo basato su pin/protocolli presunti.
 Non comprare un altro modulo CAN senza prima valutare HW-CAN-MCP2515 e HW-CAN-VP230.

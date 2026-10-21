@@ -45,6 +45,9 @@ Cache, ambiente virtuale, dati privati e log rimangono esclusi da Git.
 
 - Decisioni e vincoli: [README principale](README.md#decisioni-definitive).
 - Firmware attualmente caricato e limiti: [Data Logger](data-logger/README.md#stato-e-organizzazione).
+- Cruscotto: firmware di prova in `cruscotto/firmware/` (display-test, ui-test, speak-test),
+  documenti e disegni in `cruscotto/docs/`; firmware caricato sulla scheda S3 indicato
+  nella voce HW-DASH-DISPLAY dell'inventario.
 - Materiale e verifiche aperte: [inventario](data-logger/docs/hardware-inventory.md),
   generato da `hardware.json`; foto collegate nello stesso registro.
 - Collegamenti correnti per la prova USB: [EL-003](data-logger/docs/collegamenti-banco-030.md).
@@ -52,6 +55,14 @@ Cache, ambiente virtuale, dati privati e log rimangono esclusi da Git.
 - Fonti del veicolo: [indice manuali](docs/manuali/indice.md). Gli originali sono
   esclusi dal repository; non servono per check/build. La rigenerazione facoltativa
   dell'indice richiede gli originali autorizzati e pypdf, non installato dal setup base.
+
+Disegni (D-024): ogni SVG ha un generatore Python in `tools/` o `data-logger/docs/tools/`
+basato su `iso_drawing.py`; l'anteprima PNG a 200 dpi si rigenera con
+`python tools/render_png.py <file.svg>` (richiede Chrome o Edge in modalità headless).
+Aggiornare SVG, PNG e cartiglio nello stesso cambiamento.
+
+Controlli: `check` e `lint` coprono preflight, test Python e logica del logger; i
+firmware del cruscotto sono per ora soltanto compilati da `build`.
 
 Non rieseguire prove hardware per ricostruire il contesto quando esiste gia un
 risultato documentato. Distinguere sempre proposto, compilato, caricato e collaudato.

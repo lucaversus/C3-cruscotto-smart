@@ -13,8 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 ENVIRONMENT = ROOT / '.tools/pio-venv'
 LOGGER = ROOT / 'data-logger/firmware/logger'
 HOST_TEST = LOGGER / 'host-tests/test_logic.cpp'
+COMMON = ROOT / 'cruscotto/firmware/common'
+LINK_TEST = COMMON / 'host-tests/test_fe_link.cpp'
 DISPLAY_TEST = ROOT / 'cruscotto/firmware/display-test'
 UI_TEST = ROOT / 'cruscotto/firmware/ui-test'
+SPEAK_TEST = ROOT / 'cruscotto/firmware/speak-test'
+UI_IDF = ROOT / 'cruscotto/firmware/ui-idf'
 
 
 def python_path():
@@ -50,6 +54,10 @@ def run_host_tests(required=False):
     run(compiler, '-std=gnu++14', '-Wall', '-Wextra', '-Werror', '-O1',
         '-I', LOGGER / 'include', HOST_TEST, '-o', output)
     run(output)
+    link = output.with_name('test_fe_link' + output.suffix)
+    run(compiler, '-std=gnu++14', '-Wall', '-Wextra', '-Werror', '-O1',
+        '-I', COMMON / 'include', LINK_TEST, '-o', link)
+    run(link)
 
 
 def run_lint():
@@ -114,6 +122,10 @@ def main():
             DISPLAY_TEST, '-e', 'esp32-8048s050-display-test', env=env)
         run(python_path(), '-m', 'platformio', 'run', '--project-dir',
             UI_TEST, '-e', 'esp32-8048s050-ui-test', env=env)
+        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
+            SPEAK_TEST, '-e', 'esp32-8048s050-speak-test', env=env)
+        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
+            UI_IDF, '-e', 'esp32-8048s050-ui-idf', env=env)
     return 0
 
 

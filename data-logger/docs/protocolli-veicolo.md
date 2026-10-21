@@ -128,3 +128,89 @@ quadro, display e radio; un carico o un trasmettitore attivo possono disturbarli
 
 Il firmware non trasmette su VAN, ma non può garantire queste condizioni:
 sono verifiche fisiche a cura dell'utente (D-020). Nessuna di esse risulta eseguita.
+
+## Decodifiche VAN pubblicate dalla comunità — 20/10/2026
+
+Ricerca richiesta dall'utente (D-026). Fonti comunitarie, non del costruttore:
+descrivono vetture PSA simili, **non verificate sulla nostra C3**. Servono a
+interpretare i frame grezzi già previsti dal logger (D-016), non a collegarsi.
+
+- [pinterpeti.hu, PSA VAN bus](http://pinterpeti.hu/psavanbus/PSA-VAN.html):
+  tabelle per Peugeot 206, 307, 406 S2 e **Citroën C3 2004**, con stato di
+  decodifica per ogni IDEN. Esempi rilevanti per il cruscotto:
+
+  | IDEN | Da → a | Contenuto dichiarato | Decodifica |
+  | --- | --- | --- | --- |
+  | 824 | BSI → quadro | giri motore e velocità | parziale |
+  | 8A4 | BSI → vari | luminosità quadro, chilometraggio, temperatura acqua ed esterna, motore avviato | ~90% |
+  | 4FC | BSI | stato luci e spie | (file separati) |
+  | 564 / 524 | BSI → display | stato vettura e messaggi/avvisi | parziale |
+  | 664 | quadro → BSI | pulsanti (emergenza, chiusura, luminosità) | parziale |
+  | 8FC | — | contachilometri, letto all'avviamento | 100% |
+  | 9C4 | COM 2000 → broadcast | **comandi radio al volante** (volume, ricerca, sorgente, rotella) | quasi completa |
+  | E24 | BSI → radio | **VIN in chiaro**, trasmesso periodicamente | 100% |
+
+- [0xCAFEDECAF/VanBus](https://github.com/0xCAFEDECAF/VanBus) (MIT): libreria
+  ESP32/ESP8266 per VAN a 125 kbit/s; con SN65HVD230 a 3,3 V. Il solo partitore
+  resistivo su ESP32 dà molti errori CRC secondo l'autore.
+- [0xCAFEDECAF/VanLiveConnect](https://github.com/0xCAFEDECAF/VanLiveConnect):
+  decodificatore completo (`VanIden.h`, `PacketToJson.ino`) collaudato su una
+  Peugeot 406 del 2003: velocità, giri, carburante, temperatura motore, spie,
+  contachilometri, avvisi. Collegamento documentato su DATA/DATA B dei pin 2-3
+  del blocco ISO "A" della radio: possibile punto di ascolto alternativo al quadro,
+  da verificare sulla nostra radio.
+
+Conseguenze:
+
+1. I comandi al volante (9C4) risultano trasmessi sul VAN dal COM 2000: ipotesi
+   favorevole per usarli come tasti del cruscotto in solo ascolto, da confermare.
+2. **Privacy:** E24 contiene il VIN. Nei log grezzi D-016 il VIN comparirà:
+   escluderlo o mascherarlo prima di pubblicare o condividere dati (AGENTS.md).
+3. Nessuna di queste fonti autorizza trasmissioni sul bus o collegamenti prima dei
+   prerequisiti D-022. La lunghezza di alcuni frame varia con l'anno di produzione.
+
+Lato motore (K-line): per il DV4TD 8HZ un catalogo commerciale indica centraline
+Siemens SID802/SID804/SID806 o Bosch EDC16C34; il tipo montato sulla nostra auto
+non è identificato. Nessuna lista PID pubblica trovata per questa centralina: si
+parte dai PID standard OBD (modo 01, PID 00 per quelli supportati) e si verifica.
+
+## Dotazioni dichiarate della vettura — 20/10/2026
+
+Utente: radio originale con comandi al volante; climatizzatore **automatico** con
+sonda temperatura abitacolo sulla plancia ai lati della radio; **sensore pioggia
+e luminosità** per tergicristalli e luci automatiche. Dichiarazioni, non verificate
+sull'auto. MAN-017 PDF 3 indica che la BSI comanda luci e tergicristalli anche
+in base al sensore pioggia. Per il cruscotto: stato luci e luminosità quadro
+(IDEN 4FC e 8A4 nelle decodifiche comunitarie) candidati per la regolazione
+giorno/notte del display; temperatura abitacolo da cercare sul VAN (non trovata
+nelle decodifiche pubblicate); nessuna derivazione sui fili delle sonde.
+
+## Connettore del quadro 0004 dagli schemi — 20/10/2026
+
+Lettura **visiva** degli schemi renderizzati in locale (MAN-017 PDF 5, pag. 94
+"Fendinebbia"; MAN-006 PDF 14 "Motorino avviamento", PDF 78 "Informazioni freni
+DV4TD", PDF 111 "Ventilazione - riscaldamento"). Coerente in tutti e quattro:
+
+| 0004, connettore 18 vie nero (18V NR) | Filo | Altro capo |
+| --- | --- | --- |
+| via 1 | 9004A (multiplex, tratto marcato) | BSI1 connettore 10V NR via 8 (filo 9004) |
+| via 3 | 9005A (multiplex) | BSI1 10V NR via 10 (filo 9005) |
+| via 7 | XE1 (multiplex) | BSI1 10V NR via 6 (filo XE) |
+| via 9 | M0004, massa | punto di massa MC35 |
+
+- 9004/9005 sono la coppia DATA/DATAB della rete VAN tra BSI e quadro (MAN-017
+  PDF 3); quale dei due sia DATA non è indicato. XE è il terzo filo multiplex,
+  probabilmente risveglio/alimentazione rete (il testo parla di 4 fili, due di
+  alimentazione): funzione da confermare, **non collegarlo**.
+- La stessa terna 9004/9005/XE raggiunge anche il blocco radio "84--" (linee
+  tratteggiate = secondo equipaggiamento, MAN-006 PDF 14) e il comando
+  climatizzazione 8025 (PDF 111): conferma documentale che quadro, radio e clima
+  sono sulla stessa rete VAN della BSI. Il COM 2000 (CV00) è invece su un'altra
+  coppia multiplex (9012/9013, BSI connettore 40V BA).
+- Alimentazioni +12 V del quadro: non presenti in queste pagine, da cercare.
+- Schemi di manuale generale RTA: variante e numerazione da riscontrare a vista
+  sul connettore reale prima di qualsiasi derivazione; nessuna misura con
+  multimetro sui fili multiplex (MAN-017 PDF 3).
+
+Aggiornamento 21/10/2026, D-032: il VIN (IDEN E24) non viene filtrato dal logger;
+va mascherato in post-elaborazione prima di qualsiasi pubblicazione o condivisione.

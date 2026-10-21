@@ -213,3 +213,127 @@ Non verifica stabilità prolungata né comportamento termico.
 **Esito:** superata (sfarfallio cifre risolto).
 **Prossimo passo:** definire con l'utente contenuti e disposizione della prima
 schermata reale del cruscotto.
+
+## DSP-M004 — continuità P2 "IO19" ↔ P3 IO19 — 20/10/2026
+
+**Misura riferita:** utente "c'è continuità" alla prova richiesta: scheda
+ESP32-8048S050 scollegata da USB e alimentazione, UT210E in continuità/Ω, puntali
+sul pin serigrafato IO19 di P2 e sul pin IO19 di P3.
+**Interpretazione:** il primo pin di P2 è sullo stesso nodo di IO19 di P3: P2
+espone IO19, IO11, IO12, IO13; la selezione della MicroSD (IO10 secondo la fonte
+comunitaria) non è portata su P2. Non prova che il nodo sia proprio GPIO19 del
+modulo né l'assenza di altri componenti sullo stesso nodo.
+**Esito:** superata (serigrafia confermata come stesso collegamento).
+**Prossimo passo:** tono di prova su IO17/IO18 con altoparlante su P6 per
+identificare la funzione di U1.
+
+## DSP-M005 — speak-test 0.1.0, tono 1 kHz, P6 in V~ — 20/10/2026
+
+**Prova:** speak-test 0.1.0 caricato (hash verificati); ciclo 10 s tono 1 kHz su
+IO17, 10 s su IO18, 10 s pausa, confermato dalla seriale. UT210E in V~ sui due
+contatti di P6, nient'altro collegato.
+**Misura riferita:** "rimane sempre praticamente a 0" in tutte le fasi.
+**Interpretazione:** non conclusiva. Possibili cause: U1 non pilotato da IO17/IO18;
+amplificatore con abilitazione su un altro pin; banda V~ del tester insufficiente
+a 1 kHz (tipicamente decine-centinaia di Hz). Non dimostra l'assenza di
+collegamento fra U1 e IO17/IO18.
+**Esito:** non conclusiva.
+**Prossimo passo:** ripetere con tono a 200 Hz (speak-test 0.1.1).
+
+## DSP-M006 — speak-test 0.1.1, tono 200 Hz, funzione Hz — 20/10/2026
+
+**Prova:** speak-test 0.1.1 caricato (hash verificati), ciclo confermato dalla
+seriale. UT210E in Hz: prima sui due contatti di P6 ("niente"), poi come
+riferimento con nero su GND di P4 e rosso su IO17/IO18 di P4 ("niente").
+**Interpretazione:** il tester non si aggancia nemmeno al segnale diretto da
+3,3 V sul pin che lo genera: con questo strumento la prova non distingue la
+presenza del tono. Non dimostra né esclude il collegamento U1 ↔ IO17/IO18.
+**Esito:** non conclusiva (limite dello strumento).
+**Prossimo passo:** prova d'ascolto con un piccolo altoparlante su P6 quando
+disponibile; nel frattempo l'assegnazione proposta evita comunque IO17/IO18
+per la K-line.
+
+## DSP-M007 — ui-idf 0.2.0 su ESP-IDF 5.5, doppio framebuffer — 21/10/2026
+
+**Prova:** ui-idf 0.2.0 caricato su COM4 (hash verificati), avvio da `ota_0` con
+la nuova tabella partizioni (D-039). Seriale: `panel=ESP_OK fps=13 refr_avg_ms=75
+panel_hz=39 heap_int_free=333039 psram_free=6316724`, stabile per oltre 15 s;
+`ota_state=2` (valido, caricamento via cavo).
+**Osservazione riferita:** "l'immagine è molto stabile"; arco "un po' a scattini"
+per i 13 FPS, "i numeri specialmente sono buoni".
+**Interpretazione:** frequenza del pannello **misurata 39 Hz** (prima stimata).
+Doppio framebuffer con scambio al vsync: nessun tearing riferito. Il ridisegno
+completo in PSRAM (`full_refresh`) costa 75 ms e limita a 13 FPS.
+**Esito:** superata per stabilità e assenza di tearing; fluidità non sufficiente.
+**Prossimo passo:** `direct_mode` con sincronizzazione delle sole zone cambiate
+tra i due framebuffer (ui-idf 0.2.1).
+
+## DSP-M008 — ui-idf 0.2.1, direct mode con zone sincronizzate — 21/10/2026
+
+**Prova:** ui-idf 0.2.1 caricato su COM4 (hash verificati), avvio da `ota_0`.
+Seriale: `fps=26 refr_avg_ms=27 panel_hz=39 heap_int_free=333035 psram_free=6316724`.
+**Osservazione riferita:** "l'arco è più fluido, non ci sono artefatti"; indicatore
+LVGL tra 34 e 45 FPS, CPU tra 70 e 80%.
+**Interpretazione:** il ridisegno delle sole zone cambiate con copia nell'altro
+framebuffer porta i quadri utili a circa il limite dei dati simulati (aggiornamento
+ogni 33 ms) mantenendo l'assenza di tearing. La CPU riferita dall'indicatore LVGL
+include l'attesa del vsync e la copia delle zone: da ottimizzare (compito dedicato,
+attesa non attiva) quando si separeranno i compiti sui due core.
+**Esito:** superata (fluidità e assenza di tearing).
+**Prossimo passo:** pubblicazione del blocco; poi protocollo front-end ↔ S3.
+
+## OBD-M001 — prova presa diagnosi C001 (C3AI-CR-PR-001 rev A) — 21/10/2026
+
+**Misura riferita:** UT210E in V DC, nero a massa (utente: vie 4 e 5 "sono entrambi
+a massa"). P1 via 16 chiave tolta **12,2 V**; P2 via 1 chiave tolta **0 V**;
+P3 via 1 chiave su marcia **12,2 V**; P4 via 16 chiave su marcia **12,2 V**;
+P5 via 16 minimo durante l'avviamento **9,0 V**; P6 via 16 motore acceso **14,2 V**.
+Numerazione stampata sulla presa coerente con il disegno; presa **montata ruotata
+di 180°** rispetto alla vista del foglio.
+**Interpretazione:** confermate sull'esemplare le funzioni del manuale MAN-017:
+via 16 + batteria permanente, via 1 + dopo contatto, vie 4/5 massa (D-030). Ricarica
+alternatore presente (14,2 V). Calo all'avviamento ≥ 9,0 V secondo il tester, che
+non coglie cali di pochi millisecondi: valore indicativo. 12,2 V a riposo indica
+batteria non completamente carica (circa 50% secondo le tabelle tipiche) oppure
+misura poco dopo l'uso: da ripetere dopo una notte di sosta. Non verifica linea K
+(via 7), correnti disponibili né cali brevi.
+**Esito:** superata per identificazione delle vie 16/1/4/5; calo all'avviamento e
+stato della batteria non conclusivi.
+**Prossimo passo:** per scelta dell'utente ("aspettiamo i dati del data logger") nessuna
+misura manuale a riposo: soglia di guardia D-031 da tarare con le tensioni a riposo
+registrate dal logger (D-033); misura
+del calo con campionamento rapido quando il logger/front-end misurerà la batteria.
+
+## DSP-M009 — firmware S3 0.3.0, compiti separati e collegamento simulato — 21/10/2026
+
+**Prova:** ui-idf 0.3.0 caricato su COM4 (hash verificati). Struttura: ricezione
+fe_link e sorgente simulata sul core 0 (UART1 reale in loopback interno), interfaccia
+LVGL sul core 1. Seriale: `fps=26 refr_avg_ms=25-27 panel_hz=39 link=sim frames_s=31-32
+link_err=0 link_lost=0 heap_int_free≈306-310 KB psram_free≈6,3 MB`.
+**Osservazione riferita:** contagiri "come prima", nessun artefatto; indicatore LVGL
+35-50 FPS, CPU tra 55 e 80%.
+**Interpretazione:** catena completa simulata funzionante (codifica fe_link, UART,
+decodifica, archivio segnali, display) senza errori né trame perse; fluidità invariata.
+La CPU riferita da LVGL include ancora l'attesa del vsync dentro il flush (attesa
+bloccante conteggiata come lavoro): misura del carico reale da aggiungere.
+Scritta "DEMO - dati simulati" in alto a destra confermata dall'utente ("sì").
+**Esito:** superata (struttura e collegamento simulato).
+**Prossimo passo:** scatola nera ed etichette dal volante con i dati simulati.
+
+## DSP-M010 — firmware S3 0.4.0, scatola nera ed etichette — 21/10/2026
+
+**Prova:** ui-idf 0.4.0 caricato su COM4 (hash verificati). Al primo avvio la
+partizione `storage` (residui del firmware di fabbrica) è stata formattata da
+LittleFS come previsto (`mount failed (-84). formatting...`), poi `blackbox=OK`,
+8 512 KB disponibili. Memoria circolare in PSRAM da 65 536 campioni, piena dopo
+circa 270 s ai ritmi simulati. In 9 minuti: 7 etichette (simulate ogni 90 s e dal
+pulsante BOOT tenuto 2 s), 7 file evento salvati 10 s dopo ciascuna
+(`evt_0001…0007.bin`, 10 160-14 544 campioni, circa 170 KB), 0 errori; display e
+collegamento invariati (26 FPS, 0 errori di trama).
+**Osservazione riferita:** con il pulsante BOOT "è venuta la scritta segnalazione registrata".
+**Interpretazione:** catena etichetta → evento → file in flash funzionante. Con
+eventi da ~170 KB la partizione contiene circa 50 eventi: serve una regola di
+cancellazione dei più vecchi. Il contenuto dei file non è ancora stato riletto al PC.
+**Esito:** superata (registrazione); rilettura dei file e rotazione da fare.
+**Prossimo passo:** rotazione degli eventi e lettura dei file (app/Wi-Fi, D-036/D-038);
+etichette e formato evento anche nel Data Logger alla ripresa (D-040).
