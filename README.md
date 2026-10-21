@@ -24,6 +24,10 @@ Comando prima di decidere e prima di pubblicare:
 python tools/project_preflight.py
 ```
 
+## Disegni del progetto
+
+Tutte le tavole e le infografiche, con anteprime, sono nella cartella [`disegni/`](disegni/README.md).
+
 ## Biblioteca tecnica della vettura
 
 [Indice dei manuali e ricerca per argomento](docs/manuali/indice.md), rev. 1,
@@ -167,7 +171,7 @@ Cruscotto digitale (D-026): scheda ESP32-8048S050 identificata (ESP32-S3, 16 MB
 flash, 8 MB PSRAM, esptool), variante senza touch (D-027), backup di fabbrica in
 [data-logger/backups/esp32-8048s050](data-logger/backups/esp32-8048s050/README.md).
 [Prova display 0.1.0](cruscotto/firmware/display-test/README.md): compilata,
-caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. [Prova UI LVGL](cruscotto/firmware/ui-test/README.md) 0.1.1 (DSP-M003). Mappa dei collegamenti in definizione (D-028…D-030); [istruzione di prova presa OBD](cruscotto/docs/prova-presa-obd.png) C3AI-CR-PR-001; [scheda madre preliminare](cruscotto/docs/scheda-madre.md) C3AI-CR-BL-001 rev B e studio d'ingombro C3AI-CR-PL-001; [requisiti dell'interfaccia](cruscotto/docs/interfaccia-requisiti.md) in raccolta (D-041).
+caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. [Prova UI LVGL](cruscotto/firmware/ui-test/README.md) 0.1.1 (DSP-M003). Mappa dei collegamenti in definizione (D-028…D-030); [istruzione di prova presa OBD](disegni/CR-PR-001_prova-presa-obd.png) C3AI-CR-PR-001; [scheda madre preliminare](cruscotto/docs/scheda-madre.md) C3AI-CR-BL-001 rev B e studio d'ingombro C3AI-CR-PL-001; [requisiti dell'interfaccia](cruscotto/docs/interfaccia-requisiti.md) in raccolta (D-041).
 
 ### Collaudo SPI a banco — 18/10/2026
 

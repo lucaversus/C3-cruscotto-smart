@@ -152,7 +152,7 @@ d.title_block(title=['K-line, banco', 'illustrato'], subtitle='Data Logger',
               doc_type='Schema illustrativo', status='PROPOSTO · NON COLLAUDATO',
               code='C3AI-DL-KL-002', rev='A', date='22/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione: moduli illustrati a complemento di KL-001 rev F', '22/10/2026')])
-out = ROOT / 'data-logger/docs/kline-collegamenti-illustrati.svg'
+out = ROOT / 'disegni/sorgenti/DL-KL-002_kline-collegamenti-illustrati.svg'
 out.write_text(d.svg('Collegamenti illustrati della prova a banco del modulo K-line; posizioni dei piedini indicative.'),
                encoding='utf-8')
 print(out)

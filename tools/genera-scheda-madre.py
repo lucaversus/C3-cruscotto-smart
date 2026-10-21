@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'data-logger/docs/tools'))
 from iso_drawing import Sheet  # noqa: E402
 
-d = Sheet('C3AI-CR-BL-001 rev A — Scheda madre, schema a blocchi preliminare')
+d = Sheet('C3AI-CR-BL-001 rev B — Scheda madre, schema a blocchi preliminare')
 d.frame()
 d.text(25, 20, 'SCHEDA MADRE DEL CRUSCOTTO — SCHEMA A BLOCCHI PRELIMINARE', 5, bold=True)
 d.text(25, 25, 'Schema funzionale (IEC 61082-1): non usare per cablare. Pin del veicolo da manuali generici, '
@@ -104,6 +104,6 @@ d.title_block(title=['Scheda madre', 'schema a blocchi'], subtitle='Cruscotto di
               code='C3AI-CR-BL-001', rev='B', date='21/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione preliminare (D-028, D-029, D-030)', '20/10/2026'),
                          ('B', 'Ventola, NTC e dominio sempre acceso (D-031)', '21/10/2026')])
-out = ROOT / 'cruscotto/docs/scheda-madre-blocchi.svg'
+out = ROOT / 'disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg'
 out.write_text(d.svg('Schema a blocchi preliminare della scheda madre; proposta, non schema esecutivo.'), encoding='utf-8')
 print(out)

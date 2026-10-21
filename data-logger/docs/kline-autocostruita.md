@@ -14,7 +14,7 @@ introduce isteresi, per evitare commutazioni multiple sui fronti lenti della K-l
 uscita open collector e pull-up a 3,3 V. Masse comuni, nessun optoisolamento.
 Non usare PC817 come sostituto diretto. Non usa MCP2515 o CAN.
 
-Schema modificabile: [SVG](schema-kline-banco.svg). Anteprima: [PNG](schema-kline-banco.png).
+Schema modificabile: [SVG](../../disegni/sorgenti/DL-KL-001_schema-kline.svg). Anteprima: [PNG](../../disegni/DL-KL-001_schema-kline.png).
 Non e una piedinatura del veicolo o una scheda automotive certificata.
 
 ## Distinta per un prototipo da banco
@@ -178,13 +178,13 @@ Alimentazioni: +5 V, 3V3, riferimento VBENCH 9–16 V e GND comune.
 Richiesta dell'utente: oltre allo schema tecnico, una rappresentazione con i moduli
 disegnati e la disposizione su millefori con i collegamenti da componente a componente.
 
-- [Collegamenti illustrati della prova a banco](kline-collegamenti-illustrati.png),
-  C3AI-DL-KL-002 rev A ([SVG](kline-collegamenti-illustrati.svg), generatore
+- [Collegamenti illustrati della prova a banco](../../disegni/DL-KL-002_kline-collegamenti-illustrati.png),
+  C3AI-DL-KL-002 rev A ([SVG](../../disegni/sorgenti/DL-KL-002_kline-collegamenti-illustrati.svg), generatore
   `tools/genera-kline-illustrato.py`): ESP32 HW-394, modulo, alimentatore da banco
   (HW-BENCH-PSU) e R3 del simulatore; tabella dei fili W1-W9 e sequenza di accensione.
   Piedini dell'ESP32 in posizione indicativa: fa fede la serigrafia.
-- [Disposizione su millefori](kline-millefori.png), C3AI-DL-KL-003 rev A
-  ([SVG](kline-millefori.svg), generatore `tools/genera-kline-millefori.py`):
+- [Disposizione su millefori](../../disegni/DL-KL-003_kline-millefori.png), C3AI-DL-KL-003 rev A
+  ([SVG](../../disegni/sorgenti/DL-KL-003_kline-millefori.svg), generatore `tools/genera-kline-millefori.py`):
   basetta 24 × 16 fori passo 2,54 mm, scala 4:1, fili colorati per rete, elenco dei 32
   fili con i fori di partenza e arrivo, ordine di montaggio. Il generatore instrada i
   fili e **verifica che realizzino esattamente le reti della netlist rev F**, senza fori

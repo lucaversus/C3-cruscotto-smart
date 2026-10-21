@@ -423,7 +423,7 @@ def draw():
                   doc_type='Disposizione di montaggio', status='PROPOSTO · NON COLLAUDATO',
                   code='C3AI-DL-KL-003', rev='A', date='22/10/2026', sheet='1/1',
                   revisions=[('A', 'Prima emissione da KL-001 rev F; reti verificate dal generatore', '22/10/2026')])
-    out = ROOT / 'data-logger/docs/kline-millefori.svg'
+    out = ROOT / 'disegni/sorgenti/DL-KL-003_kline-millefori.svg'
     out.write_text(d.svg('Disposizione dei componenti del modulo K-line KL-001 rev F su millefori; prototipo non collaudato.'),
                    encoding='utf-8')
     print(out, 'fili', n)

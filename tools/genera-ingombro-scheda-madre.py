@@ -108,6 +108,6 @@ d.title_block(title=['Scheda madre', 'studio d\'ingombro'], subtitle='Cruscotto 
               doc_type='Disposizione (2:1)', status='PRELIMINARE · NON VERIFICATO',
               code='C3AI-CR-PL-001', rev='A', date='21/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione: contorno S3, zone e bilancio aree (D-029…D-031)', '21/10/2026')])
-out = ROOT / 'cruscotto/docs/scheda-madre-ingombro.svg'
+out = ROOT / 'disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg'
 out.write_text(d.svg('Studio d\'ingombro della scheda madre sul contorno della scheda S3; stime, non PCB.'), encoding='utf-8')
 print(out, core, opt)

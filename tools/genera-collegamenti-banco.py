@@ -120,6 +120,6 @@ d.title_block(title=['Collegamenti banco', 'logger'], subtitle='Data Logger',
               code='C3AI-DL-EL-003', rev='B', date='20/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione per firmware 0.3.0, moduli illustrati', '19/10/2026'),
                          ('B', 'Ridisegno IEC 61082-1 / IEC 60617 / ISO 5457 / ISO 7200; fili numerati (D-024)', '20/10/2026')])
-out = ROOT / 'data-logger/docs/collegamenti-banco-030.svg'
+out = ROOT / 'disegni/sorgenti/DL-EL-003_collegamenti-banco-logger.svg'
 out.write_text(d.svg('Schema di collegamento IEC 61082-1 per la prova USB a banco; non collaudo fisico.'), encoding='utf-8')
 print(out)

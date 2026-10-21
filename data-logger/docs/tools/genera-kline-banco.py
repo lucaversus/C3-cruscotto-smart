@@ -150,4 +150,4 @@ d.title_block(title=['Interfaccia K-line', 'autocostruita'], subtitle='Data Logg
                          ('D', 'Porte esterne evidenziate; nessuna variazione elettrica', '18/10/2026'),
                          ('E', 'Aggiunta R10 per isteresi del comparatore (D-022)', '20/10/2026'),
                          ('F', 'Ridisegno secondo IEC 60617 / IEC 61082-1 / ISO 5457 / ISO 7200 (D-024)', '20/10/2026')])
-(ROOT/'schema-kline-banco.svg').write_text(d.svg('Schema elettrico IEC 61082-1 dell\'interfaccia K-line da banco; non collaudato.'), encoding='utf-8')
+(ROOT.parents[1]/'disegni/sorgenti/DL-KL-001_schema-kline.svg').write_text(d.svg('Schema elettrico IEC 61082-1 dell\'interfaccia K-line da banco; non collaudato.'), encoding='utf-8')

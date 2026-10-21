@@ -34,11 +34,11 @@ I controlli software non certificano l'hardware.
 ## Schema del sistema
 
 - **Collegamenti correnti per firmware 0.3.x:** [EL-003 rev. B](collegamenti-banco-030.md),
-  con [SVG](collegamenti-banco-030.svg) e [PNG](collegamenti-banco-030.png).
+  con [SVG](../../disegni/sorgenti/DL-EL-003_collegamenti-banco-logger.svg) e [PNG](../../disegni/DL-EL-003_collegamenti-banco-logger.png).
   Banco USB: SD, RTC, OLED, STOP GPIO32. GPIO33 inutilizzato; OBD/VAN scollegati.
   Mappa GPIO proposta coerente con `hardware.json` e `config.h`, non validazione fisica.
-- **Disegno storico, sostituito da EL-003:** [EL-001 rev. E](schema-collegamenti.svg),
-  con [anteprima PNG](schema-collegamenti.png): proposta pin per pin a livello
+- **Disegno storico, sostituito da EL-003:** [EL-001 rev. E](../../disegni/sorgenti/DL-EL-001_collegamenti-iniziali-storico.svg),
+  con [anteprima PNG](../../disegni/DL-EL-001_collegamenti-iniziali-storico.png): proposta pin per pin a livello
   di moduli, per alimentazione USB a banco. Fili continui collegano i terminali;
   un punto pieno indica una giunzione, gli incroci senza punto non sono collegati.
   Non è ancora validato sul materiale ricevuto.
@@ -57,7 +57,7 @@ circuito batteria dei moduli commerciali. Prima di cablare verificare i moduli,
 le pull-up I2C, la corrente del regolatore e i picchi MicroSD. Non applicare
 5 V ai GPIO. La batteria RTC richiede verifica del circuito di ricarica.
 
-- [Schema funzionale SVG modificabile](schema-sistema.svg): componenti previsti,
+- [Schema funzionale SVG modificabile](../../disegni/sorgenti/DL-BL-001_architettura-data-logger.svg): componenti previsti,
   interfacce e alimentazione. È preliminare: non è uno schema elettrico
   esecutivo e non assegna pin. Per stato hardware e versione sulla scheda consultare
   inventario e registro moduli; reti del veicolo e protezioni restano da verificare.
