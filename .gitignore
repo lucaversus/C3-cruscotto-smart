@@ -7,3 +7,4 @@ __pycache__/
 # ESP-IDF: sdkconfig generato da sdkconfig.defaults
 cruscotto/firmware/*/sdkconfig.*
 !cruscotto/firmware/*/sdkconfig.defaults
+cruscotto/firmware/*/managed_components/

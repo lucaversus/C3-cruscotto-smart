@@ -9,6 +9,8 @@
 #include "fe_link.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "blackbox.h"
+#include "labels.h"
 #include "signal_store.h"
 
 namespace {
@@ -33,7 +35,11 @@ void handleFrame(const felink::Frame& f, int64_t nowUs) {
   lastSeq = f.seq;
   if (f.type != felink::Type::kSignals) return;  // altri tipi: compiti successivi (D-037)
   felink::Signal s{};
-  for (uint8_t i = 0; felink::getSignal(f, i, s); ++i) store.put(s.id, s.quality, s.value, nowUs);
+  for (uint8_t i = 0; felink::getSignal(f, i, s); ++i) {
+    store.put(s.id, s.quality, s.value, nowUs);
+    blackbox::record(s.id, s.quality, s.value, nowUs);
+    if (s.id == felink::sig::kStalkButtons) labels::onStalkButtons(s.value, nowUs);
+  }
 }
 
 void rxTask(void*) {
@@ -76,6 +82,9 @@ void simTask(void*) {
     felink::addSignal(f, felink::sig::kIgnition, q, 1.0f);
     felink::addSignal(f, felink::sig::kAccelX, q, 0.2f * sinf(t * 0.9f));
     felink::addSignal(f, felink::sig::kNtcDisplayC, q, 38.0f + 2.0f * sinf(t * 0.05f));
+    // Pressione lunga simulata di un comando al volante: 2,5 s ogni 90 s (dopo 30 s dall'avvio).
+    const float phase = fmodf(t - 30.0f, 90.0f);
+    felink::addSignal(f, felink::sig::kStalkButtons, q, (t > 30.0f && phase < 2.5f) ? 1.0f : 0.0f);
     uart_write_bytes(kUart, wire, felink::encode(f, wire));
     if (now - lastHeartbeat >= 1000000) {
       lastHeartbeat = now;

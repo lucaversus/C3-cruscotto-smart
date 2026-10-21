@@ -1,3 +1,3 @@
-idf_component_register(SRCS "main.cpp" "link.cpp"
+idf_component_register(SRCS "main.cpp" "link.cpp" "blackbox.cpp" "labels.cpp"
                        INCLUDE_DIRS "." "../include" "../../common/include"
                        REQUIRES esp_lcd esp_timer driver esp_psram app_update)

@@ -1,4 +1,4 @@
-// Firmware S3 su ESP-IDF 5.5 0.3.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039).
+// Firmware S3 su ESP-IDF 5.5 0.4.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039).
 // Struttura: collegamento fe_link e sorgente simulata sul core 0, interfaccia LVGL sul
 // core 1, report e autotest nel compito principale. Doppio framebuffer, scambio al vsync.
 #include <atomic>
@@ -16,12 +16,14 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
+#include "blackbox.h"
+#include "labels.h"
 #include "link.h"
 #include "lvgl.h"
 #include "signal_store.h"
 
 namespace {
-constexpr char kVersion[] = "0.3.0";  // compiti separati, archivio segnali, collegamento fe_link
+constexpr char kVersion[] = "0.4.0";  // + scatola nera ed etichette (D-037)
 constexpr int kRpmMax = 5000;
 constexpr int kRpmDigits = 4;
 constexpr int kDigitWidth = 34;
@@ -218,7 +220,9 @@ void updateValues() {
     shownTemp = temp;
   }
   // Stato: DEMO se il dato è simulato, avviso se il collegamento è perso (D-016, D-037).
-  const char* status = !linkAlive(now) ? "COLLEGAMENTO ASSENTE"
+  const int64_t label = labels::lastLabelUs();
+  const char* status = (label != 0 && now - label < 3000000) ? "SEGNALAZIONE REGISTRATA"
+                       : !linkAlive(now)                     ? "COLLEGAMENTO ASSENTE"
                        : rpmV.quality == felink::Quality::kSimulated ? "DEMO - dati simulati" : "";
   if (status != shownStatus) {
     lv_label_set_text_static(statusLabel, status);
@@ -231,13 +235,18 @@ void report() {
   const uint32_t vs = vsyncCount.load(std::memory_order_relaxed);
   const LinkStats ls = linkStats();
   const uint32_t avg = refreshes ? refreshMs / refreshes : 0;
+  const blackbox::Stats bb = blackbox::stats();
   printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u panel_hz=%u link=%s frames_s=%u "
-         "link_err=%u link_lost=%u heap_int_free=%u psram_free=%u uptime_ms=%u\n",
+         "link_err=%u link_lost=%u bb_fill=%u/%u bb_events=%u bb_fail=%u fs=%u/%uKB labels=%u "
+         "heap_int_free=%u psram_free=%u uptime_ms=%u\n",
          kVersion, esp_ota_get_running_partition()->label, esp_err_to_name(panelStatus),
          static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg),
          static_cast<unsigned>((vs - lastVsync) / 5), ls.simulated ? "sim" : "uart",
          static_cast<unsigned>((ls.frames - lastFrames) / 5), static_cast<unsigned>(ls.errors),
-         static_cast<unsigned>(ls.lostSeq),
+         static_cast<unsigned>(ls.lostSeq), static_cast<unsigned>(bb.filled),
+         static_cast<unsigned>(bb.capacity), static_cast<unsigned>(bb.eventsSaved),
+         static_cast<unsigned>(bb.eventsFailed), static_cast<unsigned>(bb.fsUsedKb),
+         static_cast<unsigned>(bb.fsTotalKb), static_cast<unsigned>(labels::count()),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_INTERNAL)),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_SPIRAM)),
          static_cast<unsigned>(esp_timer_get_time() / 1000));
@@ -271,7 +280,9 @@ void uiTask(void*) {
 extern "C" void app_main() {
   outputLow(static_cast<gpio_num_t>(board::kBacklight), 0);
   outputLow(kSdCs, 1);
-  linkStart(true);  // 0.3.0: front-end non ancora presente, sorgente simulata in loopback
+  printf("ui_idf blackbox=%s\n", blackbox::start() ? "OK" : "SENZA FILE SYSTEM");
+  labels::start();
+  linkStart(true);  // front-end non ancora presente: sorgente simulata in loopback
   vsyncSem = xSemaphoreCreateBinary();
   panelStatus = startPanel();
   if (panelStatus == ESP_OK) panelStatus = startLvgl();

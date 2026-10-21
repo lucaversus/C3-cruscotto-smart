@@ -316,6 +316,24 @@ link_err=0 link_lost=0 heap_int_free≈306-310 KB psram_free≈6,3 MB`.
 decodifica, archivio segnali, display) senza errori né trame perse; fluidità invariata.
 La CPU riferita da LVGL include ancora l'attesa del vsync dentro il flush (attesa
 bloccante conteggiata come lavoro): misura del carico reale da aggiungere.
-Presenza della scritta "DEMO" non riferita esplicitamente.
+Scritta "DEMO - dati simulati" in alto a destra confermata dall'utente ("sì").
 **Esito:** superata (struttura e collegamento simulato).
 **Prossimo passo:** scatola nera ed etichette dal volante con i dati simulati.
+
+## DSP-M010 — firmware S3 0.4.0, scatola nera ed etichette — 21/10/2026
+
+**Prova:** ui-idf 0.4.0 caricato su COM4 (hash verificati). Al primo avvio la
+partizione `storage` (residui del firmware di fabbrica) è stata formattata da
+LittleFS come previsto (`mount failed (-84). formatting...`), poi `blackbox=OK`,
+8 512 KB disponibili. Memoria circolare in PSRAM da 65 536 campioni, piena dopo
+circa 270 s ai ritmi simulati. In 9 minuti: 7 etichette (simulate ogni 90 s e dal
+pulsante BOOT tenuto 2 s), 7 file evento salvati 10 s dopo ciascuna
+(`evt_0001…0007.bin`, 10 160-14 544 campioni, circa 170 KB), 0 errori; display e
+collegamento invariati (26 FPS, 0 errori di trama).
+**Osservazione riferita:** con il pulsante BOOT "è venuta la scritta segnalazione registrata".
+**Interpretazione:** catena etichetta → evento → file in flash funzionante. Con
+eventi da ~170 KB la partizione contiene circa 50 eventi: serve una regola di
+cancellazione dei più vecchi. Il contenuto dei file non è ancora stato riletto al PC.
+**Esito:** superata (registrazione); rilettura dei file e rotazione da fare.
+**Prossimo passo:** rotazione degli eventi e lettura dei file (app/Wi-Fi, D-036/D-038);
+etichette e formato evento anche nel Data Logger alla ripresa (D-040).

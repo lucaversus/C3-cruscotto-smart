@@ -24,3 +24,18 @@ al posto di Arduino-ESP32 2.x. Stato: **0.3.0 caricata il 21/10/2026** (DSP-M009
 Stessa schermata simulata di ui-test 0.1.1 (scritta "DEMO - dati simulati - IDF 5.5").
 `sdkconfig.defaults` è la sorgente della configurazione; il file `sdkconfig.*`
 generato è escluso da Git.
+
+## Versione 0.4.0 — scatola nera ed etichette (D-037, D-040)
+
+- `blackbox.cpp`: memoria circolare in PSRAM (65 536 campioni × 12 byte) con ogni
+  valore ricevuto; su evento salva in `/data/ev/evt_NNNN.bin` (LittleFS sulla
+  partizione `storage`, componente joltwallet/littlefs 1.22.3, MIT) la finestra da
+  50 s prima a 10 s dopo. File: intestazione di 48 byte (`C3BB`, formato 1, motivo,
+  dimensione campione, istante, numero campioni, versione firmware) seguita dai campioni
+  `{ms u32, id u16, qualità u8, riservato u8, valore float32}`.
+- `labels.cpp`: pressione lunga (≥ 2 s) di un comando al volante (segnale VAN 9C4)
+  o, a banco, del pulsante BOOT → etichetta e salvataggio dell'evento; scritta
+  "SEGNALAZIONE REGISTRATA" per 3 s. Il simulatore preme ogni 90 s.
+- Da fare: cancellazione degli eventi più vecchi, lettura dei file dal telefono o via Wi-Fi.
+
+Collaudo: DSP-M010.
