@@ -19,7 +19,7 @@ Non e una piedinatura del veicolo o una scheda automotive certificata.
 
 ## Distinta per un prototipo da banco
 
-Tutte le resistenze dei partitori a tolleranza 1% (R3 del simulatore 5%, D-028); valori da acquistare solo
+Tutte le resistenze a foro passante, reofori assiali (D-029). Partitori a tolleranza 1% (R3 del simulatore 5%, D-028); valori da acquistare solo
 se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 
 | Rif. | Quantita | Valore / componente | Nota |

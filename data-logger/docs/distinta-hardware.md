@@ -30,7 +30,7 @@ chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 | 1 | Resistenza 1 kohm, 0,25 W | K-line |
 | 1 | Resistenza 330 kohm, 0,25 W, 1% | K-line, isteresi R10 (rev E) |
 | 1 ciascuno | Condensatore ceramico 100 nF ed elettrolitico 10 microfarad, 16 V | Alimentazione a 5 V del ricevitore |
-| 1 | Basetta millefori | Montaggio interfaccia K-line |
+| 1 | Basetta millefori | Montaggio interfaccia K-line; tutte le resistenze a foro passante, reofori assiali (D-029) |
 | 1 insieme | Morsetti, filo flessibile per segnali e alimentazione, guaina termorestringente e fascette | Lunghezze dipendenti dalla collocazione; niente acquisto di controconnettori presunti |
 | 1 | Contenitore isolante con fissaggi per le schede | Dimensioni da scegliere sul montaggio reale |
 | 1 | Pila CR2032 3 V, non ricaricabile | RTC DS3231; inserimento consentito dopo RTC-M007 (ramo di ricarica interrotto) |
