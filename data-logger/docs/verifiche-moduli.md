@@ -281,3 +281,25 @@ include l'attesa del vsync e la copia delle zone: da ottimizzare (compito dedica
 attesa non attiva) quando si separeranno i compiti sui due core.
 **Esito:** superata (fluidità e assenza di tearing).
 **Prossimo passo:** pubblicazione del blocco; poi protocollo front-end ↔ S3.
+
+## OBD-M001 — prova presa diagnosi C001 (C3AI-CR-PR-001 rev A) — 21/10/2026
+
+**Misura riferita:** UT210E in V DC, nero a massa (utente: vie 4 e 5 "sono entrambi
+a massa"). P1 via 16 chiave tolta **12,2 V**; P2 via 1 chiave tolta **0 V**;
+P3 via 1 chiave su marcia **12,2 V**; P4 via 16 chiave su marcia **12,2 V**;
+P5 via 16 minimo durante l'avviamento **9,0 V**; P6 via 16 motore acceso **14,2 V**.
+Numerazione stampata sulla presa coerente con il disegno; presa **montata ruotata
+di 180°** rispetto alla vista del foglio.
+**Interpretazione:** confermate sull'esemplare le funzioni del manuale MAN-017:
+via 16 + batteria permanente, via 1 + dopo contatto, vie 4/5 massa (D-030). Ricarica
+alternatore presente (14,2 V). Calo all'avviamento ≥ 9,0 V secondo il tester, che
+non coglie cali di pochi millisecondi: valore indicativo. 12,2 V a riposo indica
+batteria non completamente carica (circa 50% secondo le tabelle tipiche) oppure
+misura poco dopo l'uso: da ripetere dopo una notte di sosta. Non verifica linea K
+(via 7), correnti disponibili né cali brevi.
+**Esito:** superata per identificazione delle vie 16/1/4/5; calo all'avviamento e
+stato della batteria non conclusivi.
+**Prossimo passo:** per scelta dell'utente ("aspettiamo i dati del data logger") nessuna
+misura manuale a riposo: soglia di guardia D-031 da tarare con le tensioni a riposo
+registrate dal logger (D-033); misura
+del calo con campionamento rapido quando il logger/front-end misurerà la batteria.

@@ -333,9 +333,11 @@
       "scope": "Data Logger",
       "quantity": null,
       "status": "candidate",
-      "verified": [],
+      "verified": [
+        "OBD-M001, 21/10/2026: via 16 = + batteria permanente (12,2 V chiave tolta, 12,2 V su marcia, 14,2 V motore acceso, minimo 9,0 V in avviamento letto dal tester); via 1 = + dopo contatto (0 V / 12,2 V); vie 4 e 5 a massa. Presa montata ruotata di 180° rispetto alla vista del foglio C3AI-CR-PR-001; numerazione stampata coerente."
+      ],
       "open_checks": [
-        "Candidato principale per alimentazione e K-line del cruscotto (D-030): da MAN-017 PDF 2 via 16 + batteria, via 1 + dopo contatto, vie 4/5 massa, via 7 linea K; da verificare con la prova C3AI-CR-PR-001 prima di qualsiasi derivazione.",
+        "Vie 16/1/4/5 confermate (OBD-M001); via 7 linea K non misurata. Derivazione posteriore da progettare tenendo conto della presa ruotata di 180°.",
         "Connettore posteriore C3, accesso fisico, lunghezza derivazione e massa di riferimento",
         "Identificare controconnettori posteriori della presa per derivazione a T con fronte libero, oppure punto equivalente documentato. Nessun ordine basato sulla sola foto frontale."
       ],
