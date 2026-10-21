@@ -1,6 +1,6 @@
 # K-line autocostruita — Cruscotto C3+AI / Data Logger
 
-Revisione G, 21/10/2026. Disegno C3AI-DL-KL-001, rev G (D-022: isteresi R10; D-024: disegno IEC/ISO; D-028: R3 al 5%).
+Revisione G, 21/10/2026. Disegno C3AI-DL-KL-001, rev G (D-022: isteresi R10; D-024: disegno IEC/ISO; D-036: R3 al 5%).
 **Prototipo da banco non collaudato: nessun collegamento al veicolo.**
 Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
 il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
@@ -19,7 +19,7 @@ Non e una piedinatura del veicolo o una scheda automotive certificata.
 
 ## Distinta per un prototipo da banco
 
-Tutte le resistenze a foro passante, reofori assiali (D-029). Partitori a tolleranza 1% (R3 del simulatore 5%, D-028); valori da acquistare solo
+Tutte le resistenze a foro passante, reofori assiali (D-037). Partitori a tolleranza 1% (R3 del simulatore 5%, D-036); valori da acquistare solo
 se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 
 | Rif. | Quantita | Valore / componente | Nota |
@@ -28,7 +28,7 @@ se non gia disponibili. Possesso/ordine di questi componenti non confermato.
 | U1 | 1 | LM2903B, versione SOIC-8 | Adattatore SOIC-8 → DIP-8; non scambiare con LM2903 senza B |
 | R1 | 1 | 330 ohm, 0,25 W, 5% | Base TX |
 | R2 | 1 | 47 kohm, 0,25 W, 5% | Base-emettitore, Q1 spento a GPIO flottante |
-| R3 | 1 | 510 ohm, 1 W, 5% | Solo simulatore esterno da banco; non montare nel modulo (D-028) |
+| R3 | 1 | 510 ohm, 1 W, 5% | Solo simulatore esterno da banco; non montare nel modulo (D-036) |
 | R4 | 1 | 68 kohm, 0,25 W, 1% | Partitore K |
 | R5, R7 | 2 | 10 kohm, 0,25 W, 1% | Partitori verso massa |
 | R6 | 1 | 150 kohm, 0,25 W, 1% | Riferimento VBENCH |
@@ -106,7 +106,7 @@ Con resistori all'1% (partitori, R8 e R10), offset assunto +/-3 mV, 3V3 a
 - beta forzato massimo calcolato circa 8,87 con TX minimo assunto 2,5 V,
   VBE massimo assunto 1,2 V e tolleranze resistenze base;
 - R3 al 5% (minimo 484,5 ohm): massimo calcolato 0,528 W a 16 V, corrente
-  di collettore massima 33 mA; selezionata 1 W per il banco (D-028).
+  di collettore massima 33 mA; selezionata 1 W per il banco (D-036).
 
 Sono calcoli con ipotesi esplicite: non provano VCEsat al punto reale,
 commutazione del transistor, isteresi, margini ai disturbi, propagazione,
@@ -148,7 +148,7 @@ In auto non montare R3 aggiuntiva senza riscontro del richiamo gia presente.
 
 ## Revisione G — tolleranza di R3, 21/10/2026
 
-D-028. R3 (510 ohm, 1 W) passa da 1% a 5%: all'1% risulta reperibile solo
+D-036. R3 (510 ohm, 1 W) passa da 1% a 5%: all'1% risulta reperibile solo
 una versione da 0,6 W, che a 16 V lavorerebbe all'85% della potenza nominale.
 R3 è solo nel simulatore esterno -A2 e non entra nel calcolo di soglie e
 isteresi, che dipendono da R4-R7, R8 e R10 (invariate all'1%). Il generatore

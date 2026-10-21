@@ -35,7 +35,7 @@ assert min(hyst)>.4, 'hysteresis below 0.4 V at K'
 max_input=vsense(16,67320,10100,R10*.99,3.465,4700*.99)
 assert max_input < 4.75-2
 base_min=(2.5-1.2)/(330*1.05)-1.2/(47000*.95)
-collector_max=16/(510*.95)  # rev G: R3 5 % (D-028)
+collector_max=16/(510*.95)  # rev G: R3 5 % (D-036)
 assert collector_max/base_min<10
 print(f"DC model: falling/VBAT={min(falling):.4f}..{max(falling):.4f}; rising/VBAT={min(rising):.4f}..{max(rising):.4f}; hysteresis_K={min(hyst):.3f}..{max(hyst):.3f}V; input_max={max_input:.3f}V; forced_beta_max={collector_max/base_min:.2f}; R3_power_max={16**2/(510*.95):.3f}W")
 
@@ -43,7 +43,7 @@ print(f"DC model: falling/VBAT={min(falling):.4f}..{max(falling):.4f}; rising/VB
 
 def it(v, n): return f'{v:.{n}f}'.replace('.', ',')
 
-# --- Disegno C3AI-DL-KL-001 rev G (D-024, D-028): IEC 60617 / IEC 61082-1, foglio ISO 5457 A3 ---
+# --- Disegno C3AI-DL-KL-001 rev G (D-024, D-036): IEC 60617 / IEC 61082-1, foglio ISO 5457 A3 ---
 d = Sheet('C3AI-DL-KL-001 rev G — Interfaccia K-line autocostruita')
 d.frame()
 d.text(25, 20, 'INTERFACCIA K-LINE AUTOCOSTRUITA — SCHEMA ELETTRICO', 5, bold=True)
@@ -149,5 +149,5 @@ d.title_block(title=['Interfaccia K-line', 'autocostruita'], subtitle='Data Logg
               revisions=[('D', 'Porte esterne evidenziate; nessuna variazione elettrica', '18/10/2026'),
                          ('E', 'Aggiunta R10 per isteresi del comparatore (D-022)', '20/10/2026'),
                          ('F', 'Ridisegno secondo IEC 60617 / IEC 61082-1 / ISO 5457 / ISO 7200 (D-024)', '20/10/2026'),
-                         ('G', 'R3 con tolleranza 5 % (D-028); reti e valori invariati', '21/10/2026')])
+                         ('G', 'R3 con tolleranza 5 % (D-036); reti e valori invariati', '21/10/2026')])
 (ROOT/'schema-kline-banco.svg').write_text(d.svg('Schema elettrico IEC 61082-1 dell\'interfaccia K-line da banco; non collaudato.'), encoding='utf-8')
