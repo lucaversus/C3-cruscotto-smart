@@ -238,7 +238,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Firmware attualmente caricato (21/10/2026): ui-idf 0.4.0 (ESP-IDF 5.5, OTA D-039, collegamento simulato, scatola nera DSP-M010; partizione storage formattata LittleFS con eventi di prova); altri firmware ricaricabili dai sorgenti.
+- Firmware attualmente caricato (23/10/2026): ui-idf 0.5.0 (ESP-IDF 5.5, OTA D-039, collegamento simulato, scatola nera DSP-M010, pagina 1 Dashboard DSP-M011; partizione storage LittleFS quasi piena di eventi di prova); altri firmware ricaricabili dai sorgenti.
 - Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili
 - Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)

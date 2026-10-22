@@ -76,4 +76,4 @@ dati non sono reali).
 **Soglie dell'acqua e della riserva solo proposte**, da fissare con i dati del logger;
 fondo scala giri 5000 da verificare. Stato: caricata su COM4 il 23/10/2026 (hash
 verificati); seriale 22-23 FPS, 36-39 ms per ridisegno, collegamento simulato senza errori.
-Collaudo visivo in corso.
+Collaudo visivo superato (DSP-M011, 23/10/2026).
