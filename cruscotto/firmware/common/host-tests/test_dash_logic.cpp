@@ -47,6 +47,10 @@ int main() {
   check(boot::dataCheck(true, false, 0) == boot::State::kFail, "dato fuori intervallo");
   check(boot::phase(0, 0, boot::kMinMs - 1) == boot::Phase::kChecking, "durata minima dell'apertura");
   check(boot::phase(0, 2, boot::kMinMs) == boot::Phase::kFailed, "errori: niente GO");
+  // Effetto 3D ed econometro.
+  check(dash::light(0x404040) != 0x404040 && red(dash::light(0x404040)) > 0x40, "tinta chiara");
+  check(red(dash::shade(0xFF0000)) < 0xFF && red(dash::shade(0xFF0000)) > 0, "tinta scura");
+  check(dash::ecoColor(65) != dash::kGreen && dash::ecoColor(65) != 0xFFB000, "econometro: sfumatura");
   // Prova lampade.
   check(dash::bulbCheck(0) && dash::bulbCheck(2999) && !dash::bulbCheck(3000), "prova lampade 3 s");
   if (failures) return EXIT_FAILURE;

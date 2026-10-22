@@ -101,4 +101,18 @@ Secondo [interfaccia-requisiti.md](../../docs/interfaccia-requisiti.md), "Sequen
   del pannello opaco), poi 21-22 FPS sulla dashboard.
 - Messaggio vocale di conferma non ancora presente: dipende dalla verifica dell'uscita audio.
 
+Affinamenti del 23/10/2026 (richieste dell'utente dopo la prima prova):
+
+- **Effetto tridimensionale**: barre con canale incavato (sfumatura scura, bordo sottile) e
+  riempimento a rilievo (tinta chiara da un lato, scura dall'altro); ombra sotto la
+  velocità; alone attorno al riquadro degli avvisi e al pannello d'avvio; ombra del GO.
+- **Econometro** sotto la velocità, largo quanto le tre cifre: consumo istantaneo
+  l/100 km (segnale 0x0012, fonte da definire), verde fino a 5, ambra verso 8, rosso da 12
+  (soglie proposte). Il simulatore lo lega ai giri.
+- **Carico delle due CPU** nel report seriale (`cpu0`, `cpu1`) dal tempo dei compiti di
+  inattività (statistiche FreeRTOS abilitate in `sdkconfig.defaults`).
+- Controlli d'avvio con l'esito allineato a destra (non esce più dal pannello).
+- Seriale: avvio 19 FPS, dashboard 15-18 FPS (prima 22: costo delle sfumature);
+  cpu0 3-11 %, cpu1 61-69 %.
+
 Stato: compilata e caricata su COM4 il 23/10/2026 (hash verificati). Collaudo visivo in corso.

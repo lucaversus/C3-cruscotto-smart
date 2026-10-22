@@ -80,6 +80,8 @@ void simTask(void*) {
     // Acqua da 30 a 115 °C in 2 minuti: mostra bianco, azzurro, rosso e l'avviso.
     felink::addSignal(f, felink::sig::kCoolantC, q, 72.5f - 42.5f * cosf(t * 0.0524f));
     felink::addSignal(f, felink::sig::kOutsideC, q, 14.0f);
+    const float rpmSim = 800.0f + 1950.0f * (1.0f + sinf(t * 0.6f));
+    felink::addSignal(f, felink::sig::kFuelL100, q, 3.0f + (rpmSim - 800.0f) / 400.0f);
     // Gasolio dal 60 al 5 % in 5 minuti, poi di nuovo pieno: mostra la riserva.
     const float fuel = 60.0f - 55.0f * fmodf(t, 300.0f) / 300.0f;
     felink::addSignal(f, felink::sig::kFuelPct, q, fuel);

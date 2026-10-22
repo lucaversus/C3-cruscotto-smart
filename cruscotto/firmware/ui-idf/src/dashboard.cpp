@@ -62,6 +62,8 @@ constexpr int kRowCount[2] = {7, 8};
 
 lv_obj_t* rpmBar = nullptr;
 lv_obj_t* speedLabel = nullptr;
+lv_obj_t* speedShadow = nullptr;
+lv_obj_t* ecoBar = nullptr;
 lv_obj_t* coolantBar = nullptr;
 lv_obj_t* coolantLabel = nullptr;
 lv_obj_t* fuelBar = nullptr;
@@ -84,7 +86,8 @@ lv_obj_t* alertIcon = nullptr;
 lv_obj_t* statusLabel = nullptr;
 int64_t startUs = 0, speedShownUs = 0;
 int shownSpeed = -2, shownCoolant = -2, shownFuel = -2;
-uint32_t shownRpmColor = 1, shownCoolantColor = 1, shownFuelColor = 1;
+uint32_t shownRpmColor = 1, shownCoolantColor = 1, shownFuelColor = 1, shownEcoColor = 1;
+int shownEco = -1;
 dash::Alert shownAlert = dash::Alert::kNone;
 const char* shownStatus = nullptr;
 char shownBatt[16] = "", shownOut[16] = "";
@@ -97,14 +100,22 @@ lv_obj_t* label(lv_obj_t* parent, const lv_font_t* font, uint32_t color) {
   return l;
 }
 
+// Barra con effetto tridimensionale: canale incavato (scuro in alto, più chiaro in basso,
+// bordo sottile) e riempimento a rilievo (luce su un lato, ombra sull'altro).
 lv_obj_t* bar(lv_obj_t* parent, int w, int h, int min, int max) {
   lv_obj_t* b = lv_bar_create(parent);
   lv_obj_set_size(b, w, h);
   lv_bar_set_range(b, min, max);
   lv_obj_clear_flag(b, LV_OBJ_FLAG_SCROLLABLE);
-  lv_obj_set_style_radius(b, 6, LV_PART_MAIN);
-  lv_obj_set_style_radius(b, 6, LV_PART_INDICATOR);
-  lv_obj_set_style_bg_color(b, lv_color_hex(0x262626), LV_PART_MAIN);
+  const lv_grad_dir_t dir = w > h ? LV_GRAD_DIR_VER : LV_GRAD_DIR_HOR;
+  lv_obj_set_style_radius(b, 8, LV_PART_MAIN);
+  lv_obj_set_style_radius(b, 8, LV_PART_INDICATOR);
+  lv_obj_set_style_bg_color(b, lv_color_hex(0x0C0C0C), LV_PART_MAIN);
+  lv_obj_set_style_bg_grad_color(b, lv_color_hex(0x343434), LV_PART_MAIN);
+  lv_obj_set_style_bg_grad_dir(b, dir, LV_PART_MAIN);
+  lv_obj_set_style_border_color(b, lv_color_hex(0x4A4A4A), LV_PART_MAIN);
+  lv_obj_set_style_border_width(b, 1, LV_PART_MAIN);
+  lv_obj_set_style_bg_grad_dir(b, dir, LV_PART_INDICATOR);
   return b;
 }
 
@@ -165,7 +176,8 @@ void setSideLevel(SideIcon& si, int fill) {
 
 void setColor(lv_obj_t* b, uint32_t color, uint32_t& shown, lv_obj_t* lightIcon = nullptr) {
   if (color == shown) return;
-  lv_obj_set_style_bg_color(b, lv_color_hex(color), LV_PART_INDICATOR);
+  lv_obj_set_style_bg_color(b, lv_color_hex(dash::light(color)), LV_PART_INDICATOR);
+  lv_obj_set_style_bg_grad_color(b, lv_color_hex(dash::shade(color)), LV_PART_INDICATOR);
   if (lightIcon) lv_obj_set_style_img_recolor(lightIcon, lv_color_hex(color), 0);
   shown = color;
 }
@@ -218,8 +230,15 @@ void build() {
   lv_obj_align(strip, LV_ALIGN_TOP_MID, 0, 96);
 
   // Velocità al centro.
+  // Ombra della velocità: stesso testo, grigio scuro, spostato in basso a destra.
+  speedShadow = label(screen, &font_speed, 0x303030);
+  lv_obj_align(speedShadow, LV_ALIGN_TOP_MID, 5, 170);
   speedLabel = label(screen, &font_speed, 0xFFFFFF);
   lv_obj_align(speedLabel, LV_ALIGN_TOP_MID, 0, 165);  // larghezza sul contenuto: ridisegno minimo
+
+  // Econometro sotto la velocità, largo quanto il campo delle tre cifre.
+  ecoBar = bar(screen, 3 * 122, 16, 0, dash::kEcoMax * 10);
+  lv_obj_align(ecoBar, LV_ALIGN_TOP_MID, 0, 350);
 
   // Acqua a sinistra e carburante a destra, barre verticali colorate per intero.
   struct Side {
@@ -255,6 +274,10 @@ void build() {
   lv_obj_clear_flag(alertBox, LV_OBJ_FLAG_SCROLLABLE);
   lv_obj_set_style_border_width(alertBox, 6, 0);
   lv_obj_set_style_radius(alertBox, 12, 0);
+  lv_obj_set_style_shadow_width(alertBox, 30, 0);  // alone: il riquadro "galleggia" sopra la pagina
+  lv_obj_set_style_shadow_spread(alertBox, 4, 0);
+  lv_obj_set_style_shadow_color(alertBox, lv_color_hex(0x000000), 0);
+  lv_obj_set_style_shadow_opa(alertBox, LV_OPA_COVER, 0);
   alertIcon = icon(alertBox, &icon_link_lost_110, 0xFFFFFF);
   lv_obj_center(alertIcon);
   lv_obj_add_flag(alertBox, LV_OBJ_FLAG_HIDDEN);
@@ -280,6 +303,7 @@ void update(int64_t nowUs) {
   const SignalValue coolV = store.get(felink::sig::kCoolantC, nowUs, 3000000);
   const SignalValue fuelV = store.get(felink::sig::kFuelPct, nowUs, 10000000);
   const SignalValue battV = store.get(felink::sig::kBatteryV, nowUs, 3000000);
+  const SignalValue ecoV = store.get(felink::sig::kFuelL100, nowUs, 1000000);
   const SignalValue outV = store.get(felink::sig::kOutsideC, nowUs, 10000000);
   const SignalValue lightsV = store.get(felink::sig::kLightsFlags, nowUs, 1000000);
   const SignalValue warnV = store.get(felink::sig::kWarningFlags, nowUs, 1000000);
@@ -296,6 +320,7 @@ void update(int64_t nowUs) {
     speedShownUs = nowUs;
     if (speed < 0) lv_label_set_text_static(speedLabel, "-");
     else lv_label_set_text_fmt(speedLabel, "%d", speed);
+    lv_label_set_text(speedShadow, lv_label_get_text(speedLabel));
     shownSpeed = speed;
   }
 
@@ -319,6 +344,14 @@ void update(int64_t nowUs) {
     shownFuel = fuel;
   }
   setColor(fuelBar, fuel < 0 ? 0x606060 : dash::fuelColor(fuel), shownFuelColor, fuelIcon.lightIcon);
+
+  // Econometro: consumo istantaneo in decimi di l/100 km.
+  const int eco = fresh(ecoV) ? static_cast<int>(ecoV.value * 10.0f + 0.5f) : 0;
+  if (eco != shownEco) {
+    lv_bar_set_value(ecoBar, eco > dash::kEcoMax * 10 ? dash::kEcoMax * 10 : eco, LV_ANIM_OFF);
+    shownEco = eco;
+  }
+  setColor(ecoBar, fresh(ecoV) ? dash::ecoColor(eco) : 0x606060, shownEcoColor);
 
   // Dati secondari (coperti dalle spie accese).
   char text[16] = "--";

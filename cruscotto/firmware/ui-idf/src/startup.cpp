@@ -6,6 +6,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <initializer_list>
 
 #include "blackbox.h"
 #include "dash_logic.h"
@@ -22,7 +23,7 @@ namespace startup {
 namespace {
 // Pioggia solo ai lati del pannello (opaco): sotto il pannello non verrebbe vista ma
 // costerebbe un ridisegno a ogni passo.
-constexpr int kPanelW = 500, kSideCols = 7, kColumns = 2 * kSideCols, kRainChars = 18, kRainStep = 21;
+constexpr int kPanelW = 620, kSideCols = 4, kColumns = 2 * kSideCols, kRainChars = 18, kRainStep = 21;
 constexpr uint32_t kMatrixGreen = 0x00FF41;
 
 struct Rain {
@@ -35,30 +36,33 @@ Rain rain[kColumns];
 struct Line {
   const char* name;
   boot::State state;
-  lv_obj_t* label;
-  char shown[48];  // testo visualizzato: si ridisegna solo se cambia
+  lv_obj_t* label;   // nome a sinistra
+  lv_obj_t* status;  // esito allineato a destra: non esce dal pannello
+  char shown[16];    // esito visualizzato: si ridisegna solo se cambia
 };
 // Controlli in ordine di comparsa. Moduli non ancora installati: "N/D", esclusi dal GO.
 Line lines[] = {
-    {"DISPLAY 800X480", boot::State::kPending, nullptr, ""},
-    {"MEMORIA PSRAM", boot::State::kPending, nullptr, ""},
-    {"FILE SYSTEM", boot::State::kPending, nullptr, ""},
-    {"COLLEGAMENTO FRONT-END", boot::State::kPending, nullptr, ""},
-    {"TENSIONE BATTERIA", boot::State::kPending, nullptr, ""},
-    {"TEMPERATURA ACQUA", boot::State::kPending, nullptr, ""},
-    {"IMU", boot::State::kPending, nullptr, ""},
-    {"NTC DISPLAY", boot::State::kPending, nullptr, ""},
-    {"RICEZIONE VAN", boot::State::kAbsent, nullptr, ""},
-    {"K-LINE", boot::State::kAbsent, nullptr, ""},
-    {"AUDIO", boot::State::kAbsent, nullptr, ""},
-    {"MODELLO IA", boot::State::kAbsent, nullptr, ""},
-    {"CANDELETTE", boot::State::kPending, nullptr, ""},
+    {"DISPLAY 800X480", boot::State::kPending, nullptr, nullptr, ""},
+    {"MEMORIA PSRAM", boot::State::kPending, nullptr, nullptr, ""},
+    {"FILE SYSTEM", boot::State::kPending, nullptr, nullptr, ""},
+    {"COLLEGAMENTO FRONT-END", boot::State::kPending, nullptr, nullptr, ""},
+    {"TENSIONE BATTERIA", boot::State::kPending, nullptr, nullptr, ""},
+    {"TEMPERATURA ACQUA", boot::State::kPending, nullptr, nullptr, ""},
+    {"IMU", boot::State::kPending, nullptr, nullptr, ""},
+    {"NTC DISPLAY", boot::State::kPending, nullptr, nullptr, ""},
+    {"RICEZIONE VAN", boot::State::kAbsent, nullptr, nullptr, ""},
+    {"K-LINE", boot::State::kAbsent, nullptr, nullptr, ""},
+    {"AUDIO", boot::State::kAbsent, nullptr, nullptr, ""},
+    {"MODELLO IA", boot::State::kAbsent, nullptr, nullptr, ""},
+    {"CANDELETTE", boot::State::kPending, nullptr, nullptr, ""},
 };
 constexpr int kLines = sizeof lines / sizeof lines[0];
 
 lv_obj_t* screen = nullptr;
 lv_obj_t* panel = nullptr;
 lv_obj_t* result = nullptr;
+lv_obj_t* goShadowObj = nullptr;
+const lv_font_t* const kCheckFont = &lv_font_unscii_16;  // carattere dei controlli
 int64_t startUs = 0, endUs = 0, lastRainUs = 0;
 boot::Phase finalPhase = boot::Phase::kChecking;
 bool switched = false;
@@ -114,12 +118,13 @@ boot::State evaluate(int i, int64_t nowUs, uint32_t ms) {
 
 void showLine(int i, uint32_t ms) {
   Line& l = lines[i];
-  char text[sizeof l.shown];
-  std::snprintf(text, sizeof text, "> %-24s %s", l.name, stateText(l, ms));
+  const char* text = stateText(l, ms);
   if (std::strcmp(text, l.shown) == 0) return;
-  std::strcpy(l.shown, text);
-  lv_label_set_text_static(l.label, l.shown);
+  if (l.shown[0] == '\0') lv_label_set_text_fmt(l.label, "> %s", l.name);  // prima comparsa
+  std::snprintf(l.shown, sizeof l.shown, "%s", text);
+  lv_label_set_text_static(l.status, l.shown);
   lv_obj_set_style_text_color(l.label, lv_color_hex(stateColor(l.state)), 0);
+  lv_obj_set_style_text_color(l.status, lv_color_hex(stateColor(l.state)), 0);
 }
 }  // namespace
 
@@ -149,17 +154,32 @@ void build() {
   lv_obj_set_style_border_color(panel, lv_color_hex(kMatrixGreen), 0);
   lv_obj_set_style_border_width(panel, 2, 0);
   lv_obj_set_style_radius(panel, 8, 0);
+  lv_obj_set_style_bg_grad_color(panel, lv_color_hex(0x002008), 0);  // rilievo: luce in alto
+  lv_obj_set_style_bg_grad_dir(panel, LV_GRAD_DIR_VER, 0);
+  lv_obj_set_style_shadow_color(panel, lv_color_hex(kMatrixGreen), 0);  // alone verde
+  lv_obj_set_style_shadow_width(panel, 24, 0);
+  lv_obj_set_style_shadow_opa(panel, LV_OPA_50, 0);
   lv_obj_t* title = lv_label_create(panel);
   lv_obj_set_style_text_font(title, &lv_font_montserrat_28, 0);
   lv_obj_set_style_text_color(title, lv_color_hex(kMatrixGreen), 0);
   lv_label_set_text_static(title, "C3+AI  CONTROLLO SISTEMA");
   lv_obj_align(title, LV_ALIGN_TOP_MID, 0, -4);
   for (int i = 0; i < kLines; ++i) {
-    lines[i].label = lv_label_create(panel);
-    lv_obj_set_style_text_font(lines[i].label, &lv_font_unscii_16, 0);
-    lv_label_set_text_static(lines[i].label, "");
-    lv_obj_set_pos(lines[i].label, 8, 36 + i * 24);
+    for (lv_obj_t** part : {&lines[i].label, &lines[i].status}) {
+      *part = lv_label_create(panel);
+      lv_obj_set_style_text_font(*part, kCheckFont, 0);
+      lv_label_set_text_static(*part, "");
+    }
+    lv_obj_set_pos(lines[i].label, 4, 36 + i * 24);
+    lv_obj_align(lines[i].status, LV_ALIGN_TOP_RIGHT, -4, 36 + i * 24);
   }
+  lv_obj_t* goShadow = lv_label_create(screen);  // ombra del GO
+  lv_obj_set_style_text_font(goShadow, &font_speed, 0);
+  lv_obj_set_style_text_color(goShadow, lv_color_hex(0x004010), 0);
+  lv_label_set_text_static(goShadow, "GO");
+  lv_obj_align(goShadow, LV_ALIGN_CENTER, 6, 6);
+  lv_obj_add_flag(goShadow, LV_OBJ_FLAG_HIDDEN);
+  goShadowObj = goShadow;
   result = lv_label_create(screen);
   lv_obj_set_style_text_font(result, &font_speed, 0);
   lv_obj_set_style_text_color(result, lv_color_hex(kMatrixGreen), 0);
@@ -202,6 +222,7 @@ bool update(int64_t nowUs, lv_obj_t* next) {
       endUs = nowUs;
       if (finalPhase == boot::Phase::kGo) {
         lv_obj_add_flag(panel, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_flag(goShadowObj, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(result, LV_OBJ_FLAG_HIDDEN);
       } else {
         lv_obj_set_style_border_color(panel, lv_color_hex(0xFF2020), 0);

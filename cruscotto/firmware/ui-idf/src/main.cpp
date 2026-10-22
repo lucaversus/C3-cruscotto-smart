@@ -134,17 +134,36 @@ esp_err_t startLvgl() {
   return ESP_OK;
 }
 
+// Carico % di ciascuna CPU nell'intervallo: 100 meno la quota del compito di inattività.
+void cpuLoad(unsigned load[2]) {
+  static uint32_t lastIdle[2] = {0, 0};
+  static int64_t lastUs = 0;
+  const int64_t now = esp_timer_get_time();
+  for (int core = 0; core < 2; ++core) {
+    TaskStatus_t status;
+    vTaskGetInfo(xTaskGetIdleTaskHandleForCore(core), &status, pdFALSE, eInvalid);
+    const uint32_t idle = status.ulRunTimeCounter;
+    const int64_t span = now - lastUs;
+    const uint32_t busy = span > 0 ? 100 - static_cast<uint32_t>((idle - lastIdle[core]) * 100LL / span) : 0;
+    load[core] = busy > 100 ? 0 : busy;
+    lastIdle[core] = idle;
+  }
+  lastUs = now;
+}
+
 void report() {
   static uint32_t lastVsync = 0, lastFrames = 0;
+  unsigned cpu[2];
+  cpuLoad(cpu);
   const uint32_t vs = vsyncCount.load(std::memory_order_relaxed);
   const LinkStats ls = linkStats();
   const uint32_t avg = refreshes ? refreshMs / refreshes : 0;
   const blackbox::Stats bb = blackbox::stats();
-  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u panel_hz=%u link=%s frames_s=%u "
+  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u cpu0=%u%% cpu1=%u%% panel_hz=%u link=%s frames_s=%u "
          "link_err=%u link_lost=%u bb_fill=%u/%u bb_events=%u bb_fail=%u fs=%u/%uKB labels=%u "
          "heap_int_free=%u psram_free=%u uptime_ms=%u\n",
          kVersion, esp_ota_get_running_partition()->label, esp_err_to_name(panelStatus),
-         static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg),
+         static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg), cpu[0], cpu[1],
          static_cast<unsigned>((vs - lastVsync) / 5), ls.simulated ? "sim" : "uart",
          static_cast<unsigned>((ls.frames - lastFrames) / 5), static_cast<unsigned>(ls.errors),
          static_cast<unsigned>(ls.lostSeq), static_cast<unsigned>(bb.filled),

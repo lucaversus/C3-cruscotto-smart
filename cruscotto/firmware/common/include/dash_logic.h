@@ -58,6 +58,20 @@ enum Warning : uint32_t { kBrake = 1u << 0, kOilPressure = 1u << 1, kCoolantHot 
 // Spie di sicurezza: sempre visibili quando accese, anche con il riquadro di avviso.
 constexpr uint32_t kSafetyWarnings = kBrake | kOilPressure | kCoolantHot | kCharge;
 
+// Effetto tridimensionale: tinta più chiara (luce) e più scura (ombra) dello stesso colore.
+constexpr uint32_t light(uint32_t c) { return mix(c, 0xFFFFFF, 70); }
+constexpr uint32_t shade(uint32_t c) { return mix(c, 0x000000, 120); }
+
+// Econometro: consumo istantaneo l/100 km (soglie PROPOSTE): verde fino a 5, sfumatura verso
+// ambra fino a 8, verso rosso fino a 12, poi rosso. Fondo scala kEcoMax.
+constexpr int kEcoMax = 20;
+constexpr uint32_t ecoColor(int l100x10) {
+  return l100x10 <= 50  ? kGreen
+         : l100x10 < 80 ? mix(kGreen, 0xFFB000, weight(l100x10, 50, 80))
+                        : mix(0xFFB000, kRed, weight(l100x10, 80, 120));
+}
+static_assert(ecoColor(40) == kGreen && ecoColor(150) == kRed, "econometro");
+
 // Carburante: barra bianca, ambra in riserva (soglia PROPOSTA, da tarare con il dato VAN).
 constexpr int kFuelReserve = 10;
 constexpr uint32_t kFuelNormal = 0xE0E0E0, kAmber = 0xFFB000;
