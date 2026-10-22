@@ -1,8 +1,9 @@
 """Anteprime PNG dei disegni SVG A3 (D-024): 200 dpi, 3307 x 2339 pixel.
 
-Uso: python tools/render_png.py cruscotto/docs/scheda-madre-blocchi.svg [altri.svg ...]
+Uso: python tools/render_png.py disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg [altri.svg ...]
 Richiede Chrome, Chromium o Edge (modalità headless); il percorso si può forzare con la
-variabile d'ambiente CHROME. Il PNG viene scritto accanto all'SVG con lo stesso nome.
+variabile d'ambiente CHROME. Per gli SVG in disegni/sorgenti il PNG va in disegni/, altrimenti
+accanto all'SVG, con lo stesso nome.
 """
 import os
 from pathlib import Path
@@ -32,6 +33,8 @@ def browser():
 def render(svg, exe):
     svg = Path(svg).resolve()
     out = svg.with_suffix('.png')
+    if svg.parent.name == 'sorgenti' and svg.parent.parent.name == 'disegni':
+        out = svg.parent.parent / (svg.stem + '.png')
     with tempfile.TemporaryDirectory() as tmp:
         page = Path(tmp) / 'page.html'
         page.write_text(f'<html><body style="margin:0"><img src="{svg.as_uri()}" '

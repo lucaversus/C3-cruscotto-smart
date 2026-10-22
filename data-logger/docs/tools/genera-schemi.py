@@ -76,7 +76,7 @@ d.title_block(title=['Collegamenti proposta', 'iniziale (storico)'], subtitle='D
                          ('C', 'Componenti illustrati', '18/10/2026'),
                          ('D', 'Note sui moduli CAN già presenti', '18/10/2026'),
                          ('E', 'Ridisegno IEC/ISO (D-024); marcato come sostituito da EL-003', '20/10/2026')])
-(ROOT / 'schema-collegamenti.svg').write_text(d.svg('Documento storico, sostituito da C3AI-DL-EL-003.'), encoding='utf-8')
+(ROOT.parents[1] / 'disegni/sorgenti/DL-EL-001_collegamenti-iniziali-storico.svg').write_text(d.svg('Documento storico, sostituito da C3AI-DL-EL-003.'), encoding='utf-8')
 
 # ---------------------------------------------------------------- BL-001 ---
 b = Sheet('C3AI-DL-BL-001 rev D — Architettura funzionale del Data Logger')
@@ -128,7 +128,7 @@ b.title_block(title=['Architettura funzionale', 'del Data Logger'], subtitle='Da
               revisions=[('B', 'Cornice e cartiglio; stato aggiornato', '18/10/2026'),
                          ('C', 'Note sui moduli CAN già presenti', '18/10/2026'),
                          ('D', 'Ridisegno IEC 61082-1/ISO; aggiornato a KWP, VAN, logger 0.3.x (D-024)', '20/10/2026')])
-(ROOT / 'schema-sistema.svg').write_text(b.svg('Schema a blocchi funzionale preliminare, non schema di cablaggio.'), encoding='utf-8')
+(ROOT.parents[1] / 'disegni/sorgenti/DL-BL-001_architettura-data-logger.svg').write_text(b.svg('Schema a blocchi funzionale preliminare, non schema di cablaggio.'), encoding='utf-8')
 
 for f in ROOT.glob('*.svg'):
     ET.parse(f)

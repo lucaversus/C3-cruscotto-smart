@@ -56,9 +56,10 @@ Cache, ambiente virtuale, dati privati e log rimangono esclusi da Git.
   esclusi dal repository; non servono per check/build. La rigenerazione facoltativa
   dell'indice richiede gli originali autorizzati e pypdf, non installato dal setup base.
 
-Disegni (D-024): ogni SVG ha un generatore Python in `tools/` o `data-logger/docs/tools/`
+Disegni (D-024): tutte le tavole stanno in [`disegni/`](disegni/README.md) (PNG da consultare, indice
+illustrato) con gli SVG in `disegni/sorgenti/`; ogni SVG ha un generatore Python in `tools/` o `data-logger/docs/tools/`
 basato su `iso_drawing.py`; l'anteprima PNG a 200 dpi si rigenera con
-`python tools/render_png.py <file.svg>` (richiede Chrome o Edge in modalità headless).
+`python tools/render_png.py disegni/sorgenti/<file>.svg` (richiede Chrome o Edge in modalità headless).
 Aggiornare SVG, PNG e cartiglio nello stesso cambiamento.
 
 Controlli: `check` e `lint` coprono preflight, test Python e logica del logger; i

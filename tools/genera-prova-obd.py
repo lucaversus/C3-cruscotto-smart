@@ -103,7 +103,7 @@ d.title_block(title=['Prova presa', 'diagnosi OBD'], subtitle='Cruscotto digital
               doc_type='Istruzione di prova', status='DA ESEGUIRE · NON VERIFICATO',
               code='C3AI-CR-PR-001', rev='A', date='20/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione: vie 1/16, segnale chiave e calo all\'avviamento (D-030)', '20/10/2026')])
-out = ROOT / 'cruscotto/docs/prova-presa-obd.svg'
+out = ROOT / 'disegni/sorgenti/CR-PR-001_prova-presa-obd.svg'
 out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text(d.svg('Istruzione di prova sulla presa diagnosi C001: piedinatura da manuale, non misurata.'),
                encoding='utf-8')

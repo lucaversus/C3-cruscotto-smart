@@ -245,11 +245,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - U1 ('AKK 7HG') collegato a P6 e, da ispezione visiva, a IO17/IO18: conflitto con la K-line proposta su IO17/IO18. Confermare funzione di U1 con tono di prova. P1 TXD/RXD presumibilmente UART0 (GPIO43/44) condiviso con il CH340.
 - Limiti termici dichiarati dal rivenditore Spotpear per ESP32-8048S050N/C (https://spotpear.com/index.php/index/product/detail/id/1426.html, letto 21/10/2026): funzionamento −20…+70 °C, magazzinaggio −30…+80 °C, assorbimento 320 mA a 5 V (non precisato se con retroilluminazione). Dato commerciale, nessun datasheet del pannello trovato; temperatura reale dietro la copertura del quadro da misurare (auto al sole, ferma e in marcia).
 
-### HW-IMU-LSM6DS3 — Seeed Grove 6 assi accelerometro + giroscopio LSM6DS3 (cod. 105020012)
+### HW-IMU-LSM6DSO — ST STEVAL-MKI196V1: adattatore DIL-24 con IMU LSM6DSO (accelerometro + giroscopio 6 assi)
 
-**Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029)
+**Stato:** `ordered_pending` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029, D-033)
 
-**Fonte:** Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026.
+**Fonte:** Utente 22/10/2026: "ST STEVAL-MKI196V1 ho preso questo" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026.
 
 **Verifiche documentate:**
 
@@ -257,11 +257,28 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Ordine non ancora confermato dall'utente: Reichelt GRV 6AXIS ACC GY, 10,24 € IVA inclusa, disponibile, consegna dichiarata 3-5 giorni lavorativi.
-- All'arrivo: riscontrare chip e serigrafie; foto da archiviare. Alimentazione 3,3 V o 5 V dichiarata dalla pagina del rivenditore.
-- Indirizzo I2C atteso 0x6A (documentazione Seeed, non indicato dal rivenditore): da verificare con scansione; nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C.
-- Connettore Grove 4 vie (GND, VCC, SDA, SCL): serve cavo Grove-pin o saldatura; collegamento proposto sul bus I2C HW-394 GPIO21/22, non verificato.
-- Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto.
+- All'arrivo: riscontrare sigla STEVAL-MKI196V1 e marcatura del chip; foto da archiviare.
+- Piedinatura DIL-24, alimentazione VDD/VDDIO (1,71-3,6 V: solo 3,3 V, nessun regolatore dichiarato) e piedini SDO/SA0 e CS da verificare sul manuale ST della scheda prima del collegamento.
+- Indirizzo I2C atteso 0x6A (SA0 a GND) o 0x6B (SA0 a 3,3 V); CS a 3,3 V per il modo I2C. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C. Resistenze di pull-up I2C sulla scheda da verificare (il bus del logger ha già quelle del modulo RTC, da riscontrare).
+- Collegamento proposto: bus I2C HW-394 GPIO21/22, non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
+- Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).
+
+### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
+
+**Stato:** `ordered_pending` · **Quantità:** 1 · **Ambito:** Cruscotto digitale: prova a banco dell'uscita audio P6 dell'S3 (DSP-M005/M006, D-028)
+
+**Fonte:** Utente 22/10/2026: "1504105 preso" (Farnell Italia, codice 1504105, 3,64 € IVA esclusa, scelto dalla ricerca del 22/10/2026). Ordine dichiarato, consegna non riscontrata.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- All'arrivo: riscontrare sigla e impedenza (circa 8 Ω misurati al tester, valore in continua leggermente inferiore).
+- Senza cavetti: saldare due fili o usare coccodrilli; collegarlo solo a P6 Speak con firmware speak-test caricato.
+- Prova da fare: tono 200 Hz di speak-test 0.1.1 per chiarire la funzione di U1 "AKK 7HG" (amplificatore o altro), prima di definire amplificatore e relè D-028.
+- Solo banco: non è l'altoparlante del veicolo; relè e amplificatore D-028 ancora da definire.
 
 ### HW-FE-MODULE — Modulo ESP32-WROOM-32E-H4/H8 per il front-end, montato in fabbrica sulla scheda madre (D-029)
 
@@ -296,6 +313,21 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Taratura assoluta e stato completo dello strumento non verificati.
 
+### HW-BENCH-PSU — Alimentatore da banco (modello da riscontrare)
+
+**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger — strumento di verifica
+
+**Fonte:** Utente 22/10/2026: "l'alimentatore da banco ce l'ho". Dichiarazione, nessuna foto o misura.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Modello, campo di tensione e limitazione di corrente da riscontrare: per KL-001 servono 9-16 V stabilizzati con limite di corrente (VBENCH).
+- Utilizzabile anche per le prove P-001/P-002 del logger (alimentazione-spegnimento.md), se il campo lo consente.
+
 ### HW-ESP32-TERMINAL-BASE — Basetta di espansione a morsetti per ESP32 HW-394, visibile in foto
 
 **Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
@@ -314,9 +346,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-KLINE-INTERFACE — Interfaccia K-line autocostruita: prototipo banco NPN 2N5551 + LM2903B
 
-**Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger
+**Stato:** `ordered_pending` · **Quantità:** 1 · **Ambito:** Data Logger
 
-**Fonte:** Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale. Revisione B 18/10/2026: schema completo U1 e distinta sul foglio; pinout TI SLCS005AH sezione 4. Corretto contenitore LM2903B: SOIC-8 con adattatore DIP-8, non PDIP-8. Nessun acquisto o collaudo aggiuntivo. Revisione C, D-018: eliminato JP1; R3 510 ohm solo nel simulatore esterno da banco, non nel modulo. Nessun nuovo acquisto o collaudo. Revisione D: evidenziate porte TX ingresso, RX uscita e K-line bidirezionale; nessuna variazione elettrica. Revisione E 20/10/2026, D-022: R10 330 kohm 1% da OUT1 a IN1+ per isteresi 0,545-0,721 V sulla linea K (modello DC); possesso di R10 non confermato, nessun collaudo. Revisione F 20/10/2026, D-024: ridisegno IEC 60617 / IEC 61082-1 su foglio ISO, nessuna variazione elettrica.
+**Fonte:** Utente 22/10/2026: carrello Farnell ShopCart.csv allegato e "ordine effettuato"; "per fare il circuito di prova faccio i collegamenti volanti", "la millefori la uso come base". Storia: Proposta 18/10/2026: https://www.mikroe.com/iso-9141-click e schema ufficiale v101 https://download.mikroe.com/documents/add-on-boards/click/iso_9141_click/iso-9141-click-schematic-v101.pdf. UART, selezione logica 3,3/5 V, VS separata 4,5-36 V. Nessun ordine confermato. Utente: MIKROE-4331 non trovato disponibile il 18/10/2026. Alternative esplorate: interfaccia da assemblare su E-L9637D, oppure Freematics OBD-II UART Adapter V2.1; nessuna alternativa acquistata o confermata. Utente propone circuito discreto con 2 NPN o PC817 e pull-up 510 Ohm/0,5 W: registrato come alternativa non approvata, senza schema completo ne conferma di possesso componenti. Scelta utente 18/10/2026: ok procediamo con il circuito autocostruito (D-013). Progetto locale schema-kline-banco.svg rev A, generatore e calcoli DC in tools/genera-kline-banco.py; nessun risultato sperimentale. Revisione B 18/10/2026: schema completo U1 e distinta sul foglio; pinout TI SLCS005AH sezione 4. Corretto contenitore LM2903B: SOIC-8 con adattatore DIP-8, non PDIP-8. Nessun acquisto o collaudo aggiuntivo. Revisione C, D-018: eliminato JP1; R3 510 ohm solo nel simulatore esterno da banco, non nel modulo. Nessun nuovo acquisto o collaudo. Revisione D: evidenziate porte TX ingresso, RX uscita e K-line bidirezionale; nessuna variazione elettrica. Revisione E 20/10/2026, D-022: R10 330 kohm 1% da OUT1 a IN1+ per isteresi 0,545-0,721 V sulla linea K (modello DC); possesso di R10 non confermato, nessun collaudo. Revisione F 20/10/2026, D-024: ridisegno IEC 60617 / IEC 61082-1 su foglio ISO, nessuna variazione elettrica. Utente 22/10/2026: "sto acquistando i pezzi per fare questo circuito"; saldatura disponibile in azienda ("il saldatore [...] quello in azienda al lavoro"). Acquisto in corso, componenti non ancora ricevuti.
 
 **Verifiche documentate:**
 
@@ -324,8 +356,10 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Possesso e ordine dei singoli componenti non confermati; distinta di costruzione in docs/kline-autocostruita.md.
-- Verifica montaggio, pin transistor secondo produttore, assenza corti e alimentazioni su banco limitato in corrente; alimentatore banco non confermato.
+- Ordine Farnell 22/10/2026 (dichiarato, consegna non riscontrata): 2× LM2903BYDT (SOIC-8, versione B), 5× 2N5551BU onsemi, resistenze R1…R10 (330 Ω, 47 kΩ, 510 Ω 1 W 5 %, 68 kΩ, 10 kΩ 0,5 %, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ), C1 100 nF e C2 10 µF, millefori MC01009 72×47 mm come base. All'arrivo riscontrare valori e sigle.
+- Condensatori: nel carrello allegato erano SMD (KEMET 0603 100 nF, Panasonic EEEHB1C100R 10 µF); consigliata sostituzione con THT 1216438 e 8766754, versione effettivamente ordinata da riscontrare all'arrivo.
+- Montaggio scelto dall'utente: collegamenti volanti sulla millefori, senza zoccolo, adattatore SOIC-8→DIP-8 né morsettiere (KL-003 resta riferimento per un montaggio successivo). Fili sottili saldati direttamente ai piedini SOIC (passo 1,27 mm): controllare al tester assenza di ponti prima di alimentare; fissare meccanicamente chip e fili.
+- Verifica montaggio, pin E-B-C del 2N5551 onsemi sul datasheet, assenza corti e alimentazioni su banco limitato in corrente (HW-BENCH-PSU dichiarato).
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
 - Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.
 

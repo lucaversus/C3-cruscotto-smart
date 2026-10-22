@@ -4,9 +4,9 @@
 Stato: proposta coerente con firmware 0.3.x e hardware.json; non collaudo fisico.
 Decisioni D-004, D-009, D-010, D-015, D-019, D-020 e D-024.
 
-![Schema dei collegamenti a banco](collegamenti-banco-030.png)
+![Schema dei collegamenti a banco](../../disegni/DL-EL-003_collegamenti-banco-logger.png)
 
-[Sorgente SVG](collegamenti-banco-030.svg). Rigenerare con
+[Sorgente SVG](../../disegni/sorgenti/DL-EL-003_collegamenti-banco-logger.svg). Rigenerare con
 `python tools/genera-collegamenti-banco.py`; PNG ottenuto renderizzando l'SVG.
 Rev. B (D-024): schema di collegamento IEC 61082-1, moduli come elementi con i
 morsetti nell'ordine della serigrafia documentata (ESP32 in ordine logico), fili
