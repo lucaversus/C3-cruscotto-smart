@@ -1,6 +1,6 @@
 """Studio d'ingombro della scheda madre (C3AI-CR-PL-001), D-029…D-031.
 
-Rev. A: contorno e fori ricavati dal disegno del rivenditore della scheda S3 (137 x 84 mm,
+Rev. B: IMU LSM6DSO. Rev. A: contorno e fori ricavati dal disegno del rivenditore della scheda S3 (137 x 84 mm,
 fori Ø3,2 su interasse 130 x 76 mm), zone funzionali con ingombri stimati dei componenti,
 scala 2:1. Non è un circuito stampato: serve a valutare l'area.
 """
@@ -27,7 +27,7 @@ ZONES = [
     ('-U11', 'USB-C, CH340C, BOOT/EN', 28, 2, 24, 14, False, 336),
     ('-U7', 'VAN SN65HVD230', 53, 2, 12, 9, False, 108),
     ('-U8', 'K-line KL-001 (SMD)', 66, 2, 22, 14, False, 308),
-    ('-U9', 'IMU LSM6DS3', 8, 30, 12, 10, False, 120),
+    ('-U9', 'IMU LSM6DSO', 8, 30, 12, 10, False, 120),
     ('-U5', 'LDO 3,3 V + sempre acc.', 22, 30, 16, 10, False, 160),
     ('-X3', 'Ventola 4 poli, 2 NTC', 54, 18, 24, 8, False, 192),
     ('-U4', 'Buck 12→5 V 3 A', 40, 30, 22, 16, False, 352),
@@ -40,7 +40,7 @@ ZONES = [
     ('-X4', 'MicroSD', 119, 40, 15, 15, True, 225),
 ]
 
-d = Sheet('C3AI-CR-PL-001 rev A — Scheda madre, studio d\'ingombro')
+d = Sheet('C3AI-CR-PL-001 rev B — Scheda madre, studio d\'ingombro')
 d.frame()
 d.text(25, 20, 'SCHEDA MADRE — STUDIO D\'INGOMBRO SUL CONTORNO DELLA SCHEDA S3 (SCALA 2:1)', 5, bold=True)
 d.text(25, 25, 'Contorno e fori dal disegno del rivenditore della scheda ESP32-8048S050 (137 × 84 mm), da verificare '
@@ -106,8 +106,9 @@ d.notes(25, 248, 'NOTE', [
 
 d.title_block(title=['Scheda madre', 'studio d\'ingombro'], subtitle='Cruscotto digitale',
               doc_type='Disposizione (2:1)', status='PRELIMINARE · NON VERIFICATO',
-              code='C3AI-CR-PL-001', rev='A', date='21/10/2026', sheet='1/1',
-              revisions=[('A', 'Prima emissione: contorno S3, zone e bilancio aree (D-029…D-031)', '21/10/2026')])
+              code='C3AI-CR-PL-001', rev='B', date='22/10/2026', sheet='1/1',
+              revisions=[('A', 'Prima emissione: contorno S3, zone e bilancio aree (D-029…D-031)', '21/10/2026'),
+                        ('B', 'IMU LSM6DSO (HW-IMU-LSM6DSO) al posto di LSM6DS3', '22/10/2026')])
 out = ROOT / 'disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg'
 out.write_text(d.svg('Studio d\'ingombro della scheda madre sul contorno della scheda S3; stime, non PCB.'), encoding='utf-8')
 print(out, core, opt)

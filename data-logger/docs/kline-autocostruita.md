@@ -20,7 +20,10 @@ Non e una piedinatura del veicolo o una scheda automotive certificata.
 ## Distinta per un prototipo da banco
 
 Tutte le resistenze dei partitori a tolleranza 1%; valori da acquistare solo
-se non gia disponibili. Possesso/ordine di questi componenti non confermato.
+se non gia disponibili. Componenti ordinati su Farnell il 22/10/2026 (consegna non
+riscontrata, dettaglio in HW-KLINE-INTERFACE). Prima prova con collegamenti volanti
+sulla millefori, senza zoccolo, adattatore né morsettiere; i fili vanno saldati
+direttamente ai piedini SOIC-8 (passo 1,27 mm) e controllati al tester prima di alimentare.
 
 | Rif. | Quantita | Valore / componente | Nota |
 | --- | --- | --- | --- |

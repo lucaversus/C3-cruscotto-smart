@@ -1,8 +1,8 @@
 # Scheda madre del cruscotto — progetto preliminare
 
 Revisione B, 21/10/2026 (rev A 20/10/2026). Cruscotto C3+AI, decisioni D-028…D-031.
-Schema a blocchi: [C3AI-CR-BL-001 rev B](../../disegni/CR-BL-001_scheda-madre-blocchi.png) ([SVG](../../disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg),
-generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev A](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
+Schema a blocchi: [C3AI-CR-BL-001 rev C](../../disegni/CR-BL-001_scheda-madre-blocchi.png) ([SVG](../../disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg),
+generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev B](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva, nessuno schema
@@ -15,7 +15,7 @@ Una scheda fissata dietro l'ESP32-S3 8048S050 che raccoglie tutti i collegamenti
 verso l'auto in un **connettore multipolare unico** (-J1) e contiene il **front-end**
 ESP32 (D-029): l'S3 non ha fili diretti verso il veicolo. Prima della scheda madre
 si costruisce un prototipo con i moduli già presenti (HW-ESP32, HW-CAN-VP230,
-KL-001 su millefori, HW-IMU-LSM6DS3).
+KL-001 su millefori, HW-IMU-LSM6DSO).
 
 ## Blocchi
 
@@ -27,7 +27,7 @@ KL-001 su millefori, HW-IMU-LSM6DS3).
 | -U6 | Front-end | ESP32-WROOM-32E-**H4/H8** montato in fabbrica (HW-FE-MODULE) | senza PSRAM; stessi GPIO del logger 0.3.x |
 | -U7 | VAN | SN65HVD230 solo ricezione: D a 3V3, nessuna resistenza da 120 Ω | prerequisiti D-022 bloccanti |
 | -U8 | K-line | circuito KL-001 rev F (2N5551 + LM2903B, isteresi R10) | progetto da banco: protezioni auto da aggiungere |
-| -U9 | IMU | LSM6DS3 a 0x6A (o connettore Grove per il modulo) | fissaggio rigido, assi indicati in serigrafia |
+| -U9 | IMU | LSM6DSO a 0x6A (prototipo: STEVAL-MKI196V1 DIL-24); in definitiva valutare ISM330 −40…+105 °C | fissaggio rigido, assi indicati in serigrafia; stesso chip del logger (D-033) |
 | -U10 | RTC (opzionale) | DS3231 a 0x68 | utile per i timestamp del dataset |
 | -U11 | Programmazione | USB-seriale con reset automatico, oppure connettore a 6 poli | aggiornamenti senza smontare |
 | -K1/K2 | Audio (D-028) | un relè a doppio scambio per canale, pilotato a transistor con diodo di ricircolo | a riposo radio → altoparlanti; uscite radio a ponte mai a massa |

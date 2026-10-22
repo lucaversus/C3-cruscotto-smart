@@ -15,12 +15,12 @@ cartiglio con revisione e stato (D-009, D-024).
 
 ## Cruscotto
 
-### CR-BL-001 — Scheda madre, schema a blocchi (rev B, preliminare)
+### CR-BL-001 — Scheda madre, schema a blocchi (rev C, preliminare)
 Architettura della scheda madre: alimentazione, front-end, interfacce, audio. Documento: [scheda-madre.md](../cruscotto/docs/scheda-madre.md).
 
 [![CR-BL-001](CR-BL-001_scheda-madre-blocchi.png)](CR-BL-001_scheda-madre-blocchi.png)
 
-### CR-PL-001 — Scheda madre, studio d'ingombro (rev A, preliminare)
+### CR-PL-001 — Scheda madre, studio d'ingombro (rev B, preliminare)
 Zone dei componenti sul contorno della scheda S3 (137 × 84 mm).
 
 [![CR-PL-001](CR-PL-001_scheda-madre-ingombro.png)](CR-PL-001_scheda-madre-ingombro.png)
