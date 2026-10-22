@@ -54,13 +54,14 @@ dati non sono reali).
 - **Velocità** al centro, cifre in grassetto con angoli arrotondati (`font_speed.c`,
   Montserrat ingrossato e arrotondato da `tools/genera-font-velocita.py`; licenza OFL),
   aggiornata al massimo 4 volte al secondo.
-- **Acqua** in verticale a sinistra (icona termometro): bianca fino a 50 °C, sfumatura
+- **Acqua** in verticale a sinistra con l'icona del termometro **dentro la barra**, in
+  basso: chiara sulla parte vuota e scura su quella riempita, tagliata al livello: bianca fino a 50 °C, sfumatura
   verso l'azzurro 0x00C0FF (75-100 °C), poi verso il rosso fino a 110 °C, riquadro di
-  avviso da 110 °C. **Gasolio** in verticale a destra (icona distributore): bianco, ambra
-  in riserva (≤ 10 %).
+  avviso da 110 °C. **Gasolio** in verticale a destra, icona del distributore dentro la
+  barra con la stessa inversione: bianco, ambra in riserva (≤ 10 %).
 - **Spie a icona** (`icons.c`, disegni originali in stile ISO 2575 da `tools/genera-icone.py`,
   colorate dal firmware): nascoste se spente, compaiono sopra la fascia dei dati secondari
-  (icona batteria e tensione, icona termometro e temperatura esterna); frecce ai lati;
+  (icona batteria e tensione, icona termometro e temperatura esterna); frecce ai lati più grandi (64 px) con angoli arrotondati;
   **prova lampade** di 3 s all'avvio.
 - **Riquadro degli avvisi** con icona grande: collegamento assente (ambra), pressione
   olio, freni, acqua alta, carica batteria (rosso), in quest'ordine di priorità.

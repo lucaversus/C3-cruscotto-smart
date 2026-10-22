@@ -8,6 +8,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <initializer_list>
 
 #include "dash_logic.h"
 #include "fe_link.h"
@@ -22,7 +23,9 @@ LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre
 namespace dashboard {
 namespace {
 constexpr int kRpmX = 20, kRpmY = 12, kRpmW = 760, kRpmH = 64;
-constexpr int kSideY = 190, kSideW = 44, kSideH = 230;  // barre verticali acqua e carburante
+constexpr int kSideY = 160, kSideW = 48, kSideH = 260;  // barre verticali acqua e carburante
+constexpr int kSideIcon = 36, kSideIconY = kSideH - kSideIcon - 8;  // icona dentro la barra, in basso
+constexpr int kTurnSize = 64;                           // frecce più grandi delle altre spie
 constexpr int kLampStep = 64;                           // passo delle spie (icone 44 px)
 
 struct Lamp {
@@ -37,8 +40,8 @@ struct Lamp {
 // Spie dinamiche a icona: nascoste se spente. Riga 0 sicurezza e ritenuta, riga 1 motore,
 // luci e avvisi minori.
 Lamp lamps[] = {
-    {dash::kTurnLeft, false, &icon_turn_left_44, 0x00E040, -1, 0, nullptr},
-    {dash::kTurnRight, false, &icon_turn_right_44, 0x00E040, -2, 0, nullptr},
+    {dash::kTurnLeft, false, &icon_turn_left_64, 0x00E040, -1, 0, nullptr},
+    {dash::kTurnRight, false, &icon_turn_right_64, 0x00E040, -2, 0, nullptr},
     {dash::kBrake, true, &icon_brake_44, 0xFF2020, 0, 0, nullptr},
     {dash::kOilPressure, true, &icon_oil_44, 0xFF2020, 1, 0, nullptr},
     {dash::kCoolantHot, true, &icon_coolant_44, 0xFF2020, 2, 0, nullptr},
@@ -63,6 +66,16 @@ lv_obj_t* coolantBar = nullptr;
 lv_obj_t* coolantLabel = nullptr;
 lv_obj_t* fuelBar = nullptr;
 lv_obj_t* fuelLabel = nullptr;
+
+// Icona dentro una barra verticale: due copie ritagliate al livello, scura sulla parte
+// riempita e chiara su quella vuota, così resta leggibile mentre il livello sale.
+struct SideIcon {
+  lv_obj_t* light = nullptr;  // contenitore della parte vuota (sopra il livello)
+  lv_obj_t* dark = nullptr;   // contenitore della parte riempita (sotto il livello)
+  lv_obj_t* darkIcon = nullptr;
+  int boundary = -1;          // riga del livello, dall'alto della barra
+};
+SideIcon coolantIcon, fuelIcon;
 lv_obj_t* battLabel = nullptr;
 lv_obj_t* outLabel = nullptr;
 lv_obj_t* alertBox = nullptr;
@@ -137,6 +150,18 @@ void setText(lv_obj_t* l, const char* text, char* shown, size_t size) {
   lv_label_set_text_static(l, shown);
 }
 
+// Sposta il taglio tra icona chiara e scura alla riga del livello (fill = 0..kSideH).
+void setSideLevel(SideIcon& si, int fill) {
+  const int boundary = kSideH - (fill < 0 ? 0 : fill > kSideH ? kSideH : fill);
+  if (boundary == si.boundary) return;
+  si.boundary = boundary;
+  lv_obj_set_pos(si.light, 0, 0);
+  lv_obj_set_size(si.light, kSideW, boundary);
+  lv_obj_set_pos(si.dark, 0, boundary);
+  lv_obj_set_size(si.dark, kSideW, kSideH - boundary);
+  lv_obj_set_pos(si.darkIcon, (kSideW - kSideIcon) / 2, kSideIconY - boundary);
+}
+
 void setColor(lv_obj_t* b, uint32_t color, uint32_t& shown) {
   if (color == shown) return;
   lv_obj_set_style_bg_color(b, lv_color_hex(color), LV_PART_INDICATOR);
@@ -195,14 +220,22 @@ void build() {
   lv_obj_align(speedLabel, LV_ALIGN_TOP_MID, 0, 165);  // larghezza sul contenuto: ridisegno minimo
 
   // Acqua a sinistra e carburante a destra, barre verticali colorate per intero.
-  struct Side { lv_obj_t** barObj; lv_obj_t** value; const lv_img_dsc_t* sign; int min, max; bool left; };
-  const Side sides[] = {{&coolantBar, &coolantLabel, &icon_coolant_36, 40, 130, true},
-                        {&fuelBar, &fuelLabel, &icon_fuel_36, 0, 100, false}};
+  struct Side {
+    lv_obj_t** barObj; lv_obj_t** value; SideIcon* sideIcon; const lv_img_dsc_t* sign; int min, max; bool left;
+  };
+  const Side sides[] = {{&coolantBar, &coolantLabel, &coolantIcon, &icon_coolant_36, 40, 130, true},
+                        {&fuelBar, &fuelLabel, &fuelIcon, &icon_fuel_36, 0, 100, false}};
   for (const Side& s : sides) {
     *s.barObj = bar(screen, kSideW, kSideH, s.min, s.max);
     lv_obj_align(*s.barObj, s.left ? LV_ALIGN_TOP_LEFT : LV_ALIGN_TOP_RIGHT, s.left ? 20 : -20, kSideY);
-    lv_obj_t* sign = icon(screen, s.sign, 0x909090);
-    lv_obj_align_to(sign, *s.barObj, LV_ALIGN_OUT_TOP_MID, 0, -6);
+    for (lv_obj_t** part : {&s.sideIcon->light, &s.sideIcon->dark}) {
+      *part = lv_obj_create(*s.barObj);
+      lv_obj_remove_style_all(*part);
+      lv_obj_clear_flag(*part, LV_OBJ_FLAG_SCROLLABLE);
+      lv_obj_t* img = icon(*part, s.sign, part == &s.sideIcon->light ? 0xA0A0A0 : 0x000000);
+      lv_obj_set_pos(img, (kSideW - kSideIcon) / 2, kSideIconY);
+      if (part == &s.sideIcon->dark) s.sideIcon->darkIcon = img;
+    }
     *s.value = label(screen, &lv_font_montserrat_28, 0xFFFFFF);
     lv_obj_set_width(*s.value, 110);
     lv_obj_set_style_text_align(*s.value, s.left ? LV_TEXT_ALIGN_LEFT : LV_TEXT_ALIGN_RIGHT, 0);
@@ -229,8 +262,8 @@ void build() {
     lv_obj_set_style_bg_color(l.obj, lv_color_black(), 0);
     lv_obj_set_style_bg_opa(l.obj, LV_OPA_COVER, 0);
     const int y = 88 + l.row * 54;
-    if (l.col == -1) lv_obj_set_pos(l.obj, 20, y);
-    else if (l.col == -2) lv_obj_align(l.obj, LV_ALIGN_TOP_RIGHT, -20, y);
+    if (l.col == -1) lv_obj_set_pos(l.obj, 20, y - (kTurnSize - 44) / 2);
+    else if (l.col == -2) lv_obj_align(l.obj, LV_ALIGN_TOP_RIGHT, -20, y - (kTurnSize - 44) / 2);
     else lv_obj_set_pos(l.obj, 400 - kRowCount[l.row] * kLampStep / 2 + l.col * kLampStep + (kLampStep - 44) / 2, y);
     lv_obj_add_flag(l.obj, LV_OBJ_FLAG_HIDDEN);
   }
@@ -267,6 +300,7 @@ void update(int64_t nowUs) {
   const int coolant = coolValid ? static_cast<int>(coolV.value + 0.5f) : -1;
   if (coolant != shownCoolant) {
     lv_bar_set_value(coolantBar, coolant < 40 ? 40 : coolant, LV_ANIM_OFF);
+    setSideLevel(coolantIcon, coolant < 40 ? 0 : (coolant - 40) * kSideH / (130 - 40));
     if (coolant < 0) lv_label_set_text_static(coolantLabel, "--");
     else lv_label_set_text_fmt(coolantLabel, "%d°", coolant);
     shownCoolant = coolant;
@@ -276,6 +310,7 @@ void update(int64_t nowUs) {
   const int fuel = fresh(fuelV) ? static_cast<int>(fuelV.value + 0.5f) : -1;
   if (fuel != shownFuel) {
     lv_bar_set_value(fuelBar, fuel < 0 ? 0 : fuel, LV_ANIM_OFF);
+    setSideLevel(fuelIcon, fuel < 0 ? 0 : fuel * kSideH / 100);
     if (fuel < 0) lv_label_set_text_static(fuelLabel, "--");
     else lv_label_set_text_fmt(fuelLabel, "%d%%", fuel);
     shownFuel = fuel;

@@ -11,7 +11,7 @@ import importlib.util
 import math
 import sys
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_C = ROOT / 'cruscotto/firmware/ui-idf/src/icons.c'
@@ -73,8 +73,11 @@ class Pen:
         font = ImageFont.truetype(montserrat(), round(size * self.k))
         self.d.text((cx * self.k, cy * self.k), value, font=font, fill=255, anchor='mm', stroke_width=round(self.k))
 
-    def done(self, px):
-        return self.img.resize((px, px), Image.LANCZOS)
+    def done(self, px, round_r=0):
+        img = self.img
+        if round_r:                               # angoli arrotondati: sfocatura e soglia a metà
+            img = img.filter(ImageFilter.GaussianBlur(round_r * self.k)).point(lambda v: 255 if v > 127 else 0)
+        return img.resize((px, px), Image.LANCZOS)
 
 
 def montserrat():
@@ -238,7 +241,7 @@ def link_lost(p):
 
 
 ICONS = {  # nome: (funzione, dimensioni in pixel)
-    'turn_left': (turn_left, (44,)), 'turn_right': (turn_right, (44,)),
+    'turn_left': (turn_left, (64,)), 'turn_right': (turn_right, (64,)),
     'brake': (brake, (44, 110)), 'oil': (oil, (44, 110)), 'coolant': (coolant, (44, 36, 110)),
     'battery': (battery, (44, 28, 110)), 'park_brake': (park_brake, (44,)),
     'engine': (engine, (44,)), 'glow_plugs': (glow_plugs, (44,)), 'abs': (abs_, (44,)),
@@ -248,14 +251,17 @@ ICONS = {  # nome: (funzione, dimensioni in pixel)
 }
 
 
-def render(fn, px):
+ROUNDED = {'turn_left': 5, 'turn_right': 5}   # raggio di arrotondamento, unità di griglia
+
+
+def render(name, fn, px):
     pen = Pen(px)
     fn(pen)
-    return pen.done(px)
+    return pen.done(px, ROUNDED.get(name, 0))
 
 
 def main():
-    images = {(name, px): render(fn, px) for name, (fn, sizes) in ICONS.items() for px in sizes}
+    images = {(name, px): render(name, fn, px) for name, (fn, sizes) in ICONS.items() for px in sizes}
     if len(sys.argv) > 2 and sys.argv[1] == '--anteprima':
         sheet = Image.new('L', (16 + 120 * 10, 16 + 120 * ((len(images) + 9) // 10)), 40)
         for i, img in enumerate(images.values()):

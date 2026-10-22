@@ -2,8 +2,8 @@
 #pragma once
 #include "lvgl.h"
 
-extern const lv_img_dsc_t icon_turn_left_44;
-extern const lv_img_dsc_t icon_turn_right_44;
+extern const lv_img_dsc_t icon_turn_left_64;
+extern const lv_img_dsc_t icon_turn_right_64;
 extern const lv_img_dsc_t icon_brake_44;
 extern const lv_img_dsc_t icon_brake_110;
 extern const lv_img_dsc_t icon_oil_44;
