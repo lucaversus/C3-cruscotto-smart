@@ -52,7 +52,7 @@ Lamp lamps[] = {
 
 lv_obj_t* rpmBar = nullptr;
 lv_obj_t* rpmDigits[kRpmDigits] = {};
-lv_obj_t* speedLabel = nullptr;
+lv_obj_t* speedSeg[3][7] = {};  // cifre a sette segmenti: centinaia, decine, unità
 lv_obj_t* coolantBar = nullptr;
 lv_obj_t* coolantLabel = nullptr;
 lv_obj_t* secondaryLabel = nullptr;
@@ -128,17 +128,29 @@ void build() {
   secondaryLabel = label(screen, &lv_font_montserrat_28, 0xB0B0B0);
   lv_obj_align(secondaryLabel, LV_ALIGN_TOP_MID, 0, 104);
 
-  // Velocità al centro (carattere 48 ingrandito 2,5 volte) e giri in cifre a destra.
-  speedLabel = label(screen, &lv_font_montserrat_48, 0xFFFFFF);
-  lv_obj_set_width(speedLabel, 200);
-  lv_obj_set_style_text_align(speedLabel, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_transform_pivot_x(speedLabel, 100, 0);
-  lv_obj_set_style_transform_pivot_y(speedLabel, 28, 0);
-  lv_obj_set_style_transform_zoom(speedLabel, 640, 0);
-  lv_obj_align(speedLabel, LV_ALIGN_CENTER, 0, 45);
+  // Velocità al centro con cifre a sette segmenti (nessun carattere grande disponibile)
+  // e giri in cifre a destra.
+  for (int d = 0; d < 3; ++d) {
+    const int x0 = 400 - 135 + d * 95, y0 = 190, w = 72, h = 130, t = 14;
+    const int seg[7][4] = {{t, 0, w - 2 * t, t},           {w - t, t, t, h / 2 - t},
+                           {w - t, h / 2, t, h / 2 - t},   {t, h - t, w - 2 * t, t},
+                           {0, h / 2, t, h / 2 - t},       {0, t, t, h / 2 - t},
+                           {t, h / 2 - t / 2, w - 2 * t, t}};
+    for (int k = 0; k < 7; ++k) {
+      lv_obj_t* o = lv_obj_create(screen);
+      lv_obj_remove_style_all(o);
+      lv_obj_set_pos(o, x0 + seg[k][0], y0 + seg[k][1]);
+      lv_obj_set_size(o, seg[k][2], seg[k][3]);
+      lv_obj_set_style_bg_color(o, lv_color_white(), 0);
+      lv_obj_set_style_bg_opa(o, LV_OPA_COVER, 0);
+      lv_obj_set_style_radius(o, 4, 0);
+      lv_obj_add_flag(o, LV_OBJ_FLAG_HIDDEN);
+      speedSeg[d][k] = o;
+    }
+  }
   lv_obj_t* speedUnit = label(screen, &lv_font_montserrat_28, 0x909090);
   lv_label_set_text_static(speedUnit, "km/h");
-  lv_obj_align(speedUnit, LV_ALIGN_CENTER, 0, 125);
+  lv_obj_align(speedUnit, LV_ALIGN_TOP_MID, 0, 330);
   for (int i = 0; i < kRpmDigits; ++i) {
     rpmDigits[i] = label(screen, &lv_font_montserrat_48, 0xFFFFFF);
     lv_obj_set_width(rpmDigits[i], kDigitWidth);
@@ -217,8 +229,17 @@ void update(int64_t nowUs) {
 
   const int speed = fresh(speedV) ? static_cast<int>(speedV.value + 0.5f) : -1;
   if (speed != shownSpeed) {
-    if (speed < 0) lv_label_set_text_static(speedLabel, "--");
-    else lv_label_set_text_fmt(speedLabel, "%d", speed);
+    for (int d = 0; d < 3; ++d) {
+      const uint8_t mask = dash::speedSegments(speed, 2 - d);
+      for (int k = 0; k < 7; ++k) {
+        lv_obj_t* o = speedSeg[d][k];
+        const bool on = (mask >> k) & 1;
+        if (on == lv_obj_has_flag(o, LV_OBJ_FLAG_HIDDEN)) {
+          if (on) lv_obj_clear_flag(o, LV_OBJ_FLAG_HIDDEN);
+          else lv_obj_add_flag(o, LV_OBJ_FLAG_HIDDEN);
+        }
+      }
+    }
     shownSpeed = speed;
   }
 

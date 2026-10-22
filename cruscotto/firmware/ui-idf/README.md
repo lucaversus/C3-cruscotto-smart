@@ -48,7 +48,8 @@ con dati simulati (scritta "DEMO - dati simulati"):
 - **Giri**: barra lineare a tutta larghezza, colore dell'intera barra verde fino a
   3500 giri/min, poi sfumatura graduale fino a tutta rossa a 4500 (potenza massima
   50 kW a 4000 giri/min secondo le schede tecniche; limitatore non trovato); cifre a destra.
-- **Velocità** grande al centro (carattere 48 ingrandito 2,5 volte).
+- **Velocità** grande al centro con cifre a **sette segmenti** (72×130 px): l'ingrandimento
+  del carattere 48 non veniva disegnato (utente 22/10/2026: "la velocità non si vede").
 - **Acqua**: barra in basso bianca fino a 50 °C, sfumatura verso l'azzurro 0x00C0FF
   (75-100 °C), poi verso il rosso fino a 110 °C, con riquadro di avviso da 110 °C.
 - **Spie dinamiche**: nascoste se spente, compaiono sopra la fascia dei dati
@@ -63,4 +64,5 @@ con dati simulati (scritta "DEMO - dati simulati"):
 
 **Soglie**: giri basati sulla potenza massima dichiarata (schede tecniche Automoto,
 Quattroruote, UltimateSpecs); acqua solo proposta, da fissare con le temperature
-registrate dal logger. Fondo scala giri 5000 da verificare. Stato: compilata il 22/10/2026, non ancora caricata.
+registrate dal logger. Fondo scala giri 5000 da verificare. Stato: compilata e caricata su COM4 il 22/10/2026 (hash verificati); seriale: 25 FPS,
+31 ms per ridisegno, collegamento simulato senza errori. Collaudo visivo in corso.

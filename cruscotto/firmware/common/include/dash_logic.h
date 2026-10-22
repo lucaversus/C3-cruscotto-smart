@@ -55,6 +55,19 @@ enum Warning : uint32_t { kBrake = 1u << 0, kOilPressure = 1u << 1, kCoolantHot 
 // Spie di sicurezza: sempre visibili quando accese, anche con il riquadro di avviso.
 constexpr uint32_t kSafetyWarnings = kBrake | kOilPressure | kCoolantHot | kCharge;
 
+// Cifre a sette segmenti della velocità (bit 0-6 = segmenti a-g: a alto, b alto destra,
+// c basso destra, d basso, e basso sinistra, f alto sinistra, g centrale).
+constexpr uint8_t kSegments[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+constexpr uint8_t kSegmentDash = 0x40;  // "-": dato assente
+// Segmenti della cifra di posizione pos (0 = unità) di value; 0 = cifra spenta (zeri iniziali).
+constexpr uint8_t speedSegments(int value, int pos) {
+  return value < 0 ? (pos == 0 ? kSegmentDash : 0)
+         : pos == 0 ? kSegments[value % 10]
+         : pos == 1 ? (value >= 10 ? kSegments[(value / 10) % 10] : 0)
+                    : (value >= 100 ? kSegments[(value / 100) % 10] : 0);
+}
+static_assert(speedSegments(7, 0) == 0x07 && speedSegments(7, 1) == 0 && speedSegments(107, 1) == 0x3F, "cifre");
+
 // Prova lampade: tutte le spie accese per i primi kBulbCheckMs dall'avvio dell'interfaccia.
 constexpr uint32_t kBulbCheckMs = 3000;
 constexpr bool bulbCheck(uint32_t sinceStartMs) { return sinceStartMs < kBulbCheckMs; }
