@@ -390,8 +390,8 @@
       "verified": [],
       "open_checks": [
         "All'arrivo: riscontrare sigla STEVAL-MKI196V1 e marcatura del chip; foto da archiviare.",
-        "Piedinatura DIL-24, alimentazione VDD/VDDIO (1,71-3,6 V: solo 3,3 V, nessun regolatore dichiarato) e piedini SDO/SA0 e CS da verificare sul manuale ST della scheda prima del collegamento.",
-        "Indirizzo I2C atteso 0x6A (SA0 a GND) o 0x6B (SA0 a 3,3 V); CS a 3,3 V per il modo I2C. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C. Resistenze di pull-up I2C sulla scheda da verificare (il bus del logger ha già quelle del modulo RTC, da riscontrare).",
+        "Piedinatura DIL-24 ricavata da ST DB3714 rev 1 (schema STEVAL-MKI196V1, 22/10/2026): 1 VDD, 2 VDDIO, 3 OCS, 4 SCx, 5 SDx, 6 OSDO, 13 GND, 14 INT1, 15 INT2, 19 CS, 20 SCL, 21 SDA, 22 SDO/SA0; 7-12 e 23 liberi, 16-18 e 24 con resistenze non montate. Condensatori 100 nF su VDD e VDDIO presenti, nessuna pull-up I2C sulla scheda. Da riscontrare sulla serigrafia all'arrivo. Alimentazione 1,71-3,6 V: solo 3,3 V.",
+        "Indirizzo I2C 0x6A con SDO/SA0 (piedino 22) a GND; CS (19) a 3,3 V per il modo I2C. SCx/SDx (4/5) a GND in modo 1 secondo ST (riscontrare sulla tabella dei piedini del datasheet LSM6DSO), OCS e OSDO liberi. Pull-up SDA/SCL: verificare quelle del modulo RTC, altrimenti 4,7 kohm verso 3,3 V. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C.",
         "Collegamento proposto: bus I2C HW-394 GPIO21/22 su ritaglio di millefori (basetta 4, tavola C3AI-DL-EL-004 rev A, D-042), non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).",
         "Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033)."
       ],

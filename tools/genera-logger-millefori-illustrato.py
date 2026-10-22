@@ -263,23 +263,45 @@ for i, n in enumerate(['GND', 'VCC', 'SCL', 'SDA']):
     oled[n] = (295, y)
 
 # --- Basetta 4: IMU su ritaglio di millefori ------------------------------------------
-perfboard(d, 345, 131, 37.5, 57, '')
-label(d, 363.75, 129, 'Basetta 4 — IMU (ritaglio ~25×38 mm)', 2.6, bold=True)
-box(d, 356, 135, 23, 48, '#1a6a3a', rx=1)
+# Piedinatura DIL-24 da ST DB3714 rev 1 (schema STEVAL-MKI196V1): JP1 1 VDD, 2 VDDIO, 3 OCS, 4 SCx,
+# 5 SDx, 6 OSDO, 7-12 liberi; JP2 13 GND, 14 INT1, 15 INT2, 16-18 non montati, 19 CS, 20 SCL,
+# 21 SDA, 22 SDO (= SA0), 23 libero, 24 non montato. Nessuna resistenza di pull-up sulla scheda.
+# Modo 1 (solo I²C): SDx e SCx a VDDIO o GND secondo ST, OCS e OSDO liberi (da riscontrare sul datasheet).
+perfboard(d, 345, 131, 41, 57, '')
+label(d, 365.5, 129, 'Basetta 4 — IMU (ritaglio ~27×38 mm)', 2.6, bold=True)
+box(d, 356, 134, 23, 49, '#1a6a3a', rx=1)
+DIL_L = [24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13]
+DIL_R = list(range(1, 13))
+DIL_NAME = {1: 'VDD', 2: 'VDDIO', 3: 'OCS', 4: 'SCx', 5: 'SDx', 6: 'OSDO', 13: 'GND', 14: 'INT1', 15: 'INT2',
+            19: 'CS', 20: 'SCL', 21: 'SDA', 22: 'SDO'}
+USED = {1, 2, 4, 5, 13, 19, 20, 21, 22}
+dil = {}
 for j in range(12):
-    for xx in (357.5, 377.5):
-        d.raw(f'<circle cx="{xx}" cy="{137.5 + j * 3.81:.2f}" r="0.9" fill="#ffd700" stroke="#000" stroke-width="0.2"/>')
-box(d, 363.5, 140, 8, 8, '#202020', rx=0.5)
-label(d, 367.5, 152, 'STEVAL-', 1.9, bold=True, color='#ffffff'); label(d, 367.5, 155, 'MKI196V1', 1.9, bold=True, color='#ffffff')
-label(d, 367.5, 159, 'LSM6DSO', 1.9, color='#ffffff'); label(d, 367.5, 163, '-A5', 2.2, bold=True, color='#ffffff')
-d.raw('<path d="M362 178 h10 M372 178 l-2 -1.2 M372 178 l-2 1.2 M362 178 v-10 M362 168 l-1.2 2 M362 168 l1.2 2" stroke="#ffffff" stroke-width="0.5" fill="none"/>')
-label(d, 373.5, 179, 'X', 2, 'start', True, '#ffffff'); label(d, 363, 167.5, 'Y', 2, 'start', True, '#ffffff')
-imu = {n: pad(d, 349, y, t, 'L') for n, y, t in (('GND', 145, 'GND'), ('+3V3', 151, '3V3'), ('SDA', 157, 'SDA'), ('SCL', 163, 'SCL'))}
-for n, (x, y) in imu.items():
-    d.raw(f'<line x1="{x + 1.8:.2f}" y1="{y}" x2="356" y2="{y}" stroke="{C[n]}" stroke-width="0.8" stroke-dasharray="1.2 0.8"/>')
-d.text(345, 192.5, 'Tratteggio: piedini DIL-24 dal manuale ST,', 2.0)
-d.text(345, 195.5, 'da verificare. VDD, VDDIO e CS a 3V3 (I²C);', 2.0)
-d.text(345, 198.5, 'SA0 a GND → indirizzo 0x6A.', 2.0)
+    y = 137.5 + j * 3.81
+    for xx, pin, side in ((357.5, DIL_L[j], 'L'), (377.5, DIL_R[j], 'R')):
+        d.raw(f'<circle cx="{xx}" cy="{y:.2f}" r="0.9" fill="{"#ffd700" if pin in USED else "#a0a0a0"}" stroke="#000" stroke-width="0.2"/>')
+        name = DIL_NAME.get(pin, '')
+        label(d, xx + (1.5 if side == 'L' else -1.5), y + 0.5, f'{pin} {name}' if side == 'L' else f'{name} {pin}',
+              1.3, 'start' if side == 'L' else 'end', pin in USED, '#ffffff')
+        dil[pin] = (xx, y)
+box(d, 368.5, 160, 5, 5, '#202020', rx=0.5)
+label(d, 371, 168, 'MKI196V1', 1.3, bold=True, color='#ffffff'); label(d, 371, 170.3, 'LSM6DSO -A5', 1.3, color='#ffffff')
+d.raw('<path d="M368.5 177.5 h5 M373.5 177.5 l-1.4 -0.8 M373.5 177.5 l-1.4 0.8 M368.5 177.5 v-4.5 M368.5 173 l-0.8 1.4 M368.5 173 l0.8 1.4" stroke="#ffffff" stroke-width="0.35" fill="none"/>')
+label(d, 371, 180.3, 'X', 1.4, 'middle', True, '#ffffff'); label(d, 367, 174, 'Y', 1.4, 'end', True, '#ffffff')
+imu = {n: pad(d, 349, y, '', 'L') for n, y in (('+3V3', dil[2][1]), ('GND', dil[22][1]), ('SDA', dil[21][1]), ('SCL', dil[20][1]))}
+inner(d, 'SDA', [imu['SDA'], dil[21]])
+inner(d, 'SCL', [imu['SCL'], dil[20]])
+inner(d, 'GND', [imu['GND'], dil[22]])                                    # SDO = SA0 a massa: 0x6A
+inner(d, 'GND', [(352, dil[22][1]), (352, dil[13][1]), dil[13]])
+inner(d, 'GND', [(352, dil[13][1]), (352, 185.5), (385, 185.5), (385, dil[4][1]), dil[4]])     # SCx e SDx inutilizzati a GND
+inner(d, 'GND', [(385, dil[5][1]), dil[5]]); d.raw(f'<circle cx="385" cy="{dil[5][1]:.2f}" r="0.7" fill="#000"/>')
+d.raw(f'<circle cx="352" cy="{dil[22][1]:.2f}" r="0.7" fill="#000"/>')
+inner(d, '+3V3', [imu['+3V3'], (354, dil[2][1]), (354, dil[19][1]), dil[19]])  # CS a 3V3: modo I²C
+inner(d, '+3V3', [(354, dil[2][1]), (354, 132.5), (383.5, 132.5), (383.5, dil[1][1]), dil[1]]); d.raw(f'<circle cx="354" cy="{dil[2][1]:.2f}" r="0.7" fill="{C["+3V3"]}" stroke="#000" stroke-width="0.15"/>')
+inner(d, '+3V3', [(383.5, dil[2][1]), dil[2]]); d.raw(f'<circle cx="383.5" cy="{dil[2][1]:.2f}" r="0.7" fill="{C["+3V3"]}" stroke="#000" stroke-width="0.15"/>')
+d.text(345, 192.5, 'DIL-24 da ST DB3714 rev 1 (fa fede la serigrafia):', 2.0)
+d.text(345, 195.5, 'VDD, VDDIO e CS a 3V3 (I²C); SDO/SA0 a GND → 0x6A;', 2.0)
+d.text(345, 198.5, 'SCx/SDx a GND (modo 1); INT1/INT2 e grigi liberi.', 2.0)
 
 # --- R3 e alimentatore da banco ------------------------------------------------------
 d.raw('<line x1="272" y1="50" x2="318" y2="50" stroke="#808080" stroke-width="0.8"/>')
@@ -353,10 +375,10 @@ wire(d, 'GND', [o_pad['GND'], (266, 160), (266, 148), oled['GND']])
 wire(d, '+3V3', [o_pad['+3V3'], (270, 166), (270, 154), oled['VCC']])
 wire(d, 'SDA', [o_pad['SDA'], (278, 172), (278, 166), oled['SDA']])
 wire(d, 'SCL', [o_pad['SCL'], (274, 179), (274, 160), oled['SCL']])
-wire(d, 'GND', [o_pad['GND'], (288, 160), (288, 184), (336, 184), (336, 145), imu['GND']])
-wire(d, '+3V3', [o_pad['+3V3'], (286, 166), (286, 186), (338, 186), (338, 151), imu['+3V3']])
-wire(d, 'SDA', [o_pad['SDA'], (284, 172), (284, 188), (340, 188), (340, 157), imu['SDA']])
-wire(d, 'SCL', [o_pad['SCL'], (282, 179), (282, 190), (342, 190), (342, 163), imu['SCL']])
+wire(d, 'GND', [o_pad['GND'], (288, 160), (288, 184), (338, 184), (338, imu['GND'][1]), imu['GND']])
+wire(d, '+3V3', [o_pad['+3V3'], (286, 166), (286, 186), (336, 186), (336, imu['+3V3'][1]), imu['+3V3']])
+wire(d, 'SDA', [o_pad['SDA'], (284, 172), (284, 188), (340, 188), (340, imu['SDA'][1]), imu['SDA']])
+wire(d, 'SCL', [o_pad['SCL'], (282, 179), (282, 190), (342, 190), (342, imu['SCL'][1]), imu['SCL']])
 wire(d, 'K', [kr['K'], (266, kr['K'][1]), (266, 50), (272, 50)])
 wire(d, 'VBENCH', [(318, 50), (392, 50), (392, 62), (294, 62), (294, plus[1]), plus])
 wire(d, 'VBENCH', [kr['VBENCH'], (276, kr['VBENCH'][1]), (276, 62), (293.99, 62)])
@@ -412,7 +434,8 @@ d.notes(292, 197, 'SEQUENZA E PRECAUZIONI', [
     '5 Spegnere in ordine inverso. Mai 12 V su ESP32 o su 3V3.',
     '6 W4/W6, W5/W7, W16…W19/W20…W23: due fili sullo stesso punto.',
     '7 In auto: alimentazione HW-AUTO-POWER (non ancora posseduta).',
-    '8 IMU solo 3,3 V; piedini DIL-24 dal manuale ST prima di saldare.',
+    '8 IMU solo 3,3 V; la scheda non ha pull-up I²C: verificare quelle del',
+    '  modulo RTC, altrimenti 4,7 kΩ verso 3V3 su SDA e SCL.',
     '9 VAN -A6: solo ricezione su GPIO34; prove 1-4 D-022 a banco,',
     '  collegamento al quadro solo dopo la prova 5 (punto identificato).',
 ], h=2.3, step=3.6)
