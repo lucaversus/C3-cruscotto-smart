@@ -1,6 +1,7 @@
 """Data Logger completo a banco su millefori, collegamenti illustrati (C3AI-DL-EL-004).
 
-Rev. A (D-042): ESP32 HW-394 su basetta 2, modulo K-line KL-001 rev F su basetta 1,
+Rev. A (D-042): ESP32 HW-394 su basetta 2, modulo K-line KL-001 rev F su basetta 1 (componenti e
+fili interni letti dal generatore di KL-003),
 RTC e lettore MicroSD su basetta 3, IMU LSM6DSO (STEVAL-MKI196V1) su basetta 4 ritagliata,
 OLED, modulo VAN HW-CAN-VP230 (solo ricezione) e pulsante STOP con fili; fili saldati da una
 basetta all'altra, senza morsetti. GPIO letti da hardware.json (firmware 0.3.x).
@@ -13,6 +14,11 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'data-logger/docs/tools'))
 from iso_drawing import Sheet  # noqa: E402
+import importlib.util  # noqa: E402
+
+_spec = importlib.util.spec_from_file_location('kl003', ROOT / 'tools/genera-kline-millefori.py')
+KL = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(KL)                    # dati di KL-003: componenti, fili, reti
 
 PINS = json.loads((ROOT / 'data-logger/docs/hardware.json').read_text(encoding='utf-8'))['wiring_proposal']['pins']
 assert (PINS['kKwpRx'], PINS['kKwpTx'], PINS['kSdCs'], PINS['kSck'], PINS['kMiso'], PINS['kMosi'],
@@ -100,16 +106,99 @@ for side, names, hot_set in (('L', LEFT, HOT_L), ('R', RIGHT, HOT_R)):
         esp[side + n] = (x, y)
 label(d, 63, 141, 'ESP32 saldato sulla basetta', 2.3)
 
-# --- Basetta 1: modulo K-line ------------------------------------------------------
+# --- Basetta 1: modulo K-line, disposizione e fili di KL-003 ------------------------
 B1 = (150, 38, 108, 70.5)
-perfboard(d, *B1, 'Basetta 1 — K-line KL-001 rev F')
-box(d, 192, 62, 14, 10, '#303030', rx=1); label(d, 199, 68.5, 'U1', 2.4, bold=True, color='#ffffff')
-label(d, 199, 76, 'LM2903B (SOIC-8)', 2.2)
-d.raw('<path d="M222 58 a4 4 0 0 1 0 10 z" fill="#202020"/>'); label(d, 228, 64, 'Q1', 2.4, 'start', True)
-label(d, 204, 96, 'componenti e fili volanti secondo KL-001 / KL-002', 2.2)
-k = {'RX_3V3': pad(d, 154, 48, 'RX', 'L'), 'TX_INV': pad(d, 154, 57, 'TX', 'L'), '+5V': pad(d, 154, 66, '+5V', 'L'),
-     '+3V3': pad(d, 154, 75, '+3V3', 'L'), 'GND': pad(d, 154, 84, 'GND', 'L')}
-kr = {'K': pad(d, 254, 55, 'K', 'R'), 'VBENCH': pad(d, 254, 70, 'VBENCH', 'R'), 'GND': pad(d, 254, 85, 'GND', 'R')}
+box(d, *B1, '#e9d8a6', rx=2)
+label(d, B1[0] + B1[2] / 2, B1[1] - 2.5, 'Basetta 1 — K-line KL-001 rev F (disposizione KL-003)', 3.2, bold=True)
+KX0, KY0, KS = 160.2, 44.7, 3.81                 # foro A1 e passo 2,54 mm in scala 1,5:1
+assert KL.verify() > 0                          # reti di KL-003 = netlist KL-001 rev F
+
+
+def KP(h):
+    c, r = KL.hole(h)
+    return KX0 + c * KS, KY0 + r * KS
+
+
+for c in range(-2, 26):
+    for r in range(-1, 17):
+        d.raw(f'<circle cx="{KX0 + c * KS:.2f}" cy="{KY0 + r * KS:.2f}" r="0.55" fill="#c08040"/>')
+for net, holes in KL.BUSES:
+    (xa, ya), (xb, yb) = KP(holes[0]), KP(holes[-1])
+    d.raw(f'<line x1="{xa:.2f}" y1="{ya:.2f}" x2="{xb:.2f}" y2="{yb:.2f}" stroke="#909090" stroke-width="1.0" stroke-linecap="round"/>')
+for net, path in KL.WIRES:
+    pts = ' '.join(f'{KP(h)[0]:.2f},{KP(h)[1]:.2f}' for h in path)
+    d.raw(f'<polyline points="{pts}" fill="none" stroke="{KL.NET_COLOR[net]}" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>')
+    for h in (path[0], path[-1]):
+        x, y = KP(h)
+        d.raw(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="0.5" fill="{KL.NET_COLOR[net]}" stroke="#000" stroke-width="0.1"/>')
+for ref, (ohms, precise) in KL.RES.items():
+    (xa, ya), (xb, yb) = KP(KL.COMP[ref]['a'][0]), KP(KL.COMP[ref]['b'][0])
+    mx, my = (xa + xb) / 2, (ya + yb) / 2
+    horizontal = abs(ya - yb) < 0.1
+    w, h = (6, 2) if horizontal else (2, 6)
+    d.raw(f'<line x1="{xa:.2f}" y1="{ya:.2f}" x2="{xb:.2f}" y2="{yb:.2f}" stroke="#606060" stroke-width="0.35"/>')
+    d.raw(f'<rect x="{mx - w / 2:.2f}" y="{my - h / 2:.2f}" width="{w}" height="{h}" rx="0.9" fill="{"#8fb8e8" if precise else "#e8d2a0"}" stroke="#000" stroke-width="0.2"/>')
+    bands = KL.resistor_bands(ohms, precise)
+    for i, col in enumerate(bands):
+        off = -2 + i * (4 / (len(bands) - 1))
+        if horizontal:
+            d.raw(f'<rect x="{mx + off - 0.25:.2f}" y="{my - h / 2:.2f}" width="0.5" height="{h}" fill="{col}"/>')
+        else:
+            d.raw(f'<rect x="{mx - w / 2:.2f}" y="{my + off - 0.25:.2f}" width="{w}" height="0.5" fill="{col}"/>')
+    tx, ty = (mx, my - 1.6) if horizontal else (mx + 1.6, my + 0.6)
+    label(d, tx, ty, f'{ref} {KL.RES_LABEL[ref]}', 1.5, 'middle' if horizontal else 'start', True)
+# U1 LM2903B SOIC-8 incollato al centro dei suoi 8 fori, fili sottili dai piedini ai fori.
+(xa, ya), (xb, yb) = KP(KL.COMP['U1']['8'][0]), KP(KL.COMP['U1']['4'][0])
+cx, cy = (xa + xb) / 2, (ya + yb) / 2
+for pin, (hl, _) in KL.COMP['U1'].items():
+    x, y = KP(hl)
+    px_ = cx + (int(pin) - 2.5 if int(pin) <= 4 else 6.5 - int(pin)) * 1.9
+    py_ = cy + (2.2 if int(pin) <= 4 else -2.2)
+    d.raw(f'<line x1="{px_:.2f}" y1="{py_:.2f}" x2="{x:.2f}" y2="{y:.2f}" stroke="#b07020" stroke-width="0.3"/>')
+    d.raw(f'<rect x="{x - 0.8:.2f}" y="{y - 0.8:.2f}" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>')
+    label(d, x + (1.3 if int(pin) in (4, 5) else -1.3 if int(pin) in (1, 8) else 0), y + (2.4 if int(pin) <= 4 else -1.2), pin, 1.3, 'middle', True)
+box(d, cx - 4.5, cy - 2, 9, 4, '#303030', rx=0.3)
+d.raw(f'<circle cx="{cx - 3.6:.2f}" cy="{cy + 1.1:.2f}" r="0.35" fill="#ffffff"/>')
+label(d, cx, cy + 0.6, 'U1', 1.6, bold=True, color='#ffffff')
+for ref, shape in (('C1', 'disc'), ('C2', 'elec')):
+    hl = list(KL.COMP[ref].values())
+    (x1, y1), (x2, y2) = KP(hl[0][0]), KP(hl[1][0])
+    cx, cy = (x1 + x2) / 2 - 1.4, (y1 + y2) / 2
+    for (h, _) in hl:
+        x, y = KP(h)
+        d.raw(f'<line x1="{cx:.2f}" y1="{cy:.2f}" x2="{x:.2f}" y2="{y:.2f}" stroke="#606060" stroke-width="0.3"/>')
+    if shape == 'disc':
+        d.raw(f'<ellipse cx="{cx:.2f}" cy="{cy:.2f}" rx="0.9" ry="1.3" fill="#e0a020" stroke="#000" stroke-width="0.2"/>')
+        label(d, cx + 0.5, cy + 4.3, 'C1', 1.5, 'middle', True)
+    else:
+        d.raw(f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="1.3" fill="#203080" stroke="#000" stroke-width="0.2"/>'
+              f'<rect x="{cx - 1.3:.2f}" y="{cy + 0.3:.2f}" width="2.6" height="0.5" fill="#c0c0c0"/>')
+        label(d, cx - 1.8, cy + 0.5, 'C2', 1.5, 'end', True)
+hs = [KP(h) for h, _ in KL.COMP['Q1'].values()]
+xq = hs[0][0]
+d.raw(f'<path d="M{xq + 1:.2f} {hs[0][1] - 1.2:.2f} L{xq + 1:.2f} {hs[-1][1] + 1.2:.2f} '
+      f'A 2 {(hs[-1][1] - hs[0][1]) / 2 + 1.2:.2f} 0 0 1 {xq + 1:.2f} {hs[0][1] - 1.2:.2f} Z" fill="#202020" opacity="0.9"/>')
+for pin, (h, _) in KL.COMP['Q1'].items():
+    x, y = KP(h)
+    label(d, x - 0.6, y + 0.5, pin, 1.3, 'end', True, '#ffffff')
+label(d, xq - 3, hs[0][1] - 2, 'Q1', 1.6, 'end', True)
+label(d, 204, 112, 'Componenti e fili interni come KL-003 (R3 fuori basetta). U1 SOIC-8 incollato, fili sottili piedino→foro;', 1.9)
+label(d, 204, 114.6, 'X1/X2 = fori dove si saldano i fili W1-W5 e W24, W26, W27 (niente morsettiere).', 1.9)
+
+
+def kpad(h, text, side):
+    x, y = KP(h)
+    d.raw(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="1.3" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>')
+    label(d, x + (-1.8 if side == 'L' else 1.8), y - 1.6, text, 1.8, 'end' if side == 'L' else 'start', True)
+    return (x, y)
+
+
+X1, X2 = KL.COMP['X1'], KL.COMP['X2']
+k = {'RX_3V3': kpad(X1['1'][0], 'X1:1 RX', 'L'), 'TX_INV': kpad(X1['2'][0], 'X1:2 TX', 'L'),
+     '+5V': kpad(X1['3'][0], 'X1:3 +5V', 'L'), '+3V3': kpad(X1['4'][0], 'X1:4 +3V3', 'L'),
+     'GND': kpad(X1['5'][0], 'X1:5 GND', 'L')}
+kr = {'K': kpad(X2['1'][0], 'X2:1 K', 'R'), 'VBENCH': kpad(X2['2'][0], 'X2:2 VBENCH', 'R'),
+      'GND': kpad(X2['3'][0], 'X2:3 GND', 'R')}
 
 # --- Basetta 3: RTC e MicroSD ------------------------------------------------------
 perfboard(d, 150, 122, 108, 70.5, 'Basetta 3 — RTC e MicroSD')
@@ -242,11 +331,11 @@ label(d, 113, 189.2, 'NON COLLEGARE prima di D-022', 2.0, 'start', True, '#c0000
 
 # --- Fili tra le basette --------------------------------------------------------------
 L, R = (lambda n: esp['L' + n]), (lambda n: esp['R' + n])
-wire(d, 'RX_3V3', [R('RX2'), (104, R('RX2')[1]), (104, 48), k['RX_3V3']])
-wire(d, 'TX_INV', [R('TX2'), (106, R('TX2')[1]), (106, 57), k['TX_INV']])
-wire(d, 'GND', [R('GND'), (110, R('GND')[1]), (110, 84), k['GND']])
-wire(d, '+3V3', [R('3V3'), (112, R('3V3')[1]), (112, 75), k['+3V3']])
-wire(d, '+5V', [L('VIN'), (31, L('VIN')[1]), (31, 152), (114, 152), (114, 66), k['+5V']])
+wire(d, 'RX_3V3', [R('RX2'), (104, R('RX2')[1]), (104, k['RX_3V3'][1]), k['RX_3V3']])
+wire(d, 'TX_INV', [R('TX2'), (106, R('TX2')[1]), (106, k['TX_INV'][1]), k['TX_INV']])
+wire(d, 'GND', [R('GND'), (110, R('GND')[1]), (110, k['GND'][1]), k['GND']])
+wire(d, '+3V3', [R('3V3'), (112, R('3V3')[1]), (112, k['+3V3'][1]), k['+3V3']])
+wire(d, '+5V', [L('VIN'), (31, L('VIN')[1]), (31, 152), (114, 152), (114, k['+5V'][1]), k['+5V']])
 wire(d, 'GND', [(110, R('GND')[1]), (122, R('GND')[1]), (122, 135), m['GND']]); junction(d, 'GND', 110, R('GND')[1])
 wire(d, '+3V3', [(112, R('3V3')[1]), (120, R('3V3')[1]), (120, 128), m['+3V3']]); junction(d, '+3V3', 112, R('3V3')[1])
 wire(d, 'CS', [L('D27'), (34, L('D27')[1]), (34, 149), (126, 149), (126, 142), m['CS']])
@@ -268,10 +357,10 @@ wire(d, 'GND', [o_pad['GND'], (288, 160), (288, 184), (336, 184), (336, 145), im
 wire(d, '+3V3', [o_pad['+3V3'], (286, 166), (286, 186), (338, 186), (338, 151), imu['+3V3']])
 wire(d, 'SDA', [o_pad['SDA'], (284, 172), (284, 188), (340, 188), (340, 157), imu['SDA']])
 wire(d, 'SCL', [o_pad['SCL'], (282, 179), (282, 190), (342, 190), (342, 163), imu['SCL']])
-wire(d, 'K', [kr['K'], (266, 55), (266, 50), (272, 50)])
+wire(d, 'K', [kr['K'], (266, kr['K'][1]), (266, 50), (272, 50)])
 wire(d, 'VBENCH', [(318, 50), (392, 50), (392, 62), (294, 62), (294, plus[1]), plus])
-wire(d, 'VBENCH', [kr['VBENCH'], (276, 70), (276, 62), (293.99, 62)])
-wire(d, 'GND', [kr['GND'], (272, 85), (272, 124), (minus[0], 124), minus])
+wire(d, 'VBENCH', [kr['VBENCH'], (276, kr['VBENCH'][1]), (276, 62), (293.99, 62)])
+wire(d, 'GND', [kr['GND'], (272, kr['GND'][1]), (272, 124), (minus[0], 124), minus])
 
 # --- Tabella dei fili tra le basette ---------------------------------------------------
 rows = [('W1', 'RX_3V3', f'-A1 RX2 (GPIO{PINS["kKwpRx"]})', 'basetta 1 RX'),
