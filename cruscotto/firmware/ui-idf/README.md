@@ -39,3 +39,26 @@ generato è escluso da Git.
 - Da fare: cancellazione degli eventi più vecchi, lettura dei file dal telefono o via Wi-Fi.
 
 Collaudo: DSP-M010.
+
+## Versione 0.5.0 — pagina 1 "Dashboard" (D-041)
+
+Prima pagina secondo [interfaccia-requisiti.md](../../docs/interfaccia-requisiti.md) rev B,
+con dati simulati (scritta "DEMO - dati simulati"):
+
+- **Giri**: barra lineare a tutta larghezza, colore dell'intera barra verde fino a
+  3000 giri/min, poi sfumatura graduale fino a tutta rossa a 4500; cifre a destra.
+- **Velocità** grande al centro (carattere 48 ingrandito 2,5 volte).
+- **Acqua**: barra in basso bianca fino a 50 °C, sfumatura verso l'azzurro 0x00C0FF
+  (75-100 °C), poi verso il rosso fino a 110 °C, con riquadro di avviso da 110 °C.
+- **Spie dinamiche**: nascoste se spente, compaiono sopra la fascia dei dati
+  secondari (batteria, temperatura esterna); frecce ai lati; **prova lampade** di 3 s
+  all'avvio. Testi provvisori al posto delle icone.
+- **Riquadro degli avvisi** in primo piano: collegamento assente, pressione olio,
+  freni, acqua alta, carica batteria (in quest'ordine); le spie restano visibili sopra.
+- Logica pura in `common/include/dash_logic.h` (soglie, colori, priorità), con
+  `static_assert` e test sul PC `common/host-tests/test_dash_logic.cpp`.
+- Simulatore: giri 800-4700, acqua 30-115 °C in 2 minuti, freccia sinistra 10 s ogni
+  40 s, candelette nei primi 8 s, pressione olio 5 s ogni 120 s (dopo 60 s).
+
+**Soglie proposte, da confermare** con l'utente e con i dati del logger: non sono
+valori del costruttore. Stato: compilata il 22/10/2026, non ancora caricata.

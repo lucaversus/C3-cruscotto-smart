@@ -1,4 +1,4 @@
-// Firmware S3 su ESP-IDF 5.5 0.4.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039).
+// Firmware S3 su ESP-IDF 5.5 0.5.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039, D-041).
 // Struttura: collegamento fe_link e sorgente simulata sul core 0, interfaccia LVGL sul
 // core 1, report e autotest nel compito principale. Doppio framebuffer, scambio al vsync.
 #include <atomic>
@@ -17,16 +17,14 @@
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 #include "blackbox.h"
+#include "dashboard.h"
 #include "labels.h"
 #include "link.h"
 #include "lvgl.h"
 #include "signal_store.h"
 
 namespace {
-constexpr char kVersion[] = "0.4.0";  // + scatola nera ed etichette (D-037)
-constexpr int kRpmMax = 5000;
-constexpr int kRpmDigits = 4;
-constexpr int kDigitWidth = 34;
+constexpr char kVersion[] = "0.5.0";  // + pagina 1 Dashboard (D-041)
 constexpr gpio_num_t kSdCs = GPIO_NUM_10;  // MicroSD della S3 esclusa (D-029)
 constexpr int64_t kSelfTestUs = 10000000;  // D-039: conferma dopo 10 s di funzionamento
 
@@ -36,13 +34,6 @@ SemaphoreHandle_t vsyncSem = nullptr;
 std::atomic<uint32_t> vsyncCount{0};
 lv_disp_draw_buf_t drawBuf;
 lv_disp_drv_t dispDrv;
-lv_obj_t* rpmArc = nullptr;
-lv_obj_t* rpmDigits[kRpmDigits] = {};
-lv_obj_t* tempBar = nullptr;
-lv_obj_t* tempLabel = nullptr;
-lv_obj_t* statusLabel = nullptr;
-const char* shownStatus = nullptr;
-int shownRpm = -1, shownTemp = -1;
 uint32_t refreshes = 0, refreshMs = 0;
 
 bool IRAM_ATTR onVsync(esp_lcd_panel_handle_t, const esp_lcd_rgb_panel_event_data_t*, void*) {
@@ -141,95 +132,6 @@ esp_err_t startLvgl() {
   return ESP_OK;
 }
 
-void buildUi() {
-  lv_obj_t* screen = lv_scr_act();
-  lv_obj_set_style_bg_color(screen, lv_color_black(), 0);
-
-  rpmArc = lv_arc_create(screen);
-  lv_obj_set_size(rpmArc, 400, 400);
-  lv_obj_align(rpmArc, LV_ALIGN_LEFT_MID, 40, 20);
-  lv_arc_set_bg_angles(rpmArc, 135, 45);
-  lv_arc_set_range(rpmArc, 0, kRpmMax);
-  lv_obj_remove_style(rpmArc, nullptr, LV_PART_KNOB);
-  lv_obj_clear_flag(rpmArc, LV_OBJ_FLAG_CLICKABLE);
-  lv_obj_set_style_arc_width(rpmArc, 28, LV_PART_MAIN);
-  lv_obj_set_style_arc_width(rpmArc, 28, LV_PART_INDICATOR);
-  lv_obj_set_style_arc_color(rpmArc, lv_color_hex(0x303030), LV_PART_MAIN);
-  lv_obj_set_style_arc_color(rpmArc, lv_color_hex(0xFFB000), LV_PART_INDICATOR);
-
-  for (int i = 0; i < kRpmDigits; ++i) {
-    rpmDigits[i] = lv_label_create(screen);
-    lv_obj_set_width(rpmDigits[i], kDigitWidth);
-    lv_obj_set_style_text_align(rpmDigits[i], LV_TEXT_ALIGN_CENTER, 0);
-    lv_obj_set_style_text_font(rpmDigits[i], &lv_font_montserrat_48, 0);
-    lv_obj_set_style_text_color(rpmDigits[i], lv_color_white(), 0);
-    lv_label_set_text_static(rpmDigits[i], "");
-    const int offset = (i - kRpmDigits / 2) * kDigitWidth + kDigitWidth / 2;
-    lv_obj_align_to(rpmDigits[i], rpmArc, LV_ALIGN_CENTER, offset, -10);
-  }
-
-  lv_obj_t* unit = lv_label_create(screen);
-  lv_label_set_text(unit, "giri/min");
-  lv_obj_set_style_text_font(unit, &lv_font_montserrat_28, 0);
-  lv_obj_set_style_text_color(unit, lv_color_hex(0xA0A0A0), 0);
-  lv_obj_align_to(unit, rpmArc, LV_ALIGN_CENTER, 0, 45);
-
-  tempBar = lv_bar_create(screen);
-  lv_obj_set_size(tempBar, 260, 36);
-  lv_obj_align(tempBar, LV_ALIGN_RIGHT_MID, -50, 40);
-  lv_bar_set_range(tempBar, 40, 130);
-  lv_obj_set_style_bg_color(tempBar, lv_color_hex(0x303030), LV_PART_MAIN);
-  lv_obj_set_style_bg_color(tempBar, lv_color_hex(0x00C0FF), LV_PART_INDICATOR);
-
-  tempLabel = lv_label_create(screen);
-  lv_obj_set_style_text_font(tempLabel, &lv_font_montserrat_28, 0);
-  lv_obj_set_style_text_color(tempLabel, lv_color_white(), 0);
-  lv_obj_align_to(tempLabel, tempBar, LV_ALIGN_OUT_TOP_LEFT, 0, -12);
-
-  statusLabel = lv_label_create(screen);
-  lv_label_set_text_static(statusLabel, "");
-  lv_obj_set_style_text_font(statusLabel, &lv_font_montserrat_28, 0);
-  lv_obj_set_style_text_color(statusLabel, lv_color_hex(0xFF4040), 0);
-  lv_obj_align(statusLabel, LV_ALIGN_TOP_RIGHT, -30, 20);
-}
-
-// Legge l'archivio dei segnali (mai i dati grezzi) e aggiorna solo ciò che cambia.
-void updateValues() {
-  SignalStore& store = signalStore();
-  const int64_t now = esp_timer_get_time();
-  const SignalValue rpmV = store.get(felink::sig::kRpm, now, 500000);
-  const SignalValue tempV = store.get(felink::sig::kCoolantC, now, 3000000);
-  const int rpm = rpmV.quality == felink::Quality::kStale ? 0 : static_cast<int>(rpmV.value + 0.5f);
-  const int temp = tempV.quality == felink::Quality::kStale ? -1 : static_cast<int>(tempV.value + 0.5f);
-  lv_arc_set_value(rpmArc, rpm);
-  if (rpm != shownRpm) {
-    static const char* const kDigitText[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-    int value = rpm;
-    for (int i = kRpmDigits - 1; i >= 0; --i) {
-      const bool blank = value == 0 && i < kRpmDigits - 1;
-      const char* text = blank ? "" : kDigitText[value % 10];
-      if (strcmp(lv_label_get_text(rpmDigits[i]), text) != 0) lv_label_set_text_static(rpmDigits[i], text);
-      value /= 10;
-    }
-    shownRpm = rpm;
-  }
-  if (temp != shownTemp) {
-    lv_bar_set_value(tempBar, temp < 0 ? 40 : temp, LV_ANIM_OFF);
-    if (temp < 0) lv_label_set_text_static(tempLabel, "Acqua --");
-    else lv_label_set_text_fmt(tempLabel, "Acqua %d C", temp);
-    shownTemp = temp;
-  }
-  // Stato: DEMO se il dato è simulato, avviso se il collegamento è perso (D-016, D-037).
-  const int64_t label = labels::lastLabelUs();
-  const char* status = (label != 0 && now - label < 3000000) ? "SEGNALAZIONE REGISTRATA"
-                       : !linkAlive(now)                     ? "COLLEGAMENTO ASSENTE"
-                       : rpmV.quality == felink::Quality::kSimulated ? "DEMO - dati simulati" : "";
-  if (status != shownStatus) {
-    lv_label_set_text_static(statusLabel, status);
-    shownStatus = status;
-  }
-}
-
 void report() {
   static uint32_t lastVsync = 0, lastFrames = 0;
   const uint32_t vs = vsyncCount.load(std::memory_order_relaxed);
@@ -269,7 +171,7 @@ void uiTask(void*) {
     const int64_t now = esp_timer_get_time();
     if (now - lastUpdate >= 33000) {
       lastUpdate = now;
-      updateValues();
+      dashboard::update(now);
     }
     const uint32_t waitMs = lv_timer_handler();
     vTaskDelay(pdMS_TO_TICKS(waitMs < 1 ? 1 : (waitMs > 10 ? 10 : waitMs)));
@@ -287,8 +189,8 @@ extern "C" void app_main() {
   panelStatus = startPanel();
   if (panelStatus == ESP_OK) panelStatus = startLvgl();
   if (panelStatus == ESP_OK) {
-    buildUi();
-    updateValues();
+    dashboard::build();
+    dashboard::update(esp_timer_get_time());
     lv_timer_handler();
     gpio_set_level(static_cast<gpio_num_t>(board::kBacklight), 1);
     xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 5, nullptr, 1);
