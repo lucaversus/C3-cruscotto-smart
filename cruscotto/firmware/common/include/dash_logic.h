@@ -5,12 +5,14 @@
 
 namespace dash {
 
-// Soglie PROPOSTE, da confermare con l'utente e con i dati del logger: non sono dati
-// del costruttore. Giri: verde fino a kRpmGreenMax, poi sfumatura fino a tutta rossa.
+// Giri (DV4TD 8HZ, schede tecniche 2005: 50 kW a 4000 giri/min, coppia massima verso 2000):
+// verde fino a kRpmGreenMax, sfumatura fino a tutta rossa a kRpmRedFull, poco oltre la potenza
+// massima. Limitatore non trovato nelle fonti: fondo scala 5000 da verificare con il logger.
 constexpr int kRpmMax = 5000;
-constexpr int kRpmGreenMax = 3000;
+constexpr int kRpmGreenMax = 3500;
 constexpr int kRpmRedFull = 4500;
-// Temperatura acqua: bianca a motore freddo, azzurra in zona normale, rossa se alta.
+// Temperatura acqua: soglie PROPOSTE, nessun dato del costruttore trovato (termostato,
+// ventola, allarme): da fissare con le temperature registrate dal logger (OBD PID 0x05).
 constexpr int kCoolantWhiteMax = 50;
 constexpr int kCoolantAzureFrom = 75;
 constexpr int kCoolantAzureTo = 100;
