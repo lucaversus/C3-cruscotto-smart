@@ -5,12 +5,13 @@
 
 namespace dash {
 
-// Giri (DV4TD 8HZ, schede tecniche 2005: 50 kW a 4000 giri/min, coppia massima verso 2000):
-// verde fino a kRpmGreenMax, sfumatura fino a tutta rossa a kRpmRedFull, poco oltre la potenza
-// massima. Limitatore non trovato nelle fonti: fondo scala 5000 da verificare con il logger.
+// Giri (scelta dell'utente 23/10/2026): verde fino a 2500, sfumatura fino ad arancione pieno
+// a 3000, arancione fino a 3500, da 3500 rosso acceso senza sfumatura. Riferimento motore
+// DV4TD 8HZ: 50 kW a 4000 giri/min. Limitatore non trovato: fondo scala 5000 da verificare.
 constexpr int kRpmMax = 5000;
-constexpr int kRpmGreenMax = 3500;
-constexpr int kRpmRedFull = 4500;
+constexpr int kRpmGreenMax = 2500;
+constexpr int kRpmOrangeFull = 3000;
+constexpr int kRpmRed = 3500;
 // Temperatura acqua: soglie PROPOSTE, nessun dato del costruttore trovato (termostato,
 // ventola, allarme): da fissare con le temperature registrate dal logger (OBD PID 0x05).
 constexpr int kCoolantWhiteMax = 50;
@@ -19,7 +20,7 @@ constexpr int kCoolantAzureTo = 100;
 constexpr int kCoolantRedFull = 110;
 constexpr int kCoolantAlarm = 110;  // riquadro di avviso da questo valore
 
-constexpr uint32_t kGreen = 0x00C040, kRed = 0xFF2020, kWhite = 0xFFFFFF, kAzure = 0x00C0FF;
+constexpr uint32_t kGreen = 0x00C040, kOrange = 0xFF8000, kRed = 0xFF1010, kWhite = 0xFFFFFF, kAzure = 0x00C0FF;
 
 constexpr uint32_t channel(uint32_t c, int shift) { return (c >> shift) & 0xFF; }
 
@@ -35,7 +36,9 @@ constexpr int weight(int v, int from, int to) {
 }
 
 // Colore dell'intera barra dei giri.
-constexpr uint32_t rpmColor(int rpm) { return mix(kGreen, kRed, weight(rpm, kRpmGreenMax, kRpmRedFull)); }
+constexpr uint32_t rpmColor(int rpm) {
+  return rpm >= kRpmRed ? kRed : mix(kGreen, kOrange, weight(rpm, kRpmGreenMax, kRpmOrangeFull));
+}
 
 // Colore dell'intera barra della temperatura acqua.
 constexpr uint32_t coolantColor(int c) {
@@ -77,8 +80,9 @@ constexpr Alert alertFor(bool linkAlive, uint32_t warnings, int coolantC, bool c
                                                                    : Alert::kNone;
 }
 
-static_assert(rpmColor(0) == kGreen && rpmColor(kRpmGreenMax) == kGreen, "verde fino alla soglia");
-static_assert(rpmColor(kRpmRedFull) == kRed && rpmColor(kRpmMax) == kRed, "tutta rossa al limite");
+static_assert(rpmColor(0) == kGreen && rpmColor(kRpmGreenMax) == kGreen, "verde fino a 2500");
+static_assert(rpmColor(kRpmOrangeFull) == kOrange && rpmColor(kRpmRed - 1) == kOrange, "arancione 3000-3499");
+static_assert(rpmColor(kRpmRed) == kRed && rpmColor(kRpmMax) == kRed, "rosso da 3500 senza sfumatura");
 static_assert(coolantColor(20) == kWhite && coolantColor(90) == kAzure && coolantColor(120) == kRed, "acqua");
 static_assert(alertFor(false, 0, 90, true) == Alert::kLinkLost, "collegamento assente prima di tutto");
 static_assert(alertFor(true, 0, kCoolantAlarm, true) == Alert::kCoolantHot, "acqua alta");

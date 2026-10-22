@@ -48,20 +48,22 @@ numeri**, con dati simulati (unica scritta: "DEMO - dati simulati", obbligatoria
 dati non sono reali).
 
 - **Giri**: barra a tutta larghezza con i numeri 1…5 (x1000) grandi all'interno, sopra il
-  colore; inizio smussato in diagonale fino a 1000 giri. Colore dell'intera barra verde
-  fino a 3500 giri/min, poi sfumatura fino a tutta rossa a 4500 (potenza massima 50 kW
-  a 4000 giri/min secondo le schede tecniche; limitatore non trovato).
+  colore; inizio smussato in diagonale fino a 1000 giri. Colore dell'intera barra (scelta
+  dell'utente 23/10/2026): verde fino a 2500 giri/min, sfumatura fino ad arancione pieno a
+  3000, arancione fino a 3500, poi rosso acceso senza sfumatura (potenza massima 50 kW a
+  4000 giri/min secondo le schede tecniche; limitatore non trovato).
 - **Velocità** al centro, cifre in grassetto con angoli arrotondati (`font_speed.c`,
   Montserrat ingrossato e arrotondato da `tools/genera-font-velocita.py`; licenza OFL),
   aggiornata al massimo 4 volte al secondo.
 - **Acqua** in verticale a sinistra con l'icona del termometro **dentro la barra**, in
-  basso: chiara sulla parte vuota e scura su quella riempita, tagliata al livello: bianca fino a 50 °C, sfumatura
+  basso (42 px): del colore della barra sulla parte vuota e nera su quella riempita,
+  tagliata al livello: bianca fino a 50 °C, sfumatura
   verso l'azzurro 0x00C0FF (75-100 °C), poi verso il rosso fino a 110 °C, riquadro di
   avviso da 110 °C. **Gasolio** in verticale a destra, icona del distributore dentro la
   barra con la stessa inversione: bianco, ambra in riserva (≤ 10 %).
 - **Spie a icona** (`icons.c`, disegni originali in stile ISO 2575 da `tools/genera-icone.py`,
   colorate dal firmware): nascoste se spente, compaiono sopra la fascia dei dati secondari
-  (icona batteria e tensione, icona termometro e temperatura esterna); frecce ai lati più grandi (64 px) con angoli arrotondati;
+  (icona batteria e tensione, icona termometro e temperatura esterna); frecce ai lati più grandi (84 px) con angoli appena arrotondati;
   **prova lampade** di 3 s all'avvio.
 - **Riquadro degli avvisi** con icona grande: collegamento assente (ambra), pressione
   olio, freni, acqua alta, carica batteria (rosso), in quest'ordine di priorità.

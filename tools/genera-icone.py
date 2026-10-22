@@ -241,17 +241,17 @@ def link_lost(p):
 
 
 ICONS = {  # nome: (funzione, dimensioni in pixel)
-    'turn_left': (turn_left, (64,)), 'turn_right': (turn_right, (64,)),
-    'brake': (brake, (44, 110)), 'oil': (oil, (44, 110)), 'coolant': (coolant, (44, 36, 110)),
+    'turn_left': (turn_left, (84,)), 'turn_right': (turn_right, (84,)),
+    'brake': (brake, (44, 110)), 'oil': (oil, (44, 110)), 'coolant': (coolant, (44, 42, 110)),
     'battery': (battery, (44, 28, 110)), 'park_brake': (park_brake, (44,)),
     'engine': (engine, (44,)), 'glow_plugs': (glow_plugs, (44,)), 'abs': (abs_, (44,)),
     'airbag': (airbag, (44,)), 'seat_belt': (seat_belt, (44,)), 'high_beam': (high_beam, (44,)),
     'front_fog': (front_fog, (44,)), 'rear_fog': (rear_fog, (44,)), 'door_open': (door_open, (44,)),
-    'fuel': (fuel, (44, 36)), 'outside': (outside, (28,)), 'link_lost': (link_lost, (110,)),
+    'fuel': (fuel, (44, 42)), 'outside': (outside, (28,)), 'link_lost': (link_lost, (110,)),
 }
 
 
-ROUNDED = {'turn_left': 5, 'turn_right': 5}   # raggio di arrotondamento, unità di griglia
+ROUNDED = {'turn_left': 2.5, 'turn_right': 2.5}   # raggio di arrotondamento, unità di griglia
 
 
 def render(name, fn, px):

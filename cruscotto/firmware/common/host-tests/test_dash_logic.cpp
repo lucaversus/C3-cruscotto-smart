@@ -19,15 +19,17 @@ int green(uint32_t c) { return static_cast<int>((c >> 8) & 0xFF); }
 }  // namespace
 
 int main() {
-  // Sfumatura graduale: il rosso cresce e il verde cala in modo monotono oltre la soglia.
-  int lastRed = -1, lastGreen = 256;
-  for (int rpm = dash::kRpmGreenMax; rpm <= dash::kRpmRedFull; rpm += 50) {
+  // Sfumatura graduale verde->arancione tra 2500 e 3000: il rosso cresce in modo monotono.
+  int lastRed = -1;
+  for (int rpm = dash::kRpmGreenMax; rpm <= dash::kRpmOrangeFull; rpm += 50) {
     const uint32_t c = dash::rpmColor(rpm);
-    check(red(c) >= lastRed && green(c) <= lastGreen, "giri: sfumatura monotona verde->rosso");
+    check(red(c) >= lastRed, "giri: sfumatura monotona verde->arancione");
     lastRed = red(c);
-    lastGreen = green(c);
   }
-  check(dash::rpmColor(3750) != dash::kGreen && dash::rpmColor(3750) != dash::kRed, "giri: colore intermedio");
+  check(dash::rpmColor(2750) != dash::kGreen && dash::rpmColor(2750) != dash::kOrange, "giri: colore intermedio");
+  // Da 3500 rosso acceso, senza passaggi intermedi.
+  check(dash::rpmColor(3499) == dash::kOrange && dash::rpmColor(3500) == dash::kRed, "giri: salto al rosso");
+  check(green(dash::rpmColor(4800)) == green(dash::kRed), "giri: rosso pieno fino al fondo scala");
   check(dash::coolantColor(60) != dash::kWhite && dash::coolantColor(60) != dash::kAzure, "acqua: bianco->azzurro");
   check(dash::coolantColor(105) != dash::kAzure && dash::coolantColor(105) != dash::kRed, "acqua: azzurro->rosso");
   check(dash::coolantColor(dash::kCoolantAzureFrom) == dash::kAzure, "acqua: azzurro dalla zona normale");

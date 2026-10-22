@@ -23,9 +23,9 @@ LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre
 namespace dashboard {
 namespace {
 constexpr int kRpmX = 20, kRpmY = 12, kRpmW = 760, kRpmH = 64;
-constexpr int kSideY = 160, kSideW = 48, kSideH = 260;  // barre verticali acqua e carburante
-constexpr int kSideIcon = 36, kSideIconY = kSideH - kSideIcon - 8;  // icona dentro la barra, in basso
-constexpr int kTurnSize = 64;                           // frecce più grandi delle altre spie
+constexpr int kSideY = 172, kSideW = 48, kSideH = 248;  // barre verticali acqua e carburante
+constexpr int kSideIcon = 42, kSideIconY = kSideH - kSideIcon - 8;  // icona dentro la barra, in basso
+constexpr int kTurnSize = 84;                           // frecce più grandi delle altre spie
 constexpr int kLampStep = 64;                           // passo delle spie (icone 44 px)
 
 struct Lamp {
@@ -40,8 +40,8 @@ struct Lamp {
 // Spie dinamiche a icona: nascoste se spente. Riga 0 sicurezza e ritenuta, riga 1 motore,
 // luci e avvisi minori.
 Lamp lamps[] = {
-    {dash::kTurnLeft, false, &icon_turn_left_64, 0x00E040, -1, 0, nullptr},
-    {dash::kTurnRight, false, &icon_turn_right_64, 0x00E040, -2, 0, nullptr},
+    {dash::kTurnLeft, false, &icon_turn_left_84, 0x00E040, -1, 0, nullptr},
+    {dash::kTurnRight, false, &icon_turn_right_84, 0x00E040, -2, 0, nullptr},
     {dash::kBrake, true, &icon_brake_44, 0xFF2020, 0, 0, nullptr},
     {dash::kOilPressure, true, &icon_oil_44, 0xFF2020, 1, 0, nullptr},
     {dash::kCoolantHot, true, &icon_coolant_44, 0xFF2020, 2, 0, nullptr},
@@ -71,6 +71,7 @@ lv_obj_t* fuelLabel = nullptr;
 // riempita e chiara su quella vuota, così resta leggibile mentre il livello sale.
 struct SideIcon {
   lv_obj_t* light = nullptr;  // contenitore della parte vuota (sopra il livello)
+  lv_obj_t* lightIcon = nullptr;  // colore della barra: resta riconoscibile a barra vuota
   lv_obj_t* dark = nullptr;   // contenitore della parte riempita (sotto il livello)
   lv_obj_t* darkIcon = nullptr;
   int boundary = -1;          // riga del livello, dall'alto della barra
@@ -162,9 +163,10 @@ void setSideLevel(SideIcon& si, int fill) {
   lv_obj_set_pos(si.darkIcon, (kSideW - kSideIcon) / 2, kSideIconY - boundary);
 }
 
-void setColor(lv_obj_t* b, uint32_t color, uint32_t& shown) {
+void setColor(lv_obj_t* b, uint32_t color, uint32_t& shown, lv_obj_t* lightIcon = nullptr) {
   if (color == shown) return;
   lv_obj_set_style_bg_color(b, lv_color_hex(color), LV_PART_INDICATOR);
+  if (lightIcon) lv_obj_set_style_img_recolor(lightIcon, lv_color_hex(color), 0);
   shown = color;
 }
 }  // namespace
@@ -223,8 +225,8 @@ void build() {
   struct Side {
     lv_obj_t** barObj; lv_obj_t** value; SideIcon* sideIcon; const lv_img_dsc_t* sign; int min, max; bool left;
   };
-  const Side sides[] = {{&coolantBar, &coolantLabel, &coolantIcon, &icon_coolant_36, 40, 130, true},
-                        {&fuelBar, &fuelLabel, &fuelIcon, &icon_fuel_36, 0, 100, false}};
+  const Side sides[] = {{&coolantBar, &coolantLabel, &coolantIcon, &icon_coolant_42, 40, 130, true},
+                        {&fuelBar, &fuelLabel, &fuelIcon, &icon_fuel_42, 0, 100, false}};
   for (const Side& s : sides) {
     *s.barObj = bar(screen, kSideW, kSideH, s.min, s.max);
     lv_obj_align(*s.barObj, s.left ? LV_ALIGN_TOP_LEFT : LV_ALIGN_TOP_RIGHT, s.left ? 20 : -20, kSideY);
@@ -235,6 +237,7 @@ void build() {
       lv_obj_t* img = icon(*part, s.sign, part == &s.sideIcon->light ? 0xA0A0A0 : 0x000000);
       lv_obj_set_pos(img, (kSideW - kSideIcon) / 2, kSideIconY);
       if (part == &s.sideIcon->dark) s.sideIcon->darkIcon = img;
+      else s.sideIcon->lightIcon = img;
     }
     *s.value = label(screen, &lv_font_montserrat_28, 0xFFFFFF);
     lv_obj_set_width(*s.value, 110);
@@ -262,8 +265,8 @@ void build() {
     lv_obj_set_style_bg_color(l.obj, lv_color_black(), 0);
     lv_obj_set_style_bg_opa(l.obj, LV_OPA_COVER, 0);
     const int y = 88 + l.row * 54;
-    if (l.col == -1) lv_obj_set_pos(l.obj, 20, y - (kTurnSize - 44) / 2);
-    else if (l.col == -2) lv_obj_align(l.obj, LV_ALIGN_TOP_RIGHT, -20, y - (kTurnSize - 44) / 2);
+    if (l.col == -1) lv_obj_set_pos(l.obj, 16, 84);
+    else if (l.col == -2) lv_obj_align(l.obj, LV_ALIGN_TOP_RIGHT, -16, 84);
     else lv_obj_set_pos(l.obj, 400 - kRowCount[l.row] * kLampStep / 2 + l.col * kLampStep + (kLampStep - 44) / 2, y);
     lv_obj_add_flag(l.obj, LV_OBJ_FLAG_HIDDEN);
   }
@@ -305,7 +308,7 @@ void update(int64_t nowUs) {
     else lv_label_set_text_fmt(coolantLabel, "%d°", coolant);
     shownCoolant = coolant;
   }
-  setColor(coolantBar, coolValid ? dash::coolantColor(coolant) : 0x606060, shownCoolantColor);
+  setColor(coolantBar, coolValid ? dash::coolantColor(coolant) : 0x606060, shownCoolantColor, coolantIcon.lightIcon);
 
   const int fuel = fresh(fuelV) ? static_cast<int>(fuelV.value + 0.5f) : -1;
   if (fuel != shownFuel) {
@@ -315,7 +318,7 @@ void update(int64_t nowUs) {
     else lv_label_set_text_fmt(fuelLabel, "%d%%", fuel);
     shownFuel = fuel;
   }
-  setColor(fuelBar, fuel < 0 ? 0x606060 : dash::fuelColor(fuel), shownFuelColor);
+  setColor(fuelBar, fuel < 0 ? 0x606060 : dash::fuelColor(fuel), shownFuelColor, fuelIcon.lightIcon);
 
   // Dati secondari (coperti dalle spie accese).
   char text[16] = "--";
