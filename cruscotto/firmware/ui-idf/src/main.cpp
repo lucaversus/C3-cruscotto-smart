@@ -1,4 +1,4 @@
-// Firmware S3 su ESP-IDF 5.5 0.5.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039, D-041).
+// Firmware S3 su ESP-IDF 5.5 0.6.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039, D-041).
 // Struttura: collegamento fe_link e sorgente simulata sul core 0, interfaccia LVGL sul
 // core 1, report e autotest nel compito principale. Doppio framebuffer, scambio al vsync.
 #include <atomic>
@@ -18,13 +18,14 @@
 #include "freertos/task.h"
 #include "blackbox.h"
 #include "dashboard.h"
+#include "startup.h"
 #include "labels.h"
 #include "link.h"
 #include "lvgl.h"
 #include "signal_store.h"
 
 namespace {
-constexpr char kVersion[] = "0.5.0";  // + pagina 1 Dashboard (D-041)
+constexpr char kVersion[] = "0.6.0";  // + sequenza d'avvio con controllo di sistema e GO
 constexpr gpio_num_t kSdCs = GPIO_NUM_10;  // MicroSD della S3 esclusa (D-029)
 constexpr int64_t kSelfTestUs = 10000000;  // D-039: conferma dopo 10 s di funzionamento
 
@@ -35,6 +36,7 @@ std::atomic<uint32_t> vsyncCount{0};
 lv_disp_draw_buf_t drawBuf;
 lv_disp_drv_t dispDrv;
 uint32_t refreshes = 0, refreshMs = 0;
+lv_obj_t* dashScreen = nullptr;  // schermata della dashboard, mostrata dopo l'avvio
 
 bool IRAM_ATTR onVsync(esp_lcd_panel_handle_t, const esp_lcd_rgb_panel_event_data_t*, void*) {
   vsyncCount.fetch_add(1, std::memory_order_relaxed);
@@ -171,7 +173,10 @@ void uiTask(void*) {
     const int64_t now = esp_timer_get_time();
     if (now - lastUpdate >= 33000) {
       lastUpdate = now;
-      dashboard::update(now);
+      // Prima la sequenza d'avvio, poi la dashboard (aggiornata subito per la dissolvenza).
+      static bool booting = true;
+      if (booting) booting = startup::update(now, dashScreen);
+      if (!booting) dashboard::update(now);
     }
     const uint32_t waitMs = lv_timer_handler();
     vTaskDelay(pdMS_TO_TICKS(waitMs < 1 ? 1 : (waitMs > 10 ? 10 : waitMs)));
@@ -190,7 +195,8 @@ extern "C" void app_main() {
   if (panelStatus == ESP_OK) panelStatus = startLvgl();
   if (panelStatus == ESP_OK) {
     dashboard::build();
-    dashboard::update(esp_timer_get_time());
+    dashScreen = lv_scr_act();
+    startup::build();
     lv_timer_handler();
     gpio_set_level(static_cast<gpio_num_t>(board::kBacklight), 1);
     xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 5, nullptr, 1);

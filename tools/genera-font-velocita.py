@@ -21,7 +21,7 @@ SIZE = 160                      # pixel per em: cifre alte circa 125 px dopo l'i
 UP = 4                          # sovracampionamento
 BOLD = 5                        # ingrossamento del tratto per lato, pixel finali
 GAP = 8                         # spazio tra le cifre, pixel finali
-CHARS = '-0123456789'
+CHARS = '-0123456789GO'          # cifre della velocità e GO dell'avvio
 NAME = 'font_speed'
 
 
@@ -65,18 +65,30 @@ def main():
     advance = max(img.getbbox()[2] - img.getbbox()[0] for ch, (img, _) in inked.items() if ch.isdigit()) + GAP
     bits, dsc = [], ['    {.bitmap_index = 0, .adv_w = 0, .box_w = 0, .box_h = 0, .ofs_x = 0, .ofs_y = 0} /* id = 0 reserved */']
     for ch in CHARS:
-        w, h, ox, oy, px = glyph(*inked[ch], advance)
+        img = inked[ch][0]
+        adv = advance if ch.isdigit() or ch == '-' else img.getbbox()[2] - img.getbbox()[0] + GAP  # lettere: larghezza propria
+        w, h, ox, oy, px = glyph(*inked[ch], adv)
         assert w < 256 and h < 256 and -128 <= ox < 128 and -128 <= oy < 128, ch
-        dsc.append(f'    {{.bitmap_index = {len(bits) // 2}, .adv_w = {advance * 16}, .box_w = {w}, .box_h = {h}, '
+        dsc.append(f'    {{.bitmap_index = {len(bits) // 2}, .adv_w = {adv * 16}, .box_w = {w}, .box_h = {h}, '
                    f'.ofs_x = {ox}, .ofs_y = {oy}}} /* U+{ord(ch):04X} "{ch}" */')
         bits += px
         if len(bits) % 2:
             bits.append(0)                           # ogni glifo inizia su un byte intero
     data = [(bits[i] << 4) | bits[i + 1] for i in range(0, len(bits), 2)]
+    # Tabelle dei codici: una per ogni gruppo di caratteri consecutivi.
+    groups = []
+    for gid, ch in enumerate(CHARS, start=1):
+        if groups and ord(ch) == groups[-1][0] + groups[-1][1]:
+            groups[-1][1] += 1
+        else:
+            groups.append([ord(ch), 1, gid])
+    cmaps = ',\n'.join(f'    {{.range_start = 0x{a:02X}, .range_length = {n}, .glyph_id_start = {g}, .unicode_list = NULL,\n'
+                        f'     .glyph_id_ofs_list = NULL, .list_length = 0, .type = LV_FONT_FMT_TXT_CMAP_FORMAT0_TINY}}'
+                        for a, n, g in groups)
     rows = ',\n'.join('    ' + ', '.join(f'0x{b:02x}' for b in data[i:i + 16]) for i in range(0, len(data), 16))
     out = f'''/* Generato da tools/genera-font-velocita.py: non modificare a mano.
  * Montserrat Medium {SIZE} px ingrossato di {BOLD} px e arrotondato, 4 bpp, caratteri "{CHARS}",
- * larghezza fissa {advance} px.
+ * cifre a larghezza fissa {advance} px.
  * Montserrat (c) The Montserrat Project Authors, SIL Open Font License 1.1. */
 #include "lvgl.h"
 
@@ -89,10 +101,7 @@ static const lv_font_fmt_txt_glyph_dsc_t glyph_dsc[] = {{
 }};
 
 static const lv_font_fmt_txt_cmap_t cmaps[] = {{
-    {{.range_start = 0x2D, .range_length = 1, .glyph_id_start = 1, .unicode_list = NULL,
-     .glyph_id_ofs_list = NULL, .list_length = 0, .type = LV_FONT_FMT_TXT_CMAP_FORMAT0_TINY}},
-    {{.range_start = 0x30, .range_length = 10, .glyph_id_start = 2, .unicode_list = NULL,
-     .glyph_id_ofs_list = NULL, .list_length = 0, .type = LV_FONT_FMT_TXT_CMAP_FORMAT0_TINY}}
+{cmaps}
 }};
 
 static lv_font_fmt_txt_glyph_cache_t cache;
@@ -102,7 +111,7 @@ static const lv_font_fmt_txt_dsc_t font_dsc = {{
     .cmaps = cmaps,
     .kern_dsc = NULL,
     .kern_scale = 0,
-    .cmap_num = 2,
+    .cmap_num = {len(groups)},
     .bpp = 4,
     .kern_classes = 0,
     .bitmap_format = 0,

@@ -77,3 +77,28 @@ dati non sono reali).
 fondo scala giri 5000 da verificare. Stato: caricata su COM4 il 23/10/2026 (hash
 verificati); seriale 22-23 FPS, 36-39 ms per ridisegno, collegamento simulato senza errori.
 Collaudo visivo superato (DSP-M011, 23/10/2026).
+
+## Versione 0.6.0 — sequenza d'avvio con controllo di sistema e GO
+
+Secondo [interfaccia-requisiti.md](../../docs/interfaccia-requisiti.md), "Sequenza di avvio":
+
+- **Apertura in stile "Matrix"**: codice verde che scende ai lati (carattere unscii 16),
+  pannello centrale "C3+AI CONTROLLO SISTEMA" con i controlli che compaiono uno ogni
+  350 ms con l'esito: OK verde, ERRORE rosso, attesa ambra, N/D grigio.
+- **Controlli**: display, PSRAM libera > 1 MB, file system della scatola nera, collegamento
+  con il front-end, tensione batteria (11-15,5 V), temperatura acqua, IMU, NTC del display,
+  candelette. **N/D** (moduli non ancora installati, esclusi dal GO): ricezione VAN,
+  K-line, audio, modello IA. Un dato che non arriva entro 5 s è un errore.
+- **GO** (carattere grande della velocità) solo quando tutti i controlli sono finiti senza
+  errori, la spia candelette è spenta (preriscaldo finito) e sono passati almeno 4 s;
+  preriscaldo oltre 30 s = errore. Dopo 1,5 s dissolvenza verso la dashboard, che parte
+  con la prova lampade.
+- In caso di errore: niente GO, bordo rosso e elenco con gli errori per 6 s, poi la
+  dashboard comunque (serve per guidare).
+- Logica pura in `common/include/startup_logic.h`, con `static_assert` e test sul PC.
+- Seriale: `ui_idf avvio: GO dopo N ms`. Con il simulatore (candelette nei primi 8 s) il GO
+  arriva dopo circa 7,7 s. Fluidità durante l'apertura circa 13 FPS (pioggia solo ai lati
+  del pannello opaco), poi 21-22 FPS sulla dashboard.
+- Messaggio vocale di conferma non ancora presente: dipende dalla verifica dell'uscita audio.
+
+Stato: compilata e caricata su COM4 il 23/10/2026 (hash verificati). Collaudo visivo in corso.

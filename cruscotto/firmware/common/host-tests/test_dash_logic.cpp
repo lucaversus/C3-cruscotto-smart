@@ -3,6 +3,7 @@
 #include <cstdlib>
 
 #include "dash_logic.h"
+#include "startup_logic.h"
 
 namespace {
 int failures = 0;
@@ -40,6 +41,12 @@ int main() {
   check(dash::alertFor(true, 0, 90, true) == dash::Alert::kNone, "nessun avviso");
   check(dash::alertFor(true, dash::kTurnLeft, 90, true) == dash::Alert::kNone, "le luci non sono avvisi");
   check(dash::fuelColor(11) == dash::kFuelNormal && dash::fuelColor(5) == dash::kAmber, "carburante in riserva");
+  // Sequenza d'avvio: GO solo a controlli finiti, nessun errore e candelette spente.
+  check(boot::glowCheck(true, true, boot::kGlowMaxMs) == boot::State::kFail, "preriscaldo troppo lungo");
+  check(boot::glowCheck(false, false, boot::kWaitMs - 1) == boot::State::kPending, "candelette: attesa dato");
+  check(boot::dataCheck(true, false, 0) == boot::State::kFail, "dato fuori intervallo");
+  check(boot::phase(0, 0, boot::kMinMs - 1) == boot::Phase::kChecking, "durata minima dell'apertura");
+  check(boot::phase(0, 2, boot::kMinMs) == boot::Phase::kFailed, "errori: niente GO");
   // Prova lampade.
   check(dash::bulbCheck(0) && dash::bulbCheck(2999) && !dash::bulbCheck(3000), "prova lampade 3 s");
   if (failures) return EXIT_FAILURE;
