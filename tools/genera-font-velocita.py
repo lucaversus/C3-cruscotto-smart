@@ -3,18 +3,24 @@
 Uso: python tools/genera-font-velocita.py [percorso/Montserrat-Medium.ttf]
 Senza argomento cerca il Montserrat-Medium.ttf distribuito con LVGL nelle librerie scaricate da
 PlatformIO. Richiede Pillow (tools/requirements-dev.txt). Solo cifre 0-9 e "-", a larghezza fissa
-(le cifre non si spostano al cambiare del valore). Montserrat: SIL Open Font License 1.1.
+(le cifre non si spostano al cambiare del valore). Per il grassetto con angoli arrotondati
+richiesto dall'utente (23/10/2026) il tratto del Montserrat Medium viene ingrossato in modo
+uniforme e arrotondato: disegno a 4x, sfocatura e soglia, riduzione con antialias.
+Montserrat: SIL Open Font License 1.1.
 """
 from pathlib import Path
 import glob
 import os
 import sys
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'cruscotto/firmware/ui-idf/src/font_speed.c'
-SIZE = 170                      # pixel per em: cifre alte circa 120 px
+SIZE = 160                      # pixel per em: cifre alte circa 125 px dopo l'ingrossamento
+UP = 4                          # sovracampionamento
+BOLD = 5                        # ingrossamento del tratto per lato, pixel finali
+GAP = 8                         # spazio tra le cifre, pixel finali
 CHARS = '-0123456789'
 NAME = 'font_speed'
 
@@ -27,24 +33,39 @@ def find_ttf():
     return hits[0]
 
 
-def glyph(font, ch, advance):
-    l, t, r, b = font.getbbox(ch, anchor='ls')
+def ink(font4, ch, ascent, descent):
+    """Glifo ingrossato e arrotondato: (immagine L finale, riga della linea di base)."""
+    pad = (BOLD + 4) * UP
+    w = int(font4.getlength(ch)) + 2 * pad
+    h = (ascent + descent) * UP + 2 * pad
+    w, h = w + (-w) % UP, h + (-h) % UP
+    big = Image.new('L', (w, h), 0)
+    base = pad + ascent * UP
+    ImageDraw.Draw(big).text((pad, base), ch, font=font4, fill=255, anchor='ls')
+    # Sfocatura e soglia bassa: dilatazione circolare (angoli convessi arrotondati) ...
+    big = big.filter(ImageFilter.GaussianBlur(BOLD * UP * 0.75)).point(lambda v: 255 if v > 24 else 0)
+    # ... poi sfocatura e soglia a metà: arrotonda anche gli angoli concavi.
+    big = big.filter(ImageFilter.GaussianBlur(UP * 1.5)).point(lambda v: 255 if v > 127 else 0)
+    return big.resize((w // UP, h // UP), Image.LANCZOS), base // UP
+
+
+def glyph(img, base, advance):
+    l, t, r, b = img.getbbox()
     w, h = r - l, b - t
-    img = Image.new('L', (w, h), 0)
-    ImageDraw.Draw(img).text((-l, -t), ch, font=font, fill=255, anchor='ls')
-    own = font.getlength(ch)
-    ofs_x = l + round((advance - own) / 2)          # cifra centrata nella larghezza fissa
-    return w, h, ofs_x, -b, [p >> 4 for p in img.getdata()]
+    px = [p >> 4 for p in img.crop((l, t, r, b)).getdata()]
+    return w, h, round((advance - w) / 2), base - b, px
 
 
 def main():
     ttf = sys.argv[1] if len(sys.argv) > 1 else find_ttf()
     font = ImageFont.truetype(ttf, SIZE)
-    advance = round(max(font.getlength(c) for c in '0123456789'))
     ascent, descent = font.getmetrics()
+    font4 = ImageFont.truetype(ttf, SIZE * UP)
+    inked = {ch: ink(font4, ch, ascent, descent) for ch in CHARS}
+    advance = max(img.getbbox()[2] - img.getbbox()[0] for ch, (img, _) in inked.items() if ch.isdigit()) + GAP
     bits, dsc = [], ['    {.bitmap_index = 0, .adv_w = 0, .box_w = 0, .box_h = 0, .ofs_x = 0, .ofs_y = 0} /* id = 0 reserved */']
     for ch in CHARS:
-        w, h, ox, oy, px = glyph(font, ch, advance)
+        w, h, ox, oy, px = glyph(*inked[ch], advance)
         assert w < 256 and h < 256 and -128 <= ox < 128 and -128 <= oy < 128, ch
         dsc.append(f'    {{.bitmap_index = {len(bits) // 2}, .adv_w = {advance * 16}, .box_w = {w}, .box_h = {h}, '
                    f'.ofs_x = {ox}, .ofs_y = {oy}}} /* U+{ord(ch):04X} "{ch}" */')
@@ -54,7 +75,8 @@ def main():
     data = [(bits[i] << 4) | bits[i + 1] for i in range(0, len(bits), 2)]
     rows = ',\n'.join('    ' + ', '.join(f'0x{b:02x}' for b in data[i:i + 16]) for i in range(0, len(data), 16))
     out = f'''/* Generato da tools/genera-font-velocita.py: non modificare a mano.
- * Montserrat Medium {SIZE} px, 4 bpp, caratteri "{CHARS}" a larghezza fissa {advance} px.
+ * Montserrat Medium {SIZE} px ingrossato di {BOLD} px e arrotondato, 4 bpp, caratteri "{CHARS}",
+ * larghezza fissa {advance} px.
  * Montserrat (c) The Montserrat Project Authors, SIL Open Font License 1.1. */
 #include "lvgl.h"
 
@@ -90,8 +112,8 @@ static const lv_font_fmt_txt_dsc_t font_dsc = {{
 const lv_font_t {NAME} = {{
     .get_glyph_dsc = lv_font_get_glyph_dsc_fmt_txt,
     .get_glyph_bitmap = lv_font_get_bitmap_fmt_txt,
-    .line_height = {ascent + descent},
-    .base_line = {descent},
+    .line_height = {ascent + descent + 2 * BOLD},
+    .base_line = {descent + BOLD},
     .subpx = LV_FONT_SUBPX_NONE,
     .underline_position = 0,
     .underline_thickness = 0,

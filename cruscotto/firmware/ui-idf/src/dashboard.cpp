@@ -1,8 +1,9 @@
-// Pagina 1 "Dashboard" (D-041, interfaccia-requisiti rev B). Barra dei giri a tutta
-// larghezza con numeri x100 all'interno e inizio smussato fino a 1000 giri; acqua in
-// verticale a sinistra e carburante a destra; velocità grande al centro; spie che compaiono
-// solo se accese sopra la fascia dei dati secondari, prova lampade all'avvio, riquadro
-// grande per gli avvisi. Legge solo l'archivio dei segnali.
+// Pagina 1 "Dashboard" (D-041, interfaccia-requisiti rev B). Schermata da viaggio senza
+// scritte, solo icone e numeri (utente 23/10/2026). Barra dei giri a tutta larghezza con
+// numeri x1000 all'interno e inizio smussato fino a 1000 giri; acqua in verticale a
+// sinistra e carburante a destra; velocità grande al centro; spie a icona che compaiono solo
+// se accese sopra la fascia dei dati secondari, prova lampade all'avvio, riquadro grande con
+// icona per gli avvisi. Legge solo l'archivio dei segnali.
 #include "dashboard.h"
 
 #include <cstdio>
@@ -10,48 +11,51 @@
 
 #include "dash_logic.h"
 #include "fe_link.h"
+#include "icons.h"
 #include "labels.h"
 #include "link.h"
 #include "lvgl.h"
 #include "signal_store.h"
 
-LV_FONT_DECLARE(font_speed);  // Montserrat Medium 170 px, solo cifre (tools/genera-font-velocita.py)
+LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre (tools/genera-font-velocita.py)
 
 namespace dashboard {
 namespace {
 constexpr int kRpmX = 20, kRpmY = 12, kRpmW = 760, kRpmH = 64;
-constexpr int kSideY = 150, kSideW = 44, kSideH = 260;  // barre verticali acqua e carburante
+constexpr int kSideY = 190, kSideW = 44, kSideH = 230;  // barre verticali acqua e carburante
+constexpr int kLampStep = 64;                           // passo delle spie (icone 44 px)
 
 struct Lamp {
   uint32_t bit;
   bool warning;  // true: campo spie 0x0008, false: campo luci 0x0007
-  const char* text;
+  const lv_img_dsc_t* icon;
   uint32_t color;
-  int col, row;  // posto fisso: col -1/-2 = frecce ai lati; righe 0-2 sotto la barra dei giri
+  int col, row;  // posto fisso: col -1/-2 = frecce ai lati; righe 0-1 sotto la barra dei giri
   lv_obj_t* obj;
 };
 
-// Spie dinamiche: nascoste se spente. Riga 0 sicurezza (sempre visibili se accese), riga 1
-// motore e ritenuta, riga 2 luci e avvisi minori. Testi provvisori: icone da definire.
+// Spie dinamiche a icona: nascoste se spente. Riga 0 sicurezza e ritenuta, riga 1 motore,
+// luci e avvisi minori.
 Lamp lamps[] = {
-    {dash::kTurnLeft, false, LV_SYMBOL_LEFT, 0x00E040, -1, 0, nullptr},
-    {dash::kTurnRight, false, LV_SYMBOL_RIGHT, 0x00E040, -2, 0, nullptr},
-    {dash::kBrake, true, "FRENI", 0xFF2020, 0, 0, nullptr},
-    {dash::kOilPressure, true, "OLIO", 0xFF2020, 1, 0, nullptr},
-    {dash::kCoolantHot, true, "ACQUA", 0xFF2020, 2, 0, nullptr},
-    {dash::kCharge, true, "BATT", 0xFF2020, 3, 0, nullptr},
-    {dash::kParkBrake, true, "F.MANO", 0xFF2020, 4, 0, nullptr},
-    {dash::kEngine, true, "MOTORE", 0xFFB000, 0, 1, nullptr},
-    {dash::kGlowPlugs, true, "CAND.", 0xFFB000, 1, 1, nullptr},
-    {dash::kAbs, true, "ABS", 0xFFB000, 2, 1, nullptr},
-    {dash::kAirbag, true, "AIRBAG", 0xFF2020, 3, 1, nullptr},
-    {dash::kSeatBelt, true, "CINT.", 0xFF2020, 4, 1, nullptr},
-    {dash::kHighBeam, false, "ABBAG.", 0x2060FF, 0, 2, nullptr},
-    {dash::kFrontFog, false, "FENDI", 0x00E040, 1, 2, nullptr},
-    {dash::kRearFog, false, "RETRO", 0xFFB000, 2, 2, nullptr},
-    {dash::kDoorOpen, true, "PORTE", 0xFFB000, 3, 2, nullptr},
-    {dash::kFuelLow, true, "RISERVA", 0xFFB000, 4, 2, nullptr},
+    {dash::kTurnLeft, false, &icon_turn_left_44, 0x00E040, -1, 0, nullptr},
+    {dash::kTurnRight, false, &icon_turn_right_44, 0x00E040, -2, 0, nullptr},
+    {dash::kBrake, true, &icon_brake_44, 0xFF2020, 0, 0, nullptr},
+    {dash::kOilPressure, true, &icon_oil_44, 0xFF2020, 1, 0, nullptr},
+    {dash::kCoolantHot, true, &icon_coolant_44, 0xFF2020, 2, 0, nullptr},
+    {dash::kCharge, true, &icon_battery_44, 0xFF2020, 3, 0, nullptr},
+    {dash::kParkBrake, true, &icon_park_brake_44, 0xFF2020, 4, 0, nullptr},
+    {dash::kAirbag, true, &icon_airbag_44, 0xFF2020, 5, 0, nullptr},
+    {dash::kSeatBelt, true, &icon_seat_belt_44, 0xFF2020, 6, 0, nullptr},
+    {dash::kEngine, true, &icon_engine_44, 0xFFB000, 0, 1, nullptr},
+    {dash::kGlowPlugs, true, &icon_glow_plugs_44, 0xFFB000, 1, 1, nullptr},
+    {dash::kAbs, true, &icon_abs_44, 0xFFB000, 2, 1, nullptr},
+    {dash::kHighBeam, false, &icon_high_beam_44, 0x2060FF, 3, 1, nullptr},
+    {dash::kFrontFog, false, &icon_front_fog_44, 0x00E040, 4, 1, nullptr},
+    {dash::kRearFog, false, &icon_rear_fog_44, 0xFFB000, 5, 1, nullptr},
+    {dash::kDoorOpen, true, &icon_door_open_44, 0xFFB000, 6, 1, nullptr},
+    {dash::kFuelLow, true, &icon_fuel_44, 0xFFB000, 7, 1, nullptr},
 };
+constexpr int kRowCount[2] = {7, 8};
 
 lv_obj_t* rpmBar = nullptr;
 lv_obj_t* speedLabel = nullptr;
@@ -59,16 +63,17 @@ lv_obj_t* coolantBar = nullptr;
 lv_obj_t* coolantLabel = nullptr;
 lv_obj_t* fuelBar = nullptr;
 lv_obj_t* fuelLabel = nullptr;
-lv_obj_t* secondaryLabel = nullptr;
+lv_obj_t* battLabel = nullptr;
+lv_obj_t* outLabel = nullptr;
 lv_obj_t* alertBox = nullptr;
-lv_obj_t* alertLabel = nullptr;
+lv_obj_t* alertIcon = nullptr;
 lv_obj_t* statusLabel = nullptr;
 int64_t startUs = 0, speedShownUs = 0;
 int shownSpeed = -2, shownCoolant = -2, shownFuel = -2;
 uint32_t shownRpmColor = 1, shownCoolantColor = 1, shownFuelColor = 1;
 dash::Alert shownAlert = dash::Alert::kNone;
 const char* shownStatus = nullptr;
-char shownSecondary[96] = "";
+char shownBatt[16] = "", shownOut[16] = "";
 
 lv_obj_t* label(lv_obj_t* parent, const lv_font_t* font, uint32_t color) {
   lv_obj_t* l = lv_label_create(parent);
@@ -106,15 +111,30 @@ void rpmBevelEvent(lv_event_t* e) {
   lv_draw_triangle(lv_event_get_draw_ctx(e), &dsc, pts);
 }
 
-const char* alertText(dash::Alert a) {
+// Icona del riquadro di avviso.
+const lv_img_dsc_t* alertIconFor(dash::Alert a) {
   switch (a) {
-    case dash::Alert::kLinkLost: return "COLLEGAMENTO ASSENTE\ndati dell'auto non disponibili";
-    case dash::Alert::kOilPressure: return "PRESSIONE OLIO\nfermarsi appena possibile";
-    case dash::Alert::kBrake: return "IMPIANTO FRENANTE\ncontrollare";
-    case dash::Alert::kCoolantHot: return "TEMPERATURA ACQUA ALTA\nridurre il carico";
-    case dash::Alert::kCharge: return "BATTERIA NON IN CARICA\ncontrollare";
-    default: return "";
+    case dash::Alert::kLinkLost: return &icon_link_lost_110;
+    case dash::Alert::kOilPressure: return &icon_oil_110;
+    case dash::Alert::kBrake: return &icon_brake_110;
+    case dash::Alert::kCoolantHot: return &icon_coolant_110;
+    case dash::Alert::kCharge: return &icon_battery_110;
+    default: return &icon_link_lost_110;
   }
+}
+
+lv_obj_t* icon(lv_obj_t* parent, const lv_img_dsc_t* src, uint32_t color) {
+  lv_obj_t* i = lv_img_create(parent);
+  lv_img_set_src(i, src);
+  lv_obj_set_style_img_recolor(i, lv_color_hex(color), 0);
+  lv_obj_set_style_img_recolor_opa(i, LV_OPA_COVER, 0);
+  return i;
+}
+
+void setText(lv_obj_t* l, const char* text, char* shown, size_t size) {
+  if (strcmp(text, shown) == 0) return;
+  std::snprintf(shown, size, "%s", text);
+  lv_label_set_text_static(l, shown);
 }
 
 void setColor(lv_obj_t* b, uint32_t color, uint32_t& shown) {
@@ -141,11 +161,11 @@ void build() {
     lv_obj_set_size(tick, 2, 14);
     lv_obj_set_pos(tick, x - 1, kRpmH - 14);
     if (k == dash::kRpmMax / 1000) lv_obj_add_flag(tick, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_t* num = label(rpmBar, &lv_font_montserrat_28, 0xFFFFFF);
-    lv_label_set_text_fmt(num, "%d", k * 10);
+    lv_obj_t* num = label(rpmBar, &lv_font_montserrat_48, 0xFFFFFF);
+    lv_label_set_text_fmt(num, "%d", k);
     lv_obj_update_layout(num);
     const int w = lv_obj_get_width(num);
-    lv_obj_set_pos(num, k == dash::kRpmMax / 1000 ? kRpmW - w - 10 : x - w / 2, 8);
+    lv_obj_set_pos(num, k == dash::kRpmMax / 1000 ? kRpmW - w - 12 : x - w / 2, (kRpmH - lv_obj_get_height(num)) / 2);
   }
   lv_obj_t* bevel = lv_obj_create(screen);
   lv_obj_remove_style_all(bevel);
@@ -153,31 +173,36 @@ void build() {
   lv_obj_set_size(bevel, kRpmW * 1000 / dash::kRpmMax, kRpmH);
   lv_obj_clear_flag(bevel, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(bevel, rpmBevelEvent, LV_EVENT_DRAW_MAIN, nullptr);
-  lv_obj_t* rpmUnit = label(screen, &lv_font_montserrat_14, 0x909090);
-  lv_label_set_text_static(rpmUnit, "giri/min x100");
-  lv_obj_align(rpmUnit, LV_ALIGN_TOP_RIGHT, -20, kRpmY + kRpmH + 2);
 
-  // Fascia dei dati secondari: le spie vi compaiono sopra quando accese.
-  secondaryLabel = label(screen, &lv_font_montserrat_28, 0xB0B0B0);
-  lv_obj_align(secondaryLabel, LV_ALIGN_TOP_MID, 0, 104);
+  // Fascia dei dati secondari (icona e valore): le spie vi compaiono sopra quando accese.
+  lv_obj_t* strip = lv_obj_create(screen);
+  lv_obj_remove_style_all(strip);
+  lv_obj_set_size(strip, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+  lv_obj_set_flex_flow(strip, LV_FLEX_FLOW_ROW);
+  lv_obj_set_flex_align(strip, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+  lv_obj_set_style_pad_column(strip, 10, 0);
+  icon(strip, &icon_battery_28, 0x909090);
+  battLabel = label(strip, &lv_font_montserrat_28, 0xB0B0B0);
+  lv_obj_t* gap = lv_obj_create(strip);
+  lv_obj_remove_style_all(gap);
+  lv_obj_set_size(gap, 40, 1);
+  icon(strip, &icon_outside_28, 0x909090);
+  outLabel = label(strip, &lv_font_montserrat_28, 0xB0B0B0);
+  lv_obj_align(strip, LV_ALIGN_TOP_MID, 0, 96);
 
   // Velocità al centro.
   speedLabel = label(screen, &font_speed, 0xFFFFFF);
-  lv_obj_align(speedLabel, LV_ALIGN_TOP_MID, 0, 150);  // larghezza sul contenuto: ridisegno minimo
-  lv_obj_t* speedUnit = label(screen, &lv_font_montserrat_28, 0x909090);
-  lv_label_set_text_static(speedUnit, "km/h");
-  lv_obj_align(speedUnit, LV_ALIGN_TOP_MID, 0, 345);
+  lv_obj_align(speedLabel, LV_ALIGN_TOP_MID, 0, 165);  // larghezza sul contenuto: ridisegno minimo
 
   // Acqua a sinistra e carburante a destra, barre verticali colorate per intero.
-  struct Side { lv_obj_t** barObj; lv_obj_t** value; const char* name; int min, max; bool left; };
-  const Side sides[] = {{&coolantBar, &coolantLabel, "ACQUA", 40, 130, true},
-                        {&fuelBar, &fuelLabel, "GASOLIO", 0, 100, false}};
+  struct Side { lv_obj_t** barObj; lv_obj_t** value; const lv_img_dsc_t* sign; int min, max; bool left; };
+  const Side sides[] = {{&coolantBar, &coolantLabel, &icon_coolant_36, 40, 130, true},
+                        {&fuelBar, &fuelLabel, &icon_fuel_36, 0, 100, false}};
   for (const Side& s : sides) {
     *s.barObj = bar(screen, kSideW, kSideH, s.min, s.max);
     lv_obj_align(*s.barObj, s.left ? LV_ALIGN_TOP_LEFT : LV_ALIGN_TOP_RIGHT, s.left ? 20 : -20, kSideY);
-    lv_obj_t* name = label(screen, &lv_font_montserrat_14, 0x909090);
-    lv_label_set_text_static(name, s.name);
-    lv_obj_align_to(name, *s.barObj, s.left ? LV_ALIGN_OUT_TOP_LEFT : LV_ALIGN_OUT_TOP_RIGHT, 0, -4);
+    lv_obj_t* sign = icon(screen, s.sign, 0x909090);
+    lv_obj_align_to(sign, *s.barObj, LV_ALIGN_OUT_TOP_MID, 0, -6);
     *s.value = label(screen, &lv_font_montserrat_28, 0xFFFFFF);
     lv_obj_set_width(*s.value, 110);
     lv_obj_set_style_text_align(*s.value, s.left ? LV_TEXT_ALIGN_LEFT : LV_TEXT_ALIGN_RIGHT, 0);
@@ -189,33 +214,24 @@ void build() {
 
   // Riquadro degli avvisi, in primo piano tra le barre verticali.
   alertBox = lv_obj_create(screen);
-  lv_obj_set_size(alertBox, 560, 170);
+  lv_obj_set_size(alertBox, 300, 170);
   lv_obj_align(alertBox, LV_ALIGN_CENTER, 0, 40);
   lv_obj_clear_flag(alertBox, LV_OBJ_FLAG_SCROLLABLE);
-  lv_obj_set_style_bg_color(alertBox, lv_color_hex(0x400000), 0);
-  lv_obj_set_style_border_color(alertBox, lv_color_hex(0xFF2020), 0);
   lv_obj_set_style_border_width(alertBox, 6, 0);
   lv_obj_set_style_radius(alertBox, 12, 0);
-  alertLabel = label(alertBox, &lv_font_montserrat_28, 0xFFFFFF);
-  lv_obj_set_style_text_align(alertLabel, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_center(alertLabel);
+  alertIcon = icon(alertBox, &icon_link_lost_110, 0xFFFFFF);
+  lv_obj_center(alertIcon);
   lv_obj_add_flag(alertBox, LV_OBJ_FLAG_HIDDEN);
 
   // Spie: create per ultime, quindi disegnate sopra a tutto (anche al riquadro).
   for (Lamp& l : lamps) {
-    l.obj = lv_label_create(screen);
-    lv_label_set_text_static(l.obj, l.text);
-    lv_obj_set_style_text_font(l.obj, &lv_font_montserrat_28, 0);
-    lv_obj_set_style_text_color(l.obj, lv_color_black(), 0);
-    lv_obj_set_style_bg_color(l.obj, lv_color_hex(l.color), 0);
+    l.obj = icon(screen, l.icon, l.color);
+    lv_obj_set_style_bg_color(l.obj, lv_color_black(), 0);
     lv_obj_set_style_bg_opa(l.obj, LV_OPA_COVER, 0);
-    lv_obj_set_style_radius(l.obj, 6, 0);
-    lv_obj_set_style_pad_hor(l.obj, 6, 0);
-    lv_obj_set_style_pad_ver(l.obj, 2, 0);
-    const int y = 96 + l.row * 40;
+    const int y = 88 + l.row * 54;
     if (l.col == -1) lv_obj_set_pos(l.obj, 20, y);
     else if (l.col == -2) lv_obj_align(l.obj, LV_ALIGN_TOP_RIGHT, -20, y);
-    else lv_obj_set_pos(l.obj, 90 + l.col * 124, y);
+    else lv_obj_set_pos(l.obj, 400 - kRowCount[l.row] * kLampStep / 2 + l.col * kLampStep + (kLampStep - 44) / 2, y);
     lv_obj_add_flag(l.obj, LV_OBJ_FLAG_HIDDEN);
   }
 }
@@ -267,15 +283,12 @@ void update(int64_t nowUs) {
   setColor(fuelBar, fuel < 0 ? 0x606060 : dash::fuelColor(fuel), shownFuelColor);
 
   // Dati secondari (coperti dalle spie accese).
-  char secondary[96];
-  char batt[16] = "--", out[16] = "--";
-  if (fresh(battV)) std::snprintf(batt, sizeof batt, "%.1f V", static_cast<double>(battV.value));
-  if (fresh(outV)) std::snprintf(out, sizeof out, "%.0f °C", static_cast<double>(outV.value));
-  std::snprintf(secondary, sizeof secondary, "Batteria %s     Esterna %s", batt, out);
-  if (strcmp(secondary, shownSecondary) != 0) {
-    std::strcpy(shownSecondary, secondary);
-    lv_label_set_text(secondaryLabel, shownSecondary);
-  }
+  char text[16] = "--";
+  if (fresh(battV)) std::snprintf(text, sizeof text, "%.1f V", static_cast<double>(battV.value));
+  setText(battLabel, text, shownBatt, sizeof shownBatt);
+  std::snprintf(text, sizeof text, "--");
+  if (fresh(outV)) std::snprintf(text, sizeof text, "%.0f°", static_cast<double>(outV.value));
+  setText(outLabel, text, shownOut, sizeof shownOut);
 
   // Spie: prova lampade all'avvio, poi solo quelle accese; dati assenti = nessuna spia,
   // ma il riquadro "COLLEGAMENTO ASSENTE" impedisce di scambiarlo per "nessun guasto".
@@ -293,9 +306,18 @@ void update(int64_t nowUs) {
 
   const dash::Alert alert = check ? dash::Alert::kNone : dash::alertFor(linkAlive(nowUs), warnings, coolant, coolValid);
   if (alert != shownAlert) {
-    lv_label_set_text_static(alertLabel, alertText(alert));
-    if (alert == dash::Alert::kNone) lv_obj_add_flag(alertBox, LV_OBJ_FLAG_HIDDEN);
-    else lv_obj_clear_flag(alertBox, LV_OBJ_FLAG_HIDDEN);
+    if (alert == dash::Alert::kNone) {
+      lv_obj_add_flag(alertBox, LV_OBJ_FLAG_HIDDEN);
+    } else {
+      // Collegamento assente in ambra (mancano i dati), guasti del veicolo in rosso.
+      const bool link = alert == dash::Alert::kLinkLost;
+      const uint32_t color = link ? 0xFFB000 : 0xFF2020;
+      lv_img_set_src(alertIcon, alertIconFor(alert));
+      lv_obj_set_style_img_recolor(alertIcon, lv_color_hex(color), 0);
+      lv_obj_set_style_border_color(alertBox, lv_color_hex(color), 0);
+      lv_obj_set_style_bg_color(alertBox, lv_color_hex(link ? 0x302000 : 0x400000), 0);
+      lv_obj_clear_flag(alertBox, LV_OBJ_FLAG_HIDDEN);
+    }
     shownAlert = alert;
   }
 

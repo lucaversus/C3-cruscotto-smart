@@ -43,25 +43,27 @@ Collaudo: DSP-M010.
 ## Versione 0.5.0 — pagina 1 "Dashboard" (D-041)
 
 Prima pagina secondo [interfaccia-requisiti.md](../../docs/interfaccia-requisiti.md) rev B,
-affinata con l'utente il 23/10/2026, con dati simulati (scritta "DEMO - dati simulati"):
+affinata con l'utente il 23/10/2026: **schermata da viaggio senza scritte, solo icone e
+numeri**, con dati simulati (unica scritta: "DEMO - dati simulati", obbligatoria finché i
+dati non sono reali).
 
-- **Giri**: barra a tutta larghezza con i numeri x100 (10…50) all'interno, sopra il
+- **Giri**: barra a tutta larghezza con i numeri 1…5 (x1000) grandi all'interno, sopra il
   colore; inizio smussato in diagonale fino a 1000 giri. Colore dell'intera barra verde
   fino a 3500 giri/min, poi sfumatura fino a tutta rossa a 4500 (potenza massima 50 kW
-  a 4000 giri/min secondo le schede tecniche; limitatore non trovato). Niente cifre dei
-  giri in questa pagina.
-- **Velocità** al centro con carattere Montserrat Medium 170 px solo cifre
-  (`font_speed.c`, generato da `tools/genera-font-velocita.py` con Pillow; licenza OFL),
+  a 4000 giri/min secondo le schede tecniche; limitatore non trovato).
+- **Velocità** al centro, cifre in grassetto con angoli arrotondati (`font_speed.c`,
+  Montserrat ingrossato e arrotondato da `tools/genera-font-velocita.py`; licenza OFL),
   aggiornata al massimo 4 volte al secondo.
-- **Acqua** in verticale a sinistra: bianca fino a 50 °C, sfumatura verso l'azzurro
-  0x00C0FF (75-100 °C), poi verso il rosso fino a 110 °C, con riquadro di avviso da
-  110 °C (soglie proposte). **Gasolio** in verticale a destra: bianco, ambra in riserva
-  (≤ 10 %, soglia proposta).
-- **Spie dinamiche**: nascoste se spente, compaiono sopra la fascia dei dati
-  secondari (batteria, temperatura esterna); frecce ai lati; **prova lampade** di 3 s
-  all'avvio. Testi provvisori al posto delle icone.
-- **Riquadro degli avvisi** in primo piano: collegamento assente, pressione olio,
-  freni, acqua alta, carica batteria (in quest'ordine); le spie restano visibili sopra.
+- **Acqua** in verticale a sinistra (icona termometro): bianca fino a 50 °C, sfumatura
+  verso l'azzurro 0x00C0FF (75-100 °C), poi verso il rosso fino a 110 °C, riquadro di
+  avviso da 110 °C. **Gasolio** in verticale a destra (icona distributore): bianco, ambra
+  in riserva (≤ 10 %).
+- **Spie a icona** (`icons.c`, disegni originali in stile ISO 2575 da `tools/genera-icone.py`,
+  colorate dal firmware): nascoste se spente, compaiono sopra la fascia dei dati secondari
+  (icona batteria e tensione, icona termometro e temperatura esterna); frecce ai lati;
+  **prova lampade** di 3 s all'avvio.
+- **Riquadro degli avvisi** con icona grande: collegamento assente (ambra), pressione
+  olio, freni, acqua alta, carica batteria (rosso), in quest'ordine di priorità.
 - Logica pura in `common/include/dash_logic.h` (soglie, colori, priorità), con
   `static_assert` e test sul PC `common/host-tests/test_dash_logic.cpp`.
 - Simulatore: giri 800-4700, acqua 30-115 °C in 2 minuti, gasolio dal 60 al 5 % in
@@ -70,5 +72,5 @@ affinata con l'utente il 23/10/2026, con dati simulati (scritta "DEMO - dati sim
 
 **Soglie dell'acqua e della riserva solo proposte**, da fissare con i dati del logger;
 fondo scala giri 5000 da verificare. Stato: caricata su COM4 il 23/10/2026 (hash
-verificati); seriale 22 FPS, 36-39 ms per ridisegno, collegamento simulato senza errori.
+verificati); seriale 22-23 FPS, 36-39 ms per ridisegno, collegamento simulato senza errori.
 Collaudo visivo in corso.
