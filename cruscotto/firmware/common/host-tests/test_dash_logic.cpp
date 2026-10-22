@@ -37,11 +37,7 @@ int main() {
   check(dash::alertFor(true, dash::kCharge, 90, true) == dash::Alert::kCharge, "carica");
   check(dash::alertFor(true, 0, 90, true) == dash::Alert::kNone, "nessun avviso");
   check(dash::alertFor(true, dash::kTurnLeft, 90, true) == dash::Alert::kNone, "le luci non sono avvisi");
-  // Velocità a sette segmenti: zeri iniziali spenti, trattino se dato assente.
-  check(dash::speedSegments(0, 0) == dash::kSegments[0] && dash::speedSegments(0, 1) == 0, "velocità 0");
-  check(dash::speedSegments(135, 2) == dash::kSegments[1] && dash::speedSegments(135, 1) == dash::kSegments[3],
-        "velocità 135");
-  check(dash::speedSegments(-1, 0) == dash::kSegmentDash && dash::speedSegments(-1, 2) == 0, "dato assente");
+  check(dash::fuelColor(11) == dash::kFuelNormal && dash::fuelColor(5) == dash::kAmber, "carburante in riserva");
   // Prova lampade.
   check(dash::bulbCheck(0) && dash::bulbCheck(2999) && !dash::bulbCheck(3000), "prova lampade 3 s");
   if (failures) return EXIT_FAILURE;

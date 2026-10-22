@@ -43,15 +43,20 @@ Collaudo: DSP-M010.
 ## Versione 0.5.0 — pagina 1 "Dashboard" (D-041)
 
 Prima pagina secondo [interfaccia-requisiti.md](../../docs/interfaccia-requisiti.md) rev B,
-con dati simulati (scritta "DEMO - dati simulati"):
+affinata con l'utente il 23/10/2026, con dati simulati (scritta "DEMO - dati simulati"):
 
-- **Giri**: barra lineare a tutta larghezza, colore dell'intera barra verde fino a
-  3500 giri/min, poi sfumatura graduale fino a tutta rossa a 4500 (potenza massima
-  50 kW a 4000 giri/min secondo le schede tecniche; limitatore non trovato); cifre a destra.
-- **Velocità** grande al centro con cifre a **sette segmenti** (72×130 px): l'ingrandimento
-  del carattere 48 non veniva disegnato (utente 22/10/2026: "la velocità non si vede").
-- **Acqua**: barra in basso bianca fino a 50 °C, sfumatura verso l'azzurro 0x00C0FF
-  (75-100 °C), poi verso il rosso fino a 110 °C, con riquadro di avviso da 110 °C.
+- **Giri**: barra a tutta larghezza con i numeri x100 (10…50) all'interno, sopra il
+  colore; inizio smussato in diagonale fino a 1000 giri. Colore dell'intera barra verde
+  fino a 3500 giri/min, poi sfumatura fino a tutta rossa a 4500 (potenza massima 50 kW
+  a 4000 giri/min secondo le schede tecniche; limitatore non trovato). Niente cifre dei
+  giri in questa pagina.
+- **Velocità** al centro con carattere Montserrat Medium 170 px solo cifre
+  (`font_speed.c`, generato da `tools/genera-font-velocita.py` con Pillow; licenza OFL),
+  aggiornata al massimo 4 volte al secondo.
+- **Acqua** in verticale a sinistra: bianca fino a 50 °C, sfumatura verso l'azzurro
+  0x00C0FF (75-100 °C), poi verso il rosso fino a 110 °C, con riquadro di avviso da
+  110 °C (soglie proposte). **Gasolio** in verticale a destra: bianco, ambra in riserva
+  (≤ 10 %, soglia proposta).
 - **Spie dinamiche**: nascoste se spente, compaiono sopra la fascia dei dati
   secondari (batteria, temperatura esterna); frecce ai lati; **prova lampade** di 3 s
   all'avvio. Testi provvisori al posto delle icone.
@@ -59,10 +64,11 @@ con dati simulati (scritta "DEMO - dati simulati"):
   freni, acqua alta, carica batteria (in quest'ordine); le spie restano visibili sopra.
 - Logica pura in `common/include/dash_logic.h` (soglie, colori, priorità), con
   `static_assert` e test sul PC `common/host-tests/test_dash_logic.cpp`.
-- Simulatore: giri 800-4700, acqua 30-115 °C in 2 minuti, freccia sinistra 10 s ogni
-  40 s, candelette nei primi 8 s, pressione olio 5 s ogni 120 s (dopo 60 s).
+- Simulatore: giri 800-4700, acqua 30-115 °C in 2 minuti, gasolio dal 60 al 5 % in
+  5 minuti, freccia sinistra 10 s ogni 40 s, candelette nei primi 8 s, pressione olio
+  5 s ogni 120 s (dopo 60 s).
 
-**Soglie**: giri basati sulla potenza massima dichiarata (schede tecniche Automoto,
-Quattroruote, UltimateSpecs); acqua solo proposta, da fissare con le temperature
-registrate dal logger. Fondo scala giri 5000 da verificare. Stato: compilata e caricata su COM4 il 22/10/2026 (hash verificati); seriale: 25 FPS,
-31 ms per ridisegno, collegamento simulato senza errori. Collaudo visivo in corso.
+**Soglie dell'acqua e della riserva solo proposte**, da fissare con i dati del logger;
+fondo scala giri 5000 da verificare. Stato: caricata su COM4 il 23/10/2026 (hash
+verificati); seriale 22 FPS, 36-39 ms per ridisegno, collegamento simulato senza errori.
+Collaudo visivo in corso.
