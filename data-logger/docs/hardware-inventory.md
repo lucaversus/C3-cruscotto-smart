@@ -84,6 +84,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possibile uso col controller TWAI interno ESP32: scelta subordinata a verifica elettrica
 - Candidato per ricezione fisica VAN con decoder software ESP32: applicazione documentata dal progetto VanBus, non collaudata su questo modulo o veicolo. Prima verificare alimentazione 3,3 V, assenza di terminazione aggiunta, livelli e inibizione hardware TX. Non usare il controller MCP2515 come decoder VAN.
 - BLOCCANTE prima del collegamento VAN (D-022): terminazione 120 ohm scollegata e H-L misurata non circa 120 ohm; TX modulo collegato a 3V3, mai flottante o a GPIO; differenziale H-L recessivo a banco. Procedura in docs/protocolli-veicolo.md; nessun punto eseguito.
+- Disegnato nella tavola C3AI-DL-EL-004 rev A (D-042): RX→GPIO34 (W28), 3V3/GND dalla basetta 3 (W29/W30), ponticello TX–3V3, resistenza 121 da scollegare, CANH/CANL verso -X3 e quadro 0004 vie 1/3 solo dopo le verifiche D-022 1-5. Ordine DATA/DATAB non verificato.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
@@ -260,7 +261,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - All'arrivo: riscontrare sigla STEVAL-MKI196V1 e marcatura del chip; foto da archiviare.
 - Piedinatura DIL-24, alimentazione VDD/VDDIO (1,71-3,6 V: solo 3,3 V, nessun regolatore dichiarato) e piedini SDO/SA0 e CS da verificare sul manuale ST della scheda prima del collegamento.
 - Indirizzo I2C atteso 0x6A (SA0 a GND) o 0x6B (SA0 a 3,3 V); CS a 3,3 V per il modo I2C. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C. Resistenze di pull-up I2C sulla scheda da verificare (il bus del logger ha già quelle del modulo RTC, da riscontrare).
-- Collegamento proposto: bus I2C HW-394 GPIO21/22, non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
+- Collegamento proposto: bus I2C HW-394 GPIO21/22 su ritaglio di millefori (basetta 4, tavola C3AI-DL-EL-004 rev A, D-042), non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
 - Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
