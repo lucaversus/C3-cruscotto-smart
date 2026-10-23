@@ -13,6 +13,7 @@ namespace labels {
 namespace {
 std::atomic<int64_t> last{0};
 std::atomic<uint32_t> total{0};
+std::atomic<uint32_t> shortPresses{0};
 
 // Rilevatore di pressione lunga: scatta una sola volta per pressione.
 struct LongPress {
@@ -41,7 +42,10 @@ void bootTask(void*) {
   gpio_set_pull_mode(GPIO_NUM_0, GPIO_PULLUP_ONLY);
   while (true) {
     const int64_t now = esp_timer_get_time();
-    if (bootButton.update(gpio_get_level(GPIO_NUM_0) == 0, now)) fire(now);
+    const bool pressed = gpio_get_level(GPIO_NUM_0) == 0;
+    // Pressione breve (rilascio prima dei 2 s, almeno 50 ms): solo debug, prova lampade.
+    if (!pressed && bootButton.since != 0 && !bootButton.fired) shortPresses.fetch_add(1);
+    if (bootButton.update(pressed, now)) fire(now);
     vTaskDelay(pdMS_TO_TICKS(50));
   }
 }
@@ -56,4 +60,5 @@ void onStalkButtons(float bits, int64_t nowUs) {
 
 int64_t lastLabelUs() { return last.load(); }
 uint32_t count() { return total.load(); }
+uint32_t bootShortPresses() { return shortPresses.load(); }
 }  // namespace labels

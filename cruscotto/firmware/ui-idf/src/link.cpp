@@ -75,9 +75,25 @@ void simTask(void*) {
     f.seq = seq++;
     f.timeUs = static_cast<uint32_t>(now);
     const auto q = felink::Quality::kSimulated;
-    felink::addSignal(f, felink::sig::kRpm, q, 800.0f + 1900.0f * (1.0f + sinf(t * 1.3f)));
+    felink::addSignal(f, felink::sig::kRpm, q, 800.0f + 1950.0f * (1.0f + sinf(t * 0.6f)));
     felink::addSignal(f, felink::sig::kSpeedKmh, q, 50.0f + 40.0f * sinf(t * 0.3f));
-    felink::addSignal(f, felink::sig::kCoolantC, q, 85.0f + 10.0f * sinf(t * 0.2f));
+    // Acqua da 30 a 115 °C in 2 minuti: mostra bianco, azzurro, rosso e l'avviso.
+    felink::addSignal(f, felink::sig::kCoolantC, q, 72.5f - 42.5f * cosf(t * 0.0524f));
+    felink::addSignal(f, felink::sig::kOutsideC, q, 14.0f);
+    felink::addSignal(f, felink::sig::kCabinC, q, 21.0f + 0.5f * sinf(t * 0.05f));
+    const float rpmSim = 800.0f + 1950.0f * (1.0f + sinf(t * 0.6f));
+    felink::addSignal(f, felink::sig::kFuelL100, q, 3.0f + (rpmSim - 800.0f) / 400.0f);
+    // Gasolio dal 60 al 5 % in 5 minuti, poi di nuovo pieno: mostra la riserva.
+    const float fuel = 60.0f - 55.0f * fmodf(t, 300.0f) / 300.0f;
+    felink::addSignal(f, felink::sig::kFuelPct, q, fuel);
+    // Luci e spie simulate: freccia sinistra 10 s ogni 40 s, candelette nei primi 8 s,
+    // pressione olio 5 s ogni 120 s (dopo 60 s) per provare il riquadro degli avvisi.
+    const bool blink = fmodf(t, 0.8f) < 0.4f;
+    const uint32_t lights = (fmodf(t, 40.0f) < 10.0f && blink ? 1u : 0u) | (1u << 2);
+    const uint32_t warnings = (t < 8.0f ? 1u << 4 : 0u) | (t > 60.0f && fmodf(t - 60.0f, 120.0f) < 5.0f ? 1u << 1 : 0u) |
+                              (fuel <= 10.0f ? 1u << 9 : 0u);
+    felink::addSignal(f, felink::sig::kLightsFlags, q, static_cast<float>(lights));
+    felink::addSignal(f, felink::sig::kWarningFlags, q, static_cast<float>(warnings));
     felink::addSignal(f, felink::sig::kBatteryV, q, 13.9f + 0.3f * sinf(t * 0.7f));
     felink::addSignal(f, felink::sig::kIgnition, q, 1.0f);
     felink::addSignal(f, felink::sig::kAccelX, q, 0.2f * sinf(t * 0.9f));

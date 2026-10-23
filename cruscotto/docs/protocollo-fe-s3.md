@@ -80,10 +80,21 @@ Ogni segnale porta la propria qualità, così che nessun dato venga scambiato pe
 | 0x0009 | comandi al volante | campo di bit | VAN 9C4 |
 | 0x0010 | tensione batteria | V | partitore GPIO35 |
 | 0x0011 | chiave | 0/1 | GPIO39 (presa OBD via 1) |
+| 0x0013 | temperatura abitacolo | °C | climatizzatore automatico via VAN (messaggio da identificare) |
+| 0x0012 | consumo istantaneo (econometro) | l/100 km | da definire: calcolo nel front-end da dati motore K-line e velocità |
 | 0x0020-0x0026 | IMU: accelerazioni, rotazioni, temperatura | g, °/s, °C | LSM6DSO (HW-IMU-LSM6DSO) |
 | 0x0030 / 0x0031 | NTC display / scheda | °C | GPIO36 / GPIO32 |
 | 0x0040 / 0x0041 | ventola | %, giri/min | GPIO26 / GPIO14 |
 | 0x0100 + PID | PID OBD servizio 0x01 | unità del PID | K-line |
+
+Campi di bit (definiti in `common/include/dash_logic.h`, firmware S3 0.5.0; la
+corrispondenza con i bit dei messaggi VAN è compito del front-end, da verificare):
+
+- **0x0007 luci**: bit 0 freccia sinistra, 1 freccia destra, 2 anabbaglianti,
+  3 abbaglianti, 4 fendinebbia, 5 retronebbia, 6 luci di posizione.
+- **0x0008 spie**: bit 0 freni, 1 pressione olio, 2 temperatura acqua, 3 carica
+  batteria, 4 candelette, 5 avaria motore, 6 ABS, 7 airbag, 8 cinture, 9 riserva,
+  10 porte aperte, 11 freno a mano. Bit 0-3 = spie di sicurezza, sempre visibili.
 
 Le fonti VAN derivano da decodifiche comunitarie: finché non sono riscontrate sulla
 vettura i valori viaggiano con qualità 2.

@@ -79,6 +79,14 @@ singola misura: raggruppare il controllo alla chiusura del blocco di lavoro.
 
 ## Chiusura e GitHub
 
+**Pubblicazione a fine sessione — D-043.** Durante la sessione salvare il lavoro con
+commit locali e controlli locali (`python tools/dev.py check`, e `build` quando
+pertinente). Push, PR, attesa della pipeline `Project checks` e unione in `main`
+si eseguono una volta sola, quando l'utente scrive **«fine sessione»**. Eccezioni,
+da dichiarare: serve prima l'esito della CI (per esempio compilazione o test non
+eseguibili sul PC prima di caricare un firmware su una scheda) oppure l'utente
+chiede espressamente di pubblicare subito. Le regole di D-021 restano valide al momento della pubblicazione.
+
 Eseguire preflight, controlli pertinenti e `git diff --check`. Quando l'utente
 richiede salvataggio/pubblicazione, includere tutti i file necessari per rendere
 la modifica riproducibile, senza cache, credenziali o dati personali del veicolo.

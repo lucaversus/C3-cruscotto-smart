@@ -82,3 +82,14 @@ messaggi. Messaggio vocale subordinato alla verifica dell'uscita audio (U1/P6).
   - contagiri: **verde**, che diventa progressivamente **tutta rossa** avvicinandosi
     al limite dei giri, così da capire a colpo d'occhio che i giri sono alti.
 - Passaggio di colore preferibilmente **graduale (sfumatura)**, non a scatti: da provare.
+
+Affinamenti decisi dall'utente a banco (23/10/2026, firmware S3 0.5.0):
+
+- schermata da viaggio **senza scritte**: solo numeri e icone (spie in stile ISO 2575);
+- contagiri: numeri 1…5 (x1000) grandi **dentro** la barra, inizio smussato fino a 1000
+  giri; colore verde fino a 2500, sfumatura fino ad **arancione pieno a 3000**, arancione
+  fino a 3500, poi **rosso acceso senza transizione**; niente giri in cifre;
+- velocità grande al centro in **grassetto con angoli arrotondati**;
+- acqua in verticale a sinistra, gasolio in verticale a destra, con l'icona **dentro la
+  barra**: nera sulla parte riempita e del colore della barra su quella vuota;
+- frecce degli indicatori più grandi, angoli leggermente arrotondati.

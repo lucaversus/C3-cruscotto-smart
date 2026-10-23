@@ -337,3 +337,20 @@ cancellazione dei più vecchi. Il contenuto dei file non è ancora stato riletto
 **Esito:** superata (registrazione); rilettura dei file e rotazione da fare.
 **Prossimo passo:** rotazione degli eventi e lettura dei file (app/Wi-Fi, D-036/D-038);
 etichette e formato evento anche nel Data Logger alla ripresa (D-040).
+
+## DSP-M011 — firmware S3 0.5.0, pagina 1 "Dashboard" — 22-23/10/2026
+
+**Prova:** ui-idf 0.5.0 caricata su COM4 più volte durante l'affinamento grafico con
+l'utente (hash verificati a ogni caricamento), dati simulati. Seriale dell'ultima versione:
+22-23 FPS, 35-39 ms per ridisegno, pannello 39-40 Hz, collegamento simulato 31-32 trame/s,
+0 errori. Prima versione con velocità ingrandita (zoom del carattere 48): cifre non
+disegnate; sostituite da carattere dedicato. Con l'aggiornamento continuo della velocità
+grande la fluidità scendeva a 15 FPS: velocità aggiornata a 4 Hz.
+**Osservazioni riferite:** "si legge bene ed è molto fluido" (sette segmenti); dopo gli
+affinamenti (icone al posto delle scritte, numeri dei giri x1000 dentro la barra, cifre in
+grassetto arrotondato, icone di acqua e gasolio dentro le barre, frecce più grandi, colori
+del contagiri verde/arancione/rosso): "adesso ci siamo, possiamo andare avanti".
+**Esito:** superata (aspetto e fluidità della pagina 1 a banco, con dati simulati). Non
+provati: dati reali, spie dal VAN, soglie dell'acqua e della riserva (proposte).
+**Prossimo passo:** ulteriori ritocchi della pagina più avanti; soglie dell'acqua dai dati
+del logger.

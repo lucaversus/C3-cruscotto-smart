@@ -9,5 +9,6 @@ constexpr int64_t kLongPressUs = 2000000;  // pressione lunga: almeno 2 s
 void start();                                        // compito che legge il pulsante BOOT (GPIO0)
 void onStalkButtons(float bits, int64_t nowUs);     // dal compito di ricezione
 int64_t lastLabelUs();                               // 0 = nessuna etichetta dall'avvio
+uint32_t bootShortPresses();  // pressioni brevi di BOOT (solo debug a banco: prova lampade)
 uint32_t count();
 }  // namespace labels

@@ -31,7 +31,7 @@ KL-001 su millefori, HW-IMU-LSM6DSO).
 | -U10 | RTC (opzionale) | DS3231 a 0x68 | utile per i timestamp del dataset |
 | -U11 | Programmazione | USB-seriale con reset automatico, oppure connettore a 6 poli | aggiornamenti senza smontare |
 | -K1/K2 | Audio (D-028) | un relè a doppio scambio per canale, pilotato a transistor con diodo di ricircolo | a riposo radio → altoparlanti; uscite radio a ponte mai a massa |
-| -J1 | Verso l'auto | connettore multipolare unico (tipo da scegliere, es. Molex Micro-Fit 3.0) | ritenuta meccanica e codifica contro l'inserimento errato |
+| -J1 | Verso l'auto | **Molex Micro-Fit 3.0, 24 vie** (D-044): sulla scheda 43045-2400, sul cablaggio 43025-2400 | ritenuta meccanica e codifica contro l'inserimento errato |
 | -J2 | Verso l'S3 | P1, P2, P6 della scheda 8048S050 | cavo corto |
 
 ## GPIO del front-end (proposta)
@@ -106,7 +106,11 @@ dissipatore e il flusso d'aria della ventola. La dimensione del supercondensator
 Rispetto alla proposta precedente la UART passa su IO11/IO12: IO17/IO18 restano
 all'amplificatore U1 se la prova d'ascolto lo conferma.
 
-## Connettore verso l'auto (-J1, bozza)
+## Connettore verso l'auto (-J1, Micro-Fit 3.0 24 vie, D-044)
+
+Tipo deciso il 23/10/2026 (D-044); assegnazione delle vie ancora bozza. Lo stesso cablaggio
+dell'auto (femmina 43025-2400) si innesta prima nella spina volante del prototipo a banco
+(43020-2400, tavola C3AI-DL-EL-004) e poi nel connettore della scheda definitiva (43045-2400).
 
 | Via | Segnale | Origine nel veicolo |
 | --- | --- | --- |
@@ -119,6 +123,7 @@ all'amplificatore U1 se la prova d'ascolto lo conferma.
 | 8-11 | canale Sx: radio + / −, altoparlante + / − | da identificare sul cablaggio radio |
 | 12-15 | canale Dx: radio + / −, altoparlante + / − | da identificare |
 | 16 | riserva | |
+| 17-24 | riserva (es. luci, comandi, segnali futuri) | |
 
 ## Bilancio di potenza (stima, da misurare)
 

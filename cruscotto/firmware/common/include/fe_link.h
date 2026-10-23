@@ -38,7 +38,7 @@ namespace sig {
 constexpr uint16_t kRpm = 0x0001, kSpeedKmh = 0x0002, kCoolantC = 0x0003, kOutsideC = 0x0004,
                    kFuelPct = 0x0005, kOdometerKm = 0x0006, kLightsFlags = 0x0007,
                    kWarningFlags = 0x0008, kStalkButtons = 0x0009,
-                   kBatteryV = 0x0010, kIgnition = 0x0011,
+                   kBatteryV = 0x0010, kIgnition = 0x0011, kFuelL100 = 0x0012, kCabinC = 0x0013,
                    kAccelX = 0x0020, kAccelY = 0x0021, kAccelZ = 0x0022,
                    kGyroX = 0x0023, kGyroY = 0x0024, kGyroZ = 0x0025, kImuTempC = 0x0026,
                    kNtcDisplayC = 0x0030, kNtcBoardC = 0x0031, kFanPct = 0x0040, kFanRpm = 0x0041;

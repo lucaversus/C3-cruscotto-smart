@@ -15,6 +15,7 @@ LOGGER = ROOT / 'data-logger/firmware/logger'
 HOST_TEST = LOGGER / 'host-tests/test_logic.cpp'
 COMMON = ROOT / 'cruscotto/firmware/common'
 LINK_TEST = COMMON / 'host-tests/test_fe_link.cpp'
+DASH_TEST = COMMON / 'host-tests/test_dash_logic.cpp'
 DISPLAY_TEST = ROOT / 'cruscotto/firmware/display-test'
 UI_TEST = ROOT / 'cruscotto/firmware/ui-test'
 SPEAK_TEST = ROOT / 'cruscotto/firmware/speak-test'
@@ -58,6 +59,10 @@ def run_host_tests(required=False):
     run(compiler, '-std=gnu++14', '-Wall', '-Wextra', '-Werror', '-O1',
         '-I', COMMON / 'include', LINK_TEST, '-o', link)
     run(link)
+    dash = output.with_name('test_dash_logic' + output.suffix)
+    run(compiler, '-std=gnu++14', '-Wall', '-Wextra', '-Werror', '-O1',
+        '-I', COMMON / 'include', DASH_TEST, '-o', dash)
+    run(dash)
 
 
 def run_lint():

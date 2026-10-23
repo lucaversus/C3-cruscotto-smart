@@ -36,6 +36,9 @@ e "Chiusura e GitHub"). Questa skill le esegue in ordine; in caso di dubbio vale
 
 ## 4. Pubblicazione
 
+Solo quando l'utente scrive «fine sessione» o in una delle eccezioni di D-043
+(AGENTS.md); fino ad allora commit locali sul branch di lavoro.
+
 1. Branch `claude/<argomento>` (o nome concordato), commit descrittivo con
    elenco delle modifiche e dei limiti (cosa non è caricato o collaudato).
 2. Push del branch e apertura PR verso `main` (REST: `gh api repos/{owner}/{repo}/pulls`;

@@ -1,3 +1,4 @@
 # Tool applicativi usati nel progetto; Python raccomandato 3.13.
 platformio==6.1.18
 pyserial==3.5
+pillow==11.3.0

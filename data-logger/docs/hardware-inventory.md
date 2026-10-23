@@ -84,6 +84,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possibile uso col controller TWAI interno ESP32: scelta subordinata a verifica elettrica
 - Candidato per ricezione fisica VAN con decoder software ESP32: applicazione documentata dal progetto VanBus, non collaudata su questo modulo o veicolo. Prima verificare alimentazione 3,3 V, assenza di terminazione aggiunta, livelli e inibizione hardware TX. Non usare il controller MCP2515 come decoder VAN.
 - BLOCCANTE prima del collegamento VAN (D-022): terminazione 120 ohm scollegata e H-L misurata non circa 120 ohm; TX modulo collegato a 3V3, mai flottante o a GPIO; differenziale H-L recessivo a banco. Procedura in docs/protocolli-veicolo.md; nessun punto eseguito.
+- Disegnato nella tavola C3AI-DL-EL-004 rev A (D-042): RX→GPIO34 (W28), 3V3/GND dalla basetta 3 (W29/W30), ponticello TX–3V3, resistenza 121 da scollegare, CANH/CANL verso -X3 e quadro 0004 vie 1/3 solo dopo le verifiche D-022 1-5. Ordine DATA/DATAB non verificato.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
@@ -237,7 +238,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Firmware attualmente caricato (21/10/2026): ui-idf 0.4.0 (ESP-IDF 5.5, OTA D-039, collegamento simulato, scatola nera DSP-M010; partizione storage formattata LittleFS con eventi di prova); altri firmware ricaricabili dai sorgenti.
+- Firmware attualmente caricato (23/10/2026): ui-idf 0.5.0 (ESP-IDF 5.5, OTA D-039, collegamento simulato, scatola nera DSP-M010, pagina 1 Dashboard DSP-M011; partizione storage LittleFS quasi piena di eventi di prova); altri firmware ricaricabili dai sorgenti.
 - Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili
 - Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)
@@ -258,9 +259,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Da verificare:**
 
 - All'arrivo: riscontrare sigla STEVAL-MKI196V1 e marcatura del chip; foto da archiviare.
-- Piedinatura DIL-24, alimentazione VDD/VDDIO (1,71-3,6 V: solo 3,3 V, nessun regolatore dichiarato) e piedini SDO/SA0 e CS da verificare sul manuale ST della scheda prima del collegamento.
-- Indirizzo I2C atteso 0x6A (SA0 a GND) o 0x6B (SA0 a 3,3 V); CS a 3,3 V per il modo I2C. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C. Resistenze di pull-up I2C sulla scheda da verificare (il bus del logger ha già quelle del modulo RTC, da riscontrare).
-- Collegamento proposto: bus I2C HW-394 GPIO21/22, non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
+- Piedinatura DIL-24 ricavata da ST DB3714 rev 1 (schema STEVAL-MKI196V1, 22/10/2026): 1 VDD, 2 VDDIO, 3 OCS, 4 SCx, 5 SDx, 6 OSDO, 13 GND, 14 INT1, 15 INT2, 19 CS, 20 SCL, 21 SDA, 22 SDO/SA0; 7-12 e 23 liberi, 16-18 e 24 con resistenze non montate. Condensatori 100 nF su VDD e VDDIO presenti, nessuna pull-up I2C sulla scheda. Da riscontrare sulla serigrafia all'arrivo. Alimentazione 1,71-3,6 V: solo 3,3 V.
+- Indirizzo I2C 0x6A con SDO/SA0 (piedino 22) a GND; CS (19) a 3,3 V per il modo I2C. SCx/SDx (4/5) a GND in modo 1 secondo ST (riscontrare sulla tabella dei piedini del datasheet LSM6DSO), OCS e OSDO liberi. Pull-up SDA/SCL: verificare quelle del modulo RTC, altrimenti 4,7 kohm verso 3,3 V. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C.
+- Collegamento proposto: bus I2C HW-394 GPIO21/22 su ritaglio di millefori (basetta 4, tavola C3AI-DL-EL-004 rev A, D-042), non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
 - Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
@@ -362,6 +363,24 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Verifica montaggio, pin E-B-C del 2N5551 onsemi sul datasheet, assenza corti e alimentazioni su banco limitato in corrente (HW-BENCH-PSU dichiarato).
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
 - Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.
+
+### HW-J1-MICROFIT24 — Connettore verso l'auto -J1: Molex Micro-Fit 3.0 24 vie (femmina 43025-2400 sul cablaggio, spina 43020-2400 sul prototipo)
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger e Cruscotto digitale (D-044)
+
+**Fonte:** Decisione D-044 dell'utente, 23/10/2026. Nessun ordine: componente candidato.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Da ordinare: femmina 43025-2400 (Farnell 629315, minimo 10 pezzi, 1,18 € cad. IVA esclusa), spina 43020-2400 (Farnell 634712, 1,78 €), contatti femmina 43030-0007 (Farnell 2101869, da 10 pezzi, 0,174 €), contatti maschio 43031-0007 (Farnell 2725169, 0,183 €); prezzi e disponibilità del 23/10/2026. Filo 20-24 AWG.
+- Servono almeno due femmine: una per il cablaggio dell'auto, una per il cablaggio di prova a banco (R3 e alimentatore).
+- Pinza a crimpare compatibile Micro-Fit da scegliere (quella originale Molex è costosa): verificare la tenuta di ogni crimpatura.
+- Assegnazione delle vie: bozza in cruscotto/docs/scheda-madre.md (1 +BAT, 2 massa, 3 +APC, 4 K, 5/6 VAN, 7 massa VAN, 8-15 audio, 16-24 riserva).
+- Scheda definitiva: connettore da circuito stampato 43045-2400 da prevedere nel disegno della scheda madre.
 
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
 
