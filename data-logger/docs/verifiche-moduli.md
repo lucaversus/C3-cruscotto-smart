@@ -409,3 +409,19 @@ la ricezione di trame reali né i tempi del segnale VAN.
 **Esito:** superata. Prove 1-4 dei prerequisiti D-022 superate a banco (VAN-M002…M005).
 **Prossimo passo:** prova 5 sull'auto, identificazione documentale e conferma elettrica
 del punto di collegamento (quadro 0004 vie 1/3, ordine DATA/DATAB) prima di collegare.
+
+## DSP-M012 — retroilluminazione in PWM su GPIO2 — 23/10/2026
+
+**Prova:** firmware S3 0.7.0, PWM LEDC su GPIO2. Prima a 5 kHz: con la luminosità al 40 %
+lo schermo si spegne (utente: "quando scende la luminosita non si vede più niente";
+"con il fw 0.7.0 continua a non vedersi niente al 40%"). Ricerca: la libreria
+esp32-smartdisplay per queste schede usa 400 Hz (ESPHome 1220 Hz). Con 400 Hz predefiniti:
+utente "adesso la dimmerazione è buona"; nel ciclo automatico osserva solo 100 % e 40 %
+(atteso: la riduzione termica non interviene con l'NTC simulato a circa 38 °C).
+**Interpretazione:** il circuito della retroilluminazione non segue il PWM a 5 kHz sotto il
+100 %; a 400 Hz la regolazione funziona. Livelli 20 % e 10 % e frequenze 100/1000 Hz
+provati dalla seriale senza esito riferito.
+**Esito:** superata a 400 Hz per 100 % e 40 %; livello minimo leggibile e assenza di
+sfarfallio/ronzio ai livelli bassi da confermare.
+**Prossimo passo:** ripetere 20 % e 10 % a 400 Hz guardando lo schermo, per fissare il
+minimo della protezione termica.

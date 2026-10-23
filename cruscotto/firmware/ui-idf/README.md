@@ -144,8 +144,9 @@ Affinamenti successivi del 23/10/2026:
 
 ## Luminosità automatica (richiesta utente 23/10/2026)
 
-- Retroilluminazione in **PWM** su GPIO2 (LEDC, 5 kHz, 10 bit) al posto dell'acceso/spento:
-  frequenza da verificare a banco (nessuno sfarfallio o ronzio).
+- Retroilluminazione in **PWM** su GPIO2 (LEDC, **400 Hz**, 10 bit) al posto dell'acceso/spento.
+  A 5 kHz sotto il 100 % lo schermo si spegneva; 400 Hz come la libreria esp32-smartdisplay
+  per queste schede (DSP-M012).
 - **Anabbaglianti accesi** (segnale 0x0007 bit 2): luminosità al **40 %**.
 - **Protezione termica** dall'NTC del display (segnale 0x0030; limite dichiarato del
   pannello +70 °C): da 55 °C riduzione lineare fino al 30 % a 65 °C, 10 % da 68 °C. Vale il

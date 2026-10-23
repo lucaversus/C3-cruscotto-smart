@@ -16,7 +16,9 @@ constexpr ledc_channel_t kChannel = LEDC_CHANNEL_0;
 constexpr uint32_t kMaxDuty = (1u << 10) - 1;  // 10 bit
 std::atomic<int> current{0};
 std::atomic<int> manual{-1};
-std::atomic<uint32_t> freqHz{5000};
+// 400 Hz come la libreria esp32-smartdisplay per queste schede: a 5 kHz, sotto il 100 %,
+// lo schermo si spegne (prova a banco 23/10/2026).
+std::atomic<uint32_t> freqHz{400};
 int64_t lastStepUs = 0;
 
 void apply(int pct) {
@@ -31,7 +33,7 @@ void start() {
   timer.speed_mode = kMode;
   timer.duty_resolution = LEDC_TIMER_10_BIT;
   timer.timer_num = LEDC_TIMER_0;
-  timer.freq_hz = freqHz.load();  // frequenza da verificare a banco: assenza di sfarfallio e ronzio
+  timer.freq_hz = freqHz.load();
   timer.clk_cfg = LEDC_AUTO_CLK;
   ledc_timer_config(&timer);
   ledc_channel_config_t channel = {};
