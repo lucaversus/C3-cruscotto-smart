@@ -32,11 +32,13 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Foto frontale archiviata: HW-394 / ESP-32D e basetta di espansione a morsetti visibili; nessuna verifica elettrica della basetta.
 - 18/10/2026: firmware mcp2515-spi-test 0.1.0 caricato su COM3 con BOOT manuale; esptool conferma hash dei segmenti scritti. Sostituisce sulla scheda la diagnostica 0.1.0, i cui sorgenti sono conservati. Avvio verificato tramite stato seriale SPI_TEST=PASS (M-010).
 - 20/10/2026: logger 0.3.0 profilo esp32-hw394-logger caricato su COM3 con BOOT manuale a 115200 baud; esptool conferma hash dei segmenti, SUCCESS. Dopo impulso EN tramite RTS, seriale conferma version=0.3.0, kwp=0 van=0 e ATTESA SD. Log locali .tools/serial/upload-20261020-000840.log e monitor successivo. Sostituisce il test MCP2515 sulla scheda; sorgenti storici conservati.
+- LNK-M001 23/10/2026: firmware front-end 0.1.0 caricato (hash verificati, sostituisce il logger 0.3.0); trame fe_link verso l'S3 su UART1 GPIO25/33 a 921600 baud, 31-32 trame/s senza errori.
 
 **Da verificare:**
 
 - Piedinatura fisica HW-394 e corrente disponibile per i moduli esterni
 - Basetta a morsetti visibile in foto: continuità e corrispondenza delle etichette non ancora provate.
+- Firmware attualmente caricato (23/10/2026): front-end 0.1.0 (dati simulati); il logger si ricarica dai sorgenti quando serve.
 
 ### HW-CAN-MCP2515 — Modulo MCP2515, quarzo 8 MHz, transceiver marcato VP230
 
@@ -240,7 +242,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Firmware attualmente caricato (23/10/2026): ui-idf 0.5.0 (ESP-IDF 5.5, OTA D-039, collegamento simulato, scatola nera DSP-M010, pagina 1 Dashboard DSP-M011; partizione storage LittleFS quasi piena di eventi di prova); altri firmware ricaricabili dai sorgenti.
+- Firmware attualmente caricato (23/10/2026): ui-idf 0.9.0 (ESP-IDF 5.5, OTA D-039, collegamento reale con il front-end LNK-M001 e simulatore interno di riserva, scatola nera con rotazione, pagine Dashboard/Tecnica/Diagnostica, luminosità PWM 400 Hz DSP-M012); altri firmware ricaricabili dai sorgenti.
 - Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili
 - Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)

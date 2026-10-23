@@ -24,4 +24,4 @@ Compilazione: `python tools/dev.py build`. Caricamento sull'HW-394 (sostituisce 
 del logger, ricaricabile dai sorgenti): `platformio run -d cruscotto/firmware/front-end -t upload`.
 Seriale 115200: righe `c3_front_end sent=... received=... rx_errors=...`.
 
-Stato: compilato, non ancora caricato né provato.
+Stato: caricato sull'HW-394 e provato con l'S3 0.9.0 il 23/10/2026 (LNK-M001): 31-32 trame/s, 0 errori.

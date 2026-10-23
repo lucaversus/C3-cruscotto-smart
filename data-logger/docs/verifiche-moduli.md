@@ -426,3 +426,18 @@ sfarfallio/ronzio ai livelli bassi da confermare.
 **Ripetizione 20 % e 10 % a 400 Hz (15 s ciascuno):** utente "nessun sfarfallio, ma a 10 si
 leggeva poco". Minimo della protezione termica portato al 20 %.
 **Prossimo passo:** prova della protezione termica con temperatura reale dietro la copertura.
+
+## LNK-M001 — collegamento reale front-end → S3 (fe_link v1) — 23/10/2026
+
+**Prova:** front-end 0.1.0 caricato sull'ESP32 HW-394 (COM4, hash verificati; avvio
+`c3_front_end version=0.1.0`, 156 trame in 5 s). S3 con firmware 0.9.0. Collegamento a
+banco: ESP32 GPIO25 → S3 P2 IO11, S3 P2 IO12 → ESP32 GPIO33, GND comune (GND dell'S3 da
+P1); ESP32 alimentato da un'altra presa USB. Riavvio dell'S3 dal PC.
+**Seriale S3:** `collegamento: front-end collegato su UART`; `link=uart frames_s=31-32
+link_err=0 link_lost=0` per 15 s. Senza front-end alimentato l'S3 passa al simulatore
+interno dopo 3 s (`nessun front-end in 3000 ms`), come previsto.
+**Interpretazione:** UART a 921600 baud tra le due schede funzionante nella direzione
+front-end → S3, trame decodificate senza errori di CRC/COBS né perdite di sequenza. I dati
+sono ancora simulati; non provata la direzione S3 → front-end (l'S3 non trasmette ancora).
+**Esito:** superata.
+**Prossimo passo:** dati reali nel front-end (tensione batteria, poi K-line e VAN).
