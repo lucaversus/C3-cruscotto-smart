@@ -77,7 +77,7 @@ def pad(d, x, y, text, side):
     return (x, y)
 
 
-d = Sheet('C3AI-DL-EL-004 rev A — Data Logger completo a banco, collegamenti illustrati')
+d = Sheet('C3AI-DL-EL-004 rev B — Data Logger completo a banco, collegamenti illustrati')
 d.frame()
 d.text(25, 20, 'DATA LOGGER COMPLETO A BANCO SU MILLEFORI — COLLEGAMENTI ILLUSTRATI', 5, bold=True)
 d.text(25, 25, 'Disegno illustrativo, basette in scala 1,5:1 (millefori MC01009 72×47 mm): posizioni dei piedini indicative, collegare '
@@ -348,7 +348,7 @@ for y in (172, 178):
     d.raw(f'<circle cx="121" cy="{y}" r="1.3" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>')
 for y in (172, 178):
     d.raw(f'<line x1="109" y1="{y}" x2="121" y2="{y}" stroke="{C["VAN"]}" stroke-width="1.2" stroke-dasharray="2 1"/>')
-label(d, 113, 186, '-X3 verso quadro 0004 vie 1/3', 2.0, 'start', True)
+label(d, 113, 186, '-X3 = -J1 vie 5/6 (massa VAN via 7)', 2.0, 'start', True)
 label(d, 113, 189.2, 'NON COLLEGARE prima di D-022', 2.0, 'start', True, '#c00000')
 
 # --- Fili tra le basette --------------------------------------------------------------
@@ -408,14 +408,14 @@ rows = [('W1', 'RX_3V3', f'-A1 RX2 (GPIO{PINS["kKwpRx"]})', 'basetta 1 RX'),
         ('W21', '+3V3', 'basetta 3 VCC (con W17)', 'basetta 4 3V3'),
         ('W22', 'SDA', 'basetta 3 SDA (con W18)', 'basetta 4 SDA'),
         ('W23', 'SCL', 'basetta 3 SCL (con W19)', 'basetta 4 SCL'),
-        ('W24', 'K', 'basetta 1 K', '-R3 capo 1'),
+        ('W24', 'K', 'basetta 1 K → -J1 via 4', '-R3 capo 1'),
         ('W25', 'VBENCH', '-R3 capo 2', '-G1 +'),
-        ('W26', 'VBENCH', 'basetta 1 VBENCH', '-G1 +'),
-        ('W27', 'GND', 'basetta 1 GND (lato K)', '-G1 −'),
+        ('W26', 'VBENCH', 'basetta 1 VBENCH → -J1 via 1', '-G1 +'),
+        ('W27', 'GND', 'basetta 1 GND → -J1 via 2', '-G1 −'),
         ('W28', 'VAN_RX', f'-A1 D{PINS["kVanRx"]} (solo ingresso)', '-A6 RX'),
         ('W29', 'GND', 'basetta 3 GND (VAN)', '-A6 GND'),
         ('W30', '+3V3', 'basetta 3 3V3 (VAN)', '-A6 3V3'),
-        ('W31', 'VAN', '-A6 CANH/CANL', '-X3, poi quadro: dopo D-022')]
+        ('W31', 'VAN', '-A6 CANH/CANL → -J1 vie 5/6', 'quadro: dopo D-022')]
 TX0, TY0 = 25, 208
 d.text(TX0, TY0 - 4, 'FILI TRA LE BASETTE E I MODULI (saldati, nessun morsetto)', 3.3, bold=True)
 for i, (w, net, a, b) in enumerate(rows):
@@ -433,7 +433,8 @@ d.notes(292, 197, 'SEQUENZA E PRECAUZIONI', [
     '4 Alimentatore 12,0 V, limite 0,10 A, poi uscita accesa.',
     '5 Spegnere in ordine inverso. Mai 12 V su ESP32 o su 3V3.',
     '6 W4/W6, W5/W7, W16…W19/W20…W23: due fili sullo stesso punto.',
-    '7 In auto: alimentazione HW-AUTO-POWER (non ancora posseduta).',
+    '7 Verso l\'auto e verso il banco: spina volante -J1 Micro-Fit 24 vie',
+    '  (D-044); al banco una femmina cablata su R3 e alimentatore.',
     '8 IMU solo 3,3 V; la scheda non ha pull-up I²C: verificare quelle del',
     '  modulo RTC, altrimenti 4,7 kΩ verso 3V3 su SDA e SCL.',
     '9 VAN -A6: solo ricezione su GPIO34; prove 1-4 D-022 a banco,',
@@ -441,8 +442,9 @@ d.notes(292, 197, 'SEQUENZA E PRECAUZIONI', [
 ], h=2.3, step=3.6)
 d.title_block(title=['Data Logger completo', 'a banco, illustrato'], subtitle='Data Logger',
               doc_type='Schema illustrativo', status='PROPOSTO · NON COLLAUDATO',
-              code='C3AI-DL-EL-004', rev='A', date='22/10/2026', sheet='1/1',
-              revisions=[('A', 'Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)', '22/10/2026')])
+              code='C3AI-DL-EL-004', rev='B', date='23/10/2026', sheet='1/1',
+              revisions=[('A', 'Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)', '22/10/2026'),
+                         ('B', 'Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)', '23/10/2026')])
 out = ROOT / 'disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg'
 out.write_text(d.svg('Collegamenti illustrati del Data Logger completo a banco su millefori; posizioni indicative.'),
                encoding='utf-8')

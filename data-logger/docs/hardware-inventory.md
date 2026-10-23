@@ -364,6 +364,24 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
 - Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.
 
+### HW-J1-MICROFIT24 — Connettore verso l'auto -J1: Molex Micro-Fit 3.0 24 vie (femmina 43025-2400 sul cablaggio, spina 43020-2400 sul prototipo)
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger e Cruscotto digitale (D-044)
+
+**Fonte:** Decisione D-044 dell'utente, 23/10/2026. Nessun ordine: componente candidato.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Da ordinare: femmina 43025-2400 (Farnell 629315, minimo 10 pezzi, 1,18 € cad. IVA esclusa), spina 43020-2400 (Farnell 634712, 1,78 €), contatti femmina 43030-0007 (Farnell 2101869, da 10 pezzi, 0,174 €), contatti maschio 43031-0007 (Farnell 2725169, 0,183 €); prezzi e disponibilità del 23/10/2026. Filo 20-24 AWG.
+- Servono almeno due femmine: una per il cablaggio dell'auto, una per il cablaggio di prova a banco (R3 e alimentatore).
+- Pinza a crimpare compatibile Micro-Fit da scegliere (quella originale Molex è costosa): verificare la tenuta di ogni crimpatura.
+- Assegnazione delle vie: bozza in cruscotto/docs/scheda-madre.md (1 +BAT, 2 massa, 3 +APC, 4 K, 5/6 VAN, 7 massa VAN, 8-15 audio, 16-24 riserva).
+- Scheda definitiva: connettore da circuito stampato 43045-2400 da prevedere nel disegno della scheda madre.
+
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
 
 **Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger temporaneo

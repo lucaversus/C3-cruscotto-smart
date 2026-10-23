@@ -32,7 +32,7 @@ Vie 16/1/4/5 e calo all'avviamento, con tabella da compilare.
 
 ## Data Logger
 
-### DL-EL-004 — Data Logger completo a banco su millefori (rev A, proposta)
+### DL-EL-004 — Data Logger completo a banco su millefori (rev B, proposta)
 Tutti i moduli disegnati come appaiono: ESP32, K-line con i suoi componenti nelle posizioni di KL-003, RTC con pila, MicroSD, IMU LSM6DSO, OLED, modulo VAN (solo ricezione), STOP e alimentatore da banco; fili saldati tra le basette, numerati W1…W31 (D-042).
 
 [![DL-EL-004](DL-EL-004_logger-completo-millefori.png)](DL-EL-004_logger-completo-millefori.png)
