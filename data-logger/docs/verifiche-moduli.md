@@ -431,13 +431,15 @@ leggeva poco". Minimo della protezione termica portato al 20 %.
 
 **Prova:** front-end 0.1.0 caricato sull'ESP32 HW-394 (COM4, hash verificati; avvio
 `c3_front_end version=0.1.0`, 156 trame in 5 s). S3 con firmware 0.9.0. Collegamento a
-banco: ESP32 GPIO25 → S3 P2 IO11, S3 P2 IO12 → ESP32 GPIO33, GND comune (GND dell'S3 da
-P1); ESP32 alimentato da un'altra presa USB. Riavvio dell'S3 dal PC.
+banco: ESP32 GPIO25 → S3 P2 IO11, S3 P2 IO12 → ESP32 GPIO33. **Filo GND non collegato**
+(utente: "non avevo collegato gnd"): massa comune solo attraverso le due prese USB dello
+stesso PC. ESP32 alimentato da un'altra presa USB. Riavvio dell'S3 dal PC.
 **Seriale S3:** `collegamento: front-end collegato su UART`; `link=uart frames_s=31-32
 link_err=0 link_lost=0` per 15 s. Senza front-end alimentato l'S3 passa al simulatore
 interno dopo 3 s (`nessun front-end in 3000 ms`), come previsto.
 **Interpretazione:** UART a 921600 baud tra le due schede funzionante nella direzione
 front-end → S3, trame decodificate senza errori di CRC/COBS né perdite di sequenza. I dati
 sono ancora simulati; non provata la direzione S3 → front-end (l'S3 non trasmette ancora).
-**Esito:** superata.
+**Esito:** superata, con massa comune attraverso l'USB del PC. Il filo GND tra le schede resta
+obbligatorio (alimentazioni separate, auto).
 **Prossimo passo:** dati reali nel front-end (tensione batteria, poi K-line e VAN).
