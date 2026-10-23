@@ -423,5 +423,6 @@ utente "adesso la dimmerazione è buona"; nel ciclo automatico osserva solo 100 
 provati dalla seriale senza esito riferito.
 **Esito:** superata a 400 Hz per 100 % e 40 %; livello minimo leggibile e assenza di
 sfarfallio/ronzio ai livelli bassi da confermare.
-**Prossimo passo:** ripetere 20 % e 10 % a 400 Hz guardando lo schermo, per fissare il
-minimo della protezione termica.
+**Ripetizione 20 % e 10 % a 400 Hz (15 s ciascuno):** utente "nessun sfarfallio, ma a 10 si
+leggeva poco". Minimo della protezione termica portato al 20 %.
+**Prossimo passo:** prova della protezione termica con temperatura reale dietro la copertura.

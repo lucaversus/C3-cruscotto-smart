@@ -93,7 +93,7 @@ static_assert(fuelColor(50) == kFuelNormal && fuelColor(kFuelReserve) == kAmber,
 // display (limite dichiarato del pannello +70 °C): da kHotStartC riduzione lineare fino a
 // kHotPct a kHotFullC, poi kCriticalPct da kCriticalC. Vale il valore più basso.
 constexpr int kDayPct = 100, kNightPct = 40;
-constexpr int kHotStartC = 55, kHotFullC = 65, kHotPct = 30, kCriticalC = 68, kCriticalPct = 10;
+constexpr int kHotStartC = 55, kHotFullC = 65, kHotPct = 30, kCriticalC = 68, kCriticalPct = 20;  // 10 % poco leggibile (DSP-M012)
 constexpr int thermalLimit(bool valid, int tempC) {
   return !valid ? kDayPct
          : tempC >= kCriticalC ? kCriticalPct

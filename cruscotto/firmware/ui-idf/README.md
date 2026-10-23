@@ -149,7 +149,8 @@ Affinamenti successivi del 23/10/2026:
   per queste schede (DSP-M012).
 - **Anabbaglianti accesi** (segnale 0x0007 bit 2): luminosità al **40 %**.
 - **Protezione termica** dall'NTC del display (segnale 0x0030; limite dichiarato del
-  pannello +70 °C): da 55 °C riduzione lineare fino al 30 % a 65 °C, 10 % da 68 °C. Vale il
+  pannello +70 °C): da 55 °C riduzione lineare fino al 30 % a 65 °C, 20 % da 68 °C (al 10 %
+  si legge poco, DSP-M012). Vale il
   valore più basso tra le due regole; senza dato termico nessuna riduzione.
 - Variazione graduale (1 % ogni 10 ms); valore nel report seriale (`bl=`). Simulatore:
   anabbaglianti accesi 20 s ogni 60 s.
