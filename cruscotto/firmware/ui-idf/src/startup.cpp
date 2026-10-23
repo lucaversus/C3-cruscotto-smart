@@ -18,12 +18,13 @@
 #include "startup_logic.h"
 
 LV_FONT_DECLARE(font_speed);
+LV_FONT_DECLARE(font_check);  // Share Tech Mono 20 px con antialias (tools/genera-font-avvio.py)
 
 namespace startup {
 namespace {
 // Pioggia solo ai lati del pannello (opaco): sotto il pannello non verrebbe vista ma
 // costerebbe un ridisegno a ogni passo.
-constexpr int kPanelW = 620, kSideCols = 4, kColumns = 2 * kSideCols, kRainChars = 18, kRainStep = 21;
+constexpr int kPanelW = 520, kSideCols = 6, kColumns = 2 * kSideCols, kRainChars = 18, kRainStep = 21;
 constexpr uint32_t kMatrixGreen = 0x00FF41;
 
 struct Rain {
@@ -62,7 +63,7 @@ lv_obj_t* screen = nullptr;
 lv_obj_t* panel = nullptr;
 lv_obj_t* result = nullptr;
 lv_obj_t* goShadowObj = nullptr;
-const lv_font_t* const kCheckFont = &lv_font_unscii_16;  // carattere dei controlli
+const lv_font_t* const kCheckFont = &font_check;  // carattere dei controlli, stile terminale Matrix
 int64_t startUs = 0, endUs = 0, lastRainUs = 0;
 boot::Phase finalPhase = boot::Phase::kChecking;
 bool switched = false;
@@ -135,7 +136,7 @@ void build() {
   for (int c = 0; c < kColumns; ++c) {
     Rain& r = rain[c];
     r.label = lv_label_create(screen);
-    lv_obj_set_style_text_font(r.label, &lv_font_unscii_16, 0);
+    lv_obj_set_style_text_font(r.label, &font_check, 0);
     lv_obj_set_style_text_color(r.label, lv_color_hex(0x00A030), 0);
     lv_obj_set_style_text_opa(r.label, 90 + esp_random() % 120, 0);
     randomText(r.text);
@@ -199,7 +200,7 @@ bool update(int64_t nowUs, lv_obj_t* next) {
     for (Rain& r : rain) {
       r.y += r.speed;
       if (r.y > 480) {
-        r.y = -kRainChars * 16 - static_cast<int>(esp_random() % 200);
+        r.y = -kRainChars * 24 - static_cast<int>(esp_random() % 200);
         randomText(r.text);
         lv_label_set_text_static(r.label, r.text);
       }
