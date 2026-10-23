@@ -104,13 +104,14 @@ Secondo [interfaccia-requisiti.md](../../docs/interfaccia-requisiti.md), "Sequen
 Affinamenti del 23/10/2026 (richieste dell'utente dopo la prima prova):
 
 - **Effetto tridimensionale**: barre con canale incavato (sfumatura scura, bordo sottile) e
-  riempimento a rilievo (tinta chiara da un lato, scura dall'altro); ombra sotto la
-  velocità; alone attorno al riquadro degli avvisi e al pannello d'avvio; ombra del GO.
-- **Econometro** sotto la velocità, largo quanto le tre cifre: consumo istantaneo
+  riempimento a rilievo (tinta chiara da un lato, scura dall'altro); alone attorno al
+  riquadro degli avvisi e al pannello d'avvio; ombra del GO. Velocità senza effetto 3D.
+- **Econometro** al limite inferiore dello schermo (240 x 24 px): consumo istantaneo
   l/100 km (segnale 0x0012, fonte da definire), verde fino a 5, ambra verso 8, rosso da 12
   (soglie proposte). Il simulatore lo lega ai giri.
-- **Carico delle due CPU** nel report seriale (`cpu0`, `cpu1`) dal tempo dei compiti di
-  inattività (statistiche FreeRTOS abilitate in `sdkconfig.defaults`).
+- **Carico delle due CPU** sullo schermo (riga piccola sotto la velocità, provvisoria fino
+  alla pagina Diagnostica) e nel report seriale (`cpu0`, `cpu1`), misurato ogni secondo dal
+  tempo dei compiti di inattività (statistiche FreeRTOS in `sdkconfig.defaults`).
 - Controlli d'avvio con l'esito allineato a destra (non esce più dal pannello).
 - Seriale: avvio 19 FPS, dashboard 15-18 FPS (prima 22: costo delle sfumature);
   cpu0 3-11 %, cpu1 61-69 %.

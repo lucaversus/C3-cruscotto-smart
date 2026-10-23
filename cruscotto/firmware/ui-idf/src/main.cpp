@@ -19,6 +19,7 @@
 #include "blackbox.h"
 #include "dashboard.h"
 #include "startup.h"
+#include "sysstats.h"
 #include "labels.h"
 #include "link.h"
 #include "lvgl.h"
@@ -153,8 +154,7 @@ void cpuLoad(unsigned load[2]) {
 
 void report() {
   static uint32_t lastVsync = 0, lastFrames = 0;
-  unsigned cpu[2];
-  cpuLoad(cpu);
+  const unsigned cpu[2] = {sysstats::cpu[0].load(), sysstats::cpu[1].load()};
   const uint32_t vs = vsyncCount.load(std::memory_order_relaxed);
   const LinkStats ls = linkStats();
   const uint32_t avg = refreshes ? refreshMs / refreshes : 0;
@@ -224,9 +224,13 @@ extern "C" void app_main() {
   esp_ota_get_state_partition(esp_ota_get_running_partition(), &state);
   printf("ui_idf ota_state=%d (pending=%d)\n", static_cast<int>(state), ESP_OTA_IMG_PENDING_VERIFY);
   bool confirmed = false;
-  while (true) {
-    vTaskDelay(pdMS_TO_TICKS(5000));
-    report();
+  for (unsigned tick = 1;; ++tick) {
+    vTaskDelay(pdMS_TO_TICKS(1000));
+    unsigned load[2];
+    cpuLoad(load);  // ogni secondo, per lo schermo
+    sysstats::cpu[0].store(load[0]);
+    sysstats::cpu[1].store(load[1]);
+    if (tick % 5 == 0) report();
     // Autotest (D-039): display inizializzato, collegamento attivo, 10 s senza blocchi.
     // Se la nuova versione non arriva qui, al riavvio successivo il bootloader torna alla precedente.
     const int64_t now = esp_timer_get_time();

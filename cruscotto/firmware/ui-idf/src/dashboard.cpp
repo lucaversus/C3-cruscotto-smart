@@ -17,6 +17,7 @@
 #include "link.h"
 #include "lvgl.h"
 #include "signal_store.h"
+#include "sysstats.h"
 
 LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre (tools/genera-font-velocita.py)
 
@@ -62,7 +63,7 @@ constexpr int kRowCount[2] = {7, 8};
 
 lv_obj_t* rpmBar = nullptr;
 lv_obj_t* speedLabel = nullptr;
-lv_obj_t* speedShadow = nullptr;
+lv_obj_t* cpuLabel = nullptr;
 lv_obj_t* ecoBar = nullptr;
 lv_obj_t* coolantBar = nullptr;
 lv_obj_t* coolantLabel = nullptr;
@@ -229,16 +230,13 @@ void build() {
   outLabel = label(strip, &lv_font_montserrat_28, 0xB0B0B0);
   lv_obj_align(strip, LV_ALIGN_TOP_MID, 0, 96);
 
-  // Velocità al centro.
-  // Ombra della velocità: stesso testo, grigio scuro, spostato in basso a destra.
-  speedShadow = label(screen, &font_speed, 0x303030);
-  lv_obj_align(speedShadow, LV_ALIGN_TOP_MID, 5, 170);
+  // Velocità al centro, senza effetto 3D (richiesta dell'utente 23/10/2026).
   speedLabel = label(screen, &font_speed, 0xFFFFFF);
   lv_obj_align(speedLabel, LV_ALIGN_TOP_MID, 0, 165);  // larghezza sul contenuto: ridisegno minimo
 
-  // Econometro sotto la velocità, largo quanto il campo delle tre cifre.
-  ecoBar = bar(screen, 3 * 122, 16, 0, dash::kEcoMax * 10);
-  lv_obj_align(ecoBar, LV_ALIGN_TOP_MID, 0, 350);
+  // Econometro al limite inferiore dello schermo, più corto e più alto.
+  ecoBar = bar(screen, 240, 24, 0, dash::kEcoMax * 10);
+  lv_obj_align(ecoBar, LV_ALIGN_BOTTOM_MID, 0, -10);
 
   // Acqua a sinistra e carburante a destra, barre verticali colorate per intero.
   struct Side {
@@ -265,7 +263,10 @@ void build() {
   }
 
   statusLabel = label(screen, &lv_font_montserrat_14, 0xFFB000);
-  lv_obj_align(statusLabel, LV_ALIGN_BOTTOM_MID, 0, -10);
+  lv_obj_align(statusLabel, LV_ALIGN_TOP_MID, 0, 392);
+  // Carico delle due CPU (dato tecnico provvisorio: andrà nella pagina Diagnostica).
+  cpuLabel = label(screen, &lv_font_montserrat_14, 0x808080);
+  lv_obj_align(cpuLabel, LV_ALIGN_TOP_MID, 0, 412);
 
   // Riquadro degli avvisi, in primo piano tra le barre verticali.
   alertBox = lv_obj_create(screen);
@@ -320,7 +321,6 @@ void update(int64_t nowUs) {
     speedShownUs = nowUs;
     if (speed < 0) lv_label_set_text_static(speedLabel, "-");
     else lv_label_set_text_fmt(speedLabel, "%d", speed);
-    lv_label_set_text(speedShadow, lv_label_get_text(speedLabel));
     shownSpeed = speed;
   }
 
@@ -399,6 +399,13 @@ void update(int64_t nowUs) {
   if (status != shownStatus) {
     lv_label_set_text_static(statusLabel, status);
     shownStatus = status;
+  }
+  static unsigned shownCpu[2] = {101, 101};
+  const unsigned c0 = sysstats::cpu[0].load(), c1 = sysstats::cpu[1].load();
+  if (c0 != shownCpu[0] || c1 != shownCpu[1]) {
+    lv_label_set_text_fmt(cpuLabel, "CPU0 %u%%   CPU1 %u%%", c0, c1);
+    shownCpu[0] = c0;
+    shownCpu[1] = c1;
   }
 }
 
