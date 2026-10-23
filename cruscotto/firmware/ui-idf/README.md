@@ -141,3 +141,18 @@ Affinamenti successivi del 23/10/2026:
   (che misurava solo il compito grafico, attesa del vsync compresa, e non era la somma
   delle due CPU).
 - Seriale: avvio 13-14 FPS, dashboard 15-17 FPS; cpu0 3-5 %, cpu1 62-92 %.
+
+## Luminosità automatica (richiesta utente 23/10/2026)
+
+- Retroilluminazione in **PWM** su GPIO2 (LEDC, 5 kHz, 10 bit) al posto dell'acceso/spento:
+  frequenza da verificare a banco (nessuno sfarfallio o ronzio).
+- **Anabbaglianti accesi** (segnale 0x0007 bit 2): luminosità al **40 %**.
+- **Protezione termica** dall'NTC del display (segnale 0x0030; limite dichiarato del
+  pannello +70 °C): da 55 °C riduzione lineare fino al 30 % a 65 °C, 10 % da 68 °C. Vale il
+  valore più basso tra le due regole; senza dato termico nessuna riduzione.
+- Variazione graduale (1 % ogni 10 ms); valore nel report seriale (`bl=`). Simulatore:
+  anabbaglianti accesi 20 s ogni 60 s.
+- Soglie **proposte** in `dash_logic.h` (`backlightTarget`), con test sul PC; da tarare in
+  auto (e in seguito dall'app, D-038).
+
+Stato: compilata il 23/10/2026; non ancora caricata (scheda non collegata).

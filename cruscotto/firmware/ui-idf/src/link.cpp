@@ -89,7 +89,8 @@ void simTask(void*) {
     // Luci e spie simulate: freccia sinistra 10 s ogni 40 s, candelette nei primi 8 s,
     // pressione olio 5 s ogni 120 s (dopo 60 s) per provare il riquadro degli avvisi.
     const bool blink = fmodf(t, 0.8f) < 0.4f;
-    const uint32_t lights = (fmodf(t, 40.0f) < 10.0f && blink ? 1u : 0u) | (1u << 2);
+    // Anabbaglianti accesi 20 s ogni 60 s: mostra la riduzione della luminosità.
+    const uint32_t lights = (fmodf(t, 40.0f) < 10.0f && blink ? 1u : 0u) | (fmodf(t, 60.0f) >= 40.0f ? 1u << 2 : 0u);
     const uint32_t warnings = (t < 8.0f ? 1u << 4 : 0u) | (t > 60.0f && fmodf(t - 60.0f, 120.0f) < 5.0f ? 1u << 1 : 0u) |
                               (fuel <= 10.0f ? 1u << 9 : 0u);
     felink::addSignal(f, felink::sig::kLightsFlags, q, static_cast<float>(lights));

@@ -17,6 +17,7 @@
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 #include "blackbox.h"
+#include "backlight.h"
 #include "dashboard.h"
 #include "startup.h"
 #include "sysstats.h"
@@ -160,11 +161,11 @@ void report() {
   const LinkStats ls = linkStats();
   const uint32_t avg = refreshes ? refreshMs / refreshes : 0;
   const blackbox::Stats bb = blackbox::stats();
-  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u cpu0=%u%% cpu1=%u%% panel_hz=%u link=%s frames_s=%u "
+  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u cpu0=%u%% cpu1=%u%% bl=%d%% panel_hz=%u link=%s frames_s=%u "
          "link_err=%u link_lost=%u bb_fill=%u/%u bb_events=%u bb_fail=%u fs=%u/%uKB labels=%u "
          "heap_int_free=%u psram_free=%u uptime_ms=%u\n",
          kVersion, esp_ota_get_running_partition()->label, esp_err_to_name(panelStatus),
-         static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg), cpu[0], cpu[1],
+         static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg), cpu[0], cpu[1], backlight::percent(),
          static_cast<unsigned>((vs - lastVsync) / 5), ls.simulated ? "sim" : "uart",
          static_cast<unsigned>((ls.frames - lastFrames) / 5), static_cast<unsigned>(ls.errors),
          static_cast<unsigned>(ls.lostSeq), static_cast<unsigned>(bb.filled),
@@ -198,6 +199,7 @@ void uiTask(void*) {
       if (booting) booting = startup::update(now, dashScreen);
       if (!booting) dashboard::update(now);
     }
+    backlight::update(now);  // anabbaglianti e protezione termica, variazione graduale
     const uint32_t waitMs = lv_timer_handler();
     vTaskDelay(pdMS_TO_TICKS(waitMs < 1 ? 1 : (waitMs > 10 ? 10 : waitMs)));
   }
@@ -205,7 +207,7 @@ void uiTask(void*) {
 }  // namespace
 
 extern "C" void app_main() {
-  outputLow(static_cast<gpio_num_t>(board::kBacklight), 0);
+  backlight::start();  // PWM a 0: pannello spento fino al primo fotogramma
   outputLow(kSdCs, 1);
   printf("ui_idf blackbox=%s\n", blackbox::start() ? "OK" : "SENZA FILE SYSTEM");
   labels::start();
@@ -218,7 +220,6 @@ extern "C" void app_main() {
     dashScreen = lv_scr_act();
     startup::build();
     lv_timer_handler();
-    gpio_set_level(static_cast<gpio_num_t>(board::kBacklight), 1);
     xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 5, nullptr, 1);
   }
   esp_ota_img_states_t state = ESP_OTA_IMG_UNDEFINED;

@@ -55,6 +55,15 @@ int main() {
   // Lampeggio della barra rossa.
   check(dash::rpmBlinkColor(3600, 0) == dash::kRed && dash::rpmBlinkColor(3600, 250) == dash::kRedOff, "lampeggio sopra 3500");
   check(dash::rpmBlinkColor(3400, 250) == dash::kOrange, "arancione fisso");
+  // Retroilluminazione: notte, protezione termica monotona, senza dato termico nessuna riduzione.
+  int last = 101;
+  for (int t = 20; t <= 80; ++t) {
+    const int pct = dash::backlightTarget(false, true, t);
+    check(pct <= last && pct >= dash::kCriticalPct, "luminosità: decresce con la temperatura");
+    last = pct;
+  }
+  check(dash::backlightTarget(false, false, 90) == dash::kDayPct, "NTC assente: luminosità piena");
+  check(dash::backlightTarget(true, false, 0) == dash::kNightPct, "anabbaglianti: luminosità ridotta");
   // Prova lampade.
   check(dash::bulbCheck(0) && dash::bulbCheck(2999) && !dash::bulbCheck(3000), "prova lampade 3 s");
   if (failures) return EXIT_FAILURE;
