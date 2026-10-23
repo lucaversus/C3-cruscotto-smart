@@ -1,4 +1,4 @@
-// Firmware S3 su ESP-IDF 5.5 0.6.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039, D-041).
+// Firmware S3 su ESP-IDF 5.5 (versione in version.h) — Cruscotto C3+AI (D-026, D-029, D-037, D-039, D-041).
 // Struttura: collegamento fe_link e sorgente simulata sul core 0, interfaccia LVGL sul
 // core 1, report e autotest nel compito principale. Doppio framebuffer, scambio al vsync.
 #include <atomic>
@@ -8,6 +8,7 @@
 
 #include "board_8048s050.h"
 #include "driver/gpio.h"
+#include "driver/uart.h"
 #include "esp_heap_caps.h"
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_panel_rgb.h"
@@ -21,13 +22,14 @@
 #include "dashboard.h"
 #include "startup.h"
 #include "sysstats.h"
+#include "version.h"
 #include "labels.h"
 #include "link.h"
 #include "lvgl.h"
 #include "signal_store.h"
 
 namespace {
-constexpr char kVersion[] = "0.6.0";  // + sequenza d'avvio con controllo di sistema e GO
+constexpr const char* kVersion = fw::kVersion;
 constexpr gpio_num_t kSdCs = GPIO_NUM_10;  // MicroSD della S3 esclusa (D-029)
 constexpr int64_t kSelfTestUs = 10000000;  // D-039: conferma dopo 10 s di funzionamento
 
@@ -181,6 +183,33 @@ void report() {
   refreshMs = 0;
 }
 
+// Comandi seriali di debug a banco (Invio a fine riga): "bl 0..100", "bl auto", "pwm <Hz>".
+void serialCommands() {
+  static char line[32];
+  static size_t used = 0;
+  uint8_t c;
+  while (uart_read_bytes(UART_NUM_0, &c, 1, 0) == 1) {
+    if (c != '\r' && c != '\n') {
+      if (used + 1 < sizeof line) line[used++] = static_cast<char>(c);
+      continue;
+    }
+    line[used] = '\0';
+    used = 0;
+    unsigned value = 0;
+    if (std::strcmp(line, "bl auto") == 0) {
+      backlight::setManual(-1);
+      printf("ui_idf cmd bl=auto\n");
+    } else if (std::sscanf(line, "bl %u", &value) == 1) {
+      backlight::setManual(static_cast<int>(value));
+      printf("ui_idf cmd bl=%u\n", value);
+    } else if (std::sscanf(line, "pwm %u", &value) == 1) {
+      printf("ui_idf cmd pwm=%u %s\n", value, backlight::setFrequency(value) ? "ok" : "rifiutata");
+    } else if (line[0]) {
+      printf("ui_idf comandi: bl 0..100 | bl auto | pwm <Hz>\n");
+    }
+  }
+}
+
 void outputLow(gpio_num_t pin, int level) {
   gpio_reset_pin(pin);
   gpio_set_direction(pin, GPIO_MODE_OUTPUT);
@@ -226,8 +255,12 @@ extern "C" void app_main() {
   esp_ota_get_state_partition(esp_ota_get_running_partition(), &state);
   printf("ui_idf ota_state=%d (pending=%d)\n", static_cast<int>(state), ESP_OTA_IMG_PENDING_VERIFY);
   bool confirmed = false;
+  uart_driver_install(UART_NUM_0, 256, 0, 0, nullptr, 0);  // lettura dei comandi di debug
   for (unsigned tick = 1;; ++tick) {
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    for (int i = 0; i < 10; ++i) {
+      vTaskDelay(pdMS_TO_TICKS(100));
+      serialCommands();
+    }
     unsigned load[2];
     cpuLoad(load);  // ogni secondo, per lo schermo
     sysstats::cpu[0].store(load[0]);

@@ -19,6 +19,7 @@
 #include "lvgl.h"
 #include "signal_store.h"
 #include "sysstats.h"
+#include "version.h"
 
 LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre (tools/genera-font-velocita.py)
 
@@ -430,7 +431,7 @@ void update(int64_t nowUs) {
 
   const int64_t lastLabel = labels::lastLabelUs();
   const char* status = (lastLabel != 0 && nowUs - lastLabel < 3000000) ? "SEGNALAZIONE REGISTRATA"
-                       : rpmV.quality == felink::Quality::kSimulated  ? "DEMO - dati simulati"
+                       : rpmV.quality == felink::Quality::kSimulated  ? "DEMO - dati simulati - FW " FW_VERSION_TEXT
                                                                        : "";
   if (status != shownStatus) {
     lv_label_set_text_static(statusLabel, status);
@@ -440,8 +441,12 @@ void update(int64_t nowUs) {
   static unsigned shownCpu[4] = {101, 101, 0xFFFF, 101};
   const unsigned c0 = sysstats::cpu[0].load(), c1 = sysstats::cpu[1].load(), fps = sysstats::fps.load();
   const unsigned lum = static_cast<unsigned>(backlight::percent());
-  if (c0 != shownCpu[0] || c1 != shownCpu[1] || fps != shownCpu[2] || lum != shownCpu[3]) {
-    lv_label_set_text_fmt(cpuLabel, "%u FPS   CPU0 %u%%   CPU1 %u%%   LUM %u%%", fps, c0, c1, lum);
+  static uint32_t shownHz = 0;
+  if (c0 != shownCpu[0] || c1 != shownCpu[1] || fps != shownCpu[2] || lum != shownCpu[3] ||
+      backlight::frequency() != shownHz) {
+    shownHz = backlight::frequency();
+    lv_label_set_text_fmt(cpuLabel, "%u FPS   CPU0 %u%%   CPU1 %u%%   LUM %u%% a %u Hz", fps, c0, c1, lum,
+                          static_cast<unsigned>(backlight::frequency()));
     shownCpu[0] = c0;
     shownCpu[1] = c1;
     shownCpu[2] = fps;

@@ -155,4 +155,12 @@ Affinamenti successivi del 23/10/2026:
 - Soglie **proposte** in `dash_logic.h` (`backlightTarget`), con test sul PC; da tarare in
   auto (e in seguito dall'app, D-038).
 
-Stato: compilata il 23/10/2026; non ancora caricata (scheda non collegata).
+Prima prova a banco (23/10/2026): con PWM a 5 kHz al 40 % lo schermo risulta **spento**
+(utente: "quando scende la luminosita non si vede più niente"). Aggiunti la percentuale e
+la frequenza sulla riga di servizio ("LUM xx% a N Hz") e i comandi seriali di debug
+`bl 0..100`, `bl auto`, `pwm <Hz>` per trovare livello minimo e frequenza adatti.
+
+## Versione 0.7.0
+
+Luminosità automatica e comandi seriali di debug (sopra); numero di versione accanto alla
+scritta DEMO ("DEMO - dati simulati - FW 0.7.0"), definito in `src/version.h`.

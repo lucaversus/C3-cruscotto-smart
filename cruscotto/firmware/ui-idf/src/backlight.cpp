@@ -15,6 +15,8 @@ constexpr ledc_mode_t kMode = LEDC_LOW_SPEED_MODE;
 constexpr ledc_channel_t kChannel = LEDC_CHANNEL_0;
 constexpr uint32_t kMaxDuty = (1u << 10) - 1;  // 10 bit
 std::atomic<int> current{0};
+std::atomic<int> manual{-1};
+std::atomic<uint32_t> freqHz{5000};
 int64_t lastStepUs = 0;
 
 void apply(int pct) {
@@ -29,7 +31,7 @@ void start() {
   timer.speed_mode = kMode;
   timer.duty_resolution = LEDC_TIMER_10_BIT;
   timer.timer_num = LEDC_TIMER_0;
-  timer.freq_hz = 5000;  // frequenza da verificare a banco: assenza di sfarfallio e ronzio
+  timer.freq_hz = freqHz.load();  // frequenza da verificare a banco: assenza di sfarfallio e ronzio
   timer.clk_cfg = LEDC_AUTO_CLK;
   ledc_timer_config(&timer);
   ledc_channel_config_t channel = {};
@@ -49,10 +51,21 @@ void update(int64_t nowUs) {
   const SignalValue ntc = store.get(felink::sig::kNtcDisplayC, nowUs, 5000000);
   auto fresh = [](const SignalValue& v) { return v.valid() && v.quality != felink::Quality::kStale; };
   const bool lowBeam = fresh(lights) && (static_cast<uint32_t>(lights.value) & dash::kLowBeam) != 0;
-  const int target = dash::backlightTarget(lowBeam, fresh(ntc), static_cast<int>(ntc.value + 0.5f));
+  const int automatic = dash::backlightTarget(lowBeam, fresh(ntc), static_cast<int>(ntc.value + 0.5f));
+  const int target = manual.load() >= 0 ? manual.load() : automatic;
   const int now = current.load();
   if (now != target) apply(now < target ? now + 1 : now - 1);
 }
 
 int percent() { return current.load(); }
+
+void setManual(int pct) { manual.store(pct < 0 ? -1 : pct > 100 ? 100 : pct); }
+
+bool setFrequency(uint32_t hz) {
+  if (ledc_set_freq(kMode, LEDC_TIMER_0, hz) != ESP_OK) return false;
+  freqHz.store(hz);
+  return true;
+}
+
+uint32_t frequency() { return freqHz.load(); }
 }  // namespace backlight
