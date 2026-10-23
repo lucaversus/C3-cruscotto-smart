@@ -96,6 +96,18 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
 
 ## Questioni ancora aperte — non sono decisioni definitive
 
+- **Da fare, richieste dell'utente del 23/10/2026** (non ancora progettate):
+  1. **Interruttore per spegnere il modulo K** una volta installato in auto ("aggiungere un
+     interruttore per spegnere il modulo k una volta nell'auto"). Da chiarire prima del
+     progetto se deve togliere l'alimentazione al modulo, staccarlo dalla linea K (per
+     esempio per usare un tester di diagnosi) o entrambe; posizione e collegamento sul
+     connettore J1 (D-044) da definire.
+  2. **Aggiornamento del firmware del modulo dalla MicroSD**, senza smontarlo dall'auto
+     ("inserire la possibilità di aggiornare il modulo tramite sd"): il firmware all'avvio
+     cerca un file di aggiornamento sulla scheda, lo verifica e lo installa con ritorno
+     automatico alla versione precedente in caso di problemi (come D-039 per l'S3).
+     Richiede tabella delle partizioni OTA anche sull'ESP32 del modulo; lettore MicroSD
+     già previsto (HW-SD-MODULE).
 - Fonti di dati per l'IA (D-033): base prioritaria confermata dall'utente il 21/10/2026 ("sono i dati più importanti per valutare anomalie") = tutti i messaggi VAN, i PID OBD supportati, codici guasto e dati derivati. Sensori aggiuntivi rinviati dall'utente a dopo le prime acquisizioni ("li valuteremo dopo", 21/10/2026) (ricevitore GNSS anche per l'ora, microfono MEMS con sole caratteristiche del suono, sensore pressione/umidità). Posizione GNSS = dato personale, da trattare come il VIN (D-032).
 - Sensore inerziale (accelerometro + giroscopio) richiesto dall'utente il 20/10/2026 per il cruscotto: modello, scheda di collegamento (front-end o S3), fissaggio e orientamento da definire; da valutare anche nel Data Logger perché il dataset contenga gli stessi dati. Modello scelto: **LSM6DSO su adattatore ST STEVAL-MKI196V1** (HW-IMU-LSM6DSO), ordinato dall'utente il 22/10/2026 su Farnell; scartati il BMI270 (ordine annullato dal venditore) e il Grove LSM6DS3 (mai ordinato).
 - Mappa collegamenti del cruscotto (in definizione, 20/10/2026): ipotesi utente "molto probabilmente" scheda del quadro originale collegata e nascosta dietro il display, per evitare errori BSI (MAN-017 PDF 3: DATA/DATAB tra BSI e quadro, avvisi integrati nel quadro). Comandi al volante della radio originale da valutare come ingresso del cruscotto: percorso (VAN tramite COM 2000 o filo diretto alla radio) non verificato.
