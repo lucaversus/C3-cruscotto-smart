@@ -77,7 +77,7 @@ def pad(d, x, y, text, side):
     return (x, y)
 
 
-d = Sheet('C3AI-DL-EL-004 rev B — Data Logger completo a banco, collegamenti illustrati')
+d = Sheet('C3AI-DL-EL-004 rev C — Data Logger completo a banco, collegamenti illustrati')
 d.frame()
 d.text(25, 20, 'DATA LOGGER COMPLETO A BANCO SU MILLEFORI — COLLEGAMENTI ILLUSTRATI', 5, bold=True)
 d.text(25, 25, 'Disegno illustrativo, basette in scala 1,5:1 (millefori MC01009 72×47 mm): posizioni dei piedini indicative, collegare '
@@ -329,9 +329,10 @@ label(d, 36, 186, '-S1  STOP (NO), HW-STOP-BUTTON', 2.2, 'start', True)
 box(d, 80, 160, 32, 30, '#2050a0', rx=1.5)
 label(d, 96, 157.5, '-A6  VAN SN65HVD230 (HW-CAN-VP230)', 2.4, bold=True)
 box(d, 101, 162, 9, 6, '#202020', rx=0.5); label(d, 105.5, 166, 'VP230', 1.6, bold=True, color='#ffffff')
-box(d, 103, 184, 7, 3, '#303030', rx=0.3); label(d, 106.5, 186.3, '121', 1.5, color='#ffffff')
-d.raw('<path d="M101.5 182.5 l10 6 M101.5 188.5 l10 -6" stroke="#ff3030" stroke-width="0.6"/>')
-label(d, 96, 199.5, 'R 120 Ω «121» da scollegare (D-022 prova 1)', 1.8, bold=True, color='#c00000')
+# Piazzole vuote: resistenza di terminazione «121» rimossa (VAN-M002, H-L 73 kΩ).
+for x in (103.5, 108.5):
+    d.raw(f'<rect x="{x:.1f}" y="184" width="2" height="3" fill="#c0c0c0" stroke="#000" stroke-width="0.15"/>')
+label(d, 96, 199.5, '«121» rimossa, TX a 3V3: prove 1-4 D-022 superate (VAN-M002…M005)', 1.8, bold=True, color='#008000')
 van = {}
 for n, y in (('RX', 165), ('TX', 170), ('GND', 175), ('3V3', 180)):
     d.raw(f'<circle cx="83" cy="{y}" r="1" fill="#ffd700" stroke="#000" stroke-width="0.2"/>')
@@ -342,14 +343,14 @@ for n, y in (('CANH', 172), ('CANL', 178)):
     label(d, 107, y + 0.8, n, 1.6, 'end', False, '#ffffff')
     van[n] = (109, y)
 inner(d, '+3V3', [van['TX'], (90, 170), (90, 180), van['3V3']])
-label(d, 84, 188, 'ponticello TX–3V3', 1.6, 'start', True, '#ffd080')
+label(d, 84, 188, 'ponticello TX–3V3 (fatto)', 1.6, 'start', True, '#ffd080')
 box(d, 118, 168, 6, 14, '#2e8b57', rx=0.5)
 for y in (172, 178):
     d.raw(f'<circle cx="121" cy="{y}" r="1.3" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>')
 for y in (172, 178):
     d.raw(f'<line x1="109" y1="{y}" x2="121" y2="{y}" stroke="{C["VAN"]}" stroke-width="1.2" stroke-dasharray="2 1"/>')
 label(d, 113, 186, '-X3 = -J1 vie 5/6 (massa VAN via 7)', 2.0, 'start', True)
-label(d, 113, 189.2, 'NON COLLEGARE prima di D-022', 2.0, 'start', True, '#c00000')
+label(d, 113, 189.2, 'NON COLLEGARE prima della prova 5', 2.0, 'start', True, '#c00000')
 
 # --- Fili tra le basette --------------------------------------------------------------
 L, R = (lambda n: esp['L' + n]), (lambda n: esp['R' + n])
@@ -437,14 +438,15 @@ d.notes(292, 197, 'SEQUENZA E PRECAUZIONI', [
     '  (D-044); al banco una femmina cablata su R3 e alimentatore.',
     '8 IMU solo 3,3 V; la scheda non ha pull-up I²C: verificare quelle del',
     '  modulo RTC, altrimenti 4,7 kΩ verso 3V3 su SDA e SCL.',
-    '9 VAN -A6: solo ricezione su GPIO34; prove 1-4 D-022 a banco,',
-    '  collegamento al quadro solo dopo la prova 5 (punto identificato).',
+    '9 VAN -A6: solo ricezione su GPIO34; prove 1-4 D-022 superate a banco',
+    '  il 23/10/2026; al quadro solo dopo la prova 5 (punto sul veicolo).',
 ], h=2.3, step=3.6)
 d.title_block(title=['Data Logger completo', 'a banco, illustrato'], subtitle='Data Logger',
               doc_type='Schema illustrativo', status='PROPOSTO · NON COLLAUDATO',
-              code='C3AI-DL-EL-004', rev='B', date='23/10/2026', sheet='1/1',
+              code='C3AI-DL-EL-004', rev='C', date='23/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)', '22/10/2026'),
-                         ('B', 'Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)', '23/10/2026')])
+                         ('B', 'Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)', '23/10/2026'),
+                         ('C', 'Modulo VAN modificato: «121» rimossa, TX a 3V3, prove 1-4 superate', '23/10/2026')])
 out = ROOT / 'disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg'
 out.write_text(d.svg('Collegamenti illustrati del Data Logger completo a banco su millefori; posizioni indicative.'),
                encoding='utf-8')

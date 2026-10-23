@@ -15,7 +15,7 @@ cartiglio con revisione e stato (D-009, D-024).
 
 ## Cruscotto
 
-### CR-BL-001 — Scheda madre, schema a blocchi (rev C, preliminare)
+### CR-BL-001 — Scheda madre, schema a blocchi (rev D, preliminare)
 Architettura della scheda madre: alimentazione, front-end, interfacce, audio. Documento: [scheda-madre.md](../cruscotto/docs/scheda-madre.md).
 
 [![CR-BL-001](CR-BL-001_scheda-madre-blocchi.png)](CR-BL-001_scheda-madre-blocchi.png)
@@ -32,7 +32,7 @@ Vie 16/1/4/5 e calo all'avviamento, con tabella da compilare.
 
 ## Data Logger
 
-### DL-EL-004 — Data Logger completo a banco su millefori (rev B, proposta)
+### DL-EL-004 — Data Logger completo a banco su millefori (rev C, proposta)
 Tutti i moduli disegnati come appaiono: ESP32, K-line con i suoi componenti nelle posizioni di KL-003, RTC con pila, MicroSD, IMU LSM6DSO, OLED, modulo VAN (solo ricezione), STOP e alimentatore da banco; fili saldati tra le basette, numerati W1…W31 (D-042).
 
 [![DL-EL-004](DL-EL-004_logger-completo-millefori.png)](DL-EL-004_logger-completo-millefori.png)
@@ -57,7 +57,7 @@ SD, RTC, OLED e pulsante STOP sull'ESP32 HW-394. Documento: [collegamenti-banco-
 
 [![DL-EL-003](DL-EL-003_collegamenti-banco-logger.png)](DL-EL-003_collegamenti-banco-logger.png)
 
-### DL-BL-001 — Architettura funzionale del Data Logger (rev D)
+### DL-BL-001 — Architettura funzionale del Data Logger (rev E)
 
 [![DL-BL-001](DL-BL-001_architettura-data-logger.png)](DL-BL-001_architettura-data-logger.png)
 

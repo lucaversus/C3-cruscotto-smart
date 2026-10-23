@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'data-logger/docs/tools'))
 from iso_drawing import Sheet  # noqa: E402
 
-d = Sheet('C3AI-CR-BL-001 rev C — Scheda madre, schema a blocchi preliminare')
+d = Sheet('C3AI-CR-BL-001 rev D — Scheda madre, schema a blocchi preliminare')
 d.frame()
 d.text(25, 20, 'SCHEDA MADRE DEL CRUSCOTTO — SCHEMA A BLOCCHI PRELIMINARE', 5, bold=True)
 d.text(25, 25, 'Schema funzionale (IEC 61082-1): non usare per cablare. Pin del veicolo da manuali generici, '
@@ -53,7 +53,7 @@ d.block(176, 48, 64, 86, 'Front-end ESP32', ['ESP32-WROOM-32E-H4/H8', '(senza PS
         'GPIO13     mantenimento', 'GPIO4      LED di stato', 'GPIO26/14  ventola PWM/giri (D-031)',
         'GPIO36/32  NTC display/scheda', 'MicroSD opz. 18/19/23/27',
         '(stessi pin del logger 0.3.x)'], ref='-U6')
-d.block(246, 48, 54, 18, 'Ricevitore VAN', ['SN65HVD230, solo RX', 'D a 3V3, nessuna 120 Ω'], ref='-U7')
+d.block(246, 48, 54, 18, 'Ricevitore VAN', ['SN65HVD230, solo RX', 'D a 3V3, nessuna 120 Ω', 'prototipo ok (VAN-M005)'], ref='-U7')
 d.block(246, 72, 54, 18, 'Interfaccia K-line', ['circuito KL-001 rev F', '2N5551 + LM2903B'], ref='-U8')
 d.block(246, 96, 54, 22, 'IMU + RTC (opz.)', ['LSM6DSO 0x6A, fissaggio', 'rigido, assi in serigrafia', 'DS3231 0x68 opzionale'],
         ref='-U9/U10')
@@ -101,10 +101,11 @@ d.notes(315, 40, 'NOTE', [
 
 d.title_block(title=['Scheda madre', 'schema a blocchi'], subtitle='Cruscotto digitale',
               doc_type='Schema a blocchi', status='PRELIMINARE · NON VERIFICATO',
-              code='C3AI-CR-BL-001', rev='C', date='22/10/2026', sheet='1/1',
+              code='C3AI-CR-BL-001', rev='D', date='23/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione preliminare (D-028, D-029, D-030)', '20/10/2026'),
                          ('B', 'Ventola, NTC e dominio sempre acceso (D-031)', '21/10/2026'),
-                         ('C', 'IMU LSM6DSO (HW-IMU-LSM6DSO) al posto di LSM6DS3', '22/10/2026')])
+                         ('C', 'IMU LSM6DSO (HW-IMU-LSM6DSO) al posto di LSM6DS3', '22/10/2026'),
+                         ('D', 'Ricevitore VAN: prototipo VP230 provato a banco (VAN-M002…M005)', '23/10/2026')])
 out = ROOT / 'disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg'
 out.write_text(d.svg('Schema a blocchi preliminare della scheda madre; proposta, non schema esecutivo.'), encoding='utf-8')
 print(out)
