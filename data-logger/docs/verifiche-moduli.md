@@ -376,3 +376,14 @@ alimentato. Non dimostra il comportamento del modulo alimentato né la continuit
 **Esito:** superata (criterio di `protocolli-veicolo.md`: H-L nell'ordine dei kΩ o
 superiore).
 **Prossimo passo:** prova 2, continuità tra TX e 3V3 a modulo spento.
+
+## VAN-M003 — prova 2 D-022: continuità TX-3V3 — 23/10/2026
+
+**Misura riferita:** utente "suona", tester in continuità tra il pin TX e il pin 3.3V del
+modulo, a modulo spento (condizioni della richiesta).
+**Interpretazione:** TX collegato direttamente a 3V3: con modulo alimentato l'ingresso del
+trasmettitore resta fisso a livello alto (recessivo). Da confermare elettricamente con la
+prova 3 (tensione H-L ad alimentazione presente).
+**Esito:** superata.
+**Prossimo passo:** prova 3, modulo alimentato a 3,3 V con H e L staccati da tutto:
+tensione tra CANH e CANL prossima a 0 V.
