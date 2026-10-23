@@ -13,7 +13,8 @@ namespace labels {
 namespace {
 std::atomic<int64_t> last{0};
 std::atomic<uint32_t> total{0};
-std::atomic<uint32_t> shortPresses{0};
+std::atomic<uint32_t> singlePresses{0}, doublePresses{0};
+constexpr int64_t kDoubleUs = 400000;  // seconda pressione entro 0,4 s: doppia
 
 // Rilevatore di pressione lunga: scatta una sola volta per pressione.
 struct LongPress {
@@ -43,8 +44,20 @@ void bootTask(void*) {
   while (true) {
     const int64_t now = esp_timer_get_time();
     const bool pressed = gpio_get_level(GPIO_NUM_0) == 0;
-    // Pressione breve (rilascio prima dei 2 s, almeno 50 ms): solo debug, prova lampade.
-    if (!pressed && bootButton.since != 0 && !bootButton.fired) shortPresses.fetch_add(1);
+    // Pressione breve (rilascio prima dei 2 s, almeno 50 ms): singola o doppia.
+    static int64_t pendingRelease = 0;
+    if (!pressed && bootButton.since != 0 && !bootButton.fired) {
+      if (pendingRelease != 0 && now - pendingRelease < kDoubleUs) {
+        doublePresses.fetch_add(1);
+        pendingRelease = 0;
+      } else {
+        pendingRelease = now;
+      }
+    }
+    if (pendingRelease != 0 && now - pendingRelease >= kDoubleUs) {
+      singlePresses.fetch_add(1);
+      pendingRelease = 0;
+    }
     if (bootButton.update(pressed, now)) fire(now);
     vTaskDelay(pdMS_TO_TICKS(50));
   }
@@ -60,5 +73,6 @@ void onStalkButtons(float bits, int64_t nowUs) {
 
 int64_t lastLabelUs() { return last.load(); }
 uint32_t count() { return total.load(); }
-uint32_t bootShortPresses() { return shortPresses.load(); }
+uint32_t bootSinglePresses() { return singlePresses.load(); }
+uint32_t bootDoublePresses() { return doublePresses.load(); }
 }  // namespace labels

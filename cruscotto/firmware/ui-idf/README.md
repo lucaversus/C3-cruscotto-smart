@@ -174,3 +174,19 @@ meno di 30 eventi; all'avvio si cancellano i file evento vuoti (salvataggi falli
 memoria piena). Report seriale: `bb_del` = eventi cancellati. Prova: con la memoria piena
 (79 file, 8456 KB su 8512) l'evento successivo è stato salvato dopo la cancellazione di 50
 file vecchi (`bb_events=1 bb_fail=0 bb_del=50`).
+
+## Pagine 2 e 3 e pulsanti (0.7.0, 23/10/2026)
+
+- **Pagina 2 "Tecnica"**: 12 riquadri (giri, velocità, acqua, gasolio, batteria, consumo
+  istantaneo, temperatura esterna e abitacolo, accelerazioni X/Y, NTC del display, chiave)
+  con nome, valore grande e unità; colore del valore = qualità del dato (bianco valido,
+  ambra simulato o non verificato, grigio assente).
+- **Pagina 3 "Diagnostica"** in stile terminale: firmware e partizione, tempo di
+  accensione, FPS, CPU0/CPU1, luminosità e frequenza PWM, collegamento (tipo, stato,
+  trame/s, errori), scatola nera (campioni, eventi salvati/falliti/cancellati, memoria),
+  etichette, RAM e PSRAM libere, stato del modello IA. La riga FPS/CPU/LUM della dashboard
+  è stata spostata qui.
+- **Pulsanti** (a banco BOOT, in auto i due pulsanti del quadro quando saranno collegati):
+  pressione breve = pagina successiva (Dashboard → Tecnica → Diagnostica); doppia = prova
+  lampade (debug); lunga 2 s = etichetta (D-040). **Con un avviso aperto si torna subito
+  alla dashboard.**

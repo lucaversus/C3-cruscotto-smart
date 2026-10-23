@@ -66,7 +66,6 @@ constexpr int kRowCount[2] = {7, 8};
 
 lv_obj_t* rpmBar = nullptr;
 lv_obj_t* speedLabel = nullptr;
-lv_obj_t* cpuLabel = nullptr;
 lv_obj_t* ecoBar = nullptr;
 lv_obj_t* coolantBar = nullptr;
 lv_obj_t* coolantLabel = nullptr;
@@ -289,9 +288,6 @@ void build() {
 
   statusLabel = label(screen, &lv_font_montserrat_14, 0xFFB000);
   lv_obj_align(statusLabel, LV_ALIGN_TOP_MID, 0, 392);
-  // Carico delle due CPU (dato tecnico provvisorio: andrà nella pagina Diagnostica).
-  cpuLabel = label(screen, &lv_font_montserrat_14, 0x808080);
-  lv_obj_align(cpuLabel, LV_ALIGN_TOP_MID, 0, 412);
 
   // Riquadro degli avvisi, in primo piano tra le barre verticali.
   alertBox = lv_obj_create(screen);
@@ -323,10 +319,10 @@ void build() {
 
 void update(int64_t nowUs) {
   if (startUs == 0) startUs = nowUs;
-  // Debug a banco: pressione breve di BOOT = nuova prova lampade (RST riavvia con il controllo iniziale).
-  static uint32_t shownPresses = labels::bootShortPresses();
-  if (labels::bootShortPresses() != shownPresses) {
-    shownPresses = labels::bootShortPresses();
+  // Debug a banco: doppia pressione di BOOT = nuova prova lampade (RST riavvia con il controllo iniziale).
+  static uint32_t shownPresses = labels::bootDoublePresses();
+  if (labels::bootDoublePresses() != shownPresses) {
+    shownPresses = labels::bootDoublePresses();
     startUs = nowUs;
   }
   SignalStore& store = signalStore();
@@ -437,21 +433,8 @@ void update(int64_t nowUs) {
     lv_label_set_text_static(statusLabel, status);
     shownStatus = status;
   }
-  // Riga di servizio: fluidità, carico delle CPU e luminosità attuale dello schermo.
-  static unsigned shownCpu[4] = {101, 101, 0xFFFF, 101};
-  const unsigned c0 = sysstats::cpu[0].load(), c1 = sysstats::cpu[1].load(), fps = sysstats::fps.load();
-  const unsigned lum = static_cast<unsigned>(backlight::percent());
-  static uint32_t shownHz = 0;
-  if (c0 != shownCpu[0] || c1 != shownCpu[1] || fps != shownCpu[2] || lum != shownCpu[3] ||
-      backlight::frequency() != shownHz) {
-    shownHz = backlight::frequency();
-    lv_label_set_text_fmt(cpuLabel, "%u FPS   CPU0 %u%%   CPU1 %u%%   LUM %u%% a %u Hz", fps, c0, c1, lum,
-                          static_cast<unsigned>(backlight::frequency()));
-    shownCpu[0] = c0;
-    shownCpu[1] = c1;
-    shownCpu[2] = fps;
-    shownCpu[3] = lum;
-  }
 }
+
+bool alertActive() { return shownAlert != dash::Alert::kNone; }
 
 }  // namespace dashboard

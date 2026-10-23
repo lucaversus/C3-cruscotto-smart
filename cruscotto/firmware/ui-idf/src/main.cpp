@@ -20,6 +20,8 @@
 #include "blackbox.h"
 #include "backlight.h"
 #include "dashboard.h"
+#include "labels.h"
+#include "pages.h"
 #include "startup.h"
 #include "sysstats.h"
 #include "version.h"
@@ -41,6 +43,7 @@ lv_disp_draw_buf_t drawBuf;
 lv_disp_drv_t dispDrv;
 uint32_t refreshes = 0, refreshMs = 0;
 lv_obj_t* dashScreen = nullptr;  // schermata della dashboard, mostrata dopo l'avvio
+lv_obj_t* pageScreens[3] = {};   // 0 Dashboard, 1 Tecnica, 2 Diagnostica
 
 bool IRAM_ATTR onVsync(esp_lcd_panel_handle_t, const esp_lcd_rgb_panel_event_data_t*, void*) {
   vsyncCount.fetch_add(1, std::memory_order_relaxed);
@@ -227,7 +230,25 @@ void uiTask(void*) {
       // Prima la sequenza d'avvio, poi la dashboard (aggiornata subito per la dissolvenza).
       static bool booting = true;
       if (booting) booting = startup::update(now, dashScreen);
-      if (!booting) dashboard::update(now);
+      if (!booting) {
+        dashboard::update(now);  // sempre, anche se non visibile: avvisi e prova lampade
+        // Pressione breve di BOOT (a banco, poi i pulsanti del quadro): pagina successiva.
+        // Con un avviso aperto si torna subito alla dashboard.
+        static int page = 0;
+        static uint32_t presses = labels::bootSinglePresses();
+        int wanted = page;
+        if (labels::bootSinglePresses() != presses) {
+          presses = labels::bootSinglePresses();
+          wanted = (page + 1) % 3;
+        }
+        if (page != 0 && dashboard::alertActive()) wanted = 0;
+        if (wanted != page) {
+          page = wanted;
+          lv_scr_load_anim(pageScreens[page], LV_SCR_LOAD_ANIM_FADE_ON, 150, 0, false);
+        }
+        if (page == 1) pages::updateTech(now);
+        if (page == 2) pages::updateDiag(now);
+      }
     }
     backlight::update(now);  // anabbaglianti e protezione termica, variazione graduale
     const uint32_t waitMs = lv_timer_handler();
@@ -248,6 +269,9 @@ extern "C" void app_main() {
   if (panelStatus == ESP_OK) {
     dashboard::build();
     dashScreen = lv_scr_act();
+    pageScreens[0] = dashScreen;
+    pageScreens[1] = pages::buildTech();
+    pageScreens[2] = pages::buildDiag();
     startup::build();
     lv_timer_handler();
     xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 5, nullptr, 1);

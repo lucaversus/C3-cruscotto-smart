@@ -4,5 +4,6 @@
 
 namespace dashboard {
 void build();
-void update(int64_t nowUs);
+void update(int64_t nowUs);  // da chiamare anche quando la pagina non è visibile
+bool alertActive();           // riquadro di avviso aperto (per tornare alla dashboard)
 }  // namespace dashboard
