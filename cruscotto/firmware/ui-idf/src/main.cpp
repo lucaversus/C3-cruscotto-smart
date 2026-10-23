@@ -244,7 +244,9 @@ void uiTask(void*) {
         if (page != 0 && dashboard::alertActive()) wanted = 0;
         if (wanted != page) {
           page = wanted;
-          lv_scr_load_anim(pageScreens[page], LV_SCR_LOAD_ANIM_FADE_ON, 150, 0, false);
+          // Cambio immediato: la dissolvenza ridisegnava tutto lo schermo a ogni passo e lasciava
+          // artefatti per un istante (utente 23/10/2026).
+          lv_scr_load(pageScreens[page]);
         }
         if (page == 1) pages::updateTech(now);
         if (page == 2) pages::updateDiag(now);
