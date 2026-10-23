@@ -166,3 +166,11 @@ la frequenza sulla riga di servizio ("LUM xx% a N Hz") e i comandi seriali di de
 
 Luminosità automatica e comandi seriali di debug (sopra); numero di versione accanto alla
 scritta DEMO ("DEMO - dati simulati - FW 0.7.0"), definito in `src/version.h`.
+
+## Scatola nera: rotazione degli eventi (0.7.0, 23/10/2026)
+
+Prima di salvare un evento si cancellano i più vecchi finché restano libero almeno 1 MB e
+meno di 30 eventi; all'avvio si cancellano i file evento vuoti (salvataggi falliti a
+memoria piena). Report seriale: `bb_del` = eventi cancellati. Prova: con la memoria piena
+(79 file, 8456 KB su 8512) l'evento successivo è stato salvato dopo la cancellazione di 50
+file vecchi (`bb_events=1 bb_fail=0 bb_del=50`).

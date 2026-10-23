@@ -164,7 +164,7 @@ void report() {
   const uint32_t avg = refreshes ? refreshMs / refreshes : 0;
   const blackbox::Stats bb = blackbox::stats();
   printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u cpu0=%u%% cpu1=%u%% bl=%d%% panel_hz=%u link=%s frames_s=%u "
-         "link_err=%u link_lost=%u bb_fill=%u/%u bb_events=%u bb_fail=%u fs=%u/%uKB labels=%u "
+         "link_err=%u link_lost=%u bb_fill=%u/%u bb_events=%u bb_fail=%u bb_del=%u fs=%u/%uKB labels=%u "
          "heap_int_free=%u psram_free=%u uptime_ms=%u\n",
          kVersion, esp_ota_get_running_partition()->label, esp_err_to_name(panelStatus),
          static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg), cpu[0], cpu[1], backlight::percent(),
@@ -172,7 +172,8 @@ void report() {
          static_cast<unsigned>((ls.frames - lastFrames) / 5), static_cast<unsigned>(ls.errors),
          static_cast<unsigned>(ls.lostSeq), static_cast<unsigned>(bb.filled),
          static_cast<unsigned>(bb.capacity), static_cast<unsigned>(bb.eventsSaved),
-         static_cast<unsigned>(bb.eventsFailed), static_cast<unsigned>(bb.fsUsedKb),
+         static_cast<unsigned>(bb.eventsFailed), static_cast<unsigned>(bb.eventsDeleted),
+         static_cast<unsigned>(bb.fsUsedKb),
          static_cast<unsigned>(bb.fsTotalKb), static_cast<unsigned>(labels::count()),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_INTERNAL)),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_SPIRAM)),

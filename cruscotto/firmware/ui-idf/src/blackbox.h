@@ -15,6 +15,7 @@ struct Stats {
   uint32_t filled = 0;       // campioni presenti
   uint32_t eventsSaved = 0;  // file evento scritti dall'avvio
   uint32_t eventsFailed = 0;
+  uint32_t eventsDeleted = 0;  // eventi più vecchi cancellati per fare spazio
   uint32_t fsTotalKb = 0, fsUsedKb = 0;
   bool fsMounted = false;
   bool pending = false;      // evento in attesa della finestra successiva
