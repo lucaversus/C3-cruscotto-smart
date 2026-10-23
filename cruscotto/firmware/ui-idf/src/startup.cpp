@@ -1,7 +1,8 @@
 // Sequenza d'avvio (interfaccia-requisiti rev B): apertura in stile "Matrix" con il codice
-// che scende sullo sfondo, controlli del sistema elencati uno alla volta con l'esito, GO solo
-// quando le candelette hanno finito il preriscaldo e tutti i controlli sono superati.
-// In caso di errore resta l'elenco di ciò che non va, poi si passa comunque alla dashboard.
+// che scende sullo sfondo e una finestra piccola dove i controlli scorrono con l'esito: quelli
+// superati salgono e spariscono, gli errori restano fissi in alto (utente 23/10/2026). GO
+// scritto in grande nella finestra solo quando le candelette hanno finito il preriscaldo e
+// tutti i controlli sono superati. In caso di errore restano gli errori, poi la dashboard.
 #include "startup.h"
 
 #include <cstdio>
@@ -17,14 +18,14 @@
 #include "signal_store.h"
 #include "startup_logic.h"
 
-LV_FONT_DECLARE(font_speed);
 LV_FONT_DECLARE(font_check);  // Share Tech Mono 20 px con antialias (tools/genera-font-avvio.py)
+LV_FONT_DECLARE(font_go);     // Share Tech Mono 120 px, solo "GO"
 
 namespace startup {
 namespace {
 // Pioggia solo ai lati del pannello (opaco): sotto il pannello non verrebbe vista ma
 // costerebbe un ridisegno a ogni passo.
-constexpr int kPanelW = 520, kSideCols = 6, kColumns = 2 * kSideCols, kRainChars = 18, kRainStep = 21;
+constexpr int kPanelW = 400, kPanelH = 270, kRows = 8, kSideCols = 7, kColumns = 2 * kSideCols, kRainChars = 12, kRainStep = 28;
 constexpr uint32_t kMatrixGreen = 0x00FF41;
 
 struct Rain {
@@ -37,32 +38,37 @@ Rain rain[kColumns];
 struct Line {
   const char* name;
   boot::State state;
-  lv_obj_t* label;   // nome a sinistra
-  lv_obj_t* status;  // esito allineato a destra: non esce dal pannello
-  char shown[16];    // esito visualizzato: si ridisegna solo se cambia
 };
 // Controlli in ordine di comparsa. Moduli non ancora installati: "N/D", esclusi dal GO.
 Line lines[] = {
-    {"DISPLAY 800X480", boot::State::kPending, nullptr, nullptr, ""},
-    {"MEMORIA PSRAM", boot::State::kPending, nullptr, nullptr, ""},
-    {"FILE SYSTEM", boot::State::kPending, nullptr, nullptr, ""},
-    {"COLLEGAMENTO FRONT-END", boot::State::kPending, nullptr, nullptr, ""},
-    {"TENSIONE BATTERIA", boot::State::kPending, nullptr, nullptr, ""},
-    {"TEMPERATURA ACQUA", boot::State::kPending, nullptr, nullptr, ""},
-    {"IMU", boot::State::kPending, nullptr, nullptr, ""},
-    {"NTC DISPLAY", boot::State::kPending, nullptr, nullptr, ""},
-    {"RICEZIONE VAN", boot::State::kAbsent, nullptr, nullptr, ""},
-    {"K-LINE", boot::State::kAbsent, nullptr, nullptr, ""},
-    {"AUDIO", boot::State::kAbsent, nullptr, nullptr, ""},
-    {"MODELLO IA", boot::State::kAbsent, nullptr, nullptr, ""},
-    {"CANDELETTE", boot::State::kPending, nullptr, nullptr, ""},
+    {"DISPLAY 800X480", boot::State::kPending},
+    {"MEMORIA PSRAM", boot::State::kPending},
+    {"FILE SYSTEM", boot::State::kPending},
+    {"COLLEGAMENTO FRONT-END", boot::State::kPending},
+    {"TENSIONE BATTERIA", boot::State::kPending},
+    {"TEMPERATURA ACQUA", boot::State::kPending},
+    {"IMU", boot::State::kPending},
+    {"NTC DISPLAY", boot::State::kPending},
+    {"RICEZIONE VAN", boot::State::kAbsent},
+    {"K-LINE", boot::State::kAbsent},
+    {"AUDIO", boot::State::kAbsent},
+    {"MODELLO IA", boot::State::kAbsent},
+    {"CANDELETTE", boot::State::kPending},
 };
 constexpr int kLines = sizeof lines / sizeof lines[0];
 
+// Righe visibili della finestra: nome a sinistra, esito allineato a destra.
+struct Row {
+  lv_obj_t* name;
+  lv_obj_t* status;
+  int line = -1;           // controllo mostrato (-1 = riga vuota)
+  const char* text = "";   // esito mostrato: si ridisegna solo se cambia
+};
+Row rows[kRows];
+
 lv_obj_t* screen = nullptr;
 lv_obj_t* panel = nullptr;
-lv_obj_t* result = nullptr;
-lv_obj_t* goShadowObj = nullptr;
+lv_obj_t* goLabel = nullptr;
 const lv_font_t* const kCheckFont = &font_check;  // carattere dei controlli, stile terminale Matrix
 int64_t startUs = 0, endUs = 0, lastRainUs = 0;
 boot::Phase finalPhase = boot::Phase::kChecking;
@@ -117,15 +123,40 @@ boot::State evaluate(int i, int64_t nowUs, uint32_t ms) {
   }
 }
 
-void showLine(int i, uint32_t ms) {
-  Line& l = lines[i];
-  const char* text = stateText(l, ms);
-  if (std::strcmp(text, l.shown) == 0) return;
-  if (l.shown[0] == '\0') lv_label_set_text_fmt(l.label, "> %s", l.name);  // prima comparsa
-  std::snprintf(l.shown, sizeof l.shown, "%s", text);
-  lv_label_set_text_static(l.status, l.shown);
-  lv_obj_set_style_text_color(l.label, lv_color_hex(stateColor(l.state)), 0);
-  lv_obj_set_style_text_color(l.status, lv_color_hex(stateColor(l.state)), 0);
+// Riempie le righe: prima gli errori (fissi), poi gli ultimi controlli comparsi, così i
+// superati scorrono verso l'alto e spariscono.
+void showRows(int shown, uint32_t ms) {
+  int order[kLines];
+  int n = 0;
+  for (int i = 0; i < shown && n < kRows; ++i)
+    if (lines[i].state == boot::State::kFail) order[n++] = i;
+  int others = 0;
+  for (int i = 0; i < shown; ++i)
+    if (lines[i].state != boot::State::kFail) ++others;
+  int skip = others - (kRows - n);
+  for (int i = 0; i < shown && n < kRows; ++i) {
+    if (lines[i].state == boot::State::kFail) continue;
+    if (skip-- > 0) continue;
+    order[n++] = i;
+  }
+  for (int r = 0; r < kRows; ++r) {
+    Row& row = rows[r];
+    const int line = r < n ? order[r] : -1;
+    const char* text = line < 0 ? "" : stateText(lines[line], ms);
+    if (line == row.line && std::strcmp(text, row.text) == 0) continue;
+    if (line != row.line) {
+      if (line < 0) lv_label_set_text_static(row.name, "");
+      else lv_label_set_text_fmt(row.name, "> %s", lines[line].name);
+    }
+    row.line = line;
+    row.text = text;
+    lv_label_set_text_static(row.status, text);
+    if (line >= 0) {
+      const lv_color_t c = lv_color_hex(stateColor(lines[line].state));
+      lv_obj_set_style_text_color(row.name, c, 0);
+      lv_obj_set_style_text_color(row.status, c, 0);
+    }
+  }
 }
 }  // namespace
 
@@ -147,7 +178,7 @@ void build() {
     lv_obj_set_pos(r.label, x, r.y);
   }
   panel = lv_obj_create(screen);
-  lv_obj_set_size(panel, kPanelW, 420);
+  lv_obj_set_size(panel, kPanelW, kPanelH);
   lv_obj_center(panel);
   lv_obj_clear_flag(panel, LV_OBJ_FLAG_SCROLLABLE);
   lv_obj_set_style_bg_color(panel, lv_color_black(), 0);
@@ -161,32 +192,26 @@ void build() {
   lv_obj_set_style_shadow_width(panel, 24, 0);
   lv_obj_set_style_shadow_opa(panel, LV_OPA_50, 0);
   lv_obj_t* title = lv_label_create(panel);
-  lv_obj_set_style_text_font(title, &lv_font_montserrat_28, 0);
+  lv_obj_set_style_text_font(title, kCheckFont, 0);
   lv_obj_set_style_text_color(title, lv_color_hex(kMatrixGreen), 0);
-  lv_label_set_text_static(title, "C3+AI  CONTROLLO SISTEMA");
-  lv_obj_align(title, LV_ALIGN_TOP_MID, 0, -4);
-  for (int i = 0; i < kLines; ++i) {
-    for (lv_obj_t** part : {&lines[i].label, &lines[i].status}) {
+  lv_label_set_text_static(title, "C3+AI // CONTROLLO SISTEMA");
+  lv_obj_align(title, LV_ALIGN_TOP_MID, 0, -6);
+  for (int r = 0; r < kRows; ++r) {
+    for (lv_obj_t** part : {&rows[r].name, &rows[r].status}) {
       *part = lv_label_create(panel);
       lv_obj_set_style_text_font(*part, kCheckFont, 0);
       lv_label_set_text_static(*part, "");
     }
-    lv_obj_set_pos(lines[i].label, 4, 36 + i * 24);
-    lv_obj_align(lines[i].status, LV_ALIGN_TOP_RIGHT, -4, 36 + i * 24);
+    lv_obj_set_pos(rows[r].name, 0, 24 + r * 24);
+    lv_obj_align(rows[r].status, LV_ALIGN_TOP_RIGHT, 0, 24 + r * 24);
   }
-  lv_obj_t* goShadow = lv_label_create(screen);  // ombra del GO
-  lv_obj_set_style_text_font(goShadow, &font_speed, 0);
-  lv_obj_set_style_text_color(goShadow, lv_color_hex(0x004010), 0);
-  lv_label_set_text_static(goShadow, "GO");
-  lv_obj_align(goShadow, LV_ALIGN_CENTER, 6, 6);
-  lv_obj_add_flag(goShadow, LV_OBJ_FLAG_HIDDEN);
-  goShadowObj = goShadow;
-  result = lv_label_create(screen);
-  lv_obj_set_style_text_font(result, &font_speed, 0);
-  lv_obj_set_style_text_color(result, lv_color_hex(kMatrixGreen), 0);
-  lv_label_set_text_static(result, "GO");
-  lv_obj_center(result);
-  lv_obj_add_flag(result, LV_OBJ_FLAG_HIDDEN);
+  // GO in grande dentro la finestra, con lo stesso carattere dei controlli.
+  goLabel = lv_label_create(panel);
+  lv_obj_set_style_text_font(goLabel, &font_go, 0);
+  lv_obj_set_style_text_color(goLabel, lv_color_hex(kMatrixGreen), 0);
+  lv_label_set_text_static(goLabel, "GO");
+  lv_obj_align(goLabel, LV_ALIGN_CENTER, 0, 10);
+  lv_obj_add_flag(goLabel, LV_OBJ_FLAG_HIDDEN);
   lv_scr_load(screen);
 }
 
@@ -214,17 +239,19 @@ bool update(int64_t nowUs, lv_obj_t* next) {
     for (int i = 0; i < kLines; ++i) {
       if (i >= shown) { ++pending; continue; }
       if (lines[i].state == boot::State::kPending) lines[i].state = evaluate(i, nowUs, ms);
-      showLine(i, ms);
       if (lines[i].state == boot::State::kPending) ++pending;
       if (lines[i].state == boot::State::kFail) ++failed;
     }
+    showRows(shown < kLines ? shown : kLines, ms);
     finalPhase = boot::phase(pending, failed, ms);
     if (finalPhase != boot::Phase::kChecking) {
       endUs = nowUs;
       if (finalPhase == boot::Phase::kGo) {
-        lv_obj_add_flag(panel, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_clear_flag(goShadowObj, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_clear_flag(result, LV_OBJ_FLAG_HIDDEN);
+        for (Row& row : rows) {
+          lv_obj_add_flag(row.name, LV_OBJ_FLAG_HIDDEN);
+          lv_obj_add_flag(row.status, LV_OBJ_FLAG_HIDDEN);
+        }
+        lv_obj_clear_flag(goLabel, LV_OBJ_FLAG_HIDDEN);
       } else {
         lv_obj_set_style_border_color(panel, lv_color_hex(0xFF2020), 0);
       }

@@ -28,3 +28,4 @@ extern const lv_img_dsc_t icon_fuel_44;
 extern const lv_img_dsc_t icon_fuel_42;
 extern const lv_img_dsc_t icon_outside_28;
 extern const lv_img_dsc_t icon_link_lost_110;
+extern const lv_img_dsc_t icon_c3_176x88;

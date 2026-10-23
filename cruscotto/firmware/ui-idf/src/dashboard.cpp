@@ -24,7 +24,7 @@ LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre
 namespace dashboard {
 namespace {
 constexpr int kRpmX = 20, kRpmY = 12, kRpmW = 760, kRpmH = 64;
-constexpr int kSideY = 174, kSideW = 64, kSideH = 286;  // barre verticali acqua e carburante
+constexpr int kSideY = 174, kSideW = 76, kSideH = 286;  // barre verticali acqua e carburante
 constexpr int kSideValueY = 10;                         // valore dentro la barra, in alto
 constexpr int kSideIcon = 42, kSideIconY = kSideH - kSideIcon - 8;  // icona dentro la barra, in basso
 constexpr int kTurnSize = 84;                           // frecce più grandi delle altre spie
@@ -84,6 +84,7 @@ struct SideIcon {
 SideIcon coolantIcon, fuelIcon;
 lv_obj_t* battLabel = nullptr;
 lv_obj_t* outLabel = nullptr;
+lv_obj_t* cabinLabel = nullptr;
 lv_obj_t* alertBox = nullptr;
 lv_obj_t* alertIcon = nullptr;
 lv_obj_t* statusLabel = nullptr;
@@ -93,7 +94,7 @@ uint32_t shownRpmColor = 1, shownCoolantColor = 1, shownFuelColor = 1, shownEcoC
 int shownEco = -1;
 dash::Alert shownAlert = dash::Alert::kNone;
 const char* shownStatus = nullptr;
-char shownBatt[16] = "", shownOut[16] = "";
+char shownBatt[16] = "", shownOut[16] = "", shownCabin[16] = "";
 
 lv_obj_t* label(lv_obj_t* parent, const lv_font_t* font, uint32_t color) {
   lv_obj_t* l = lv_label_create(parent);
@@ -225,21 +226,24 @@ void build() {
   lv_obj_clear_flag(bevel, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(bevel, rpmBevelEvent, LV_EVENT_DRAW_MAIN, nullptr);
 
-  // Fascia dei dati secondari (icona e valore): le spie vi compaiono sopra quando accese.
-  lv_obj_t* strip = lv_obj_create(screen);
-  lv_obj_remove_style_all(strip);
-  lv_obj_set_size(strip, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-  lv_obj_set_flex_flow(strip, LV_FLEX_FLOW_ROW);
-  lv_obj_set_flex_align(strip, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-  lv_obj_set_style_pad_column(strip, 10, 0);
-  icon(strip, &icon_battery_28, 0x909090);
-  battLabel = label(strip, &lv_font_montserrat_28, 0xB0B0B0);
-  lv_obj_t* gap = lv_obj_create(strip);
-  lv_obj_remove_style_all(gap);
-  lv_obj_set_size(gap, 40, 1);
-  icon(strip, &icon_outside_28, 0x909090);
-  outLabel = label(strip, &lv_font_montserrat_28, 0xB0B0B0);
-  lv_obj_align(strip, LV_ALIGN_TOP_MID, 0, 96);
+  // Dati secondari (le spie vi compaiono sopra quando accese): sagoma della C3 prima serie al
+  // centro sopra la velocità con la temperatura dell'abitacolo dentro e quella esterna
+  // accanto; a sinistra la tensione della batteria.
+  lv_obj_t* car = icon(screen, &icon_c3_176x88, 0x808080);
+  lv_obj_align(car, LV_ALIGN_TOP_MID, 0, 92);
+  cabinLabel = label(screen, &lv_font_montserrat_28, 0xFFFFFF);
+  lv_obj_set_width(cabinLabel, 100);
+  lv_obj_set_style_text_align(cabinLabel, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align_to(cabinLabel, car, LV_ALIGN_CENTER, -6, -8);
+  outLabel = label(screen, &lv_font_montserrat_28, 0xB0B0B0);
+  lv_obj_set_width(outLabel, 90);
+  lv_obj_align_to(outLabel, car, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
+  battLabel = label(screen, &lv_font_montserrat_28, 0xB0B0B0);
+  lv_obj_set_width(battLabel, 90);
+  lv_obj_set_style_text_align(battLabel, LV_TEXT_ALIGN_RIGHT, 0);
+  lv_obj_align_to(battLabel, car, LV_ALIGN_OUT_LEFT_MID, -10, 0);
+  lv_obj_t* battIcon = icon(screen, &icon_battery_28, 0x808080);
+  lv_obj_align_to(battIcon, battLabel, LV_ALIGN_OUT_LEFT_MID, -6, 0);
 
   // Velocità al centro, senza effetto 3D (richiesta dell'utente 23/10/2026).
   speedLabel = label(screen, &font_speed, 0xFFFFFF);
@@ -264,8 +268,8 @@ void build() {
       lv_obj_clear_flag(*part, LV_OBJ_FLAG_SCROLLABLE);
       lv_obj_t* img = icon(*part, s.sign, part == &s.sideIcon->light ? 0xA0A0A0 : 0x000000);
       lv_obj_set_pos(img, (kSideW - kSideIcon) / 2, kSideIconY);
-      // Valore dentro la barra, con la stessa inversione di colore dell'icona (senza unità:
-      // la dice l'icona).
+      // Valore con unità dentro la barra, con la stessa inversione di colore dell'icona: del
+      // colore della barra sulla parte vuota, nero su quella riempita (anche a barra piena).
       const bool lightPart = part == &s.sideIcon->light;
       lv_obj_t* value = label(*part, &lv_font_montserrat_28, lightPart ? 0xA0A0A0 : 0x000000);
       lv_obj_set_width(value, kSideW);
@@ -331,6 +335,7 @@ void update(int64_t nowUs) {
   const SignalValue battV = store.get(felink::sig::kBatteryV, nowUs, 3000000);
   const SignalValue ecoV = store.get(felink::sig::kFuelL100, nowUs, 1000000);
   const SignalValue outV = store.get(felink::sig::kOutsideC, nowUs, 10000000);
+  const SignalValue cabinV = store.get(felink::sig::kCabinC, nowUs, 10000000);
   const SignalValue lightsV = store.get(felink::sig::kLightsFlags, nowUs, 1000000);
   const SignalValue warnV = store.get(felink::sig::kWarningFlags, nowUs, 1000000);
   auto fresh = [](const SignalValue& v) { return v.valid() && v.quality != felink::Quality::kStale; };
@@ -354,8 +359,8 @@ void update(int64_t nowUs) {
   if (coolant != shownCoolant) {
     lv_bar_set_value(coolantBar, coolant < 40 ? 40 : coolant, LV_ANIM_OFF);
     setSideLevel(coolantIcon, coolant < 40 ? 0 : (coolant - 40) * kSideH / (130 - 40));
-    char text[12] = "--";
-    if (coolant >= 0) std::snprintf(text, sizeof text, "%d", coolant);
+    char text[16] = "--";
+    if (coolant >= 0) std::snprintf(text, sizeof text, "%d°", coolant);
     setSideText(coolantIcon, coolantLabel, text);
     shownCoolant = coolant;
   }
@@ -365,8 +370,8 @@ void update(int64_t nowUs) {
   if (fuel != shownFuel) {
     lv_bar_set_value(fuelBar, fuel < 0 ? 0 : fuel, LV_ANIM_OFF);
     setSideLevel(fuelIcon, fuel < 0 ? 0 : fuel * kSideH / 100);
-    char text[12] = "--";
-    if (fuel >= 0) std::snprintf(text, sizeof text, "%d", fuel);
+    char text[16] = "--";
+    if (fuel >= 0) std::snprintf(text, sizeof text, "%d%%", fuel);
     setSideText(fuelIcon, fuelLabel, text);
     shownFuel = fuel;
   }
@@ -387,6 +392,9 @@ void update(int64_t nowUs) {
   std::snprintf(text, sizeof text, "--");
   if (fresh(outV)) std::snprintf(text, sizeof text, "%.0f°", static_cast<double>(outV.value));
   setText(outLabel, text, shownOut, sizeof shownOut);
+  std::snprintf(text, sizeof text, "--");
+  if (fresh(cabinV)) std::snprintf(text, sizeof text, "%.0f°", static_cast<double>(cabinV.value));
+  setText(cabinLabel, text, shownCabin, sizeof shownCabin);
 
   // Spie: prova lampade all'avvio, poi solo quelle accese; dati assenti = nessuna spia,
   // ma il riquadro "COLLEGAMENTO ASSENTE" impedisce di scambiarlo per "nessun guasto".
@@ -427,12 +435,13 @@ void update(int64_t nowUs) {
     lv_label_set_text_static(statusLabel, status);
     shownStatus = status;
   }
-  static unsigned shownCpu[2] = {101, 101};
-  const unsigned c0 = sysstats::cpu[0].load(), c1 = sysstats::cpu[1].load();
-  if (c0 != shownCpu[0] || c1 != shownCpu[1]) {
-    lv_label_set_text_fmt(cpuLabel, "CPU0 %u%%   CPU1 %u%%", c0, c1);
+  static unsigned shownCpu[3] = {101, 101, 0xFFFF};
+  const unsigned c0 = sysstats::cpu[0].load(), c1 = sysstats::cpu[1].load(), fps = sysstats::fps.load();
+  if (c0 != shownCpu[0] || c1 != shownCpu[1] || fps != shownCpu[2]) {
+    lv_label_set_text_fmt(cpuLabel, "%u FPS   CPU0 %u%%   CPU1 %u%%", fps, c0, c1);
     shownCpu[0] = c0;
     shownCpu[1] = c1;
+    shownCpu[2] = fps;
   }
 }
 

@@ -124,3 +124,20 @@ Affinamenti del 23/10/2026 (richieste dell'utente dopo la prima prova):
   cpu0 3-11 %, cpu1 61-69 %.
 
 Stato: compilata e caricata su COM4 il 23/10/2026 (hash verificati). Collaudo visivo in corso.
+
+Affinamenti successivi del 23/10/2026:
+
+- **Sagoma della C3 prima serie** (icona 176x88 da `tools/genera-icone.py`) al centro sopra
+  la velocità: dentro la **temperatura dell'abitacolo** (segnale 0x0013, climatizzatore via
+  VAN, messaggio da identificare), accanto la **temperatura esterna**; a sinistra la
+  tensione della batteria. Sono dati secondari: le spie accese vi si sovrappongono.
+- Valori di acqua e gasolio dentro le barre (76 px) **con unità** (° e %), stessa
+  inversione di colore dell'icona anche a barra piena.
+- **Avvio**: finestra più piccola (400x270) con più pioggia di codice ai lati; i controlli
+  superati scorrono verso l'alto e spariscono, **gli errori restano fissi** in cima; **GO**
+  scritto in grande dentro la finestra con lo stesso carattere (Share Tech Mono 120 px,
+  `font_go.c` da `tools/genera-font-avvio.py`).
+- Riga di servizio **FPS / CPU0 / CPU1** del firmware al posto dell'indicatore di LVGL
+  (che misurava solo il compito grafico, attesa del vsync compresa, e non era la somma
+  delle due CPU).
+- Seriale: avvio 13-14 FPS, dashboard 15-17 FPS; cpu0 3-5 %, cpu1 62-92 %.

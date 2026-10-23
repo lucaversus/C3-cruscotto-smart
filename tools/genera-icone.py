@@ -21,11 +21,13 @@ G = 100                      # griglia di disegno
 
 
 class Pen:
-    """Disegno su griglia 100x100 con coordinate e spessori in unità di griglia."""
+    """Disegno su griglia (100 di larghezza, salvo indicazione) con coordinate e spessori in
+    unità di griglia; immagine quadrata di px pixel o rettangolare (larghezza, altezza)."""
 
-    def __init__(self, px):
-        self.k = px * UP / G
-        self.img = Image.new('L', (px * UP, px * UP), 0)
+    def __init__(self, px, grid=G):
+        w, h = px if isinstance(px, tuple) else (px, px)
+        self.k = w * UP / grid
+        self.img = Image.new('L', (w * UP, h * UP), 0)
         self.d = ImageDraw.Draw(self.img)
 
     def p(self, pts):
@@ -77,7 +79,7 @@ class Pen:
         img = self.img
         if round_r:                               # angoli arrotondati: sfocatura e soglia a metà
             img = img.filter(ImageFilter.GaussianBlur(round_r * self.k)).point(lambda v: 255 if v > 127 else 0)
-        return img.resize((px, px), Image.LANCZOS)
+        return img.resize(px if isinstance(px, tuple) else (px, px), Image.LANCZOS)
 
 
 def montserrat():
@@ -240,6 +242,22 @@ def link_lost(p):
     p.line([(42, 84), (52, 50), (48, 50), (58, 16)], 6)
 
 
+def c3_silhouette(p):
+    """Citroën C3 prima serie vista di lato (muso a destra), solo contorno: dentro si scrive
+    la temperatura dell'abitacolo. Griglia 200x100."""
+    # Tetto ad arco alto e continuo fino al parabrezza, cofano corto e muso arrotondato.
+    body = [(14, 74), (10, 58), (12, 42), (18, 28), (30, 16), (50, 8), (78, 5), (104, 6), (124, 12),
+            (140, 24), (156, 40), (176, 46), (188, 52), (192, 62), (190, 74), (168, 74)]
+    p.line(body, 6)
+    p.arc((132, 58, 168, 94), 180, 360, 5)          # passaruota anteriore
+    p.line([(132, 74), (68, 74)], 5)
+    p.arc((32, 58, 68, 94), 180, 360, 5)            # passaruota posteriore
+    p.line([(32, 74), (14, 74)], 5)
+    p.disc(50, 78, 12)
+    p.disc(150, 78, 12)
+    p.line([(126, 16), (136, 30)], 3)               # montante anteriore
+
+
 ICONS = {  # nome: (funzione, dimensioni in pixel)
     'turn_left': (turn_left, (84,)), 'turn_right': (turn_right, (84,)),
     'brake': (brake, (44, 110)), 'oil': (oil, (44, 110)), 'coolant': (coolant, (44, 42, 110)),
@@ -248,14 +266,18 @@ ICONS = {  # nome: (funzione, dimensioni in pixel)
     'airbag': (airbag, (44,)), 'seat_belt': (seat_belt, (44,)), 'high_beam': (high_beam, (44,)),
     'front_fog': (front_fog, (44,)), 'rear_fog': (rear_fog, (44,)), 'door_open': (door_open, (44,)),
     'fuel': (fuel, (44, 42)), 'outside': (outside, (28,)), 'link_lost': (link_lost, (110,)),
+    'c3': (c3_silhouette, ((176, 88),)),
 }
 
 
 ROUNDED = {'turn_left': 2.5, 'turn_right': 2.5}   # raggio di arrotondamento, unità di griglia
 
 
+GRID = {'c3': 200}   # griglie diverse da 100 di larghezza
+
+
 def render(name, fn, px):
-    pen = Pen(px)
+    pen = Pen(px, GRID.get(name, G))
     fn(pen)
     return pen.done(px, ROUNDED.get(name, 0))
 
@@ -263,9 +285,9 @@ def render(name, fn, px):
 def main():
     images = {(name, px): render(name, fn, px) for name, (fn, sizes) in ICONS.items() for px in sizes}
     if len(sys.argv) > 2 and sys.argv[1] == '--anteprima':
-        sheet = Image.new('L', (16 + 120 * 10, 16 + 120 * ((len(images) + 9) // 10)), 40)
+        sheet = Image.new('L', (16 + 190 * 10, 16 + 120 * ((len(images) + 9) // 10)), 40)
         for i, img in enumerate(images.values()):
-            sheet.paste(img, (16 + 120 * (i % 10), 16 + 120 * (i // 10)))
+            sheet.paste(img, (16 + 190 * (i % 10), 16 + 120 * (i // 10)))
         sheet.save(sys.argv[2])
     c = ['/* Generato da tools/genera-icone.py: non modificare a mano. Icone originali del progetto\n'
          ' * (spie in stile ISO 2575), solo trasparenza a 8 bit: il colore lo dà img_recolor. */',
@@ -273,13 +295,14 @@ def main():
     h = ['// Icone della dashboard (tools/genera-icone.py). Formato LV_IMG_CF_ALPHA_8BIT.',
          '#pragma once', '#include "lvgl.h"', '']
     for (name, px), img in images.items():
-        sym = f'icon_{name}_{px}'
+        w, hh = img.size
+        sym = f'icon_{name}_{w}' if w == hh else f'icon_{name}_{w}x{hh}'
         data = list(img.getdata())
         rows = ',\n'.join('    ' + ', '.join(f'0x{v:02x}' for v in data[i:i + 24]) for i in range(0, len(data), 24))
         c += [f'static const uint8_t {sym}_map[] = {{', rows, '};',
               f'const lv_img_dsc_t {sym} = {{',
-              f'    .header = {{.cf = LV_IMG_CF_ALPHA_8BIT, .always_zero = 0, .reserved = 0, .w = {px}, .h = {px}}},',
-              f'    .data_size = {px * px},', f'    .data = {sym}_map,', '};', '']
+              f'    .header = {{.cf = LV_IMG_CF_ALPHA_8BIT, .always_zero = 0, .reserved = 0, .w = {w}, .h = {hh}}},',
+              f'    .data_size = {w * hh},', f'    .data = {sym}_map,', '};', '']
         h.append(f'extern const lv_img_dsc_t {sym};')
     OUT_C.write_text('\n'.join(c), encoding='utf-8', newline='\n')
     OUT_H.write_text('\n'.join(h) + '\n', encoding='utf-8', newline='\n')

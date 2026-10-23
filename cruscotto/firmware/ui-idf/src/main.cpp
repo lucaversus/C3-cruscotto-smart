@@ -112,6 +112,7 @@ void flush(lv_disp_drv_t* drv, const lv_area_t*, lv_color_t* pixels) {
 
 void monitor(lv_disp_drv_t*, uint32_t timeMs, uint32_t) {
   ++refreshes;
+  sysstats::frames.fetch_add(1, std::memory_order_relaxed);
   refreshMs += timeMs;
 }
 
@@ -230,6 +231,10 @@ extern "C" void app_main() {
     cpuLoad(load);  // ogni secondo, per lo schermo
     sysstats::cpu[0].store(load[0]);
     sysstats::cpu[1].store(load[1]);
+    static uint32_t lastFrames = 0;
+    const uint32_t frames = sysstats::frames.load();
+    sysstats::fps.store(static_cast<uint16_t>(frames - lastFrames));
+    lastFrames = frames;
     if (tick % 5 == 0) report();
     // Autotest (D-039): display inizializzato, collegamento attivo, 10 s senza blocchi.
     // Se la nuova versione non arriva qui, al riavvio successivo il bootloader torna alla precedente.

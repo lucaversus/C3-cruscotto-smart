@@ -1,5 +1,5 @@
 /* Generato da tools/genera-font-avvio.py: non modificare a mano.
- * Share Tech Mono 20 px, 4 bpp, ASCII 0x20-0x7E.
+ * Share Tech Mono 20 px, 4 bpp, 95 caratteri.
  * Share Tech Mono (c) 2012 Carrois Type Design, SIL Open Font License 1.1 (tools/fonts). */
 #include "lvgl.h"
 

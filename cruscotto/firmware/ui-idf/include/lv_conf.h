@@ -8,7 +8,7 @@
 #define LV_TICK_CUSTOM_INCLUDE <esp_timer.h>
 #define LV_TICK_CUSTOM_SYS_TIME_EXPR ((uint32_t)(esp_timer_get_time() / 1000))
 #define LV_DISP_DEF_REFR_PERIOD 16
-#define LV_USE_PERF_MONITOR 1    // FPS e CPU in basso a destra
+#define LV_USE_PERF_MONITOR 0    // sostituito dalla riga FPS / CPU0 / CPU1 del firmware (sysstats.h)
 #define LV_USE_LOG 0
 #define LV_FONT_MONTSERRAT_14 1
 #define LV_FONT_MONTSERRAT_28 1

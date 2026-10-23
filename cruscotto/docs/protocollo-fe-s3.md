@@ -80,6 +80,7 @@ Ogni segnale porta la propria qualità, così che nessun dato venga scambiato pe
 | 0x0009 | comandi al volante | campo di bit | VAN 9C4 |
 | 0x0010 | tensione batteria | V | partitore GPIO35 |
 | 0x0011 | chiave | 0/1 | GPIO39 (presa OBD via 1) |
+| 0x0013 | temperatura abitacolo | °C | climatizzatore automatico via VAN (messaggio da identificare) |
 | 0x0012 | consumo istantaneo (econometro) | l/100 km | da definire: calcolo nel front-end da dati motore K-line e velocità |
 | 0x0020-0x0026 | IMU: accelerazioni, rotazioni, temperatura | g, °/s, °C | LSM6DSO (HW-IMU-LSM6DSO) |
 | 0x0030 / 0x0031 | NTC display / scheda | °C | GPIO36 / GPIO32 |
