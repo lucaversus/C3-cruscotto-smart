@@ -127,7 +127,8 @@ quadro, display e radio; un carico o un trasmettitore attivo possono disturbarli
    (biblioteca tecnica) e conferma elettrica, come richiesto da D-008.
 
 Il firmware non trasmette su VAN, ma non può garantire queste condizioni:
-sono verifiche fisiche a cura dell'utente (D-020). Nessuna di esse risulta eseguita.
+sono verifiche fisiche a cura dell'utente (D-020). Stato al 23/10/2026: prove 1-4 superate
+a banco (`verifiche-moduli.md`, VAN-M002…M005); prova 5 (punto sul veicolo) da eseguire.
 
 ## Decodifiche VAN pubblicate dalla comunità — 20/10/2026
 

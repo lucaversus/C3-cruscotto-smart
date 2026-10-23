@@ -398,3 +398,14 @@ attivo (un driver attivo darebbe circa 2 V). Coerente con TX fisso a 3V3 (VAN-M0
 **Esito:** superata.
 **Prossimo passo:** prova 4, tensione RX-GND con la stessa alimentazione (attesa circa 3,3 V,
 mai oltre).
+
+## VAN-M005 — prova 4 D-022: livello dell'uscita RX — 23/10/2026
+
+**Misura riferita:** utente "3.3v", tester in tensione continua tra GND e RX del modulo,
+stessa alimentazione di VAN-M004 (3V3 dell'ESP32 HW-394 da USB).
+**Interpretazione:** uscita RX a riposo alta e non oltre l'alimentazione: livello
+compatibile con l'ingresso GPIO34 dell'ESP32 (D-029, tavola C3AI-DL-EL-004 W28). Non prova
+la ricezione di trame reali né i tempi del segnale VAN.
+**Esito:** superata. Prove 1-4 dei prerequisiti D-022 superate a banco (VAN-M002…M005).
+**Prossimo passo:** prova 5 sull'auto, identificazione documentale e conferma elettrica
+del punto di collegamento (quadro 0004 vie 1/3, ordine DATA/DATAB) prima di collegare.
