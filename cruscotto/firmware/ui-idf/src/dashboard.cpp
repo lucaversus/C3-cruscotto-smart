@@ -10,6 +10,7 @@
 #include <cstring>
 #include <initializer_list>
 
+#include "backlight.h"
 #include "dash_logic.h"
 #include "fe_link.h"
 #include "icons.h"
@@ -435,13 +436,16 @@ void update(int64_t nowUs) {
     lv_label_set_text_static(statusLabel, status);
     shownStatus = status;
   }
-  static unsigned shownCpu[3] = {101, 101, 0xFFFF};
+  // Riga di servizio: fluidità, carico delle CPU e luminosità attuale dello schermo.
+  static unsigned shownCpu[4] = {101, 101, 0xFFFF, 101};
   const unsigned c0 = sysstats::cpu[0].load(), c1 = sysstats::cpu[1].load(), fps = sysstats::fps.load();
-  if (c0 != shownCpu[0] || c1 != shownCpu[1] || fps != shownCpu[2]) {
-    lv_label_set_text_fmt(cpuLabel, "%u FPS   CPU0 %u%%   CPU1 %u%%", fps, c0, c1);
+  const unsigned lum = static_cast<unsigned>(backlight::percent());
+  if (c0 != shownCpu[0] || c1 != shownCpu[1] || fps != shownCpu[2] || lum != shownCpu[3]) {
+    lv_label_set_text_fmt(cpuLabel, "%u FPS   CPU0 %u%%   CPU1 %u%%   LUM %u%%", fps, c0, c1, lum);
     shownCpu[0] = c0;
     shownCpu[1] = c1;
     shownCpu[2] = fps;
+    shownCpu[3] = lum;
   }
 }
 
