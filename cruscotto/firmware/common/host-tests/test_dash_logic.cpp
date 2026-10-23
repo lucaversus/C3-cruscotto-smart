@@ -39,7 +39,8 @@ int main() {
         "olio prima della carica");
   check(dash::alertFor(true, dash::kCharge, 90, true) == dash::Alert::kCharge, "carica");
   check(dash::alertFor(true, 0, 90, true) == dash::Alert::kNone, "nessun avviso");
-  check(dash::alertFor(true, dash::kTurnLeft, 90, true) == dash::Alert::kNone, "le luci non sono avvisi");
+  check(dash::alertFor(true, dash::kGlowPlugs | dash::kFuelLow, 90, true) == dash::Alert::kNone,
+        "spie non di sicurezza: nessun riquadro");
   check(dash::fuelColor(11) == dash::kFuelNormal && dash::fuelColor(5) == dash::kAmber, "carburante in riserva");
   // Sequenza d'avvio: GO solo a controlli finiti, nessun errore e candelette spente.
   check(boot::glowCheck(true, true, boot::kGlowMaxMs) == boot::State::kFail, "preriscaldo troppo lungo");
