@@ -365,3 +365,14 @@ di terminazione sia aperto né che TX sia davvero fisso a 3V3: servono le misure
 **Esito:** non conclusiva (intervento dichiarato, misure da riferire).
 **Prossimo passo:** a modulo spento e scollegato, resistenza tra CANH e CANL (atteso:
 migliaia di ohm o più, non circa 120 Ω); poi continuità TX-3V3.
+
+## VAN-M002 — prova 1 D-022: resistenza tra CANH e CANL — 23/10/2026
+
+**Misura riferita:** utente "73kohm", tra CANH e CANL a modulo spento e scollegato
+(condizioni della richiesta), tester su Ω.
+**Interpretazione:** circa 73 kΩ, non circa 120 Ω: la terminazione «121» non è più tra
+H e L. Il valore residuo è compatibile con il percorso interno del transceiver non
+alimentato. Non dimostra il comportamento del modulo alimentato né la continuità TX-3V3.
+**Esito:** superata (criterio di `protocolli-veicolo.md`: H-L nell'ordine dei kΩ o
+superiore).
+**Prossimo passo:** prova 2, continuità tra TX e 3V3 a modulo spento.
