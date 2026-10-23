@@ -387,3 +387,14 @@ prova 3 (tensione H-L ad alimentazione presente).
 **Esito:** superata.
 **Prossimo passo:** prova 3, modulo alimentato a 3,3 V con H e L staccati da tutto:
 tensione tra CANH e CANL prossima a 0 V.
+
+## VAN-M004 — prova 3 D-022: tensione H-L con modulo alimentato — 23/10/2026
+
+**Misura riferita:** utente "tra h e l 45 mV"; modulo alimentato a 3,3 V dal pin 3V3
+dell'ESP32 HW-394 (USB del PC), solo 3.3V e GND collegati, CANH/CANL/RX liberi
+(condizioni concordate), tester in tensione continua.
+**Interpretazione:** 45 mV è prossimo a 0 V: uscita in stato recessivo, trasmettitore non
+attivo (un driver attivo darebbe circa 2 V). Coerente con TX fisso a 3V3 (VAN-M003).
+**Esito:** superata.
+**Prossimo passo:** prova 4, tensione RX-GND con la stessa alimentazione (attesa circa 3,3 V,
+mai oltre).
