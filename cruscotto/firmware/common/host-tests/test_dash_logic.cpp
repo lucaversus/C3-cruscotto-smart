@@ -51,6 +51,9 @@ int main() {
   check(dash::light(0x404040) != 0x404040 && red(dash::light(0x404040)) > 0x40, "tinta chiara");
   check(red(dash::shade(0xFF0000)) < 0xFF && red(dash::shade(0xFF0000)) > 0, "tinta scura");
   check(dash::ecoColor(65) != dash::kGreen && dash::ecoColor(65) != 0xFFB000, "econometro: sfumatura");
+  // Lampeggio della barra rossa.
+  check(dash::rpmBlinkColor(3600, 0) == dash::kRed && dash::rpmBlinkColor(3600, 250) == dash::kRedOff, "lampeggio sopra 3500");
+  check(dash::rpmBlinkColor(3400, 250) == dash::kOrange, "arancione fisso");
   // Prova lampade.
   check(dash::bulbCheck(0) && dash::bulbCheck(2999) && !dash::bulbCheck(3000), "prova lampade 3 s");
   if (failures) return EXIT_FAILURE;

@@ -300,6 +300,12 @@ void build() {
 
 void update(int64_t nowUs) {
   if (startUs == 0) startUs = nowUs;
+  // Debug a banco: pressione breve di BOOT = nuova prova lampade (RST riavvia con il controllo iniziale).
+  static uint32_t shownPresses = labels::bootShortPresses();
+  if (labels::bootShortPresses() != shownPresses) {
+    shownPresses = labels::bootShortPresses();
+    startUs = nowUs;
+  }
   SignalStore& store = signalStore();
   const SignalValue rpmV = store.get(felink::sig::kRpm, nowUs, 500000);
   const SignalValue speedV = store.get(felink::sig::kSpeedKmh, nowUs, 1000000);
@@ -314,7 +320,7 @@ void update(int64_t nowUs) {
 
   const int rpm = fresh(rpmV) ? static_cast<int>(rpmV.value + 0.5f) : 0;
   lv_bar_set_value(rpmBar, rpm, LV_ANIM_OFF);
-  setColor(rpmBar, dash::rpmColor(rpm), shownRpmColor);
+  setColor(rpmBar, dash::rpmBlinkColor(rpm, static_cast<uint32_t>(nowUs / 1000)), shownRpmColor);
 
   const int speed = fresh(speedV) ? static_cast<int>(speedV.value + 0.5f) : -1;
   // Velocità aggiornata al massimo 4 volte al secondo: lettura stabile, come i tachimetri

@@ -108,6 +108,10 @@ Affinamenti del 23/10/2026 (richieste dell'utente dopo la prima prova):
   riquadro degli avvisi e al pannello d'avvio; ombra del GO. Velocità senza effetto 3D.
 - Valori di acqua e gasolio **sopra** le rispettive barre, dello stesso colore della barra
   (come la parte chiara dell'icona).
+- **Barra dei giri lampeggiante** da 3500 giri (rosso acceso / rosso spento, periodo 0,4 s).
+- **Debug a banco** (solo in questa fase): **RST** riavvia la scheda e ripete il controllo
+  iniziale; **BOOT** premuto brevemente ripete la prova lampade; BOOT tenuto 2 s registra
+  ancora un'etichetta (D-040).
 - **Econometro** al limite inferiore dello schermo (240 x 24 px): consumo istantaneo
   l/100 km (segnale 0x0012, fonte da definire), verde fino a 5, ambra verso 8, rosso da 12
   (soglie proposte). Il simulatore lo lega ai giri.

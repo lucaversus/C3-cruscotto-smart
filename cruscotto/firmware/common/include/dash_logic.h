@@ -12,6 +12,11 @@ constexpr int kRpmMax = 5000;
 constexpr int kRpmGreenMax = 2500;
 constexpr int kRpmOrangeFull = 3000;
 constexpr int kRpmRed = 3500;
+// Da 3500 giri la barra rossa lampeggia (utente 23/10/2026): metà periodo rosso acceso,
+// metà rosso spento.
+constexpr uint32_t kBlinkMs = 400;
+constexpr uint32_t kRedOff = 0x3A0000;
+
 // Temperatura acqua: soglie PROPOSTE, nessun dato del costruttore trovato (termostato,
 // ventola, allarme): da fissare con le temperature registrate dal logger (OBD PID 0x05).
 constexpr int kCoolantWhiteMax = 50;
@@ -39,6 +44,11 @@ constexpr int weight(int v, int from, int to) {
 constexpr uint32_t rpmColor(int rpm) {
   return rpm >= kRpmRed ? kRed : mix(kGreen, kOrange, weight(rpm, kRpmGreenMax, kRpmOrangeFull));
 }
+constexpr uint32_t rpmBlinkColor(int rpm, uint32_t ms) {
+  return rpm >= kRpmRed && ms % kBlinkMs >= kBlinkMs / 2 ? kRedOff : rpmColor(rpm);
+}
+static_assert(rpmBlinkColor(4000, 0) == kRed && rpmBlinkColor(4000, kBlinkMs / 2) == kRedOff, "lampeggio");
+static_assert(rpmBlinkColor(3000, kBlinkMs / 2) == kOrange, "niente lampeggio sotto i 3500");
 
 // Colore dell'intera barra della temperatura acqua.
 constexpr uint32_t coolantColor(int c) {
