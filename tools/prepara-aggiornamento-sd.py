@@ -1,8 +1,7 @@
 """Prepara i file per aggiornare il firmware del Data Logger dalla MicroSD.
 
 Uso: python tools/prepara-aggiornamento-sd.py [ambiente]   (predefinito: esp32-hw394-vehicle)
-Compila da sé il solo ambiente richiesto (la cartella di compilazione è condivisa tra i
-progetti e `dev.py build` la riusa per tutti). Crea .tools/aggiornamento-sd/update/ con
+Compila da sé il solo ambiente richiesto (nella cartella di compilazione del logger). Crea .tools/aggiornamento-sd/update/ con
 c3_logger.bin e c3_logger.sha256: copiare la cartella `update` nella radice della MicroSD
 del logger, poi riaccendere. Il firmware verifica l'impronta prima di installare.
 """
@@ -20,7 +19,7 @@ def main():
     spec = importlib.util.spec_from_file_location('dev', ROOT / 'tools/dev.py')
     dev = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(dev)
-    env = dev.build_environment()
+    env = dev.project_environment(dev.build_environment(), dev.LOGGER)
     dev.run(dev.python_path(), '-m', 'platformio', 'run', '--project-dir', dev.LOGGER, '-e', env_name, env=env)
     base = Path(env['PLATFORMIO_WORKSPACE_DIR']) if 'PLATFORMIO_WORKSPACE_DIR' in env else dev.LOGGER / '.pio'
     source = base / 'build' / env_name / 'firmware.bin'

@@ -15,6 +15,7 @@ Aprire un terminale nella radice del clone, su Windows, Linux o macOS:
 python tools/dev.py setup
 python tools/dev.py check
 python tools/dev.py build
+python tools/dev.py ui --port COM4   # solo firmware S3, incrementale, e caricamento (iterazioni a banco)
 ```
 
 Usare `python3` se questo e il nome dell'interprete sul sistema. Su Windows si
