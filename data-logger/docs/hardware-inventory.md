@@ -83,7 +83,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Resistenza 120 ohm apparentemente fissa: da misurare; non aggiungere terminazione al bus auto senza verifica
 - Possibile uso col controller TWAI interno ESP32: scelta subordinata a verifica elettrica
 - Candidato per ricezione fisica VAN con decoder software ESP32: applicazione documentata dal progetto VanBus, non collaudata su questo modulo o veicolo. Prima verificare alimentazione 3,3 V, assenza di terminazione aggiunta, livelli e inibizione hardware TX. Non usare il controller MCP2515 come decoder VAN.
-- BLOCCANTE prima del collegamento VAN (D-022): terminazione 120 ohm scollegata e H-L misurata non circa 120 ohm; TX modulo collegato a 3V3, mai flottante o a GPIO; differenziale H-L recessivo a banco. Procedura in docs/protocolli-veicolo.md; nessun punto eseguito.
+- BLOCCANTE prima del collegamento VAN (D-022): modifiche dichiarate eseguite dall'utente il 23/10/2026 (resistenza 121 dissaldata, TX collegato a 3V3, VAN-M001); da misurare: H-L a modulo spento non circa 120 ohm, continuità TX-3V3, differenziale H-L recessivo a banco, livello RX a 3,3 V. Procedura in docs/protocolli-veicolo.md.
 - Disegnato nella tavola C3AI-DL-EL-004 rev A (D-042): RX→GPIO34 (W28), 3V3/GND dalla basetta 3 (W29/W30), ponticello TX–3V3, resistenza 121 da scollegare, CANH/CANL verso -X3 e quadro 0004 vie 1/3 solo dopo le verifiche D-022 1-5. Ordine DATA/DATAB non verificato.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5

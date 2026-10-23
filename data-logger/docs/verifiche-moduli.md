@@ -354,3 +354,14 @@ del contagiri verde/arancione/rosso): "adesso ci siamo, possiamo andare avanti".
 provati: dati reali, spie dal VAN, soglie dell'acqua e della riserva (proposte).
 **Prossimo passo:** ulteriori ritocchi della pagina più avanti; soglie dell'acqua dai dati
 del logger.
+
+## VAN-M001 — modifiche al modulo VP230 per la sola ricezione — 23/10/2026
+
+**Riferito:** utente "ho fatto le modifiche al modulo van blu": resistenza di terminazione
+«121» (120 Ω, serigrafia 120R) dissaldata e TX collegato a 3V3 secondo i prerequisiti
+D-022 (`protocolli-veicolo.md`, prove 1-2) e la tavola C3AI-DL-EL-004.
+**Interpretazione:** modifiche dichiarate eseguite. Non dimostrano ancora che il percorso
+di terminazione sia aperto né che TX sia davvero fisso a 3V3: servono le misure.
+**Esito:** non conclusiva (intervento dichiarato, misure da riferire).
+**Prossimo passo:** a modulo spento e scollegato, resistenza tra CANH e CANL (atteso:
+migliaia di ohm o più, non circa 120 Ω); poi continuità TX-3V3.
