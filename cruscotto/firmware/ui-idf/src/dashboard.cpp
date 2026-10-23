@@ -24,7 +24,7 @@ LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre
 namespace dashboard {
 namespace {
 constexpr int kRpmX = 20, kRpmY = 12, kRpmW = 760, kRpmH = 64;
-constexpr int kSideY = 172, kSideW = 48, kSideH = 248;  // barre verticali acqua e carburante
+constexpr int kSideY = 212, kSideW = 48, kSideH = 248;  // barre verticali acqua e carburante (valore sopra)
 constexpr int kSideIcon = 42, kSideIconY = kSideH - kSideIcon - 8;  // icona dentro la barra, in basso
 constexpr int kTurnSize = 84;                           // frecce più grandi delle altre spie
 constexpr int kLampStep = 64;                           // passo delle spie (icone 44 px)
@@ -175,11 +175,13 @@ void setSideLevel(SideIcon& si, int fill) {
   lv_obj_set_pos(si.darkIcon, (kSideW - kSideIcon) / 2, kSideIconY - boundary);
 }
 
-void setColor(lv_obj_t* b, uint32_t color, uint32_t& shown, lv_obj_t* lightIcon = nullptr) {
+// Colore della barra; icona (parte vuota) e valore numerico seguono lo stesso colore.
+void setColor(lv_obj_t* b, uint32_t color, uint32_t& shown, lv_obj_t* lightIcon = nullptr, lv_obj_t* value = nullptr) {
   if (color == shown) return;
   lv_obj_set_style_bg_color(b, lv_color_hex(dash::light(color)), LV_PART_INDICATOR);
   lv_obj_set_style_bg_grad_color(b, lv_color_hex(dash::shade(color)), LV_PART_INDICATOR);
   if (lightIcon) lv_obj_set_style_img_recolor(lightIcon, lv_color_hex(color), 0);
+  if (value) lv_obj_set_style_text_color(value, lv_color_hex(color), 0);
   shown = color;
 }
 }  // namespace
@@ -259,7 +261,7 @@ void build() {
     *s.value = label(screen, &lv_font_montserrat_28, 0xFFFFFF);
     lv_obj_set_width(*s.value, 110);
     lv_obj_set_style_text_align(*s.value, s.left ? LV_TEXT_ALIGN_LEFT : LV_TEXT_ALIGN_RIGHT, 0);
-    lv_obj_align_to(*s.value, *s.barObj, s.left ? LV_ALIGN_OUT_BOTTOM_LEFT : LV_ALIGN_OUT_BOTTOM_RIGHT, 0, 8);
+    lv_obj_align_to(*s.value, *s.barObj, s.left ? LV_ALIGN_OUT_TOP_LEFT : LV_ALIGN_OUT_TOP_RIGHT, 0, -6);
   }
 
   statusLabel = label(screen, &lv_font_montserrat_14, 0xFFB000);
@@ -333,7 +335,7 @@ void update(int64_t nowUs) {
     else lv_label_set_text_fmt(coolantLabel, "%d°", coolant);
     shownCoolant = coolant;
   }
-  setColor(coolantBar, coolValid ? dash::coolantColor(coolant) : 0x606060, shownCoolantColor, coolantIcon.lightIcon);
+  setColor(coolantBar, coolValid ? dash::coolantColor(coolant) : 0x606060, shownCoolantColor, coolantIcon.lightIcon, coolantLabel);
 
   const int fuel = fresh(fuelV) ? static_cast<int>(fuelV.value + 0.5f) : -1;
   if (fuel != shownFuel) {
@@ -343,7 +345,7 @@ void update(int64_t nowUs) {
     else lv_label_set_text_fmt(fuelLabel, "%d%%", fuel);
     shownFuel = fuel;
   }
-  setColor(fuelBar, fuel < 0 ? 0x606060 : dash::fuelColor(fuel), shownFuelColor, fuelIcon.lightIcon);
+  setColor(fuelBar, fuel < 0 ? 0x606060 : dash::fuelColor(fuel), shownFuelColor, fuelIcon.lightIcon, fuelLabel);
 
   // Econometro: consumo istantaneo in decimi di l/100 km.
   const int eco = fresh(ecoV) ? static_cast<int>(ecoV.value * 10.0f + 0.5f) : 0;
