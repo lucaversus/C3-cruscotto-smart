@@ -141,3 +141,52 @@ Affinamenti successivi del 23/10/2026:
   (che misurava solo il compito grafico, attesa del vsync compresa, e non era la somma
   delle due CPU).
 - Seriale: avvio 13-14 FPS, dashboard 15-17 FPS; cpu0 3-5 %, cpu1 62-92 %.
+
+## Luminosità automatica (richiesta utente 23/10/2026)
+
+- Retroilluminazione in **PWM** su GPIO2 (LEDC, **400 Hz**, 10 bit) al posto dell'acceso/spento.
+  A 5 kHz sotto il 100 % lo schermo si spegneva; 400 Hz come la libreria esp32-smartdisplay
+  per queste schede (DSP-M012).
+- **Anabbaglianti accesi** (segnale 0x0007 bit 2): luminosità al **40 %**.
+- **Protezione termica** dall'NTC del display (segnale 0x0030; limite dichiarato del
+  pannello +70 °C): da 55 °C riduzione lineare fino al 30 % a 65 °C, 20 % da 68 °C (al 10 %
+  si legge poco, DSP-M012). Vale il
+  valore più basso tra le due regole; senza dato termico nessuna riduzione.
+- Variazione graduale (1 % ogni 10 ms); valore nel report seriale (`bl=`). Simulatore:
+  anabbaglianti accesi 20 s ogni 60 s.
+- Soglie **proposte** in `dash_logic.h` (`backlightTarget`), con test sul PC; da tarare in
+  auto (e in seguito dall'app, D-038).
+
+Prima prova a banco (23/10/2026): con PWM a 5 kHz al 40 % lo schermo risulta **spento**
+(utente: "quando scende la luminosita non si vede più niente"). Aggiunti la percentuale e
+la frequenza sulla riga di servizio ("LUM xx% a N Hz") e i comandi seriali di debug
+`bl 0..100`, `bl auto`, `pwm <Hz>` per trovare livello minimo e frequenza adatti.
+
+## Versione 0.7.0
+
+Luminosità automatica e comandi seriali di debug (sopra); numero di versione accanto alla
+scritta DEMO ("DEMO - dati simulati - FW 0.7.0"), definito in `src/version.h`.
+
+## Versione 0.8.0 — scatola nera: rotazione degli eventi (23/10/2026)
+
+Prima di salvare un evento si cancellano i più vecchi finché restano libero almeno 1 MB e
+meno di 30 eventi; all'avvio si cancellano i file evento vuoti (salvataggi falliti a
+memoria piena). Report seriale: `bb_del` = eventi cancellati. Prova: con la memoria piena
+(79 file, 8456 KB su 8512) l'evento successivo è stato salvato dopo la cancellazione di 50
+file vecchi (`bb_events=1 bb_fail=0 bb_del=50`).
+
+## Versione 0.8.0 — pagine 2 e 3 e pulsanti (23/10/2026)
+
+- **Pagina 2 "Tecnica"**: 12 riquadri (giri, velocità, acqua, gasolio, batteria, consumo
+  istantaneo, temperatura esterna e abitacolo, accelerazioni X/Y, NTC del display, chiave)
+  con nome, valore grande e unità; colore del valore = qualità del dato (bianco valido,
+  ambra simulato o non verificato, grigio assente).
+- **Pagina 3 "Diagnostica"** in stile terminale: firmware e partizione, tempo di
+  accensione, FPS, CPU0/CPU1, luminosità e frequenza PWM, collegamento (tipo, stato,
+  trame/s, errori), scatola nera (campioni, eventi salvati/falliti/cancellati, memoria),
+  etichette, RAM e PSRAM libere, stato del modello IA. La riga FPS/CPU/LUM della dashboard
+  è stata spostata qui.
+- **Pulsanti** (a banco BOOT, in auto i due pulsanti del quadro quando saranno collegati):
+  pressione breve = pagina successiva (Dashboard → Tecnica → Diagnostica); doppia = prova
+  lampade (debug); lunga 2 s = etichetta (D-040). **Con un avviso aperto si torna subito
+  alla dashboard.**

@@ -46,3 +46,14 @@ Questo aggiornamento supera il solo stato non caricato del rapporto 19/10.
   indipendente su 2000 sequenze casuali.
 - cppcheck eseguito dalla pipeline (non disponibile nell'ambiente di sviluppo usato).
 - Sorgenti firmware invariati rispetto alla 0.3.1: nessuna nuova versione.
+
+## Release 0.4.0 — 23/10/2026 (aggiornamento dalla MicroSD)
+
+- `python tools/dev.py build`: tutti i profili compilati senza errori. Logger 363109 byte
+  di programma su 1310720 della partizione (27,7 %), RAM statica 36348 byte.
+- `tools/prepara-aggiornamento-sd.py` provato: `c3_logger.bin` del profilo vehicle
+  363472 byte, SHA-256 `10f1a69d5c65c289980e81f58b81a87522cc8bcf702fba76b0b31d58258caee6`
+  (compilazione locale).
+- Test sul PC `testSha256Text` aggiunti; eseguiti dalla CI (nessun compilatore sul PC).
+- **Non caricato e non collaudato**: aggiornamento da SD, ritorno automatico e manuale
+  da provare a banco (prima con il profilo logger via USB, poi con un file su SD).

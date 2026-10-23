@@ -13,6 +13,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
+#include "version.h"
 
 namespace blackbox {
 namespace {
@@ -20,7 +21,17 @@ constexpr uint32_t kCapacity = 65536;        // ~768 KB in PSRAM, > 60 s ai ritm
 constexpr uint32_t kBeforeMs = 50000, kAfterMs = 10000;
 constexpr char kBase[] = "/data";
 constexpr char kDir[] = "/data/ev";
-constexpr char kVersion[] = "ui-idf 0.4.0";
+constexpr char kVersion[] = "ui-idf " FW_VERSION_TEXT;
+// Rotazione: prima di salvare si cancellano gli eventi più vecchi finché resta questo margine
+// libero e finché gli eventi sono meno di kMaxEvents (partizione storage da 8,3 MB, condivisa
+// in futuro con i messaggi audio, D-028).
+constexpr size_t kMarginBytes = 1024 * 1024;
+constexpr unsigned kMaxEvents = 30;
+constexpr bool mustFree(size_t total, size_t used, size_t needed, unsigned files) {
+  return used + needed + kMarginBytes > total || files >= kMaxEvents;
+}
+static_assert(mustFree(8000000, 7500000, 200000, 1) && !mustFree(8000000, 1000000, 200000, 5) &&
+                  mustFree(8000000, 0, 0, kMaxEvents), "rotazione degli eventi");
 
 struct Sample {        // 12 byte, formato del file evento
   uint32_t ms;         // millisecondi dall'avvio dell'S3
@@ -52,14 +63,56 @@ Reason pendingReason = Reason::kManual;
 uint32_t pendingMs = 0;
 uint32_t nextFile = 1;
 
+// Numero del prossimo file; i file evento vuoti (salvataggi falliti a memoria piena) vengono
+// cancellati, così non contano nel limite kMaxEvents.
 void scanNextFileNumber() {
   DIR* dir = opendir(kDir);
   if (!dir) return;
   while (dirent* e = readdir(dir)) {
     unsigned n = 0;
-    if (sscanf(e->d_name, "evt_%u.bin", &n) == 1 && n >= nextFile) nextFile = n + 1;
+    if (sscanf(e->d_name, "evt_%u.bin", &n) != 1) continue;
+    if (n >= nextFile) nextFile = n + 1;
+    char path[300];
+    struct stat info;
+    snprintf(path, sizeof path, "%s/%s", kDir, e->d_name);
+    if (stat(path, &info) == 0 && info.st_size == 0) remove(path);
   }
   closedir(dir);
+}
+
+// Numero del file evento più vecchio e quanti eventi ci sono; 0 se nessuno.
+unsigned oldestEvent(unsigned& count) {
+  unsigned oldest = 0;
+  count = 0;
+  DIR* dir = opendir(kDir);
+  if (!dir) return 0;
+  while (dirent* e = readdir(dir)) {
+    unsigned n = 0;
+    if (sscanf(e->d_name, "evt_%u.bin", &n) != 1) continue;
+    ++count;
+    if (oldest == 0 || n < oldest) oldest = n;
+  }
+  closedir(dir);
+  return oldest;
+}
+
+// Cancella gli eventi più vecchi finché c'è spazio per il nuovo con il margine.
+void makeRoom(size_t needed) {
+  while (true) {
+    size_t total = 0, used = 0;
+    unsigned count = 0;
+    const unsigned oldest = oldestEvent(count);
+    if (esp_littlefs_info("storage", &total, &used) != ESP_OK || oldest == 0) return;
+    if (!mustFree(total, used, needed, count)) return;
+    char path[48];
+    snprintf(path, sizeof path, "%s/evt_%04u.bin", kDir, oldest);
+    if (remove(path) != 0) return;
+    printf("blackbox cancellato=%s per fare spazio (eventi=%u, usati=%uKB)\n", path, count - 1,
+           static_cast<unsigned>(used / 1024));
+    portENTER_CRITICAL(&statsLock);
+    ++st.eventsDeleted;
+    portEXIT_CRITICAL(&statsLock);
+  }
 }
 
 void refreshFsInfo() {
@@ -86,6 +139,7 @@ bool saveWindow(Reason reason, uint32_t triggerMs) {
     if (s.ms >= from && s.ms <= to) tmp[n++] = s;
   }
   xSemaphoreGive(ringMutex);
+  makeRoom(sizeof(FileHeader) + n * sizeof(Sample));
 
   FileHeader h = {};
   memcpy(h.magic, "C3BB", 4);

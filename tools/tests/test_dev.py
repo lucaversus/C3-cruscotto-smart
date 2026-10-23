@@ -35,6 +35,19 @@ class EnvironmentTests(unittest.TestCase):
         self.assertNotIn('PLATFORMIO_WORKSPACE_DIR', env)
 
 
+class ProjectWorkspaceTests(unittest.TestCase):
+    def test_each_project_has_its_own_build_folder(self):
+        env = dev.build_environment(root=Path('clone'), windows=True, environ={})
+        logger = dev.project_environment(env, dev.LOGGER)['PLATFORMIO_WORKSPACE_DIR']
+        ui = dev.project_environment(env, dev.UI_IDF)['PLATFORMIO_WORKSPACE_DIR']
+        self.assertNotEqual(logger, ui)
+        self.assertEqual(Path(ui).parent, Path(env['PLATFORMIO_WORKSPACE_DIR']))
+
+    def test_linux_keeps_platformio_default(self):
+        env = dev.build_environment(root=Path('clone'), windows=False, environ={})
+        self.assertNotIn('PLATFORMIO_WORKSPACE_DIR', dev.project_environment(env, dev.UI_IDF))
+
+
 class CompilerTests(unittest.TestCase):
     def test_cxx_variable_has_priority(self):
         self.assertEqual(dev.cpp_compiler(environ={'CXX': 'my-c++'}, which=lambda name: None), 'my-c++')

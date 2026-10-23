@@ -96,6 +96,14 @@ approvata serve una nuova indicazione utente o la risoluzione esplicita di un co
 
 ## Questioni ancora aperte — non sono decisioni definitive
 
+- **Richieste dell'utente del 23/10/2026**:
+  1. **Interruttore generale del logger** ("spegnere il modulo k una volta nell'auto";
+     precisato: spegnere tutto il logger). Proposta in
+     [alimentazione-spegnimento.md](data-logger/docs/alimentazione-spegnimento.md): sul + 12 V
+     dopo il fusibile, da usare dopo STOP; componente da scegliere (HW-LOGGER-SWITCH).
+  2. **Aggiornamento del firmware dalla MicroSD**: firmware logger 0.4.0, compilato, non
+     caricato né collaudato; procedura nel
+     [README del firmware](data-logger/firmware/logger/README.md).
 - Fonti di dati per l'IA (D-033): base prioritaria confermata dall'utente il 21/10/2026 ("sono i dati più importanti per valutare anomalie") = tutti i messaggi VAN, i PID OBD supportati, codici guasto e dati derivati. Sensori aggiuntivi rinviati dall'utente a dopo le prime acquisizioni ("li valuteremo dopo", 21/10/2026) (ricevitore GNSS anche per l'ora, microfono MEMS con sole caratteristiche del suono, sensore pressione/umidità). Posizione GNSS = dato personale, da trattare come il VIN (D-032).
 - Sensore inerziale (accelerometro + giroscopio) richiesto dall'utente il 20/10/2026 per il cruscotto: modello, scheda di collegamento (front-end o S3), fissaggio e orientamento da definire; da valutare anche nel Data Logger perché il dataset contenga gli stessi dati. Modello scelto: **LSM6DSO su adattatore ST STEVAL-MKI196V1** (HW-IMU-LSM6DSO), ordinato dall'utente il 22/10/2026 su Farnell; scartati il BMI270 (ordine annullato dal venditore) e il Grove LSM6DS3 (mai ordinato).
 - Mappa collegamenti del cruscotto (in definizione, 20/10/2026): ipotesi utente "molto probabilmente" scheda del quadro originale collegata e nascosta dietro il display, per evitare errori BSI (MAN-017 PDF 3: DATA/DATAB tra BSI e quadro, avvisi integrati nel quadro). Comandi al volante della radio originale da valutare come ingresso del cruscotto: percorso (VAN tramite COM 2000 o filo diretto alla radio) non verificato.
@@ -174,7 +182,7 @@ Cruscotto digitale (D-026): scheda ESP32-8048S050 identificata (ESP32-S3, 16 MB
 flash, 8 MB PSRAM, esptool), variante senza touch (D-027), backup di fabbrica in
 [data-logger/backups/esp32-8048s050](data-logger/backups/esp32-8048s050/README.md).
 [Prova display 0.1.0](cruscotto/firmware/display-test/README.md): compilata,
-caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. [Prova UI LVGL](cruscotto/firmware/ui-test/README.md) 0.1.1 (DSP-M003). Mappa dei collegamenti in definizione (D-028…D-030); [istruzione di prova presa OBD](disegni/CR-PR-001_prova-presa-obd.png) C3AI-CR-PR-001; [scheda madre preliminare](cruscotto/docs/scheda-madre.md) C3AI-CR-BL-001 rev C e studio d'ingombro C3AI-CR-PL-001 rev B; [requisiti dell'interfaccia](cruscotto/docs/interfaccia-requisiti.md) in raccolta (D-041).
+caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. [Prova UI LVGL](cruscotto/firmware/ui-test/README.md) 0.1.1 (DSP-M003). Mappa dei collegamenti in definizione (D-028…D-030); [istruzione di prova presa OBD](disegni/CR-PR-001_prova-presa-obd.png) C3AI-CR-PR-001; [scheda madre preliminare](cruscotto/docs/scheda-madre.md) C3AI-CR-BL-001 rev D e studio d'ingombro C3AI-CR-PL-001 rev B; [requisiti dell'interfaccia](cruscotto/docs/interfaccia-requisiti.md) in raccolta (D-041).
 
 ### Collaudo SPI a banco — 18/10/2026
 

@@ -89,7 +89,8 @@ void simTask(void*) {
     // Luci e spie simulate: freccia sinistra 10 s ogni 40 s, candelette nei primi 8 s,
     // pressione olio 5 s ogni 120 s (dopo 60 s) per provare il riquadro degli avvisi.
     const bool blink = fmodf(t, 0.8f) < 0.4f;
-    const uint32_t lights = (fmodf(t, 40.0f) < 10.0f && blink ? 1u : 0u) | (1u << 2);
+    // Anabbaglianti accesi 20 s ogni 60 s: mostra la riduzione della luminosità.
+    const uint32_t lights = (fmodf(t, 40.0f) < 10.0f && blink ? 1u : 0u) | (fmodf(t, 60.0f) >= 40.0f ? 1u << 2 : 0u);
     const uint32_t warnings = (t < 8.0f ? 1u << 4 : 0u) | (t > 60.0f && fmodf(t - 60.0f, 120.0f) < 5.0f ? 1u << 1 : 0u) |
                               (fuel <= 10.0f ? 1u << 9 : 0u);
     felink::addSignal(f, felink::sig::kLightsFlags, q, static_cast<float>(lights));
@@ -132,6 +133,31 @@ void linkStart(bool simulate) {
   if (simulate) ESP_ERROR_CHECK(uart_set_loop_back(kUart, true));
   xTaskCreatePinnedToCore(rxTask, "link_rx", 4096, nullptr, 6, nullptr, 0);
   if (simulate) xTaskCreatePinnedToCore(simTask, "link_sim", 4096, nullptr, 4, nullptr, 0);
+}
+
+namespace {
+uint32_t autoWaitMs = 3000;
+
+void autoTask(void*) {
+  vTaskDelay(pdMS_TO_TICKS(autoWaitMs));
+  if (linkStats().frames == 0) {
+    ESP_ERROR_CHECK(uart_set_loop_back(kUart, true));
+    portENTER_CRITICAL(&statsLock);
+    stats.simulated = true;
+    portEXIT_CRITICAL(&statsLock);
+    xTaskCreatePinnedToCore(simTask, "link_sim", 4096, nullptr, 4, nullptr, 0);
+    printf("ui_idf collegamento: nessun front-end in %u ms, simulatore interno\n", static_cast<unsigned>(autoWaitMs));
+  } else {
+    printf("ui_idf collegamento: front-end collegato su UART\n");
+  }
+  vTaskDelete(nullptr);
+}
+}  // namespace
+
+void linkStartAuto(uint32_t waitMs) {
+  autoWaitMs = waitMs;
+  linkStart(false);
+  xTaskCreatePinnedToCore(autoTask, "link_auto", 3072, nullptr, 2, nullptr, 0);
 }
 
 LinkStats linkStats() {

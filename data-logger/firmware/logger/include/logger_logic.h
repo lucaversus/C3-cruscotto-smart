@@ -148,4 +148,18 @@ struct VanDecoder {
     }
   }
 };
+// Impronta SHA-256 scritta come testo (formato di sha256sum: 64 cifre esadecimali, poi
+// eventuale nome del file). false se il testo non inizia con 64 cifre valide.
+constexpr int hexValue(char c) {
+  return c >= '0' && c <= '9' ? c - '0' : c >= 'a' && c <= 'f' ? c - 'a' + 10 : c >= 'A' && c <= 'F' ? c - 'A' + 10 : -1;
+}
+constexpr bool parseSha256Hex(const char *text, size_t length, uint8_t out[32]) {
+  if (length < 64) return false;
+  for (size_t i = 0; i < 32; ++i) {
+    const int hi = hexValue(text[2 * i]), lo = hexValue(text[2 * i + 1]);
+    if (hi < 0 || lo < 0) return false;
+    out[i] = static_cast<uint8_t>(hi * 16 + lo);
+  }
+  return length == 64 || text[64] == ' ' || text[64] == '\t' || text[64] == '\r' || text[64] == '\n';
+}
 } // namespace logger

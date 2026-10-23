@@ -354,3 +354,92 @@ del contagiri verde/arancione/rosso): "adesso ci siamo, possiamo andare avanti".
 provati: dati reali, spie dal VAN, soglie dell'acqua e della riserva (proposte).
 **Prossimo passo:** ulteriori ritocchi della pagina più avanti; soglie dell'acqua dai dati
 del logger.
+
+## VAN-M001 — modifiche al modulo VP230 per la sola ricezione — 23/10/2026
+
+**Riferito:** utente "ho fatto le modifiche al modulo van blu": resistenza di terminazione
+«121» (120 Ω, serigrafia 120R) dissaldata e TX collegato a 3V3 secondo i prerequisiti
+D-022 (`protocolli-veicolo.md`, prove 1-2) e la tavola C3AI-DL-EL-004.
+**Interpretazione:** modifiche dichiarate eseguite. Non dimostrano ancora che il percorso
+di terminazione sia aperto né che TX sia davvero fisso a 3V3: servono le misure.
+**Esito:** non conclusiva (intervento dichiarato, misure da riferire).
+**Prossimo passo:** a modulo spento e scollegato, resistenza tra CANH e CANL (atteso:
+migliaia di ohm o più, non circa 120 Ω); poi continuità TX-3V3.
+
+## VAN-M002 — prova 1 D-022: resistenza tra CANH e CANL — 23/10/2026
+
+**Misura riferita:** utente "73kohm", tra CANH e CANL a modulo spento e scollegato
+(condizioni della richiesta), tester su Ω.
+**Interpretazione:** circa 73 kΩ, non circa 120 Ω: la terminazione «121» non è più tra
+H e L. Il valore residuo è compatibile con il percorso interno del transceiver non
+alimentato. Non dimostra il comportamento del modulo alimentato né la continuità TX-3V3.
+**Esito:** superata (criterio di `protocolli-veicolo.md`: H-L nell'ordine dei kΩ o
+superiore).
+**Prossimo passo:** prova 2, continuità tra TX e 3V3 a modulo spento.
+
+## VAN-M003 — prova 2 D-022: continuità TX-3V3 — 23/10/2026
+
+**Misura riferita:** utente "suona", tester in continuità tra il pin TX e il pin 3.3V del
+modulo, a modulo spento (condizioni della richiesta).
+**Interpretazione:** TX collegato direttamente a 3V3: con modulo alimentato l'ingresso del
+trasmettitore resta fisso a livello alto (recessivo). Da confermare elettricamente con la
+prova 3 (tensione H-L ad alimentazione presente).
+**Esito:** superata.
+**Prossimo passo:** prova 3, modulo alimentato a 3,3 V con H e L staccati da tutto:
+tensione tra CANH e CANL prossima a 0 V.
+
+## VAN-M004 — prova 3 D-022: tensione H-L con modulo alimentato — 23/10/2026
+
+**Misura riferita:** utente "tra h e l 45 mV"; modulo alimentato a 3,3 V dal pin 3V3
+dell'ESP32 HW-394 (USB del PC), solo 3.3V e GND collegati, CANH/CANL/RX liberi
+(condizioni concordate), tester in tensione continua.
+**Interpretazione:** 45 mV è prossimo a 0 V: uscita in stato recessivo, trasmettitore non
+attivo (un driver attivo darebbe circa 2 V). Coerente con TX fisso a 3V3 (VAN-M003).
+**Esito:** superata.
+**Prossimo passo:** prova 4, tensione RX-GND con la stessa alimentazione (attesa circa 3,3 V,
+mai oltre).
+
+## VAN-M005 — prova 4 D-022: livello dell'uscita RX — 23/10/2026
+
+**Misura riferita:** utente "3.3v", tester in tensione continua tra GND e RX del modulo,
+stessa alimentazione di VAN-M004 (3V3 dell'ESP32 HW-394 da USB).
+**Interpretazione:** uscita RX a riposo alta e non oltre l'alimentazione: livello
+compatibile con l'ingresso GPIO34 dell'ESP32 (D-029, tavola C3AI-DL-EL-004 W28). Non prova
+la ricezione di trame reali né i tempi del segnale VAN.
+**Esito:** superata. Prove 1-4 dei prerequisiti D-022 superate a banco (VAN-M002…M005).
+**Prossimo passo:** prova 5 sull'auto, identificazione documentale e conferma elettrica
+del punto di collegamento (quadro 0004 vie 1/3, ordine DATA/DATAB) prima di collegare.
+
+## DSP-M012 — retroilluminazione in PWM su GPIO2 — 23/10/2026
+
+**Prova:** firmware S3 0.7.0, PWM LEDC su GPIO2. Prima a 5 kHz: con la luminosità al 40 %
+lo schermo si spegne (utente: "quando scende la luminosita non si vede più niente";
+"con il fw 0.7.0 continua a non vedersi niente al 40%"). Ricerca: la libreria
+esp32-smartdisplay per queste schede usa 400 Hz (ESPHome 1220 Hz). Con 400 Hz predefiniti:
+utente "adesso la dimmerazione è buona"; nel ciclo automatico osserva solo 100 % e 40 %
+(atteso: la riduzione termica non interviene con l'NTC simulato a circa 38 °C).
+**Interpretazione:** il circuito della retroilluminazione non segue il PWM a 5 kHz sotto il
+100 %; a 400 Hz la regolazione funziona. Livelli 20 % e 10 % e frequenze 100/1000 Hz
+provati dalla seriale senza esito riferito.
+**Esito:** superata a 400 Hz per 100 % e 40 %; livello minimo leggibile e assenza di
+sfarfallio/ronzio ai livelli bassi da confermare.
+**Ripetizione 20 % e 10 % a 400 Hz (15 s ciascuno):** utente "nessun sfarfallio, ma a 10 si
+leggeva poco". Minimo della protezione termica portato al 20 %.
+**Prossimo passo:** prova della protezione termica con temperatura reale dietro la copertura.
+
+## LNK-M001 — collegamento reale front-end → S3 (fe_link v1) — 23/10/2026
+
+**Prova:** front-end 0.1.0 caricato sull'ESP32 HW-394 (COM4, hash verificati; avvio
+`c3_front_end version=0.1.0`, 156 trame in 5 s). S3 con firmware 0.9.0. Collegamento a
+banco: ESP32 GPIO25 → S3 P2 IO11, S3 P2 IO12 → ESP32 GPIO33. **Filo GND non collegato**
+(utente: "non avevo collegato gnd"): massa comune solo attraverso le due prese USB dello
+stesso PC. ESP32 alimentato da un'altra presa USB. Riavvio dell'S3 dal PC.
+**Seriale S3:** `collegamento: front-end collegato su UART`; `link=uart frames_s=31-32
+link_err=0 link_lost=0` per 15 s. Senza front-end alimentato l'S3 passa al simulatore
+interno dopo 3 s (`nessun front-end in 3000 ms`), come previsto.
+**Interpretazione:** UART a 921600 baud tra le due schede funzionante nella direzione
+front-end → S3, trame decodificate senza errori di CRC/COBS né perdite di sequenza. I dati
+sono ancora simulati; non provata la direzione S3 → front-end (l'S3 non trasmette ancora).
+**Esito:** superata, con massa comune attraverso l'USB del PC. Il filo GND tra le schede resta
+obbligatorio (alimentazioni separate, auto).
+**Prossimo passo:** dati reali nel front-end (tensione batteria, poi K-line e VAN).

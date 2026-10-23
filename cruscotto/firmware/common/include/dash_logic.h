@@ -88,6 +88,27 @@ constexpr uint32_t kFuelNormal = 0xE0E0E0, kAmber = 0xFFB000;
 constexpr uint32_t fuelColor(int pct) { return pct <= kFuelReserve ? kAmber : kFuelNormal; }
 static_assert(fuelColor(50) == kFuelNormal && fuelColor(kFuelReserve) == kAmber, "carburante");
 
+// Retroilluminazione (richiesta utente 23/10/2026), valori PROPOSTI da tarare a banco e in auto:
+// di giorno 100 %, con gli anabbaglianti accesi kNightPct. Protezione termica dall'NTC del
+// display (limite dichiarato del pannello +70 °C): da kHotStartC riduzione lineare fino a
+// kHotPct a kHotFullC, poi kCriticalPct da kCriticalC. Vale il valore più basso.
+constexpr int kDayPct = 100, kNightPct = 40;
+constexpr int kHotStartC = 55, kHotFullC = 65, kHotPct = 30, kCriticalC = 68, kCriticalPct = 20;  // 10 % poco leggibile (DSP-M012)
+constexpr int thermalLimit(bool valid, int tempC) {
+  return !valid ? kDayPct
+         : tempC >= kCriticalC ? kCriticalPct
+         : tempC >= kHotFullC  ? kHotPct
+         : tempC > kHotStartC  ? kDayPct - (kDayPct - kHotPct) * (tempC - kHotStartC) / (kHotFullC - kHotStartC)
+                               : kDayPct;
+}
+constexpr int backlightTarget(bool lowBeam, bool tempValid, int tempC) {
+  return (lowBeam ? kNightPct : kDayPct) < thermalLimit(tempValid, tempC) ? (lowBeam ? kNightPct : kDayPct)
+                                                                          : thermalLimit(tempValid, tempC);
+}
+static_assert(backlightTarget(false, true, 30) == 100 && backlightTarget(true, true, 30) == kNightPct, "giorno/notte");
+static_assert(backlightTarget(false, true, 60) == 65 && backlightTarget(false, true, 70) == kCriticalPct, "termica");
+static_assert(backlightTarget(true, true, 66) == kHotPct, "vale il più basso");
+
 // Prova lampade: tutte le spie accese per i primi kBulbCheckMs dall'avvio dell'interfaccia.
 constexpr uint32_t kBulbCheckMs = 3000;
 constexpr bool bulbCheck(uint32_t sinceStartMs) { return sinceStartMs < kBulbCheckMs; }

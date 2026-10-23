@@ -20,6 +20,7 @@ DISPLAY_TEST = ROOT / 'cruscotto/firmware/display-test'
 UI_TEST = ROOT / 'cruscotto/firmware/ui-test'
 SPEAK_TEST = ROOT / 'cruscotto/firmware/speak-test'
 UI_IDF = ROOT / 'cruscotto/firmware/ui-idf'
+FRONT_END = ROOT / 'cruscotto/firmware/front-end'
 
 
 def python_path():
@@ -91,9 +92,24 @@ def build_environment(root=ROOT, windows=os.name == 'nt', environ=None):
     return env
 
 
+def project_environment(env, project):
+    """Cartella di compilazione propria per ogni progetto: compilare un progetto non cancella
+    i file intermedi degli altri, così le ricompilazioni restano incrementali."""
+    out = dict(env)
+    if 'PLATFORMIO_WORKSPACE_DIR' in out:
+        out['PLATFORMIO_WORKSPACE_DIR'] = str(Path(out['PLATFORMIO_WORKSPACE_DIR']) / Path(project).name)
+    return out
+
+
+def pio_run(env, project, *args):
+    run(python_path(), '-m', 'platformio', 'run', '--project-dir', project, *args,
+        env=project_environment(env, project))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('setup', 'check', 'build', 'lint', 'paths'))
+    parser.add_argument('action', choices=('setup', 'check', 'build', 'lint', 'paths', 'ui'))
+    parser.add_argument('--port', help="con 'ui': carica anche il firmware S3 su questa porta (es. COM4)")
     args = parser.parse_args()
     if args.action == 'setup':
         if sys.version_info < (3, 10):
@@ -120,17 +136,18 @@ def main():
         if not python_path().is_file():
             parser.error('Ambiente assente. Eseguire prima: python tools/dev.py setup')
         env = build_environment()
-        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
-            ROOT / 'data-logger/firmware/logger', '-e', 'esp32-hw394-logger',
-            '-e', 'esp32-hw394-vehicle', env=env)
-        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
-            DISPLAY_TEST, '-e', 'esp32-8048s050-display-test', env=env)
-        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
-            UI_TEST, '-e', 'esp32-8048s050-ui-test', env=env)
-        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
-            SPEAK_TEST, '-e', 'esp32-8048s050-speak-test', env=env)
-        run(python_path(), '-m', 'platformio', 'run', '--project-dir',
-            UI_IDF, '-e', 'esp32-8048s050-ui-idf', env=env)
+        if args.action == 'ui':
+            # Iterazione rapida sul solo firmware S3 (incrementale); la build completa resta
+            # obbligatoria a fine blocco e prima della pubblicazione (D-021).
+            extra = ['-t', 'upload', '--upload-port', args.port] if args.port else []
+            pio_run(env, UI_IDF, '-e', 'esp32-8048s050-ui-idf', *extra)
+            return 0
+        pio_run(env, LOGGER, '-e', 'esp32-hw394-logger', '-e', 'esp32-hw394-vehicle')
+        pio_run(env, DISPLAY_TEST, '-e', 'esp32-8048s050-display-test')
+        pio_run(env, UI_TEST, '-e', 'esp32-8048s050-ui-test')
+        pio_run(env, SPEAK_TEST, '-e', 'esp32-8048s050-speak-test')
+        pio_run(env, UI_IDF, '-e', 'esp32-8048s050-ui-idf')
+        pio_run(env, FRONT_END, '-e', 'esp32-hw394-front-end')
     return 0
 
 

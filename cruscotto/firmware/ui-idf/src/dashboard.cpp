@@ -10,6 +10,7 @@
 #include <cstring>
 #include <initializer_list>
 
+#include "backlight.h"
 #include "dash_logic.h"
 #include "fe_link.h"
 #include "icons.h"
@@ -18,6 +19,7 @@
 #include "lvgl.h"
 #include "signal_store.h"
 #include "sysstats.h"
+#include "version.h"
 
 LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre (tools/genera-font-velocita.py)
 
@@ -64,7 +66,6 @@ constexpr int kRowCount[2] = {7, 8};
 
 lv_obj_t* rpmBar = nullptr;
 lv_obj_t* speedLabel = nullptr;
-lv_obj_t* cpuLabel = nullptr;
 lv_obj_t* ecoBar = nullptr;
 lv_obj_t* coolantBar = nullptr;
 lv_obj_t* coolantLabel = nullptr;
@@ -287,9 +288,6 @@ void build() {
 
   statusLabel = label(screen, &lv_font_montserrat_14, 0xFFB000);
   lv_obj_align(statusLabel, LV_ALIGN_TOP_MID, 0, 392);
-  // Carico delle due CPU (dato tecnico provvisorio: andrà nella pagina Diagnostica).
-  cpuLabel = label(screen, &lv_font_montserrat_14, 0x808080);
-  lv_obj_align(cpuLabel, LV_ALIGN_TOP_MID, 0, 412);
 
   // Riquadro degli avvisi, in primo piano tra le barre verticali.
   alertBox = lv_obj_create(screen);
@@ -321,10 +319,10 @@ void build() {
 
 void update(int64_t nowUs) {
   if (startUs == 0) startUs = nowUs;
-  // Debug a banco: pressione breve di BOOT = nuova prova lampade (RST riavvia con il controllo iniziale).
-  static uint32_t shownPresses = labels::bootShortPresses();
-  if (labels::bootShortPresses() != shownPresses) {
-    shownPresses = labels::bootShortPresses();
+  // Debug a banco: doppia pressione di BOOT = nuova prova lampade (RST riavvia con il controllo iniziale).
+  static uint32_t shownPresses = labels::bootDoublePresses();
+  if (labels::bootDoublePresses() != shownPresses) {
+    shownPresses = labels::bootDoublePresses();
     startUs = nowUs;
   }
   SignalStore& store = signalStore();
@@ -429,20 +427,14 @@ void update(int64_t nowUs) {
 
   const int64_t lastLabel = labels::lastLabelUs();
   const char* status = (lastLabel != 0 && nowUs - lastLabel < 3000000) ? "SEGNALAZIONE REGISTRATA"
-                       : rpmV.quality == felink::Quality::kSimulated  ? "DEMO - dati simulati"
+                       : rpmV.quality == felink::Quality::kSimulated  ? "DEMO - dati simulati - FW " FW_VERSION_TEXT
                                                                        : "";
   if (status != shownStatus) {
     lv_label_set_text_static(statusLabel, status);
     shownStatus = status;
   }
-  static unsigned shownCpu[3] = {101, 101, 0xFFFF};
-  const unsigned c0 = sysstats::cpu[0].load(), c1 = sysstats::cpu[1].load(), fps = sysstats::fps.load();
-  if (c0 != shownCpu[0] || c1 != shownCpu[1] || fps != shownCpu[2]) {
-    lv_label_set_text_fmt(cpuLabel, "%u FPS   CPU0 %u%%   CPU1 %u%%", fps, c0, c1);
-    shownCpu[0] = c0;
-    shownCpu[1] = c1;
-    shownCpu[2] = fps;
-  }
 }
+
+bool alertActive() { return shownAlert != dash::Alert::kNone; }
 
 }  // namespace dashboard

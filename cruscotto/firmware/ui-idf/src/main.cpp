@@ -1,4 +1,4 @@
-// Firmware S3 su ESP-IDF 5.5 0.6.0 — Cruscotto C3+AI (D-026, D-029, D-037, D-039, D-041).
+// Firmware S3 su ESP-IDF 5.5 (versione in version.h) — Cruscotto C3+AI (D-026, D-029, D-037, D-039, D-041).
 // Struttura: collegamento fe_link e sorgente simulata sul core 0, interfaccia LVGL sul
 // core 1, report e autotest nel compito principale. Doppio framebuffer, scambio al vsync.
 #include <atomic>
@@ -8,6 +8,7 @@
 
 #include "board_8048s050.h"
 #include "driver/gpio.h"
+#include "driver/uart.h"
 #include "esp_heap_caps.h"
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_panel_rgb.h"
@@ -17,16 +18,20 @@
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 #include "blackbox.h"
+#include "backlight.h"
 #include "dashboard.h"
+#include "labels.h"
+#include "pages.h"
 #include "startup.h"
 #include "sysstats.h"
+#include "version.h"
 #include "labels.h"
 #include "link.h"
 #include "lvgl.h"
 #include "signal_store.h"
 
 namespace {
-constexpr char kVersion[] = "0.6.0";  // + sequenza d'avvio con controllo di sistema e GO
+constexpr const char* kVersion = fw::kVersion;
 constexpr gpio_num_t kSdCs = GPIO_NUM_10;  // MicroSD della S3 esclusa (D-029)
 constexpr int64_t kSelfTestUs = 10000000;  // D-039: conferma dopo 10 s di funzionamento
 
@@ -38,6 +43,7 @@ lv_disp_draw_buf_t drawBuf;
 lv_disp_drv_t dispDrv;
 uint32_t refreshes = 0, refreshMs = 0;
 lv_obj_t* dashScreen = nullptr;  // schermata della dashboard, mostrata dopo l'avvio
+lv_obj_t* pageScreens[3] = {};   // 0 Dashboard, 1 Tecnica, 2 Diagnostica
 
 bool IRAM_ATTR onVsync(esp_lcd_panel_handle_t, const esp_lcd_rgb_panel_event_data_t*, void*) {
   vsyncCount.fetch_add(1, std::memory_order_relaxed);
@@ -160,16 +166,17 @@ void report() {
   const LinkStats ls = linkStats();
   const uint32_t avg = refreshes ? refreshMs / refreshes : 0;
   const blackbox::Stats bb = blackbox::stats();
-  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u cpu0=%u%% cpu1=%u%% panel_hz=%u link=%s frames_s=%u "
-         "link_err=%u link_lost=%u bb_fill=%u/%u bb_events=%u bb_fail=%u fs=%u/%uKB labels=%u "
+  printf("ui_idf version=%s ota=%s panel=%s fps=%u refr_avg_ms=%u cpu0=%u%% cpu1=%u%% bl=%d%% panel_hz=%u link=%s frames_s=%u "
+         "link_err=%u link_lost=%u bb_fill=%u/%u bb_events=%u bb_fail=%u bb_del=%u fs=%u/%uKB labels=%u "
          "heap_int_free=%u psram_free=%u uptime_ms=%u\n",
          kVersion, esp_ota_get_running_partition()->label, esp_err_to_name(panelStatus),
-         static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg), cpu[0], cpu[1],
+         static_cast<unsigned>(refreshes / 5), static_cast<unsigned>(avg), cpu[0], cpu[1], backlight::percent(),
          static_cast<unsigned>((vs - lastVsync) / 5), ls.simulated ? "sim" : "uart",
          static_cast<unsigned>((ls.frames - lastFrames) / 5), static_cast<unsigned>(ls.errors),
          static_cast<unsigned>(ls.lostSeq), static_cast<unsigned>(bb.filled),
          static_cast<unsigned>(bb.capacity), static_cast<unsigned>(bb.eventsSaved),
-         static_cast<unsigned>(bb.eventsFailed), static_cast<unsigned>(bb.fsUsedKb),
+         static_cast<unsigned>(bb.eventsFailed), static_cast<unsigned>(bb.eventsDeleted),
+         static_cast<unsigned>(bb.fsUsedKb),
          static_cast<unsigned>(bb.fsTotalKb), static_cast<unsigned>(labels::count()),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_INTERNAL)),
          static_cast<unsigned>(heap_caps_get_free_size(MALLOC_CAP_SPIRAM)),
@@ -178,6 +185,33 @@ void report() {
   lastFrames = ls.frames;
   refreshes = 0;
   refreshMs = 0;
+}
+
+// Comandi seriali di debug a banco (Invio a fine riga): "bl 0..100", "bl auto", "pwm <Hz>".
+void serialCommands() {
+  static char line[32];
+  static size_t used = 0;
+  uint8_t c;
+  while (uart_read_bytes(UART_NUM_0, &c, 1, 0) == 1) {
+    if (c != '\r' && c != '\n') {
+      if (used + 1 < sizeof line) line[used++] = static_cast<char>(c);
+      continue;
+    }
+    line[used] = '\0';
+    used = 0;
+    unsigned value = 0;
+    if (std::strcmp(line, "bl auto") == 0) {
+      backlight::setManual(-1);
+      printf("ui_idf cmd bl=auto\n");
+    } else if (std::sscanf(line, "bl %u", &value) == 1) {
+      backlight::setManual(static_cast<int>(value));
+      printf("ui_idf cmd bl=%u\n", value);
+    } else if (std::sscanf(line, "pwm %u", &value) == 1) {
+      printf("ui_idf cmd pwm=%u %s\n", value, backlight::setFrequency(value) ? "ok" : "rifiutata");
+    } else if (line[0]) {
+      printf("ui_idf comandi: bl 0..100 | bl auto | pwm <Hz>\n");
+    }
+  }
 }
 
 void outputLow(gpio_num_t pin, int level) {
@@ -196,8 +230,29 @@ void uiTask(void*) {
       // Prima la sequenza d'avvio, poi la dashboard (aggiornata subito per la dissolvenza).
       static bool booting = true;
       if (booting) booting = startup::update(now, dashScreen);
-      if (!booting) dashboard::update(now);
+      if (!booting) {
+        dashboard::update(now);  // sempre, anche se non visibile: avvisi e prova lampade
+        // Pressione breve di BOOT (a banco, poi i pulsanti del quadro): pagina successiva.
+        // Con un avviso aperto si torna subito alla dashboard.
+        static int page = 0;
+        static uint32_t presses = labels::bootSinglePresses();
+        int wanted = page;
+        if (labels::bootSinglePresses() != presses) {
+          presses = labels::bootSinglePresses();
+          wanted = (page + 1) % 3;
+        }
+        if (page != 0 && dashboard::alertActive()) wanted = 0;
+        if (wanted != page) {
+          page = wanted;
+          // Cambio immediato: la dissolvenza ridisegnava tutto lo schermo a ogni passo e lasciava
+          // artefatti per un istante (utente 23/10/2026).
+          lv_scr_load(pageScreens[page]);
+        }
+        if (page == 1) pages::updateTech(now);
+        if (page == 2) pages::updateDiag(now);
+      }
     }
+    backlight::update(now);  // anabbaglianti e protezione termica, variazione graduale
     const uint32_t waitMs = lv_timer_handler();
     vTaskDelay(pdMS_TO_TICKS(waitMs < 1 ? 1 : (waitMs > 10 ? 10 : waitMs)));
   }
@@ -205,28 +260,34 @@ void uiTask(void*) {
 }  // namespace
 
 extern "C" void app_main() {
-  outputLow(static_cast<gpio_num_t>(board::kBacklight), 0);
+  backlight::start();  // PWM a 0: pannello spento fino al primo fotogramma
   outputLow(kSdCs, 1);
   printf("ui_idf blackbox=%s\n", blackbox::start() ? "OK" : "SENZA FILE SYSTEM");
   labels::start();
-  linkStart(true);  // front-end non ancora presente: sorgente simulata in loopback
+  linkStartAuto(3000);  // front-end su UART se presente, altrimenti sorgente simulata interna
   vsyncSem = xSemaphoreCreateBinary();
   panelStatus = startPanel();
   if (panelStatus == ESP_OK) panelStatus = startLvgl();
   if (panelStatus == ESP_OK) {
     dashboard::build();
     dashScreen = lv_scr_act();
+    pageScreens[0] = dashScreen;
+    pageScreens[1] = pages::buildTech();
+    pageScreens[2] = pages::buildDiag();
     startup::build();
     lv_timer_handler();
-    gpio_set_level(static_cast<gpio_num_t>(board::kBacklight), 1);
     xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 5, nullptr, 1);
   }
   esp_ota_img_states_t state = ESP_OTA_IMG_UNDEFINED;
   esp_ota_get_state_partition(esp_ota_get_running_partition(), &state);
   printf("ui_idf ota_state=%d (pending=%d)\n", static_cast<int>(state), ESP_OTA_IMG_PENDING_VERIFY);
   bool confirmed = false;
+  uart_driver_install(UART_NUM_0, 256, 0, 0, nullptr, 0);  // lettura dei comandi di debug
   for (unsigned tick = 1;; ++tick) {
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    for (int i = 0; i < 10; ++i) {
+      vTaskDelay(pdMS_TO_TICKS(100));
+      serialCommands();
+    }
     unsigned load[2];
     cpuLoad(load);  // ogni secondo, per lo schermo
     sysstats::cpu[0].store(load[0]);

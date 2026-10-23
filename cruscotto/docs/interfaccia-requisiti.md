@@ -10,6 +10,9 @@ lavoro: elenco dei contenuti e stili da completare con l'utente; nessuna grafica
 2. **Tecnica**: valori più tecnici della vettura (es. dati motore OBD).
 3. **Diagnostica**: stato del cruscotto, collegamento, sensori e attività dell'IA.
 
+Stato 23/10/2026 (firmware S3 0.7.0): pagine 2 e 3 realizzate in prima versione; con
+un avviso aperto il cruscotto torna da solo alla dashboard.
+
 Altre pagine solo se emergeranno. Utente 21/10/2026: "sicuramente più pagine [...]
 la dashboard, una seconda pagina con [...] i valori più tecnici [...] una terza [...]
 per vedere cosa fa l'intelligenza artificiale".

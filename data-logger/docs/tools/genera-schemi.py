@@ -79,7 +79,7 @@ d.title_block(title=['Collegamenti proposta', 'iniziale (storico)'], subtitle='D
 (ROOT.parents[1] / 'disegni/sorgenti/DL-EL-001_collegamenti-iniziali-storico.svg').write_text(d.svg('Documento storico, sostituito da C3AI-DL-EL-003.'), encoding='utf-8')
 
 # ---------------------------------------------------------------- BL-001 ---
-b = Sheet('C3AI-DL-BL-001 rev D — Architettura funzionale del Data Logger')
+b = Sheet('C3AI-DL-BL-001 rev E — Architettura funzionale del Data Logger')
 b.frame()
 b.text(25, 20, 'ARCHITETTURA FUNZIONALE DEL DATA LOGGER — SCHEMA A BLOCCHI', 5, bold=True)
 b.text(25, 25, 'Stato al 20/10/2026. Schema funzionale: non usare per cablare. Pin e protocolli del veicolo restano da verificare (D-008).', 2.5)
@@ -90,10 +90,10 @@ b.block(33, 82, 60, 30, 'Linea dietro al quadro', ['BSI Siemens Light 2001 VAN',
 b.block(33, 135, 60, 30, 'Alimentazione 12 V', ['Punto di prelievo', 'da identificare', 'Fusibile 2 A (HW-FUSE-HOLDER)'], ref='12 V')
 
 b.block(118, 42, 62, 30, 'Interfaccia K-line', ['2N5551 + LM2903B, isteresi', 'C3AI-DL-KL-001 rev F', 'Non montata · non collaudata'], ref='HW-KLINE-INTERFACE')
-b.block(118, 82, 62, 30, 'Ricevitore VAN', ['SN65HVD230 (VP230), solo RX', 'Senza 120 Ω, TX a 3V3', 'Prerequisiti bloccanti'], ref='HW-CAN-VP230')
+b.block(118, 82, 62, 30, 'Ricevitore VAN', ['SN65HVD230 (VP230), solo RX', '120 Ω rimossa, TX a 3V3', 'Prove 1-4 ok, manca la 5'], ref='HW-CAN-VP230')
 b.block(118, 135, 62, 30, 'Convertitore 12 V → 5 V', ['Uadme GYVRM-K240505', 'Candidato, non collaudato', 'Arresto con STOP (D-015)'], ref='HW-AUTO-POWER')
 
-b.block(200, 60, 70, 65, 'ESP32 HW-394', ['Logger: sorgenti 0.3.1,', '0.3.0 caricata a banco', 'UART2 KWP: GPIO16 RX / 17 TX', 'RMT VAN: GPIO34', 'SPI SD: 18/19/23, CS 27', 'I²C: 21 SDA / 22 SCL', 'STOP: GPIO32', 'Nessuna radio attiva'], ref='HW-ESP32')
+b.block(200, 60, 70, 65, 'ESP32 HW-394', ['Logger: sorgenti 0.4.0,', '0.3.0 caricata a banco', 'UART2 KWP: GPIO16 RX / 17 TX', 'RMT VAN: GPIO34', 'SPI SD: 18/19/23, CS 27', 'I²C: 21 SDA / 22 SCL', 'STOP: GPIO32', 'Nessuna radio attiva'], ref='HW-ESP32')
 b.block(290, 42, 55, 22, 'MicroSD', ['CSV v2, sync 1 s', 'SPI 1 MHz predefinito'], ref='HW-SD-MODULE')
 b.block(290, 72, 55, 22, 'RTC DS3231', ['Ancora oraria UTC', 'CR2032 dopo D-019'], ref='HW-RTC')
 b.block(290, 102, 55, 22, 'OLED I²C', ['Stato, righe, perdite'], ref='HW-OLED')
@@ -124,10 +124,11 @@ b.notes(25, 188, 'LEGENDA E NOTE', [
 ])
 b.title_block(title=['Architettura funzionale', 'del Data Logger'], subtitle='Data Logger',
               doc_type='Schema a blocchi', status='PRELIMINARE',
-              code='C3AI-DL-BL-001', rev='D', date='20/10/2026', sheet='1/1',
+              code='C3AI-DL-BL-001', rev='E', date='23/10/2026', sheet='1/1',
               revisions=[('B', 'Cornice e cartiglio; stato aggiornato', '18/10/2026'),
                          ('C', 'Note sui moduli CAN già presenti', '18/10/2026'),
-                         ('D', 'Ridisegno IEC 61082-1/ISO; aggiornato a KWP, VAN, logger 0.3.x (D-024)', '20/10/2026')])
+                         ('D', 'Ridisegno IEC 61082-1/ISO; aggiornato a KWP, VAN, logger 0.3.x (D-024)', '20/10/2026'),
+                         ('E', 'Ricevitore VAN modificato e provato a banco (VAN-M002…M005); logger 0.4.0', '23/10/2026')])
 (ROOT.parents[1] / 'disegni/sorgenti/DL-BL-001_architettura-data-logger.svg').write_text(b.svg('Schema a blocchi funzionale preliminare, non schema di cablaggio.'), encoding='utf-8')
 
 for f in ROOT.glob('*.svg'):

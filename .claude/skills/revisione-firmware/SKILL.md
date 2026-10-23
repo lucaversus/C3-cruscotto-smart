@@ -60,3 +60,6 @@ Ogni punto si risponde con "verificato in codice", "verificato da test",
   isteresi e tempo massimo; consumo a riposo verificato, non presunto.
 - Display: retroilluminazione ridotta con temperatura alta; valori dell'auto distinti
   da quelli simulati (scritta DEMO nei firmware di prova).
+- Versione: ogni firmware S3 modificato che si carica sulla scheda riceve un numero nuovo
+  in `ui-idf/src/version.h` (funzioni nuove: secondo numero; sole correzioni: terzo),
+  visibile accanto a DEMO e nella pagina Diagnostica.

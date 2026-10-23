@@ -32,11 +32,13 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Foto frontale archiviata: HW-394 / ESP-32D e basetta di espansione a morsetti visibili; nessuna verifica elettrica della basetta.
 - 18/10/2026: firmware mcp2515-spi-test 0.1.0 caricato su COM3 con BOOT manuale; esptool conferma hash dei segmenti scritti. Sostituisce sulla scheda la diagnostica 0.1.0, i cui sorgenti sono conservati. Avvio verificato tramite stato seriale SPI_TEST=PASS (M-010).
 - 20/10/2026: logger 0.3.0 profilo esp32-hw394-logger caricato su COM3 con BOOT manuale a 115200 baud; esptool conferma hash dei segmenti, SUCCESS. Dopo impulso EN tramite RTS, seriale conferma version=0.3.0, kwp=0 van=0 e ATTESA SD. Log locali .tools/serial/upload-20261020-000840.log e monitor successivo. Sostituisce il test MCP2515 sulla scheda; sorgenti storici conservati.
+- LNK-M001 23/10/2026: firmware front-end 0.1.0 caricato (hash verificati, sostituisce il logger 0.3.0); trame fe_link verso l'S3 su UART1 GPIO25/33 a 921600 baud, 31-32 trame/s senza errori.
 
 **Da verificare:**
 
 - Piedinatura fisica HW-394 e corrente disponibile per i moduli esterni
 - Basetta a morsetti visibile in foto: continuità e corrispondenza delle etichette non ancora provate.
+- Firmware attualmente caricato (23/10/2026): front-end 0.1.0 (dati simulati); il logger si ricarica dai sorgenti quando serve.
 
 ### HW-CAN-MCP2515 — Modulo MCP2515, quarzo 8 MHz, transceiver marcato VP230
 
@@ -76,14 +78,16 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 **Verifiche documentate:**
 
 - Foto fronte e dettaglio archiviate: marcatura VP230 e serigrafie 3.3V/GND/RX/TX; resistenza con codice 121 e serigrafia 120R visibili, valore non misurato.
+- VAN-M002 23/10/2026: prova 1 D-022 superata, resistenza 121 rimossa, H-L a modulo spento 73 kohm (non 120 ohm).
+- VAN-M003 23/10/2026: prova 2 D-022 superata, continuità TX-3V3 a modulo spento.
+- VAN-M004 23/10/2026: prova 3 D-022 superata, H-L 45 mV con modulo alimentato a 3,3 V dall'ESP32 (stato recessivo).
+- VAN-M005 23/10/2026: prova 4 D-022 superata, RX a riposo 3,3 V con modulo alimentato a 3,3 V. Prove 1-4 a banco tutte superate.
 
 **Da verificare:**
 
-- Alimentazione indicata 3,3 V: da verificare sul modulo
-- Resistenza 120 ohm apparentemente fissa: da misurare; non aggiungere terminazione al bus auto senza verifica
 - Possibile uso col controller TWAI interno ESP32: scelta subordinata a verifica elettrica
 - Candidato per ricezione fisica VAN con decoder software ESP32: applicazione documentata dal progetto VanBus, non collaudata su questo modulo o veicolo. Prima verificare alimentazione 3,3 V, assenza di terminazione aggiunta, livelli e inibizione hardware TX. Non usare il controller MCP2515 come decoder VAN.
-- BLOCCANTE prima del collegamento VAN (D-022): terminazione 120 ohm scollegata e H-L misurata non circa 120 ohm; TX modulo collegato a 3V3, mai flottante o a GPIO; differenziale H-L recessivo a banco. Procedura in docs/protocolli-veicolo.md; nessun punto eseguito.
+- BLOCCANTE prima del collegamento VAN (D-022): prove 1-4 a banco superate il 23/10/2026 (VAN-M002…M005: terminazione rimossa, TX fisso a 3V3, H-L recessivo 45 mV, RX 3,3 V). Resta la prova 5: punto di collegamento sul veicolo (quadro 0004 vie 1/3, ordine DATA/DATAB) da fonte documentale e conferma elettrica. Procedura in docs/protocolli-veicolo.md.
 - Disegnato nella tavola C3AI-DL-EL-004 rev A (D-042): RX→GPIO34 (W28), 3V3/GND dalla basetta 3 (W29/W30), ponticello TX–3V3, resistenza 121 da scollegare, CANH/CANL verso -X3 e quadro 0004 vie 1/3 solo dopo le verifiche D-022 1-5. Ordine DATA/DATAB non verificato.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
@@ -238,7 +242,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Firmware attualmente caricato (23/10/2026): ui-idf 0.5.0 (ESP-IDF 5.5, OTA D-039, collegamento simulato, scatola nera DSP-M010, pagina 1 Dashboard DSP-M011; partizione storage LittleFS quasi piena di eventi di prova); altri firmware ricaricabili dai sorgenti.
+- Firmware attualmente caricato (23/10/2026): ui-idf 0.9.0 (ESP-IDF 5.5, OTA D-039, collegamento reale con il front-end LNK-M001 e simulatore interno di riserva, scatola nera con rotazione, pagine Dashboard/Tecnica/Diagnostica, luminosità PWM 400 Hz DSP-M012); altri firmware ricaricabili dai sorgenti.
 - Revisione PCB ed etichetta sul fronte del pannello non leggibili nelle foto disponibili
 - Luminosità PWM GPIO2, stabilità prolungata e comportamento termico da verificare; frequenza pannello stimata 39 Hz con PCLK 16 MHz (calcolo); tearing con schermate pesanti da valutare
 - Quantità non dichiarata; backup eseguito, NVS vuota e nessun dato personale (README backup)
@@ -396,6 +400,22 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Possesso/ordine non confermato; firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.
 - Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione.
+
+### HW-LOGGER-SWITCH — Interruttore generale del logger sul + 12 V (dopo il fusibile, prima del convertitore)
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
+
+**Fonte:** Utente 23/10/2026: "aggiungere un interruttore per spegnere il modulo k una volta nell'auto"; alla domanda su cosa debba spegnere: "Spegnere tutto il logger". Proposta in data-logger/docs/alimentazione-spegnimento.md.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Modello da scegliere: unipolare, 12 V cc, almeno 2 A, posizione OFF riconoscibile, montaggio sul contenitore.
+- Uso solo dopo STOP e "SD CHIUSA": nessuna protezione del file se si toglie corrente durante la scrittura (P-001/P-002, D-022).
+- Evoluzione da valutare: interruttore letto dal firmware con circuito di mantenimento (GPIO13, D-029).
 
 ### HW-DASH-HARNESS — Cablaggio temporaneo con fili volanti dietro al cruscotto
 
