@@ -1,4 +1,4 @@
-# Data Logger — firmware 0.3.1
+# Data Logger — firmware 0.4.0
 
 Progetto **Cruscotto C3+AI**, sottoprogetto **Data Logger**. Revisione software
 20/10/2026 (0.3.1, D-022). Implementazione per HW-ESP32; compilazione distinta dal caricamento
@@ -200,3 +200,27 @@ attende Invio mentre si mantiene BOOT premuto; rilasciarlo alla prima scrittura.
 Per riaprire soltanto il monitor aggiungere `-SoloMonitor` (nessun reset).
 `-Riavvia` richiede esplicitamente un impulso EN: non usarlo su una registrazione
 aperta. Dopo upload il riavvio normale e automatico.
+
+## Aggiornamento dalla MicroSD — versione 0.4.0 (richiesta utente 23/10/2026)
+
+Per cambiare firmware senza smontare il logger dall'auto.
+
+1. Sul PC: `python tools/prepara-aggiornamento-sd.py` (profilo predefinito
+   `esp32-hw394-vehicle`, oppure il nome del profilo come argomento). Compila e crea
+   `.tools/aggiornamento-sd/update/` con `c3_logger.bin` e `c3_logger.sha256`.
+2. Copiare la cartella `update` nella radice della MicroSD del logger.
+3. Accendere il logger: all'avvio, prima della registrazione, il firmware trova il file,
+   ne calcola l'impronta SHA-256 e la confronta con `c3_logger.sha256`; se coincide lo
+   scrive nell'altra partizione dell'ESP32 (OLED "AGGIORNAMENTO - NON SPEGNERE") e riavvia.
+   Il file diventa `c3_logger.bin.done`; se l'impronta manca o non coincide, o la
+   scrittura fallisce, diventa `c3_logger.bin.bad` e il logger parte con la versione attuale.
+4. **Ritorno automatico**: la versione nuova si conferma da sola dopo 20 s di
+   funzionamento. Se si blocca o si riavvia prima, al riavvio successivo il bootloader
+   torna alla precedente. Spegnere il logger entro 20 s dal primo avvio annulla
+   l'aggiornamento (va ripetuto).
+5. **Ritorno manuale**: tenere premuto **STOP all'accensione per 3 s** fa ripartire la
+   versione presente nell'altra partizione (OLED "VERSIONE PRECEDENTE").
+
+Partizioni: tabella Arduino predefinita (`app0`/`app1` da 1,25 MB, firmware attuale
+circa 0,36 MB). Seriale: righe `sd_update ...`. Sorgenti: `src/sd_update.cpp`,
+`parseSha256Hex()` in `logger_logic.h` con test sul PC.

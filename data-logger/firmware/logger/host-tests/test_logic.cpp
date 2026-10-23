@@ -201,6 +201,21 @@ void testCalendarAgainstLibc() {
     CHECK(logger::weekdaySunday1(c) == tm.tm_wday + 1);
   }
 }
+void testSha256Text() {
+  const char good[] = "00ff10A0b1c2d3e4f5061728394a5b6c7d8e9fa0b1c2d3e4f5061728394a5b6c  c3_logger.bin\n";
+  uint8_t out[32] = {};
+  CHECK(logger::parseSha256Hex(good, sizeof(good) - 1, out));
+  CHECK(out[0] == 0x00 && out[1] == 0xff && out[3] == 0xa0 && out[31] == 0x6c);
+  CHECK(logger::parseSha256Hex(good, 64, out));
+  CHECK(!logger::parseSha256Hex(good, 63, out));                 // troppo corto
+  char bad[sizeof(good)];
+  std::memcpy(bad, good, sizeof(good));
+  bad[10] = 'g';
+  CHECK(!logger::parseSha256Hex(bad, sizeof(bad) - 1, out));      // cifra non valida
+  bad[10] = good[10];
+  bad[64] = 'x';
+  CHECK(!logger::parseSha256Hex(bad, sizeof(bad) - 1, out));      // impronta più lunga di 64
+}
 } // namespace
 
 int main() {
@@ -213,6 +228,7 @@ int main() {
   testPidScheduleFairness();
   testStopButtonRandomBounce();
   testCalendarAgainstLibc();
+  testSha256Text();
   std::printf("host_tests checks=%d failures=%d\n", checks, failures);
   return failures ? 1 : 0;
 }

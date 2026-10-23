@@ -534,6 +534,20 @@
       "evidence": "Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto."
     },
     {
+      "id": "HW-LOGGER-SWITCH",
+      "name": "Interruttore generale del logger sul + 12 V (dopo il fusibile, prima del convertitore)",
+      "scope": "Data Logger",
+      "quantity": null,
+      "status": "candidate",
+      "verified": [],
+      "open_checks": [
+        "Modello da scegliere: unipolare, 12 V cc, almeno 2 A, posizione OFF riconoscibile, montaggio sul contenitore.",
+        "Uso solo dopo STOP e \"SD CHIUSA\": nessuna protezione del file se si toglie corrente durante la scrittura (P-001/P-002, D-022).",
+        "Evoluzione da valutare: interruttore letto dal firmware con circuito di mantenimento (GPIO13, D-029)."
+      ],
+      "evidence": "Utente 23/10/2026: \"aggiungere un interruttore per spegnere il modulo k una volta nell'auto\"; alla domanda su cosa debba spegnere: \"Spegnere tutto il logger\". Proposta in data-logger/docs/alimentazione-spegnimento.md."
+    },
+    {
       "id": "HW-DASH-HARNESS",
       "name": "Cablaggio temporaneo con fili volanti dietro al cruscotto",
       "scope": "Data Logger",

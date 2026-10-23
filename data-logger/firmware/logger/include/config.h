@@ -23,7 +23,12 @@ constexpr uint32_t kKwpRequestGapMs = 40;
 constexpr uint32_t kSegmentBytes = 64UL * 1024UL * 1024UL;
 constexpr uint8_t kOledAddress = 0x3c;
 constexpr size_t kQueueDepth = 256;
-constexpr char kVersion[] = "0.3.1";
+constexpr char kVersion[] = "0.4.0";
+// Aggiornamento del firmware dalla MicroSD (richiesta utente 23/10/2026): file in /update.
+constexpr char kUpdateBin[] = "/update/c3_logger.bin";
+constexpr char kUpdateSha[] = "/update/c3_logger.sha256";
+constexpr uint32_t kConfirmMs = 20000;     // nuova versione confermata dopo 20 s senza blocchi
+constexpr uint32_t kRollbackHoldMs = 3000; // STOP tenuto all'accensione: torna alla versione precedente
 } // namespace logger
 
 #ifndef LOGGER_ENABLE_KWP

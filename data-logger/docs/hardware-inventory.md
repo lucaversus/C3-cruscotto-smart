@@ -397,6 +397,22 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Possesso/ordine non confermato; firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.
 - Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione.
 
+### HW-LOGGER-SWITCH — Interruttore generale del logger sul + 12 V (dopo il fusibile, prima del convertitore)
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
+
+**Fonte:** Utente 23/10/2026: "aggiungere un interruttore per spegnere il modulo k una volta nell'auto"; alla domanda su cosa debba spegnere: "Spegnere tutto il logger". Proposta in data-logger/docs/alimentazione-spegnimento.md.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Modello da scegliere: unipolare, 12 V cc, almeno 2 A, posizione OFF riconoscibile, montaggio sul contenitore.
+- Uso solo dopo STOP e "SD CHIUSA": nessuna protezione del file se si toglie corrente durante la scrittura (P-001/P-002, D-022).
+- Evoluzione da valutare: interruttore letto dal firmware con circuito di mantenimento (GPIO13, D-029).
+
 ### HW-DASH-HARNESS — Cablaggio temporaneo con fili volanti dietro al cruscotto
 
 **Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger

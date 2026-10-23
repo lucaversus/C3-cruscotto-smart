@@ -61,6 +61,22 @@ solo se P-001 è superata. Se si riavvia, registrare la soglia osservata.
 
 Entrambe richiedono alimentatore da banco non ancora censito come disponibile.
 
+## Interruttore generale del logger — proposta 23/10/2026
+
+Richiesta dell'utente: "aggiungere un interruttore per spegnere il modulo k una volta
+nell'auto"; precisato: spegnere **tutto il logger**.
+
+- **Dove**: sul + 12 V in ingresso al logger, dopo il fusibile e prima del convertitore
+  12 → 5 V (HW-AUTO-POWER), sul contenitore del logger. Il cablaggio dell'auto e il
+  connettore -J1 (D-044) non cambiano.
+- **Componente**: interruttore unipolare per 12 V cc, almeno 2 A, con levetta o
+  bilanciere e posizione OFF riconoscibile; modello da scegliere (HW-LOGGER-SWITCH).
+- **Uso**: prima premere **STOP** e attendere "SD CHIUSA" sull'OLED, poi spegnere.
+  Togliere corrente mentre scrive può rovinare l'ultimo file (prove P-001/P-002, D-022).
+- **Evoluzione** (da valutare con il circuito di mantenimento GPIO13 del front-end,
+  D-029): interruttore letto dal firmware come richiesta di spegnimento; il logger chiude
+  il file e poi si spegne da solo.
+
 ## Punti di prelievo per il cruscotto (D-029, D-030) — 20/10/2026
 
 Fonte: MAN-017 PDF 2, pag. 91, tabella vie della presa diagnosi C001 e tabella

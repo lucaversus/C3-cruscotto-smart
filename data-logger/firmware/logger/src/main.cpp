@@ -4,6 +4,7 @@
 #include "acquisition.h"
 #include "logger_logic.h"
 #include "peripherals.h"
+#include "sd_update.h"
 #include "storage.h"
 
 namespace {
@@ -76,6 +77,8 @@ void setup() {
   queue = xQueueCreate(logger::kQueueDepth, sizeof(Record));
   if (!queue || xTaskCreatePinnedToCore(buttonTask, "stop_button", 2048, nullptr, 4, nullptr, 0) != pdPASS) { gate.fail(); capture.stop = true; }
   beginPeripherals();
+  sdupdate::rollbackIfRequested();  // STOP tenuto all'accensione: versione precedente
+  sdupdate::installFromCard();      // /update/c3_logger.bin sulla MicroSD: verifica, installa, riavvia
   Serial.printf("\nc3_datalogger version=%s auto_start=1 kwp=%u van=%u sd_spi_hz=%lu no_radio=1 no_format=1\n", logger::kVersion, LOGGER_ENABLE_KWP, LOGGER_ENABLE_VAN, static_cast<unsigned long>(logger::kSpiHz));
   Serial.println("RTC is never set from build time. Use explicit time command with UTC Z.");
   command("help"); lastRtc = lastFlush = lastStatus = millis();
@@ -83,6 +86,7 @@ void setup() {
 void loop() {
   serialCommands();
   const uint32_t now = millis();
+  sdupdate::confirmWhenStable(now);
   if (capture.stop) gate.stop();
   if (gate.state == logger::SaveState::Waiting && !capture.stop && (firstMount || logger::elapsed(now, lastMount, logger::kRetryMs))) {
     firstMount = false; lastMount = now;
