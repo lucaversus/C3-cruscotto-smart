@@ -20,6 +20,7 @@ DISPLAY_TEST = ROOT / 'cruscotto/firmware/display-test'
 UI_TEST = ROOT / 'cruscotto/firmware/ui-test'
 SPEAK_TEST = ROOT / 'cruscotto/firmware/speak-test'
 UI_IDF = ROOT / 'cruscotto/firmware/ui-idf'
+FRONT_END = ROOT / 'cruscotto/firmware/front-end'
 
 
 def python_path():
@@ -146,6 +147,7 @@ def main():
         pio_run(env, UI_TEST, '-e', 'esp32-8048s050-ui-test')
         pio_run(env, SPEAK_TEST, '-e', 'esp32-8048s050-speak-test')
         pio_run(env, UI_IDF, '-e', 'esp32-8048s050-ui-idf')
+        pio_run(env, FRONT_END, '-e', 'esp32-hw394-front-end')
     return 0
 
 

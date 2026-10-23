@@ -262,7 +262,7 @@ extern "C" void app_main() {
   outputLow(kSdCs, 1);
   printf("ui_idf blackbox=%s\n", blackbox::start() ? "OK" : "SENZA FILE SYSTEM");
   labels::start();
-  linkStart(true);  // front-end non ancora presente: sorgente simulata in loopback
+  linkStartAuto(3000);  // front-end su UART se presente, altrimenti sorgente simulata interna
   vsyncSem = xSemaphoreCreateBinary();
   panelStatus = startPanel();
   if (panelStatus == ESP_OK) panelStatus = startLvgl();

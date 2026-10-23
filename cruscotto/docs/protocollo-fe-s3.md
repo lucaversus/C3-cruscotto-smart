@@ -96,6 +96,9 @@ corrispondenza con i bit dei messaggi VAN è compito del front-end, da verificar
   batteria, 4 candelette, 5 avaria motore, 6 ABS, 7 airbag, 8 cinture, 9 riserva,
   10 porte aperte, 11 freno a mano. Bit 0-3 = spie di sicurezza, sempre visibili.
 
+Prova a banco del collegamento: firmware front-end 0.1.0 ([README](../firmware/front-end/README.md)),
+3 fili ESP32 GPIO25 → S3 IO11, S3 IO12 → ESP32 GPIO33, GND comune.
+
 Le fonti VAN derivano da decodifiche comunitarie: finché non sono riscontrate sulla
 vettura i valori viaggiano con qualità 2.
 

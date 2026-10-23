@@ -13,5 +13,8 @@ struct LinkStats {
 // Avvia UART1 (IO12 TX, IO11 RX) e il compito di ricezione sul core 0.
 // Con simulate=true la UART è in loopback interno e un compito genera dati simulati.
 void linkStart(bool simulate);
+// Collegamento reale; se entro waitMs non arriva nessuna trama dal front-end, passa alla
+// sorgente simulata interna (prove a banco con la sola S3).
+void linkStartAuto(uint32_t waitMs);
 LinkStats linkStats();
 bool linkAlive(int64_t nowUs);  // trama valida negli ultimi 3 s

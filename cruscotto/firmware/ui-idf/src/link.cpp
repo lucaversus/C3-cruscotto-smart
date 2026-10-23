@@ -135,6 +135,31 @@ void linkStart(bool simulate) {
   if (simulate) xTaskCreatePinnedToCore(simTask, "link_sim", 4096, nullptr, 4, nullptr, 0);
 }
 
+namespace {
+uint32_t autoWaitMs = 3000;
+
+void autoTask(void*) {
+  vTaskDelay(pdMS_TO_TICKS(autoWaitMs));
+  if (linkStats().frames == 0) {
+    ESP_ERROR_CHECK(uart_set_loop_back(kUart, true));
+    portENTER_CRITICAL(&statsLock);
+    stats.simulated = true;
+    portEXIT_CRITICAL(&statsLock);
+    xTaskCreatePinnedToCore(simTask, "link_sim", 4096, nullptr, 4, nullptr, 0);
+    printf("ui_idf collegamento: nessun front-end in %u ms, simulatore interno\n", static_cast<unsigned>(autoWaitMs));
+  } else {
+    printf("ui_idf collegamento: front-end collegato su UART\n");
+  }
+  vTaskDelete(nullptr);
+}
+}  // namespace
+
+void linkStartAuto(uint32_t waitMs) {
+  autoWaitMs = waitMs;
+  linkStart(false);
+  xTaskCreatePinnedToCore(autoTask, "link_auto", 3072, nullptr, 2, nullptr, 0);
+}
+
 LinkStats linkStats() {
   portENTER_CRITICAL(&statsLock);
   const LinkStats copy = stats;
