@@ -106,8 +106,9 @@ Affinamenti del 23/10/2026 (richieste dell'utente dopo la prima prova):
 - **Effetto tridimensionale**: barre con canale incavato (sfumatura scura, bordo sottile) e
   riempimento a rilievo (tinta chiara da un lato, scura dall'altro); alone attorno al
   riquadro degli avvisi e al pannello d'avvio; ombra del GO. Velocità senza effetto 3D.
-- Valori di acqua e gasolio **sopra** le rispettive barre, dello stesso colore della barra
-  (come la parte chiara dell'icona).
+- Valori di acqua e gasolio **dentro** le rispettive barre (larghe 64 px), in alto, senza
+  unità: stessa inversione di colore dell'icona (colore della barra sulla parte vuota, nero
+  su quella riempita).
 - **Barra dei giri lampeggiante** da 3500 giri (rosso acceso / rosso spento, periodo 0,4 s).
 - **Debug a banco** (solo in questa fase): **RST** riavvia la scheda e ripete il controllo
   iniziale; **BOOT** premuto brevemente ripete la prova lampade; BOOT tenuto 2 s registra

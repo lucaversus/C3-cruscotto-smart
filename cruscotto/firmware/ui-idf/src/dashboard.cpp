@@ -24,7 +24,8 @@ LV_FONT_DECLARE(font_speed);  // Montserrat ingrossato e arrotondato, solo cifre
 namespace dashboard {
 namespace {
 constexpr int kRpmX = 20, kRpmY = 12, kRpmW = 760, kRpmH = 64;
-constexpr int kSideY = 212, kSideW = 48, kSideH = 248;  // barre verticali acqua e carburante (valore sopra)
+constexpr int kSideY = 174, kSideW = 64, kSideH = 286;  // barre verticali acqua e carburante
+constexpr int kSideValueY = 10;                         // valore dentro la barra, in alto
 constexpr int kSideIcon = 42, kSideIconY = kSideH - kSideIcon - 8;  // icona dentro la barra, in basso
 constexpr int kTurnSize = 84;                           // frecce più grandi delle altre spie
 constexpr int kLampStep = 64;                           // passo delle spie (icone 44 px)
@@ -77,6 +78,7 @@ struct SideIcon {
   lv_obj_t* lightIcon = nullptr;  // colore della barra: resta riconoscibile a barra vuota
   lv_obj_t* dark = nullptr;   // contenitore della parte riempita (sotto il livello)
   lv_obj_t* darkIcon = nullptr;
+  lv_obj_t* darkValue = nullptr;  // valore in nero sulla parte riempita
   int boundary = -1;          // riga del livello, dall'alto della barra
 };
 SideIcon coolantIcon, fuelIcon;
@@ -173,6 +175,13 @@ void setSideLevel(SideIcon& si, int fill) {
   lv_obj_set_pos(si.dark, 0, boundary);
   lv_obj_set_size(si.dark, kSideW, kSideH - boundary);
   lv_obj_set_pos(si.darkIcon, (kSideW - kSideIcon) / 2, kSideIconY - boundary);
+  lv_obj_set_pos(si.darkValue, 0, kSideValueY - boundary);
+}
+
+// Valore scritto nelle due copie (chiara e scura) dentro la barra.
+void setSideText(SideIcon& si, lv_obj_t* lightValue, const char* text) {
+  lv_label_set_text(lightValue, text);
+  lv_label_set_text(si.darkValue, text);
 }
 
 // Colore della barra; icona (parte vuota) e valore numerico seguono lo stesso colore.
@@ -255,13 +264,21 @@ void build() {
       lv_obj_clear_flag(*part, LV_OBJ_FLAG_SCROLLABLE);
       lv_obj_t* img = icon(*part, s.sign, part == &s.sideIcon->light ? 0xA0A0A0 : 0x000000);
       lv_obj_set_pos(img, (kSideW - kSideIcon) / 2, kSideIconY);
-      if (part == &s.sideIcon->dark) s.sideIcon->darkIcon = img;
-      else s.sideIcon->lightIcon = img;
+      // Valore dentro la barra, con la stessa inversione di colore dell'icona (senza unità:
+      // la dice l'icona).
+      const bool lightPart = part == &s.sideIcon->light;
+      lv_obj_t* value = label(*part, &lv_font_montserrat_28, lightPart ? 0xA0A0A0 : 0x000000);
+      lv_obj_set_width(value, kSideW);
+      lv_obj_set_style_text_align(value, LV_TEXT_ALIGN_CENTER, 0);
+      lv_obj_set_pos(value, 0, kSideValueY);
+      if (lightPart) {
+        s.sideIcon->lightIcon = img;
+        *s.value = value;
+      } else {
+        s.sideIcon->darkIcon = img;
+        s.sideIcon->darkValue = value;
+      }
     }
-    *s.value = label(screen, &lv_font_montserrat_28, 0xFFFFFF);
-    lv_obj_set_width(*s.value, 110);
-    lv_obj_set_style_text_align(*s.value, s.left ? LV_TEXT_ALIGN_LEFT : LV_TEXT_ALIGN_RIGHT, 0);
-    lv_obj_align_to(*s.value, *s.barObj, s.left ? LV_ALIGN_OUT_TOP_LEFT : LV_ALIGN_OUT_TOP_RIGHT, 0, -6);
   }
 
   statusLabel = label(screen, &lv_font_montserrat_14, 0xFFB000);
@@ -337,8 +354,9 @@ void update(int64_t nowUs) {
   if (coolant != shownCoolant) {
     lv_bar_set_value(coolantBar, coolant < 40 ? 40 : coolant, LV_ANIM_OFF);
     setSideLevel(coolantIcon, coolant < 40 ? 0 : (coolant - 40) * kSideH / (130 - 40));
-    if (coolant < 0) lv_label_set_text_static(coolantLabel, "--");
-    else lv_label_set_text_fmt(coolantLabel, "%d°", coolant);
+    char text[12] = "--";
+    if (coolant >= 0) std::snprintf(text, sizeof text, "%d", coolant);
+    setSideText(coolantIcon, coolantLabel, text);
     shownCoolant = coolant;
   }
   setColor(coolantBar, coolValid ? dash::coolantColor(coolant) : 0x606060, shownCoolantColor, coolantIcon.lightIcon, coolantLabel);
@@ -347,8 +365,9 @@ void update(int64_t nowUs) {
   if (fuel != shownFuel) {
     lv_bar_set_value(fuelBar, fuel < 0 ? 0 : fuel, LV_ANIM_OFF);
     setSideLevel(fuelIcon, fuel < 0 ? 0 : fuel * kSideH / 100);
-    if (fuel < 0) lv_label_set_text_static(fuelLabel, "--");
-    else lv_label_set_text_fmt(fuelLabel, "%d%%", fuel);
+    char text[12] = "--";
+    if (fuel >= 0) std::snprintf(text, sizeof text, "%d", fuel);
+    setSideText(fuelIcon, fuelLabel, text);
     shownFuel = fuel;
   }
   setColor(fuelBar, fuel < 0 ? 0x606060 : dash::fuelColor(fuel), shownFuelColor, fuelIcon.lightIcon, fuelLabel);
