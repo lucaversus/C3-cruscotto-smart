@@ -84,7 +84,8 @@ Da verificare prima dell'ordine: modello del MOSFET (proposto IPD50N06S4L-12), i
 (corrente di saturazione), ferrite, capacità di riserva dopo la misura del calo
 all'avviamento con un oscilloscopio o un registratore (il tester non vede i picchi brevi).
 U2 e U3 hanno la piazzola termica sotto il corpo (HSOIC, ammessi da D-046): si saldano a mano
-riempiendo di stagno i fori termici dal retro.
+riempiendo di stagno dal retro un foro metallizzato centrale da circa 1-1,5 mm più i fori termici
+dell'impronta (D-048); diametro da fissare nello sbroglio.
 
 ## Raffreddamento e dominio sempre acceso (D-031)
 
