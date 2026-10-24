@@ -305,6 +305,7 @@ begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazi
 FE_SHEET = sheet_box('front-end.kicad_sch', 'Front-end', 279.4, 205.74, 38.1, 12.7, 2)
 VEH_SHEET = sheet_box('interfacce-veicolo.kicad_sch', 'Interfacce veicolo', 279.4, 228.6, 38.1, 12.7, 3)
 SENS_SHEET = sheet_box('sensori-memoria.kicad_sch', 'Sensori e memoria', 332.74, 205.74, 38.1, 12.7, 4)
+S3_SHEET = sheet_box('s3-audio.kicad_sch', 'Collegamento S3 e audio', 332.74, 228.6, 38.1, 12.7, 5)
 
 # === J1: connettore verso l'auto (D-044), vie dalla tabella bozza di scheda-madre.md ======
 J1_NETS = {1: 'VBAT_IN', 2: 'GND', 3: 'KEY_IN', 4: 'KLINE', 5: 'VAN_DATA', 6: 'VAN_DATAB', 7: 'VAN_GND_REF',
@@ -860,6 +861,72 @@ text(25.4, 236.22, 'Proposta preliminare, non verificata. Pull-up I2C sul foglio
                    'Piedinatura del modulo IMU da riscontrare sulla serigrafia all’arrivo (HW-IMU-LSM6DSO).', 1.27)
 text(25.4, 241.3, 'IMU e RTC sul 3,3 V sempre acceso (consumi a riposo di pochi uA); MicroSD sul 3,3 V acceso a quadro. '
                   'Pila dell’RTC non ricaricata (D-019).', 1.27)
+text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
+
+# ======================================================================================
+# Foglio 5: collegamento con la S3 (P1, P2, P6) e relè audio (C3AI-CR-EL-005; D-028, D-029)
+# ======================================================================================
+begin_sheet('s3-audio.kicad_sch', 'Scheda madre cruscotto C3+AI - collegamento S3 e audio', 'C3AI-CR-EL-005', 'A',
+            'D-028, D-029, D-039', sheet_uuid=S3_SHEET)
+PB = 'Connector_Molex:Molex_PicoBlade_53047-%02d10_1x%02d_P1.25mm_Vertical'
+
+# --- Cavetti MX1.25 verso la S3 (vista dal retro, USB-C a destra; HW-DASH-DISPLAY) --------
+symbol('J10', 'Connector_Generic:Conn_01x04', 'Verso P1 S3: 5V TXD RXD GND', PB % (4, 4), 60.96, 63.5,
+       nets={'1': 'S3_5V', '2': None, '3': None, '4': 'GND'}, txt=((0, 10.16), (0, 12.7), ''),
+       note='P1 dal basso verso l’alto 5V, TXD, RXD, GND; UART0 della S3 non usata (riserva per la porta nascosta)')
+tag('J10.4')
+symbol('D13', 'Device:D_Schottky', 'B340A', 'Diode_SMD:D_SMA', 43.18, 60.96, rot=180, nets={'1': 'S3_5V', '2': '+5V'},
+       note='Impedisce il ritorno del 5 V della USB della S3 verso la scheda madre (caduta ~0,4 V)')
+wire('D13.1', (50.8, 60.96), 'J10.1')
+wire('D13.2', (33.02, 60.96))
+label('+5V', (33.02, 60.96), 180)
+symbol('J11', 'Connector_Generic:Conn_01x04', 'Verso P2 S3: IO19 IO11 IO12 IO13', PB % (4, 4), 60.96, 96.52,
+       nets={'1': None, '2': 'LINK_FE2S3', '3': 'LINK_S32FE', '4': 'RELAY_CMD'}, auto=True, txt=((0, 10.16), (0, 12.7), ''),
+       note='P2 da destra a sinistra IO19, IO11, IO12, IO13; P2 non porta massa: riferimento da J10 (P1)')
+symbol('J12', 'Connector_Generic:Conn_01x02', 'Verso P6 Speak S3', PB % (2, 2), 60.96, 127,
+       nets={'1': 'S3_SPK_A', '2': 'S3_SPK_B'}, auto=True,
+       note='Uscita differenziale senza indicazione di polarità: nessun filo a massa, fase da verificare all’ascolto')
+
+# --- Relè audio (D-028): a riposo radio -> altoparlanti; eccitati: S3 sui due altoparlanti in serie ---
+for ref, x, nets in (
+        ('K1', 139.7, {'11': 'SPK_L_P', '12': 'RADIO_L_P', '14': 'S3_SPK_A', '21': 'SPK_L_N', '22': 'RADIO_L_N',
+                       '24': 'SPK_SERIE', 'A1': 'K1_A1', 'A2': 'RELAY_COIL'}),
+        ('K2', 200.66, {'11': 'SPK_R_P', '12': 'RADIO_R_P', '14': 'SPK_SERIE', '21': 'SPK_R_N', '22': 'RADIO_R_N',
+                        '24': 'S3_SPK_B', 'A1': 'K2_A1', 'A2': 'RELAY_COIL'})):
+    nets['A1'] = '+5V'
+    symbol(ref, 'Relay:G2RL-2', 'G2RL-2 DC5', 'Relay_THT:Relay_DPDT_Omron_G2RL-2', x, 81.28, nets=nets,
+           txt=((17.78, -1.27), (17.78, 1.27), 'left'),
+           note='DPDT 8 A, bobina 5 V 400 mW; a riposo (NC) la radio resta collegata agli altoparlanti')
+    for pin in ('11', '12', '14', '21', '22', '24'):
+        tag(f'{ref}.{pin}')
+for ref, k, x in (('D11', 'K1', 121.92), ('D12', 'K2', 182.88)):
+    symbol(ref, 'Device:D', '1N4148W', 'Diode_SMD:D_SOD-123', x, 81.28, rot=270, nets={'1': '+5V', '2': 'RELAY_COIL'},
+           txt=((-2.54, -1.27), (-2.54, 1.27), 'right'),
+           note='Diodo di ricircolo della bobina')
+    wire(f'{ref}.1', (x, 73.66), f'{k}.A1')
+    wire((x - 7.62, 73.66), (x, 73.66))
+    label('+5V', (x - 7.62, 73.66), 180)
+    wire(f'{ref}.2', (x, 116.84))
+    wire(f'{k}.A2', (x + 7.62, 116.84))
+wire((121.92, 116.84), (129.54, 116.84), (154.94, 116.84), (182.88, 116.84), (190.5, 116.84))
+symbol('Q9', 'Transistor_FET:AO3400A', 'AO3400A', SOT23, 152.4, 124.46, nets={'1': 'RELAY_G', '2': 'GND', '3': 'RELAY_COIL'},
+       txt=((5.08, -1.27), (5.08, 1.27), 'left'), note='Bobine dal 5 V principale: a quadro spento i relè restano a riposo')
+gnd('Q9.2', 0)
+wire('Q9.3', (154.94, 116.84))
+R('R54', '100', 139.7, 124.46, 'RELAY_CMD', 'RELAY_G', rot=90, txt=((0, -5.08), (0, -2.54), ''))
+R('R55', '100k', 144.78, 128.27, 'RELAY_G', 'GND', txt=((-2.54, 2.54), (-2.54, 5.08), 'right'),
+  note='Relè a riposo con IO13 della S3 non pilotato (reset, S3 spenta)')
+gnd('R55.2', 0)
+wire('R54.2', 'R55.1', 'Q9.1')
+wire((129.54, 124.46), 'R54.1')
+label('RELAY_CMD', (129.54, 124.46), 180)
+
+text(25.4, 45.72, 'CAVETTI MX1.25 VERSO LA S3 (P1, P2, P6)')
+text(106.68, 45.72, 'RELÈ AUDIO (D-028): A RIPOSO RADIO, ECCITATI S3 SUI DUE ALTOPARLANTI IN SERIE')
+text(25.4, 236.22, 'Proposta preliminare, non verificata. Ordine dei piedini della S3 riferito dall’utente il 25/10/2026; P2 e P3 senza massa: '
+                   'la massa di riferimento arriva da P1 (J10).', 1.27)
+text(25.4, 241.3, 'Altoparlanti in serie a relè eccitati: l’uscita mono della S3 vede circa 8 ohm. Uscite della radio mai a massa (D-028). '
+                  'IO19 (J11.1) e UART0 (J10.2-3) non collegati per ora.', 1.27)
 text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
 
 # === scrittura dei fogli ===============================================================

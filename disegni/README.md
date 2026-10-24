@@ -40,6 +40,11 @@ Zoccolo per il modulo IMU STEVAL-MKI196V1, RTC DS3231SN con CR2032, modulo Micro
 
 [![CR-EL-004](CR-EL-004_scheda-madre-sensori-memoria.png)](CR-EL-004_scheda-madre-sensori-memoria.png)
 
+### CR-EL-005 — Scheda madre, schema elettrico: collegamento S3 e audio (rev A, proposta non verificata)
+Cavetti MX1.25 verso P1, P2 e P6 della S3, relè audio con altoparlanti in serie sull'uscita della S3. Sorgente KiCad: [s3-audio.kicad_sch](../cruscotto/pcb/scheda-madre/s3-audio.kicad_sch).
+
+[![CR-EL-005](CR-EL-005_scheda-madre-s3-audio.png)](CR-EL-005_scheda-madre-s3-audio.png)
+
 ### CR-PL-001 — Scheda madre, studio d'ingombro (rev E, preliminare)
 Zone dei componenti sul contorno definitivo dal modello 3D (178,7 × 74 mm, D-045), foro centrale della ventola e interruttori dei pulsanti del quadro.
 

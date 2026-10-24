@@ -4,7 +4,8 @@ Progetto KiCad della scheda madre del cruscotto (D-029, D-044, D-045, D-046). St
 circuito stampato con la **sola meccanica**; schema elettrico iniziato con il foglio
 **alimentazione** (C3AI-CR-EL-001 rev C), **front-end** (C3AI-CR-EL-002 rev A, `front-end.kicad_sch`) e
 **interfacce veicolo** (C3AI-CR-EL-003 rev B, `interfacce-veicolo.kicad_sch`) e **sensori e memoria**
-(C3AI-CR-EL-004 rev B, `sensori-memoria.kicad_sch`), proposte non verificate.
+(C3AI-CR-EL-004 rev B, `sensori-memoria.kicad_sch`) e **collegamento S3 e audio** (C3AI-CR-EL-005
+rev A, `s3-audio.kicad_sch`), proposte non verificate.
 
 - `scheda-madre.kicad_pcb`: generato da `tools/genera-pcb-scheda-madre.py` con il Python di
   KiCad. Contiene il bordo letto dal DXF dell'utente (`cruscotto/meccanica/scheda-madre-contorno.dxf`),
@@ -18,8 +19,7 @@ circuito stampato con la **sola meccanica**; schema elettrico iniziato con il fo
   con i simboli delle librerie di KiCad 10. Collegamenti disegnati con fili dentro ogni blocco,
   etichette solo per le reti verso altri blocchi o fogli. Il generatore confronta il netlist
   esportato da KiCad con le reti volute e si ferma a ogni differenza. Etichette globali: valgono in tutti i fogli. ERC: 0 errori,
-  11 avvisi per i segnali del foglio non ancora disegnato (collegamento con l'S3, audio) e per
-  la massa di riferimento VAN. Anteprima in `disegni/CR-EL-001_scheda-madre-alimentazione.png`.
+  1 avviso per la massa di riferimento VAN (J1 via 7) ancora da collegare. Anteprima in `disegni/CR-EL-001_scheda-madre-alimentazione.png`.
 - `scheda-madre.pretty/` con `fp-lib-table`: impronte del progetto non presenti nelle librerie
   standard, per ora `ST_DIL24_Adapter_W15.0mm` (adattatore ST DIL24, interasse 15,0 mm).
 - Faccia **F** = faccia interna verso la S3 (componenti caldi, interruttori); **B** = retro

@@ -7,7 +7,8 @@ generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 r
 
 **Stato: proposta.** Nessun componente scelto in via definitiva. Schema elettrico
 iniziato in KiCad (fogli alimentazione C3AI-CR-EL-001 rev C, front-end C3AI-CR-EL-002 rev A,
-interfacce veicolo C3AI-CR-EL-003 rev B e sensori e memoria C3AI-CR-EL-004 rev B, proposta non verificata);
+interfacce veicolo C3AI-CR-EL-003 rev B, sensori e memoria C3AI-CR-EL-004 rev B e collegamento S3 e audio
+C3AI-CR-EL-005 rev A, proposta non verificata);
 circuito stampato con la sola meccanica. I pin del veicolo vengono da manuali
 generici RTA e da fonti comunitarie e vanno verificati (D-008, D-022).
 
@@ -32,7 +33,7 @@ KL-001 su millefori, HW-IMU-LSM6DSO).
 | -U9 | IMU | LSM6DSO a 0x6A (prototipo: STEVAL-MKI196V1 DIL-24); in definitiva valutare ISM330 −40…+105 °C | fissaggio rigido, assi indicati in serigrafia; stesso chip del logger (D-033) |
 | -U10 | RTC (opzionale) | DS3231 a 0x68 | utile per i timestamp del dataset |
 | -U11 | Programmazione | USB-seriale con reset automatico, oppure connettore a 6 poli | aggiornamenti senza smontare |
-| -K1/K2 | Audio (D-028) | un relè a doppio scambio per canale, pilotato a transistor con diodo di ricircolo | a riposo radio → altoparlanti; uscite radio a ponte mai a massa |
+| -K1/K2 | Audio (D-028) | un relè a doppio scambio per canale (Omron G2RL-2, bobina 5 V), pilotato da MOSFET con diodo di ricircolo; eccitati: S3 sui due altoparlanti in serie | a riposo radio → altoparlanti; uscite radio a ponte mai a massa; schema CR-EL-005 |
 | -J1 | Verso l'auto | **Molex Micro-Fit 3.0, 24 vie** (D-044): sulla scheda 43045-2400, sul cablaggio 43025-2400 | ritenuta meccanica e codifica contro l'inserimento errato |
 | -J2 | Verso l'S3 | P1, P2, P6 della scheda 8048S050 | cavo corto |
 
@@ -153,6 +154,25 @@ ERC con i quattro fogli: 0 errori, 11 avvisi per i segnali del foglio ancora da 
 reti con il netlist di KiCad. Interasse delle file di pin e altezza dei moduli VAN e MicroSD da
 misurare sui pezzi prima dello sbroglio (D-051).
 
+## Schema elettrico: collegamento S3 e audio (C3AI-CR-EL-005 rev A, proposta)
+
+Foglio `cruscotto/pcb/scheda-madre/s3-audio.kicad_sch`; tavola
+[CR-EL-005](../../disegni/CR-EL-005_scheda-madre-s3-audio.png).
+
+- **Cavetti verso la S3**: J10 (P1), J11 (P2), J12 (P6) su connettori PicoBlade/MX1.25 a 1,25 mm
+  (cavetti con i connettori MX1.25 dell'utente, HW-MX125-PLUGS). Il 5 V passa dal Schottky D13
+  (B340A): se la S3 è collegata anche alla USB, il suo 5 V non risale nella scheda madre.
+- **Relè audio** (D-028): K1 (sinistro) e K2 (destro), Omron G2RL-2 DPDT con bobina 5 V,
+  pilotati da AO3400A sul comando IO13 della S3, 100k verso massa sul gate: a riposo, a quadro
+  spento o con la S3 spenta la radio resta sugli altoparlanti. Eccitati, l'uscita della S3 va
+  sui due altoparlanti **in serie** (circa 8 Ω visti dall'amplificatore mono U1): le uscite
+  della radio restano scollegate, mai a massa.
+- Da decidere: uso di IO19 (pulsante di emergenza D-039, interruttori S1/S2 della scheda) e
+  della UART0 della S3 (porta nascosta).
+
+ERC con i cinque fogli: 0 errori, 1 avviso per la massa di riferimento VAN (J1 via 7) ancora da
+collegare. Il generatore confronta 95 reti con il netlist di KiCad.
+
 ## Raffreddamento e dominio sempre acceso (D-031)
 
 - **Due domini di alimentazione.** Sempre acceso: buck 3,3 V a bassissimo consumo
@@ -219,13 +239,18 @@ e altezze dei componenti sul retro della S3.
 
 ## Collegamenti verso l'S3 (-J2)
 
-| Connettore S3 | Segnale | Note |
+Connettori della S3 a passo 1,25 mm (MX1.25; P5 a 1,0 mm), ordine dei piedini riferito
+dall'utente il 25/10/2026, vista dal retro con la USB-C a destra (HW-DASH-DISPLAY).
+
+| Connettore S3 | Piedini | Uso sulla scheda madre (CR-EL-005) |
 | --- | --- | --- |
-| P1 | 5 V, GND | alimentazione dell'S3 dalla scheda madre |
-| P2 IO11 / IO12 | UART RX / TX dal front-end | MicroSD dell'S3 non usata, slot vuoto, IO10 alto |
-| P2 IO13 | comando relè audio | spento al reset |
-| P2 IO19 | riserva | stesso nodo di P3 IO19 (DSP-M004) |
-| P6 Speak | uscita audio verso i relè | funzione di U1 su IO17/IO18 da confermare (DSP-M005/M006) |
+| P1 (dal basso in alto) | 5V, TXD, RXD, GND | J10: 5 V dalla scheda madre tramite il Schottky D13 e massa comune; UART0 non collegata (riserva) |
+| P2 (da destra a sinistra) | IO19, IO11, IO12, IO13 | J11: IO11 ricezione dal front-end, IO12 trasmissione, IO13 comando relè; IO19 non collegato per ora |
+| P3 | IO17, IO18, IO19, IO20 | non usato; IO19/IO20 = USB nativa (possibile porta nascosta) |
+| P4, P5 | GND, 3.3V, IO17, IO18 | non usati (IO17/IO18 verso U1) |
+| P6 Speak | 2 piedini senza polarità | J12: uscita differenziale verso i relè |
+
+P2 e P3 non portano massa: il riferimento del collegamento seriale arriva da P1.
 
 Rispetto alla proposta precedente la UART passa su IO11/IO12: IO17/IO18 restano
 all'amplificatore U1 se la prova d'ascolto lo conferma.
