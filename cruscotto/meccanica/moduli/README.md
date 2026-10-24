@@ -15,5 +15,9 @@ confermate sul pezzo prima di fissare fori e altezze.
 STEVAL-MKI196V1 (HW-IMU-LSM6DSO), senza modello 3D: dai Gerber ST (2018) scheda 18,0 × 30,5 mm,
 24 pin su due file da 12 a passo 2,54 con interasse 15,0 mm, piedino 1 in alto a sinistra;
 impronta `../../pcb/scheda-madre/scheda-madre.pretty/ST_DIL24_Adapter_W15.0mm.kicad_mod`.
+Fonte: `steval-mki196v1_gerber.zip` dalla pagina ST del prodotto (sezione CAD Resources), scaricato
+il 24/10/2026, SHA-256 `8c31f3b56b9041de996ca1ad56279de293fdfd34bb8090424bb4ed2f1a6b8f46`. Non è nel
+repository (materiale ST senza licenza di ridistribuzione, D-034): copia locale in `.local/terzi/st/`,
+esclusa da git.
 
 Mancano ancora: modulo VAN blu (HW-CAN-VP230), ventola 40 × 40 (da identificare).

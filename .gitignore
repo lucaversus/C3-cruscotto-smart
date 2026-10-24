@@ -15,3 +15,6 @@ cruscotto/firmware/*/managed_components/
 cruscotto/pcb/*/drc.rpt
 cruscotto/pcb/*/anteprima.svg
 fp-info-cache
+
+# Materiale di terzi senza licenza di ridistribuzione (D-034): solo copia locale
+.local/terzi/
