@@ -2,7 +2,7 @@
 
 Revisione B, 21/10/2026 (rev A 20/10/2026). Cruscotto C3+AI, decisioni D-028…D-031.
 Schema a blocchi: [C3AI-CR-BL-001 rev D](../../disegni/CR-BL-001_scheda-madre-blocchi.png) ([SVG](../../disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg),
-generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev D](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
+generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev E](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva, nessuno schema
@@ -85,8 +85,12 @@ ventola e dagli interruttori.
 
 - **Ventola** (D-031): foro Ø38 al centro con ventola 40 × 40 × 10 a 12 V sul lato
   opposto, che soffia verso la S3; in alternativa 30 × 30 con foro Ø28.
-- **Interruttori -S1/-S2** ai due estremi, azionati dai pulsanti del quadro originale;
-  posizione indicativa alle rientranze laterali, tipo e corsa da scegliere sul modello 3D.
+- **Interruttori -S1/-S2** ai due estremi, sotto i pulsanti del quadro originale: dall'assieme
+  3D ([assieme-cruscotto.step](../meccanica/assieme-cruscotto.step)) in (±84,3, 32,2) mm nelle
+  coordinate del contorno; l'estremità del pulsante è a circa 6,3 mm dalla scheda, quindi
+  interruttore tattile 6 × 6 con pulsante alto circa 7 mm (o una prolunga); corsa da verificare.
+- **Distanza tra retro della S3 e scheda madre** nell'assieme attuale: circa **9,9 mm**; i
+  componenti della faccia interna devono restare più bassi, con margine per l'aria (D-046).
 - **-J1** Micro-Fit 2×12 (D-044) al bordo inferiore, al centro; **-J2** verso la S3 al
   bordo superiore, al centro.
 
