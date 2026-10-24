@@ -186,7 +186,7 @@ Cruscotto digitale (D-026): scheda ESP32-8048S050 identificata (ESP32-S3, 16 MB
 flash, 8 MB PSRAM, esptool), variante senza touch (D-027), backup di fabbrica in
 [data-logger/backups/esp32-8048s050](data-logger/backups/esp32-8048s050/README.md).
 [Prova display 0.1.0](cruscotto/firmware/display-test/README.md): compilata,
-caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. [Prova UI LVGL](cruscotto/firmware/ui-test/README.md) 0.1.1 (DSP-M003). Mappa dei collegamenti in definizione (D-028…D-030); [istruzione di prova presa OBD](disegni/CR-PR-001_prova-presa-obd.png) C3AI-CR-PR-001; [scheda madre preliminare](cruscotto/docs/scheda-madre.md) C3AI-CR-BL-001 rev D e studio d'ingombro C3AI-CR-PL-001 rev E (contorno D-045, montaggio a mano D-046, assieme 3D in cruscotto/meccanica); schema elettrico iniziato, foglio alimentazione C3AI-CR-EL-001 rev B (proposta); [requisiti dell'interfaccia](cruscotto/docs/interfaccia-requisiti.md) in raccolta (D-041).
+caricata e conforme a banco (DSP-M001): pinout RGB e PSRAM verificati. [Prova UI LVGL](cruscotto/firmware/ui-test/README.md) 0.1.1 (DSP-M003). Mappa dei collegamenti in definizione (D-028…D-030); [istruzione di prova presa OBD](disegni/CR-PR-001_prova-presa-obd.png) C3AI-CR-PR-001; [scheda madre preliminare](cruscotto/docs/scheda-madre.md) C3AI-CR-BL-001 rev D e studio d'ingombro C3AI-CR-PL-001 rev E (contorno D-045, montaggio a mano D-046, assieme 3D in cruscotto/meccanica); schema elettrico iniziato, fogli alimentazione C3AI-CR-EL-001 rev C e front-end C3AI-CR-EL-002 rev A (proposte); [requisiti dell'interfaccia](cruscotto/docs/interfaccia-requisiti.md) in raccolta (D-041).
 
 ### Collaudo SPI a banco — 18/10/2026
 

@@ -297,6 +297,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
+- Conflitto da risolvere con l'utente: il 20/10/2026 il modulo era previsto montato in fabbrica ("la faremo montare sulla mainboard"), mentre D-046 (24/10/2026) prevede il solo circuito stampato e il montaggio a mano. Se si monta a mano, la variante H4/H8 va comprata a parte (non disponibile su Reichelt il 20/10/2026) e la piazzola di massa sotto il modulo va saldata dal retro come in D-048. Schema C3AI-CR-EL-002 rev A: U4 con impronta RF_Module:ESP32-WROOM-32E.
 - Variante H4 o H8 (−40…+105 °C, senza PSRAM) da far montare dal produttore della scheda madre (utente 20/10/2026: "la faremo montare sulla mainboard"); varianti R2 escluse (PSRAM su GPIO16/17).
 - Temperatura reale dietro il quadro da misurare prima della versione definitiva.
 - Nessun acquisto deciso: prototipo con HW-ESP32 (HW-394).

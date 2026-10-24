@@ -45,7 +45,32 @@ def lib_symbol(lib_id):
     m = re.search(r'\n\t\(symbol "%s"\n(.*?)\n\t\)' % re.escape(name), _libs[lib], re.S)
     assert m, f'simbolo non trovato: {lib_id}'
     body = m.group(1)
-    assert '(extends' not in body, f'simbolo derivato non gestito: {lib_id}'
+    ext = re.search(r'\(extends "([^"]+)"\)', body)
+    if ext:  # simbolo derivato: disegno e piedini del padre, proprietà del figlio (come salva KiCad)
+        parent = ext.group(1)
+        pm = re.search(r'\n\t\(symbol "%s"\n(.*?)\n\t\)' % re.escape(parent), _libs[lib], re.S)
+        assert pm, f'simbolo padre non trovato: {parent}'
+        def props(text):  # blocchi (property ...) completi, con le parentesi bilanciate
+            out = {}
+            for mm in re.finditer(r'\(property "([^"]+)"', text):
+                depth, i = 0, mm.start()
+                while True:
+                    depth += {'(': 1, ')': -1}.get(text[i], 0)
+                    i += 1
+                    if depth == 0:
+                        break
+                out[mm.group(1)] = (mm.start(), i)
+            return out
+        pbody = pm.group(1).replace(f'(symbol "{parent}_', f'(symbol "{name}_')
+        child = {k: body[a:b] for k, (a, b) in props(body).items()}
+        parent_props = props(pbody)
+        for k, (a, b) in sorted(parent_props.items(), key=lambda t: -t[1][0]):
+            if k in child:
+                pbody = pbody[:a] + child.pop(k) + pbody[b:]
+        if child:  # proprietà presenti solo nel figlio: dopo l'ultima del padre
+            end = max(b for _, b in props(pbody).values())
+            pbody = pbody[:end] + ''.join('\n\t\t' + v for v in child.values()) + pbody[end:]
+        body = pbody
     pins = {}
     for p in re.finditer(r'\(pin \w+ \w+\s+\(at ([-\d.]+) ([-\d.]+) (\d+)\).*?\(number "([^"]*)"', body, re.S):
         pins.setdefault(p.group(4), []).append((float(p.group(1)), float(p.group(2)), int(p.group(3))))
@@ -86,13 +111,39 @@ def transform(px, py, rot, mirror):
     return (-x if mirror else x), y
 
 
-items = []         # testo S-expression già pronto
+SHEETS = []        # fogli del progetto, il primo è la radice
+items = []         # testo S-expression del foglio corrente
 lib_defs = {}
+CUR = ''           # file del foglio corrente (anche prefisso degli identificativi)
+CUR_PATH = ''      # percorso gerarchico per le istanze dei simboli
 PIN = {}           # 'R1.2' -> (x, y) assoluto
+PINOUT = {}        # 'R1.2' -> direzione verso l'esterno del simbolo (0, 90, 180, 270)
 INTENT = {}        # 'R1.2' -> rete voluta
 ends = Counter()   # estremi di fili e piedini, per i pallini di giunzione
 n_parts = 0
 _pwr = 0
+
+
+def begin_sheet(file, title, code, rev, decisions, sheet_uuid=None):
+    """Apre un foglio: la radice (sheet_uuid None) o un sottofoglio richiamato dalla radice."""
+    global items, lib_defs, ends, CUR, CUR_PATH
+    sh = dict(file=file, title=title, code=code, rev=rev, decisions=decisions, uuid=sheet_uuid or ROOT_UUID,
+              items=[], lib_defs={}, ends=Counter())
+    SHEETS.append(sh)
+    items, lib_defs, ends, CUR = sh['items'], sh['lib_defs'], sh['ends'], file
+    CUR_PATH = f'/{ROOT_UUID}' + (f'/{sheet_uuid}' if sheet_uuid else '')
+
+
+def sheet_box(file, name, x, y, w, h, page):
+    """Riquadro di un sottofoglio nella radice; restituisce il suo identificativo."""
+    su = uid(f'sheet/{file}')
+    items.append(f'\t(sheet (at {fnum(x)} {fnum(y)}) (size {fnum(w)} {fnum(h)}) (exclude_from_sim no) (in_bom yes) '
+                 f'(on_board yes) (dnp no) (stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0.0000)) '
+                 f'(uuid "{su}")\n'
+                 + prop('Sheetname', name, x, y - 0.7, 'left bottom')
+                 + prop('Sheetfile', file, x, y + h + 0.6, 'left top')
+                 + f'\t\t(instances (project "scheda-madre" (path "/{ROOT_UUID}" (page "{page}"))))\n\t)\n')
+    return su
 
 
 def symbol(ref, lib_id, value, fp, x, y, rot=0, mirror=False, note='', nets=None, auto=False, txt=None):
@@ -132,29 +183,39 @@ def symbol(ref, lib_id, value, fp, x, y, rot=0, mirror=False, note='', nets=None
     s += prop('Description', note, x, y, hide=True)
     for num in lpins:
         s += f'\t\t(pin "{num}" (uuid "{uid(ref + "/pin/" + num)}"))\n'
-    s += f'\t\t(instances (project "scheda-madre" (path "/{ROOT_UUID}" (reference "{ref}") (unit 1))))\n\t)\n'
+    s += f'\t\t(instances (project "scheda-madre" (path "{CUR_PATH}" (reference "{ref}") (unit 1))))\n\t)\n'
     items.append(s)
     if hidden:
         return pts
     n_parts += 1
     for num, (px, py, ang) in pts.items():
         PIN[f'{ref}.{num}'] = (px, py)
+        out = (ang + 180 + rot) % 360
+        PINOUT[f'{ref}.{num}'] = (180 - out) % 360 if mirror and out in (0, 180) else out
         net = (nets or {}).get(num, '__missing__')
         assert net != '__missing__', f'{ref}: piedino {num} senza rete'
-        INTENT[f'{ref}.{num}'] = net
+        # Piedini sovrapposti scritti come "[1,15,38,39]": nel netlist compaiono uno per uno.
+        for single in num.strip('[]').split(','):
+            INTENT[f'{ref}.{single}'] = net
         ends[key((px, py))] += 1
         if net is None:
-            items.append(f'\t(no_connect (at {fnum(px)} {fnum(py)}) (uuid "{uid(f"{ref}/nc/{num}")}"))\n')
+            items.append(f'\t(no_connect (at {fnum(px)} {fnum(py)}) (uuid "{uid(f"{CUR}/{ref}/nc/{num}")}"))\n')
         elif auto:
-            out = (ang + 180 + rot) % 360
-            dx, dy = {0: (1, 0), 90: (0, -1), 180: (-1, 0), 270: (0, 1)}[out]
-            end = (px + 2.54 * dx, py + 2.54 * dy)
-            wire((px, py), end)
-            if net == 'GND':
-                gnd(end, 0, rot={270: 0, 90: 180, 0: 90, 180: 270}[out])
-            else:
-                label(net, end, out)
+            tag(f'{ref}.{num}')
     return pts
+
+
+def tag(pin):
+    """Tratto di filo verso l'esterno del piedino con etichetta della sua rete (o simbolo di massa)."""
+    x, y = PIN[pin]
+    out, net = PINOUT[pin], INTENT[pin]
+    dx, dy = {0: (1, 0), 90: (0, -1), 180: (-1, 0), 270: (0, 1)}[out]
+    end = (x + 2.54 * dx, y + 2.54 * dy)
+    wire((x, y), end)
+    if net == 'GND':
+        gnd(end, 0, rot={270: 0, 90: 180, 0: 90, 180: 270}[out])
+    else:
+        label(net, end, out)
 
 
 def P(p):
@@ -167,17 +228,20 @@ def wire(*pts):
     for a, b in zip(pts, pts[1:]):
         assert abs(a[0] - b[0]) < 1e-6 or abs(a[1] - b[1]) < 1e-6, f'filo non ortogonale {a} {b}'
         items.append(f'\t(wire (pts (xy {fnum(a[0])} {fnum(a[1])}) (xy {fnum(b[0])} {fnum(b[1])})) '
-                     f'(stroke (width 0) (type default)) (uuid "{uid(f"w/{a}/{b}")}"))\n')
+                     f'(stroke (width 0) (type default)) (uuid "{uid(f"{CUR}/w/{a}/{b}")}"))\n')
         ends[key(a)] += 1
         ends[key(b)] += 1
 
 
 def label(net, p, direction=0):
-    """Etichetta di rete; direction = verso del testo (0 destra, 90 su, 180 sinistra, 270 giù)."""
+    """Etichetta globale di rete, valida in tutti i fogli; direction = verso del testo
+    (0 destra, 90 su, 180 sinistra, 270 giù)."""
     x, y = P(p)
-    just = 'left bottom' if direction in (0, 90) else 'right bottom'
-    items.append(f'\t(label "{net}" (at {fnum(x)} {fnum(y)} {direction}) {effects(just)} '
-                 f'(uuid "{uid(f"l/{net}/{x}/{y}")}"))\n')
+    just = 'left' if direction in (0, 90) else 'right'
+    items.append(f'\t(global_label "{net}" (shape passive) (at {fnum(x)} {fnum(y)} {direction}) '
+                 f'(fields_autoplaced yes) {effects(just)} (uuid "{uid(f"{CUR}/l/{net}/{x}/{y}")}")\n'
+                 f'\t\t(property "Intersheetrefs" "${{INTERSHEET_REFS}}" (at {fnum(x)} {fnum(y)} 0) '
+                 f'{effects(just, hide=True)}))\n')
 
 
 def gnd(p, down=2.54, rot=0):
@@ -202,7 +266,7 @@ def flag(net, p):
 
 def text(x, y, t, size=2.0):
     items.append(f'\t(text "{t}" (exclude_from_sim no) (at {fnum(x)} {fnum(y)} 0) '
-                 f'{effects("left bottom", size=size)} (uuid "{uid(f"text/{t}")}"))\n')
+                 f'{effects("left bottom", size=size)} (uuid "{uid(f"{CUR}/text/{t}")}"))\n')
 
 
 R0805 = 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'
@@ -211,9 +275,9 @@ C1206 = 'Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder'
 C1210 = 'Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder'
 
 
-def R(ref, value, x, y, a, b, rot=0, note=''):
+def R(ref, value, x, y, a, b, rot=0, note='', txt=None):
     """Resistenza: verticale (piedino 1 in alto) o, con rot=90, orizzontale (piedino 1 a sinistra)."""
-    return symbol(ref, 'Device:R', value, R0805, x, y, rot, nets={'1': a, '2': b}, note=note)
+    return symbol(ref, 'Device:R', value, R0805, x, y, rot, nets={'1': a, '2': b}, note=note, txt=txt)
 
 
 def C(ref, value, x, y, a, b, fp=C0805, rot=0, note=''):
@@ -229,6 +293,10 @@ def shunt(ref, value, x, top, net, fp=C0805, kind='C', note=''):
         f(ref, value, x, top + 3.81, net, 'GND', note=note)
     gnd(f'{ref}.2', 0)
 
+
+begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazione', 'C3AI-CR-EL-001', 'C',
+            'D-030, D-031, D-044, D-046, D-047, D-048')
+FE_SHEET = sheet_box('front-end.kicad_sch', 'Front-end', 20.32, 187.96, 38.1, 15.24, 2)
 
 # === J1: connettore verso l'auto (D-044), vie dalla tabella bozza di scheda-madre.md ======
 J1_NETS = {1: 'VBAT_IN', 2: 'GND', 3: 'KEY_IN', 4: 'KLINE', 5: 'VAN_DATA', 6: 'VAN_DATAB', 7: 'VAN_GND_REF',
@@ -327,7 +395,8 @@ shunt('C8', '47uF 10V', 342.9, 63.5, '+5V', fp=C1210)
 R('R1', '53.6k', 355.6, 67.31, '+5V', 'FB_5V')
 R('R2', '10.2k', 355.6, 80.01, 'FB_5V', 'GND')
 gnd('R2.2', 0)
-wire('L1.2', 'C7.1', 'C8.1', 'R1.1', (368.3, 63.5))
+wire('L1.2', 'C7.1', 'C8.1', 'R1.1', (363.22, 63.5), (368.3, 63.5))
+flag('+5V', (363.22, 63.5))
 label('+5V', (368.3, 63.5), 0)
 wire('R1.2', (355.6, 73.66), 'R2.1')
 wire('U2.5', (266.7, 71.12), (266.7, 99.06), (363.22, 99.06), (363.22, 73.66), (355.6, 73.66))
@@ -365,7 +434,8 @@ for ref, x in (('C15', 294.64), ('C16', 307.34), ('C17', 320.04)):
 R('R9', '100k', 332.74, 173.99, '+3V3_AON', 'FB_3V3')
 R('R10', '43.2k', 332.74, 186.69, 'FB_3V3', 'GND')
 gnd('R10.2', 0)
-wire('L2.2', 'C15.1', 'C16.1', 'C17.1', 'R9.1', (345.44, 170.18))
+wire('L2.2', 'C15.1', 'C16.1', 'C17.1', 'R9.1', (340.36, 170.18), (345.44, 170.18))
+flag('+3V3_AON', (340.36, 170.18))
 label('+3V3_AON', (345.44, 170.18), 0)
 wire('R9.2', (332.74, 180.34), 'R10.1')
 wire('U3.5', (266.7, 175.26), (266.7, 195.58), (340.36, 195.58), (340.36, 180.34), (332.74, 180.34))
@@ -399,32 +469,237 @@ text(25.4, 241.3, 'Consumo a riposo stimato: U1 80 uA + U3 26 uA + partitori ~25
 text(25.4, 246.38, 'Ventola 12 V (D-031), relè audio, front-end, VAN, K-line, IMU: fogli successivi. '
                    'Etichette con lo stesso nome sono collegate.', 1.27)
 
-# Pallini di giunzione dove si incontrano almeno tre estremi.
-for (x, y), n in sorted(ends.items()):
-    if n >= 3:
-        items.append(f'\t(junction (at {fnum(x)} {fnum(y)}) (diameter 0) (color 0 0 0 0) (uuid "{uid(f"j/{x}/{y}")}"))\n')
 
-head = f'''(kicad_sch
-\t(version 20250610)
-\t(generator "genera-schema-scheda-madre")
-\t(generator_version "10.0")
-\t(uuid "{ROOT_UUID}")
-\t(paper "A3")
-\t(title_block
-\t\t(title "Scheda madre cruscotto C3+AI - alimentazione")
-\t\t(date "2026-10-24")
-\t\t(rev "B")
-\t\t(company "Cruscotto C3+AI")
-\t\t(comment 1 "C3AI-CR-EL-001 rev B - proposta preliminare, non verificata")
-\t\t(comment 2 "D-030, D-031, D-044, D-046")
-\t\t(comment 3 "Generato da tools/genera-schema-scheda-madre.py")
-\t)
-\t(lib_symbols
-'''
-body = ''.join(d for d, _ in lib_defs.values())
-OUT.write_text(head + body + '\n\t)\n' + ''.join(items) + '\t(sheet_instances (path "/" (page "1")))\n)\n',
-               encoding='utf-8', newline='\n')
-print(OUT, n_parts, 'componenti')
+# ======================================================================================
+# Foglio 2: front-end ESP32 (C3AI-CR-EL-002; D-029, D-031, D-033, D-039)
+# ======================================================================================
+begin_sheet('front-end.kicad_sch', 'Scheda madre cruscotto C3+AI - front-end ESP32', 'C3AI-CR-EL-002', 'A',
+            'D-029, D-031, D-033, D-039, D-046', sheet_uuid=FE_SHEET)
+SOT23 = 'Package_TO_SOT_SMD:SOT-23'
+NPN = 'Transistor_BJT:MMBT3904'
+
+# --- Modulo ESP32-WROOM-32E: GPIO della tabella di scheda-madre.md (come il logger 0.3.x) ---
+FE = {'2': '+3V3_AON', '[1,15,38,39]': 'GND', '3': 'FE_EN',
+      '4': 'NTC_DISP', '5': 'KEY_SENSE', '6': 'VAN_RX', '7': 'VBAT_SENSE', '8': 'NTC_PCB', '9': 'FE_RX',
+      '10': 'FE_TX', '11': 'FAN_PWM', '12': 'SD_CS', '13': 'FAN_TACH', '14': None, '16': 'PWR_HOLD',
+      '23': None, '24': 'FAN_EN', '25': 'FE_IO0', '26': 'FE_LED', '27': 'KL_RX', '28': 'KL_TX', '29': None,
+      '30': 'SD_SCK', '31': 'SD_MISO', '33': 'I2C_SDA', '34': 'FE_U0RXD', '35': 'FE_U0TXD', '36': 'I2C_SCL',
+      '37': 'SD_MOSI'}
+FE.update({n: None for n in ('17', '18', '19', '20', '21', '22', '32')})
+symbol('U4', 'RF_Module:ESP32-WROOM-32E', 'ESP32-WROOM-32E-H4', 'RF_Module:ESP32-WROOM-32E', 203.2, 116.84,
+       nets=FE, txt=((0, 43.18), (0, 45.72), ''), note='HW-FE-MODULE: variante H4/H8 (-40...+105 C), senza PSRAM; montaggio a mano (D-046)')
+for n, net in FE.items():
+    if net and n not in ('[1,15,38,39]', '2', '3'):
+        tag(f'U4.{n}')
+gnd('U4.[1,15,38,39]', 0)
+shunt('C20', '22uF 10V', 213.36, 73.66, '+3V3_AON', fp=C1206)
+shunt('C21', '100nF', 223.52, 73.66, '+3V3_AON')
+wire('U4.2', (203.2, 73.66), 'C20.1', 'C21.1', (233.68, 73.66))
+label('+3V3_AON', (233.68, 73.66), 0)
+# EN: 10k + 1 uF (ritardo all'accensione raccomandato da Espressif), pulsante RESET, reset automatico.
+R('R15', '10k', 172.72, 82.55, '+3V3_AON', 'FE_EN')
+wire('R15.1', (172.72, 76.2))
+label('+3V3_AON', (172.72, 76.2), 90)
+shunt('C22', '1uF', 165.1, 86.36, 'FE_EN')
+symbol('SW3', 'Switch:SW_Push', 'RESET', 'Button_Switch_THT:SW_PUSH_6mm', 157.48, 91.44, rot=90,
+       nets={'1': 'GND', '2': 'FE_EN'}, txt=((0, 10.16), (0, 12.7), ''))
+gnd('SW3.1', 0)
+symbol('Q6', NPN, 'MMBT3904', SOT23, 147.32, 91.44, nets={'1': 'Q6_B', '2': 'CH_RTS', '3': 'FE_EN'},
+       txt=((-5.08, -5.08), (-5.08, -2.54), 'right'))
+wire('U4.3', 'R15.2', 'C22.1', 'SW3.2', 'Q6.3')
+tag('Q6.2')
+R('R35', '10k', 134.62, 91.44, 'CH_DTR', 'Q6_B', rot=90)
+wire('R35.2', 'Q6.1')
+wire('R35.1', (128.27, 91.44))
+label('CH_DTR', (128.27, 91.44), 180)
+symbol('Q7', NPN, 'MMBT3904', SOT23, 147.32, 127, nets={'1': 'Q7_B', '2': 'CH_DTR', '3': 'FE_IO0'},
+       txt=((-5.08, -5.08), (-5.08, -2.54), 'right'))
+tag('Q7.3')
+tag('Q7.2')
+R('R36', '10k', 134.62, 127, 'CH_RTS', 'Q7_B', rot=90)
+wire('R36.2', 'Q7.1')
+wire('R36.1', (128.27, 127))
+label('CH_RTS', (128.27, 127), 180)
+
+# --- Programmazione a banco: USB-C + CH340C alimentato solo dalla USB (nessun consumo in auto) ---
+symbol('J3', 'Connector:USB_C_Receptacle_USB2.0_16P', 'USB-C (solo a banco)',
+       'Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12', 35.56, 66.04,
+       nets={'A4': 'USB_VBUS', 'A9': 'USB_VBUS', 'B4': 'USB_VBUS', 'B9': 'USB_VBUS', 'A5': 'USB_CC1',
+             'B5': 'USB_CC2', 'A6': 'USB_DP', 'B6': 'USB_DP', 'A7': 'USB_DM', 'B7': 'USB_DM', 'A8': None,
+             'B8': None, 'A1': 'GND', 'B1': 'GND', 'A12': 'GND', 'B12': 'GND', 'SH': 'GND'},
+       note='Passo 0,5 mm: saldatura a trascinamento con flussante')
+gnd('J3.A1', 0)
+gnd('J3.SH', 0)
+symbol('U5', 'Regulator_Linear:AP2112K-3.3', 'AP2112K-3.3', 'Package_TO_SOT_SMD:SOT-23-5', 76.2, 43.18,
+       nets={'1': 'USB_VBUS', '2': 'GND', '3': 'USB_VBUS', '4': None, '5': '+3V3_USB'})
+gnd('U5.2', 0)
+shunt('C25', '1uF', 60.96, 40.64, 'USB_VBUS')
+shunt('C26', '1uF', 86.36, 40.64, '+3V3_USB')
+shunt('C27', '100nF', 104.14, 40.64, '+3V3_USB')
+wire('J3.A4', (55.88, 50.8), (55.88, 45.72), (55.88, 40.64), 'C25.1', 'U5.1')
+wire('U5.3', 'U5.1')
+flag('USB_VBUS', (55.88, 45.72))
+symbol('U6', 'Interface_USB:CH340C', 'CH340C', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 93.98, 66.04,
+       nets={'1': 'GND', '2': 'CH_TXD', '3': 'CH_RXD', '4': 'CH_V3', '5': 'USB_DP', '6': 'USB_DM', '7': None,
+             '8': None, '9': None, '10': None, '11': None, '12': None, '13': 'CH_DTR', '14': 'CH_RTS',
+             '15': None, '16': '+3V3_USB'}, txt=((0, 20.32), (0, 22.86), ''))
+gnd('U6.1', 0)
+wire('U5.5', 'C26.1', (91.44, 40.64), (93.98, 40.64), 'C27.1')
+wire((91.44, 40.64), 'U6.16')
+R('R37', '0', 93.98, 46.99, '+3V3_USB', 'CH_V3', note='V3 collegato a VCC: CH340C alimentato a 3,3 V (datasheet)')
+wire((93.98, 40.64), 'R37.1')
+R('R31', '5.1k', 58.42, 58.42, 'USB_CC2', 'GND', rot=90, txt=((0, 2.54), (0, 5.08), ''))
+gnd('R31.2', 0)
+wire('J3.B5', 'R31.1')
+R('R32', '5.1k', 66.04, 55.88, 'USB_CC1', 'GND', rot=90, txt=((0, -5.08), (0, -2.54), ''))
+gnd('R32.2', 0)
+wire('J3.A5', 'R32.1')
+wire('J3.A7', (53.34, 63.5), (53.34, 66.04))
+wire('J3.B7', (53.34, 66.04), 'U6.6')
+wire('J3.A6', (55.88, 68.58), (55.88, 71.12), 'J3.B6')
+wire((55.88, 68.58), (78.74, 68.58), (78.74, 63.5), 'U6.5')  # incrocia D- senza collegarsi
+# Resistenze in serie: la UART0 del modulo non alimenta il CH340 spento attraverso i suoi diodi.
+R('R33', '4.7k', 111.76, 55.88, 'CH_TXD', 'FE_U0RXD', rot=90, txt=((0, -5.08), (0, -2.54), ''))
+R('R34', '4.7k', 111.76, 58.42, 'CH_RXD', 'FE_U0TXD', rot=90, txt=((0, 2.54), (0, 5.08), ''))
+wire('U6.2', 'R33.1')
+wire('U6.3', 'R34.1')
+wire('R33.2', (120.65, 55.88))
+label('FE_U0RXD', (120.65, 55.88), 0)
+wire('R34.2', (120.65, 58.42))
+label('FE_U0TXD', (120.65, 58.42), 0)
+tag('U6.13')
+tag('U6.14')
+
+# --- Avvio, LED, I2C, collegamento con l'S3 -------------------------------------------
+X0 = 256.54
+label('FE_IO0', (X0, 60.96), 180)
+R('R16', '10k', X0 + 7.62, 57.15, '+3V3_AON', 'FE_IO0')
+symbol('SW4', 'Switch:SW_Push', 'BOOT', 'Button_Switch_THT:SW_PUSH_6mm', X0 + 15.24, 66.04, rot=90,
+       nets={'1': 'GND', '2': 'FE_IO0'}, txt=((0, 10.16), (0, 12.7), ''))
+gnd('SW4.1', 0)
+wire((X0, 60.96), 'R16.2', 'SW4.2')
+wire('R16.1', (X0 + 7.62, 50.8))
+label('+3V3_AON', (X0 + 7.62, 50.8), 90)
+label('FE_LED', (X0, 81.28), 180)
+R('R17', '1k', X0 + 10.16, 81.28, 'FE_LED', 'LED_A', rot=90)
+symbol('D7', 'Device:LED', 'verde', 'LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder', X0 + 25.4, 81.28,
+       rot=180, nets={'1': 'GND', '2': 'LED_A'})
+wire((X0, 81.28), 'R17.1')
+wire('R17.2', 'D7.2')
+wire('D7.1', (X0 + 31.75, 81.28))
+gnd((X0 + 31.75, 81.28))
+label('+3V3_AON', (X0, 96.52), 180)
+R('R18', '4.7k', X0 + 10.16, 100.33, '+3V3_AON', 'I2C_SDA')
+R('R19', '4.7k', X0 + 20.32, 100.33, '+3V3_AON', 'I2C_SCL')
+wire((X0, 96.52), 'R18.1', 'R19.1')
+for r in ('R18', 'R19'):
+    tag(f'{r}.2')
+# Collegamento seriale con l'S3 (fe_link): 1k in serie limitano la corrente verso l'S3 spenta.
+label('FE_TX', (X0, 121.92), 180)
+R('R20', '1k', X0 + 10.16, 121.92, 'FE_TX', 'LINK_FE2S3', rot=90)
+wire((X0, 121.92), 'R20.1')
+wire('R20.2', (X0 + 20.32, 121.92))
+label('LINK_FE2S3', (X0 + 20.32, 121.92), 0)
+label('FE_RX', (X0, 132.08), 180)
+R('R21', '1k', X0 + 10.16, 132.08, 'FE_RX', 'LINK_S32FE', rot=90)
+wire((X0, 132.08), 'R21.1')
+wire('R21.2', (X0 + 20.32, 132.08))
+label('LINK_S32FE', (X0 + 20.32, 132.08), 0)
+
+# --- Temperature: NTC 100k sulla scheda (GPIO32) e vicino al display (GPIO36), 16 uA ciascuna ---
+R('R22', '100k', X0 + 5.08, 151.13, '+3V3_AON', 'NTC_PCB')
+wire('R22.1', (X0 + 5.08, 144.78))
+label('+3V3_AON', (X0 + 5.08, 144.78), 90)
+symbol('RT1', 'Device:Thermistor_NTC', 'NTC 100k B3950', R0805, X0 + 5.08, 158.75, nets={'1': 'NTC_PCB', '2': 'GND'},
+       txt=((-3.81, -1.27), (-3.81, 1.27), 'right'))
+gnd('RT1.2', 0)
+shunt('C23', '100nF', X0 + 12.7, 154.94, 'NTC_PCB')
+wire('R22.2', 'C23.1', (X0 + 20.32, 154.94))
+label('NTC_PCB', (X0 + 20.32, 154.94), 0)
+R('R23', '100k', X0 + 63.5, 151.13, '+3V3_AON', 'NTC_DISP')
+wire('R23.1', (X0 + 63.5, 144.78))
+label('+3V3_AON', (X0 + 63.5, 144.78), 90)
+shunt('C24', '100nF', X0 + 71.12, 154.94, 'NTC_DISP')
+symbol('J5', 'Connector_Generic:Conn_01x02', 'NTC display', 'Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical',
+       X0 + 86.36, 154.94, nets={'1': 'NTC_DISP', '2': 'GND'}, note='NTC 100k incollata vicino al display')
+wire('R23.2', 'C24.1', 'J5.1')
+wire('J5.2', (X0 + 78.74, 157.48))
+gnd((X0 + 78.74, 157.48))
+wire('R23.2', (X0 + 55.88, 154.94))
+label('NTC_DISP', (X0 + 55.88, 154.94), 180)
+
+# --- Ventola 12 V (D-031): alimentazione staccata da Q3 a riposo, velocità PWM, giri ---------
+label('+12V_F', (X0, 185.42), 180)
+symbol('Q3', 'Transistor_FET:AO3401A', 'ZXMP6A13F (P 60 V)', SOT23, X0 + 22.86, 187.96, rot=90, mirror=True,
+       nets={'1': 'Q3_G', '2': '+12V_F', '3': '+12V_FAN'}, txt=((0, -10.16), (0, -7.62), ''),
+       note='P-MOSFET 60 V: la linea +12V_F arriva fino a ~42 V con il TVS')
+R('R24', '6.8k', X0 + 12.7, 189.23, '+12V_F', 'Q3_G', note='Vgs -5,7 V a 14 V, -17 V a 42 V')
+R('R25', '10k', X0 + 22.86, 196.85, 'Q3_G', 'Q4_C')
+symbol('Q4', NPN, 'MMBTA06 (80 V)', SOT23, X0 + 20.32, 205.74, nets={'1': 'Q4_B', '2': 'GND', '3': 'Q4_C'},
+       txt=((5.08, -1.27), (5.08, 1.27), 'left'))
+gnd('Q4.2', 0)
+wire((X0, 185.42), 'R24.1', 'Q3.2')
+wire('R24.2', 'Q3.1')
+R('R26', '10k', X0 + 2.54, 205.74, 'FAN_EN', 'Q4_B', rot=90)
+R('R27', '100k', X0 + 10.16, 209.55, 'Q4_B', 'GND', note='Tiene la ventola spenta al reset (e GPIO2 basso)')
+gnd('R27.2', 0)
+wire((X0 - 5.08, 205.74), 'R26.1')
+label('FAN_EN', (X0 - 5.08, 205.74), 180)
+wire('R26.2', 'R27.1', 'Q4.1')
+symbol('J4', 'Connector_Generic:Conn_01x04', 'Ventola 4 fili', 'Connector:FanPinHeader_1x04_P2.54mm_Vertical',
+       X0 + 68.58, 187.96, nets={'1': 'GND', '2': '+12V_FAN', '3': 'FAN_SENSE', '4': 'FAN_CTRL'})
+wire('Q3.3', (X0 + 50.8, 185.42), (X0 + 50.8, 187.96), 'J4.2')
+for n in ('1', '3', '4'):
+    tag(f'J4.{n}')
+# Giri: uscita a collettore aperto della ventola, pull-up a 3,3 V e 1k in serie verso GPIO14.
+label('FAN_SENSE', (X0 + 81.28, 210.82), 180)
+R('R28', '10k', X0 + 88.9, 207.01, '+3V3_AON', 'FAN_SENSE')
+R('R29', '1k', X0 + 99.06, 210.82, 'FAN_SENSE', 'FAN_TACH', rot=90)
+wire((X0 + 81.28, 210.82), 'R28.2', 'R29.1')
+wire('R28.1', (X0 + 88.9, 200.66))
+label('+3V3_AON', (X0 + 88.9, 200.66), 90)
+wire('R29.2', (X0 + 109.22, 210.82))
+label('FAN_TACH', (X0 + 109.22, 210.82), 0)
+# Velocità: ingresso PWM della ventola a 4 fili pilotato a collettore aperto (logica invertita).
+symbol('Q5', NPN, 'MMBT3904', SOT23, X0 + 91.44, 236.22, nets={'1': 'Q5_B', '2': 'GND', '3': 'FAN_CTRL'},
+       txt=((5.08, -1.27), (5.08, 1.27), 'left'))
+gnd('Q5.2', 0)
+tag('Q5.3')
+R('R30', '1k', X0 + 78.74, 236.22, 'FAN_PWM', 'Q5_B', rot=90)
+wire('R30.2', 'Q5.1')
+wire((X0 + 68.58, 236.22), 'R30.1')
+label('FAN_PWM', (X0 + 68.58, 236.22), 180)
+
+text(25.4, 27.94, 'PROGRAMMAZIONE A BANCO: USB-C + CH340C, alimentati solo dalla USB')
+text(124.46, 76.2, 'RESET AUTOMATICO (DTR/RTS)', 1.5)
+text(160.02, 60.96, 'FRONT-END ESP32-WROOM-32E (D-029)')
+text(X0 + 12.7, 43.18, 'AVVIO, LED, I2C, COLLEGAMENTO CON L\'S3')
+text(X0 + 10.16, 139.7, 'TEMPERATURE: NTC 100k (D-031)')
+text(X0 - 10.16, 172.72, 'VENTOLA 12 V A 4 FILI (D-031)')
+text(25.4, 236.22, 'Proposta preliminare, non verificata. GPIO dalla tabella di cruscotto/docs/scheda-madre.md; '
+                   'GPIO2 (accensione ventola) nuovo, pin di avvio: deve restare basso al reset (R27).', 1.27)
+text(25.4, 241.3, 'USB-C e CH340C solo per la programmazione a banco; in auto aggiornamenti via S3 (D-039). '
+                  'K-line, VAN, IMU, RTC, MicroSD e collegamento all\'S3 (J2): fogli successivi.', 1.27)
+text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
+
+# === scrittura dei fogli ===============================================================
+for sh in SHEETS:
+    for (x, y), n in sorted(sh['ends'].items()):  # pallini dove si incontrano almeno tre estremi
+        if n >= 3:
+            j = uid(f"{sh['file']}/j/{x}/{y}")
+            sh['items'].append(f'\t(junction (at {fnum(x)} {fnum(y)}) (diameter 0) (color 0 0 0 0) (uuid "{j}"))\n')
+    head = (f'(kicad_sch\n\t(version 20250610)\n\t(generator "genera-schema-scheda-madre")\n'
+            f'\t(generator_version "10.0")\n\t(uuid "{sh["uuid"]}")\n\t(paper "A3")\n\t(title_block\n'
+            f'\t\t(title "{sh["title"]}")\n\t\t(date "2026-10-24")\n\t\t(rev "{sh["rev"]}")\n'
+            f'\t\t(company "Cruscotto C3+AI")\n'
+            f'\t\t(comment 1 "{sh["code"]} rev {sh["rev"]} - proposta preliminare, non verificata")\n'
+            f'\t\t(comment 2 "{sh["decisions"]}")\n'
+            f'\t\t(comment 3 "Generato da tools/genera-schema-scheda-madre.py")\n\t)\n\t(lib_symbols\n')
+    body = ''.join(d for d, _ in sh['lib_defs'].values())
+    tail = '\t(sheet_instances (path "/" (page "1")))\n' if sh is SHEETS[0] else ''
+    (OUT.parent / sh['file']).write_text(head + body + '\n\t)\n' + ''.join(sh['items']) + tail + ')\n',
+                                         encoding='utf-8', newline='\n')
+print(OUT.parent, len(SHEETS), 'fogli,', n_parts, 'componenti')
 
 
 # --- confronto con il netlist di KiCad ---------------------------------------------------
@@ -441,7 +716,7 @@ def verify():
     for blk in re.split(r'\n\s*\(net\b', t[t.index('(nets'):])[1:]:
         name = re.search(r'\(name "([^"]+)"', blk).group(1).lstrip('/')
         for ref, pin in re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"', blk):
-            got[f'{ref}.{pin}'] = None if name.startswith('unconnected-') else name
+            got[f'{ref}.{pin}'] = None if 'unconnected-(' in name else name
     want = {}
     for p, n in INTENT.items():
         want.setdefault(n, set()).add(p) if n else None
@@ -455,7 +730,7 @@ def verify():
     errors = []
     for n, pins in want.items():
         got_name = have_sets.get(frozenset(pins))
-        if got_name is None or (got_name != n and not got_name.startswith('Net-(')):
+        if got_name is None or (got_name != n and 'Net-(' not in got_name):
             errors.append(f'{n}: voluto {sorted(pins)}, disegnato {sorted(have.get(n, set()))}')
     errors += [f'rete in più nel disegno: {n} {sorted(v)}' for n, v in have.items()
                if frozenset(v) not in {frozenset(w) for w in want.values()}]

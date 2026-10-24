@@ -6,7 +6,7 @@ generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 r
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva. Schema elettrico
-iniziato in KiCad (foglio alimentazione C3AI-CR-EL-001 rev B, proposta non verificata);
+iniziato in KiCad (fogli alimentazione C3AI-CR-EL-001 rev C e front-end C3AI-CR-EL-002 rev A, proposta non verificata);
 circuito stampato con la sola meccanica. I pin del veicolo vengono da manuali
 generici RTA e da fonti comunitarie e vanno verificati (D-008, D-022).
 
@@ -50,14 +50,16 @@ raccolta dati e uso in auto leggano il veicolo con lo stesso codice.
 | 39 | segnale chiave (+ dopo contatto) | ingresso protetto, solo ingresso |
 | 13 | comando di mantenimento alimentazione | a riposo spento |
 | 4 | LED di stato | |
-| 26 | ventola 12 V, PWM (D-031) | tramite MOSFET lato basso |
+| 26 | ventola 12 V, PWM (D-031) | ingresso PWM della ventola a 4 fili, a collettore aperto (CR-EL-002) |
+| 2 | accensione della ventola | P-MOSFET lato alto; pin di avvio: basso al reset (resistenza da 100k), proposta CR-EL-002 |
 | 14 | giri ventola (tachimetrica) | ingresso con pull-up |
 | 36 / 32 | NTC vicino al display / NTC sulla scheda | ADC1 |
 | 18 / 19 / 23 / 27 | MicroSD opzionale | stessi pin del logger: la scheda madre può fare anche da registratore |
 
-Evitati i pin di avvio (0, 2, 5, 12, 15) e quelli della flash (6-11).
+Evitati i pin di avvio (0, 5, 12, 15) e quelli della flash (6-11). GPIO2, anch'esso pin di avvio, è
+proposto per l'accensione della ventola perché a riposo deve restare basso come richiede l'avvio.
 
-## Schema elettrico: alimentazione (C3AI-CR-EL-001 rev B, proposta)
+## Schema elettrico: alimentazione (C3AI-CR-EL-001 rev C, proposta)
 
 Foglio KiCad `cruscotto/pcb/scheda-madre/scheda-madre.kicad_sch`, generato da
 `tools/genera-schema-scheda-madre.py`; tavola [CR-EL-001](../../disegni/CR-EL-001_scheda-madre-alimentazione.png).
@@ -86,6 +88,28 @@ all'avviamento con un oscilloscopio o un registratore (il tester non vede i picc
 U2 e U3 hanno la piazzola termica sotto il corpo (HSOIC, ammessi da D-046): si saldano a mano
 riempiendo di stagno dal retro un foro metallizzato centrale da circa 1-1,5 mm più i fori termici
 dell'impronta (D-048); diametro da fissare nello sbroglio.
+
+## Schema elettrico: front-end (C3AI-CR-EL-002 rev A, proposta)
+
+Foglio `cruscotto/pcb/scheda-madre/front-end.kicad_sch`, sottofoglio della radice, stesso
+generatore; tavola [CR-EL-002](../../disegni/CR-EL-002_scheda-madre-front-end.png).
+
+- **U4 ESP32-WROOM-32E-H4** (HW-FE-MODULE) con i GPIO della tabella sopra; 22 µF + 100 nF,
+  EN con 10k/1 µF, pulsanti RESET e BOOT.
+- **Programmazione a banco**: USB-C (passo 0,5 mm, saldatura a trascinamento) con CH340C
+  alimentato dalla sola USB tramite AP2112K-3.3, reset automatico con due MMBT3904,
+  4,7k in serie sulla UART0. In auto la presa non serve: aggiornamenti attraverso l'S3 (D-039).
+- **Collegamento con l'S3**: 1k in serie su GPIO25/GPIO33, verso il connettore -J2 del foglio
+  successivo; limitano la corrente verso l'S3 spenta.
+- **I2C**: 4,7k verso il 3,3 V sempre acceso.
+- **NTC 100k** (B3950) sulla scheda (GPIO32) e vicino al display su JST-XH (GPIO36): 16 µA ciascuna.
+- **Ventola a 4 fili** su connettore standard: alimentazione staccata a riposo da un P-MOSFET
+  60 V (ZXMP6A13F proposto) comandato da GPIO2, velocità con PWM a collettore aperto
+  (GPIO26, logica invertita), giri con pull-up a 3,3 V e 1k verso GPIO14.
+
+ERC con i due fogli: 1 errore atteso (IO34 `VAN_RX` senza sorgente finché non c'è il foglio VAN)
+e 21 avvisi per i segnali dei fogli successivi. Il generatore confronta 81 reti con il netlist
+di KiCad. Da risolvere: montaggio del modulo ESP32 a mano o in fabbrica (inventario HW-FE-MODULE).
 
 ## Raffreddamento e dominio sempre acceso (D-031)
 
