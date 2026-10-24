@@ -481,6 +481,23 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Da procurare: una CR2032 (3 V, non ricaricabile). Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).
 - Prima dell inserimento misurare la tensione (attesi circa 3 V; sotto 2,7 V scarica).
 
+### HW-DASH-FAN — Ventola 40 × 40 × 10 mm 12 V a 4 fili per la scheda madre del cruscotto (D-031, D-045) — candidato Delta AFB0412VA-00
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale (scheda madre)
+
+**Fonte:** Ricerca 25/10/2026 sui fornitori dell'utente (Farnell, DigiKey; Mouser e TME non consultabili dal browser per i controlli anti-robot). Requisiti D-031: 40 × 40 × 10, 12 V, cuscinetti a sfera, ≥ 70 °C, 4 fili. Candidato 1, Delta AFB0412VA-00 (scheda tecnica Delta): 12 V (10,8-13,8), 0,05 A (max 0,10), 0,6 W, 7000 giri/min, 8,15 CFM, 31,5 dB(A), doppio cuscinetto a sfera, −10…+70 °C, L10 70 000 h a 40 °C, PWM preferito 25 kHz, 0 % = fermo, filo PWM scollegato = massima velocità, giri a collettore aperto (5 mA max), 2 impulsi per giro; DigiKey 560 a magazzino, 12,48 € (1 pezzo) il 25/10/2026. Candidato 2, Delta AFB0412VHA-AWA2: 8000 giri/min, 8,8 CFM, 33 dB(A), 0,72 W, −10…+70 °C, 4 fili PWM; DigiKey 382 a magazzino, 13,02 €. Scartati: Same Sky CFM-4010B-165-251-22 (−10…+70 °C, PWM 8-55 kHz) solo a lotti da 400 pezzi su Farnell e DigiKey; il codice senza -22 venduto su Farnell è a 2 fili; Wakefield DC0401012V2B-BT0 10 000 giri/min, 39 dB(A), 2 W; San Ace 40 serie 9P −10…+60 °C.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Scelta del modello da confermare dall'utente (nessun ordine).
+- Temperatura massima di funzionamento +70 °C, uguale al limite del pannello: da confrontare con la misura della temperatura dietro il quadro.
+- Colori dei fili Delta non standard (rosso +, nero −, blu FG/giri, giallo PWM): cablaggio verso J4 (4 vie GND/+12V/giri/PWM) da fare secondo la scheda tecnica.
+- Con PWM a 0 % la ventola si ferma ma assorbe circa 10 mA: lo stacco dell'alimentazione con Q3 (GPIO2, D-049) resta necessario a riposo.
+
 ## Proposta di collegamento — non validata fisicamente
 
 GPIO firmware 0.3.0 proposti, non cablaggio fisico approvato: STOP normalmente aperto GPIO32-GND; UART2 RX16/TX17 attraverso interfaccia K-line; VAN RX34 attraverso HW-CAN-VP230. GPIO26 mantiene deselezionato MCP2515 eventualmente sullo stesso SPI. Nessun GPIO collegabile direttamente ai fili auto. Verifiche hardware a cura dell utente, non dichiarate superate.
