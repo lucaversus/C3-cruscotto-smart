@@ -12,3 +12,4 @@
   pulsanti originali in (±84,28, 44,16), ruotati di circa ±21°, con l'estremità posteriore
   a z 15,7, cioè circa **6,3 mm** davanti alla scheda madre. Valori dal modello, da
   confermare sul pezzo stampato.
+- `moduli/`: modelli STEP dei singoli moduli (MicroSD, RTC, OLED, scheda S3), vedi `moduli/README.md`.

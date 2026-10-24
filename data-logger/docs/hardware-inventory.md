@@ -95,7 +95,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: modulo non collegato, pin ancora da saldare; saldatore non disponibile sul posto.
+**Fonte:** Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: modulo non collegato, pin ancora da saldare; saldatore non disponibile sul posto. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/modulo-sd.step: circuito 17,8 × 17,8 × 1,5 mm, 6 pin in fila (passo circa 2,5 nel modello), ingombro con scheda inserita 17,8 × 26,6 × 11,5 mm; modello, non misura del pezzo.
 
 **Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
@@ -116,7 +116,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Risolta la voce temporanea HW-BATTERY-MODULE-UNIDENTIFIED: coincide con HW-RTC. Utente 19/10/2026: sul retro nessuna scritta, visibile soltanto il portabatteria. Verifica ricarica ancora aperta; non richiedere altra foto del retro per cercare scritte assenti. Utente 19/10/2026 identifica la pila come CR2032, confermando prefisso CR dopo 2032. Utente 19/10/2026 sceglie rimozione della resistenza marcata 201 per evitare ricarica CR2032 (D-019). Dichiarazione al futuro: non ancora eseguita o collaudata. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.
+**Fonte:** Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Risolta la voce temporanea HW-BATTERY-MODULE-UNIDENTIFIED: coincide con HW-RTC. Utente 19/10/2026: sul retro nessuna scritta, visibile soltanto il portabatteria. Verifica ricarica ancora aperta; non richiedere altra foto del retro per cercare scritte assenti. Utente 19/10/2026 identifica la pila come CR2032, confermando prefisso CR dopo 2032. Utente 19/10/2026 sceglie rimozione della resistenza marcata 201 per evitare ricarica CR2032 (D-019). Dichiarazione al futuro: non ancora eseguita o collaudata. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/modulo-rtc.step, ingombro 45,0 × 28,9 × 14,3 mm con portapila; modello, non misura del pezzo.
 
 **Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
@@ -140,7 +140,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Conferma ordine dei componenti consigliati; non è disponibile un riepilogo ordine che identifichi esattamente il display. Non richiedere di nuovo tutti i link già in chat. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.
+**Fonte:** Conferma ordine dei componenti consigliati; non è disponibile un riepilogo ordine che identifichi esattamente il display. Non richiedere di nuovo tutti i link già in chat. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/modulo-oled-1.9inch.step (OLED 1,9"), ingombro 26 × 26 × 11,1 mm; modello, non misura del pezzo.
 
 **Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
@@ -221,7 +221,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_verified` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale
 
-**Fonte:** Osservazioni preliminari nel README originale. Utente 20/10/2026: alla domanda sul possesso risponde "Ce l'ho" (D-026). Possesso dichiarato. Foto retro e fronte fornite in chat il 20/10/2026, archiviate senza metadati; nessun collaudo. Chip, flash e PSRAM letti con esptool il 20/10/2026.
+**Fonte:** Osservazioni preliminari nel README originale. Utente 20/10/2026: alla domanda sul possesso risponde "Ce l'ho" (D-026). Possesso dichiarato. Foto retro e fronte fornite in chat il 20/10/2026, archiviate senza metadati; nessun collaudo. Chip, flash e PSRAM letti con esptool il 20/10/2026. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/tft-5inch.step, 137 × 84 × 9,7 mm, presa USB-C al centro di un lato corto (coperta dal pulsante destro nell'assieme).
 
 **Foto archiviate:** [dash-display-retro.jpg](hardware-photos/dash-display-retro.jpg), [dash-display-fronte.jpg](hardware-photos/dash-display-fronte.jpg)
 

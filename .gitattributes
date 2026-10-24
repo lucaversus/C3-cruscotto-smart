@@ -10,3 +10,4 @@
 *.jpg binary
 *.jpeg binary
 *.bin binary
+*.step binary
