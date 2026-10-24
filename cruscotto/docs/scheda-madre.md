@@ -71,7 +71,7 @@ Valori ripresi dagli esempi dei datasheet TI e dalla prova OBD-M001 (12,2 V a ri
   la chiave è inserita (`KEY_IN` tramite D3 e partitore R5/R6: avvio a circa 8 V, arresto a
   circa 6,3 V) **oppure** se il front-end tiene alto GPIO13 (`PWR_HOLD` tramite D4/R7). R8
   tiene spento a riposo: al reset del front-end il 5 V dipende solo dalla chiave (D-030).
-- **3,3 V sempre acceso**: U3 LMR36510 65 V / 1 A, 26 µA a vuoto, EN collegato all'ingresso.
+- **3,3 V sempre acceso** (convertitore a commutazione, D-047): U3 LMR36510 65 V / 1 A, 26 µA a vuoto, EN collegato all'ingresso.
   Alimenta front-end e sensori anche a motore spento (D-031). Al posto del regolatore
   lineare della proposta precedente: con il front-end attivo un lineare dal 12 V
   dissiperebbe 0,5-0,8 W vicino al display.
