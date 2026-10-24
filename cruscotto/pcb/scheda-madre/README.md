@@ -2,7 +2,7 @@
 
 Progetto KiCad della scheda madre del cruscotto (D-029, D-044, D-045, D-046). Stato:
 circuito stampato con la **sola meccanica**; schema elettrico iniziato con il foglio
-**alimentazione** (C3AI-CR-EL-001 rev A, proposta non verificata).
+**alimentazione** (C3AI-CR-EL-001 rev B, proposta non verificata).
 
 - `scheda-madre.kicad_pcb`: generato da `tools/genera-pcb-scheda-madre.py` con il Python di
   KiCad. Contiene il bordo letto dal DXF dell'utente (`cruscotto/meccanica/scheda-madre-contorno.dxf`),
@@ -13,8 +13,9 @@ circuito stampato con la **sola meccanica**; schema elettrico iniziato con il fo
   rispettano 0,5 mm dal bordo, gli angoli dell'ingombro del corpo sporgono di circa 0,5 mm. Su
   User.Drawings il contorno della S3, su User.Comments le zone dello studio C3AI-CR-PL-001.
 - `scheda-madre.kicad_sch`: generato da `tools/genera-schema-scheda-madre.py` (Python normale)
-  con i simboli delle librerie di KiCad 10. Ogni piedino ha un'etichetta: le reti con lo stesso
-  nome sono collegate. ERC: 0 errori, 12 avvisi attesi (segnali di J1 per i fogli non ancora
+  con i simboli delle librerie di KiCad 10. Collegamenti disegnati con fili dentro ogni blocco,
+  etichette solo per le reti verso altri blocchi o fogli. Il generatore confronta il netlist
+  esportato da KiCad con le reti volute e si ferma a ogni differenza. ERC: 0 errori, 12 avvisi attesi (segnali di J1 per i fogli non ancora
   disegnati: K-line, VAN, audio). Anteprima in `disegni/CR-EL-001_scheda-madre-alimentazione.png`.
 - Faccia **F** = faccia interna verso la S3 (componenti caldi, interruttori); **B** = retro
   (ventola, J1).

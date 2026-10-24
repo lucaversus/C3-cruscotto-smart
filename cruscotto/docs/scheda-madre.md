@@ -6,7 +6,7 @@ generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 r
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva. Schema elettrico
-iniziato in KiCad (foglio alimentazione C3AI-CR-EL-001 rev A, proposta non verificata);
+iniziato in KiCad (foglio alimentazione C3AI-CR-EL-001 rev B, proposta non verificata);
 circuito stampato con la sola meccanica. I pin del veicolo vengono da manuali
 generici RTA e da fonti comunitarie e vanno verificati (D-008, D-022).
 
@@ -57,7 +57,7 @@ raccolta dati e uso in auto leggano il veicolo con lo stesso codice.
 
 Evitati i pin di avvio (0, 2, 5, 12, 15) e quelli della flash (6-11).
 
-## Schema elettrico: alimentazione (C3AI-CR-EL-001 rev A, proposta)
+## Schema elettrico: alimentazione (C3AI-CR-EL-001 rev B, proposta)
 
 Foglio KiCad `cruscotto/pcb/scheda-madre/scheda-madre.kicad_sch`, generato da
 `tools/genera-schema-scheda-madre.py`; tavola [CR-EL-001](../../disegni/CR-EL-001_scheda-madre-alimentazione.png).
