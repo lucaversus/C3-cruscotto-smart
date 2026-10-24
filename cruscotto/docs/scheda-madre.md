@@ -170,7 +170,8 @@ Foglio `cruscotto/pcb/scheda-madre/s3-audio.kicad_sch`; tavola
   sui due altoparlanti **in serie** (D-053; circa 8 Ω visti dall'amplificatore mono U1): le uscite
   della radio restano scollegate, mai a massa.
 - **Pulsanti del quadro** (D-054): S1 (sinistro) a IO19 della S3, S2 (destro) a GPIO5 del
-  front-end con pull-up 10k. Da decidere: UART0 o USB nativa della S3 per la porta nascosta.
+  front-end con pull-up 10k. Accesso di servizio dalla USB-C della S3 (D-055): UART0 e USB nativa
+  della S3 non collegate alla scheda madre.
 
 ERC con i cinque fogli: 0 errori, 1 avviso per la massa di riferimento VAN (J1 via 7) ancora da
 collegare. Il generatore confronta 95 reti con il netlist di KiCad.
