@@ -2,7 +2,7 @@
 
 Revisione B, 21/10/2026 (rev A 20/10/2026). Cruscotto C3+AI, decisioni D-028…D-031.
 Schema a blocchi: [C3AI-CR-BL-001 rev D](../../disegni/CR-BL-001_scheda-madre-blocchi.png) ([SVG](../../disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg),
-generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev B](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
+generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev C](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva, nessuno schema
@@ -76,22 +76,32 @@ Evitati i pin di avvio (0, 2, 5, 12, 15) e quelli della flash (6-11).
 
 ## Ingombro (C3AI-CR-PL-001)
 
-Contorno della scheda S3 dal disegno del rivenditore: **137,0 × 84,0 mm**, fori
-Ø3,2 su interasse 130 × 76 mm (a 3,5 / 4,0 mm dai bordi), da verificare sul pezzo.
-La scheda madre adotta lo stesso contorno e gli stessi fori, con distanziali.
+**Contorno definitivo (D-045, 24/10/2026)** dal modello 3D del cruscotto dell'utente:
+[`cruscotto/meccanica/scheda-madre-contorno.dxf`](../meccanica/scheda-madre-contorno.dxf),
+**178,7 × 74 mm**, 6 fori di fissaggio Ø3 in (±80, 13), (±75, 48), (±30, 79) mm, due
+rientranze laterali. La scheda madre sta **direttamente dietro la S3**. Il generatore dello
+studio legge il DXF e controlla che ogni zona stia nel contorno, lontana dai fori, dalla
+ventola e dagli interruttori.
+
+- **Ventola** (D-031): foro Ø38 al centro con ventola 40 × 40 × 10 a 12 V sul lato
+  opposto, che soffia verso la S3; in alternativa 30 × 30 con foro Ø28.
+- **Interruttori -S1/-S2** ai due estremi, azionati dai pulsanti del quadro originale;
+  posizione indicativa alle rientranze laterali, tipo e corsa da scegliere sul modello 3D.
+- **-J1** Micro-Fit 2×12 (D-044) al bordo inferiore, al centro; **-J2** verso la S3 al
+  bordo superiore, al centro.
 
 | Voce | Area |
 | --- | --- |
-| Blocchi di base, netto | ≈ 3 620 mm² |
-| Base con piste e distanze (× 1,5) | ≈ 5 430 mm² |
-| Facoltativi (supercondensatore, RTC + CR2032, MicroSD) | ≈ 1 670 mm² netti |
-| Contorno S3 | 11 508 mm² |
+| Blocchi di base, netto | ≈ 3 680 mm² |
+| Base con piste e distanze (× 1,5) | ≈ 5 520 mm² |
+| Facoltativi (RTC + CR2032, MicroSD) | ≈ 705 mm² netti |
+| Contorno meno foro della ventola | ≈ 9 510 mm² |
 
-Conclusione preliminare: i blocchi di base stanno in circa **90 × 84 mm** su una
-sola faccia. Restano circa 45 mm sul lato opposto per i blocchi facoltativi oppure,
-se il supercondensatore va fuori scheda e RTC/MicroSD non servono, per il
-dissipatore e il flusso d'aria della ventola. La dimensione del supercondensatore
-è l'incognita principale (misura P5 della prova sulla presa OBD).
+Conclusione preliminare: tutti i blocchi di base e i facoltativi RTC/MicroSD stanno su una
+sola faccia attorno alla ventola. Il supercondensatore di riserva (36 × 24 mm, misura P5
+della prova sulla presa OBD) non trova posto su questa faccia: retro o fuori scheda, da
+decidere. Da rilevare sul pezzo: posizione relativa delle due schede, connettori P1/P2/P6
+e altezze dei componenti sul retro della S3.
 
 ## Collegamenti verso l'S3 (-J2)
 

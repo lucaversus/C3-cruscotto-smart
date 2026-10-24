@@ -20,8 +20,8 @@ Architettura della scheda madre: alimentazione, front-end, interfacce, audio. Do
 
 [![CR-BL-001](CR-BL-001_scheda-madre-blocchi.png)](CR-BL-001_scheda-madre-blocchi.png)
 
-### CR-PL-001 — Scheda madre, studio d'ingombro (rev B, preliminare)
-Zone dei componenti sul contorno della scheda S3 (137 × 84 mm).
+### CR-PL-001 — Scheda madre, studio d'ingombro (rev C, preliminare)
+Zone dei componenti sul contorno definitivo dal modello 3D (178,7 × 74 mm, D-045), foro centrale della ventola e interruttori dei pulsanti del quadro.
 
 [![CR-PL-001](CR-PL-001_scheda-madre-ingombro.png)](CR-PL-001_scheda-madre-ingombro.png)
 
