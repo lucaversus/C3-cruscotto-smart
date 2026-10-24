@@ -1851,6 +1851,169 @@
 			)
 		)
 		(embedded_fonts no)
+		)		(symbol "Switch:SW_Push"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "SW"
+			(at 1.27 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SW_Push"
+			(at 0 -1.524 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "switch normally-open pushbutton push-button"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "SW_Push_0_1"
+			(circle
+				(center -2.032 0)
+				(radius 0.508)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 1.27) (xy 0 3.048)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 2.032 0)
+				(radius 0.508)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 2.54 1.27) (xy -2.54 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 5.08 0 180)
+				(length 2.54)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
 		)
 	)
 	(symbol (lib_id "Connector_Generic:Conn_01x04") (at 60.96 63.5 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5809383b-820c-5246-b4cb-14cc8a179d2f")
@@ -1904,7 +2067,9 @@
 		(pin "4" (uuid "001a276c-2a9e-579c-830c-f0898dc7b2b0"))
 		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/37bc7f39-e7e3-500a-8f0b-bbc32f15f7b4" (reference "J11") (unit 1))))
 	)
-	(no_connect (at 55.88 93.98) (uuid "d78e8def-0bad-5e7c-a7ac-4d9a6e931795"))
+	(wire (pts (xy 55.88 93.98) (xy 53.34 93.98)) (stroke (width 0) (type default)) (uuid "99767b7f-4c64-552d-beee-c04af8797966"))
+	(global_label "S3_IO19" (shape passive) (at 53.34 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9a75684a-40c6-56b2-aeb6-159220dca56f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 93.98 0) (effects (font (size 1.27 1.27)) (justify right) (hide yes))))
 	(wire (pts (xy 55.88 96.52) (xy 53.34 96.52)) (stroke (width 0) (type default)) (uuid "ce8d49f1-63cb-5aca-b1d0-f321dbb98acb"))
 	(global_label "LINK_FE2S3" (shape passive) (at 53.34 96.52 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a2e8cd1e-5687-556c-87ea-063f7e1bf200")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 96.52 0) (effects (font (size 1.27 1.27)) (justify right) (hide yes))))
@@ -2091,11 +2256,72 @@
 	(wire (pts (xy 129.54 124.46) (xy 135.89 124.46)) (stroke (width 0) (type default)) (uuid "4d7aa638-579f-5ba2-b8cd-22cabc7c2354"))
 	(global_label "RELAY_CMD" (shape passive) (at 129.54 124.46 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4838d7be-6712-546e-afa7-bc4bc3cd9ad0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 129.54 124.46 0) (effects (font (size 1.27 1.27)) (justify right) (hide yes))))
+	(symbol (lib_id "Switch:SW_Push") (at 45.72 175.26 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "2e4d8cb6-80bc-543e-9784-aecb9ccf238b")
+		(property "Reference" "S1" (at 49.53 173.99 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "6x6 H7,3" (at 49.53 176.53 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H7.3mm" (at 45.72 175.26 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 45.72 175.26 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "Pulsante sinistro: IO19 della S3 (emergenza D-039, cambio pagina); pull-up interno della S3" (at 45.72 175.26 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "325e8d8b-5ae4-5902-8132-f2b96fa7af94"))
+		(pin "2" (uuid "fb3c1dfa-994e-5754-b94c-086588aba372"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/37bc7f39-e7e3-500a-8f0b-bbc32f15f7b4" (reference "S1") (unit 1))))
+	)
+	(symbol (lib_id "power:GND") (at 45.72 180.34 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "d8513321-4f98-5f3c-a3fa-f3b279771e8b")
+		(property "Reference" "#PWR095" (at 45.72 173.99 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 45.72 176.53 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 45.72 180.34 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 45.72 180.34 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 45.72 180.34 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "6cd0a2b4-5883-5cb8-bc1e-567603b02b91"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/37bc7f39-e7e3-500a-8f0b-bbc32f15f7b4" (reference "#PWR095") (unit 1))))
+	)
+	(wire (pts (xy 45.72 170.18) (xy 45.72 162.56)) (stroke (width 0) (type default)) (uuid "5310ef6b-0d69-56ed-b6c1-2957d915960e"))
+	(global_label "S3_IO19" (shape passive) (at 45.72 162.56 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "9d5ae1b8-1a3b-5734-94ff-622277d15577")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 162.56 0) (effects (font (size 1.27 1.27)) (justify left) (hide yes))))
+	(symbol (lib_id "Switch:SW_Push") (at 81.28 175.26 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "61d8ff23-fd35-5d87-b69a-86843e2beffa")
+		(property "Reference" "S2" (at 85.09 173.99 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "6x6 H7,3" (at 85.09 176.53 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H7.3mm" (at 81.28 175.26 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 81.28 175.26 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "Pulsante destro: GPIO5 del front-end, pull-up R56" (at 81.28 175.26 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "56f8493d-912f-5be0-a5d1-2715468591ae"))
+		(pin "2" (uuid "b166b2ad-8214-5ce9-a995-bf7f387a7dc7"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/37bc7f39-e7e3-500a-8f0b-bbc32f15f7b4" (reference "S2") (unit 1))))
+	)
+	(symbol (lib_id "power:GND") (at 81.28 180.34 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "c3973e57-cb83-57e5-acd0-bb61c95f52c2")
+		(property "Reference" "#PWR096" (at 81.28 173.99 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 81.28 176.53 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 81.28 180.34 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 81.28 180.34 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 81.28 180.34 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "295af48d-b528-5239-9678-18e1347c8118"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/37bc7f39-e7e3-500a-8f0b-bbc32f15f7b4" (reference "#PWR096") (unit 1))))
+	)
+	(wire (pts (xy 81.28 170.18) (xy 81.28 162.56)) (stroke (width 0) (type default)) (uuid "ae09e031-e007-5b17-ac81-74d8c1a660e8"))
+	(global_label "FE_BTN2" (shape passive) (at 81.28 162.56 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "3d7b5715-cccc-55cb-a675-598d57915308")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 81.28 162.56 0) (effects (font (size 1.27 1.27)) (justify left) (hide yes))))
+	(symbol (lib_id "Device:R") (at 91.44 162.56 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "dc68a310-3918-57b8-b722-8fce45cf093b")
+		(property "Reference" "R56" (at 93.98 161.29 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "10k" (at 93.98 163.83 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (at 91.44 162.56 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 91.44 162.56 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "GPIO5 è un pin di avvio: alto a riposo, come richiesto" (at 91.44 162.56 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "a1d90f7e-edf7-5fa4-acbb-03033889b816"))
+		(pin "2" (uuid "1a5074e3-ce6c-5531-9cb7-3bdd11359c63"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/37bc7f39-e7e3-500a-8f0b-bbc32f15f7b4" (reference "R56") (unit 1))))
+	)
+	(wire (pts (xy 91.44 158.75) (xy 91.44 154.94)) (stroke (width 0) (type default)) (uuid "5bec23eb-7655-5d03-940e-48a4d252a4d2"))
+	(global_label "+3V3_AON" (shape passive) (at 91.44 154.94 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5f8a6bd2-9cf5-53b6-9eb9-cbbccb1d3af1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 91.44 154.94 0) (effects (font (size 1.27 1.27)) (justify left) (hide yes))))
+	(wire (pts (xy 91.44 166.37) (xy 91.44 170.18)) (stroke (width 0) (type default)) (uuid "9b64a2ee-c059-5903-99df-c6377fdbcbf1"))
+	(wire (pts (xy 91.44 170.18) (xy 81.28 170.18)) (stroke (width 0) (type default)) (uuid "f411df79-b281-54a1-a94d-b372360f3694"))
+	(text "PULSANTI DEL QUADRO (D-054)" (exclude_from_sim no) (at 25.4 147.32 0) (effects (font (size 2.0 2.0)) (justify left bottom)) (uuid "14e26a48-7af1-5b08-a5b0-870e254e436d"))
 	(text "CAVETTI MX1.25 VERSO LA S3 (P1, P2, P6)" (exclude_from_sim no) (at 25.4 45.72 0) (effects (font (size 2.0 2.0)) (justify left bottom)) (uuid "5ec3d35c-cadc-5aa2-bede-027297d78347"))
 	(text "RELÈ AUDIO (D-028): A RIPOSO RADIO, ECCITATI S3 SUI DUE ALTOPARLANTI IN SERIE" (exclude_from_sim no) (at 106.68 45.72 0) (effects (font (size 2.0 2.0)) (justify left bottom)) (uuid "999fad2b-ff96-56b7-991c-6a40db2b7db0"))
 	(text "Proposta preliminare, non verificata. Ordine dei piedini della S3 riferito dall’utente il 25/10/2026; P2 e P3 senza massa: la massa di riferimento arriva da P1 (J10)." (exclude_from_sim no) (at 25.4 236.22 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "66804d78-0d87-59d1-8d87-8ae2a3b8acd7"))
-	(text "Altoparlanti in serie a relè eccitati: l’uscita mono della S3 vede circa 8 ohm. Uscite della radio mai a massa (D-028). IO19 (J11.1) e UART0 (J10.2-3) non collegati per ora." (exclude_from_sim no) (at 25.4 241.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c478866e-5d10-583e-8e4e-10322f9c0bcf"))
+	(text "Altoparlanti in serie a relè eccitati: l’uscita mono della S3 vede circa 8 ohm. Uscite della radio mai a massa (D-028). UART0 della S3 (J10.2-3) non collegata per ora." (exclude_from_sim no) (at 25.4 241.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "8d01a567-0add-5934-bb63-06fa4d3395df"))
 	(text "Etichette con lo stesso nome sono collegate, anche tra fogli diversi." (exclude_from_sim no) (at 25.4 246.38 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "11df513d-c1a5-5716-95a4-8faae0e3848f"))
+	(junction (at 81.28 170.18) (diameter 0) (color 0 0 0 0) (uuid "a82bf5d4-0ab9-5521-849c-3c8c093e1302"))
 	(junction (at 121.92 73.66) (diameter 0) (color 0 0 0 0) (uuid "94839b2b-57b7-52ab-8b0e-6a913a8d6757"))
 	(junction (at 129.54 116.84) (diameter 0) (color 0 0 0 0) (uuid "45366375-06b9-5c59-892a-364c69f8064b"))
 	(junction (at 144.78 124.46) (diameter 0) (color 0 0 0 0) (uuid "25930522-f34d-5942-b3ef-be488bdc390e"))

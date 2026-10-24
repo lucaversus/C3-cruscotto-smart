@@ -491,7 +491,7 @@ NPN = 'Transistor_BJT:MMBT3904'
 FE = {'2': '+3V3_AON', '[1,15,38,39]': 'GND', '3': 'FE_EN',
       '4': 'NTC_DISP', '5': 'KEY_SENSE', '6': 'VAN_RX', '7': 'VBAT_SENSE', '8': 'NTC_PCB', '9': 'FE_RX',
       '10': 'FE_TX', '11': 'FAN_PWM', '12': 'SD_CS', '13': 'FAN_TACH', '14': None, '16': 'PWR_HOLD',
-      '23': None, '24': 'FAN_EN', '25': 'FE_IO0', '26': 'FE_LED', '27': 'KL_RX', '28': 'KL_TX', '29': None,
+      '23': None, '24': 'FAN_EN', '25': 'FE_IO0', '26': 'FE_LED', '27': 'KL_RX', '28': 'KL_TX', '29': 'FE_BTN2',
       '30': 'SD_SCK', '31': 'SD_MISO', '33': 'I2C_SDA', '34': 'FE_U0RXD', '35': 'FE_U0TXD', '36': 'I2C_SCL',
       '37': 'SD_MOSI'}
 FE.update({n: None for n in ('17', '18', '19', '20', '21', '22', '32')})
@@ -881,7 +881,7 @@ wire('D13.1', (50.8, 60.96), 'J10.1')
 wire('D13.2', (33.02, 60.96))
 label('+5V', (33.02, 60.96), 180)
 symbol('J11', 'Connector_Generic:Conn_01x04', 'Verso P2 S3: IO19 IO11 IO12 IO13', PB % (4, 4), 60.96, 96.52,
-       nets={'1': None, '2': 'LINK_FE2S3', '3': 'LINK_S32FE', '4': 'RELAY_CMD'}, auto=True, txt=((0, 10.16), (0, 12.7), ''),
+       nets={'1': 'S3_IO19', '2': 'LINK_FE2S3', '3': 'LINK_S32FE', '4': 'RELAY_CMD'}, auto=True, txt=((0, 10.16), (0, 12.7), ''),
        note='P2 da destra a sinistra IO19, IO11, IO12, IO13; P2 non porta massa: riferimento da J10 (P1)')
 symbol('J12', 'Connector_Generic:Conn_01x02', 'Verso P6 Speak S3', PB % (2, 2), 60.96, 127,
        nets={'1': 'S3_SPK_A', '2': 'S3_SPK_B'}, auto=True,
@@ -921,12 +921,27 @@ wire('R54.2', 'R55.1', 'Q9.1')
 wire((129.54, 124.46), 'R54.1')
 label('RELAY_CMD', (129.54, 124.46), 180)
 
+# --- Pulsanti del quadro originale (D-054): S1 sinistro -> IO19 della S3, S2 destro -> GPIO5 del front-end ---
+for ref, x, net, note in (('S1', 45.72, 'S3_IO19', 'Pulsante sinistro: IO19 della S3 (emergenza D-039, cambio pagina); pull-up interno della S3'),
+                          ('S2', 81.28, 'FE_BTN2', 'Pulsante destro: GPIO5 del front-end, pull-up R56')):
+    symbol(ref, 'Switch:SW_Push', '6x6 H7,3', 'Button_Switch_THT:SW_PUSH_6mm_H7.3mm', x, 175.26,
+           rot=90, nets={'1': 'GND', '2': net}, txt=((3.81, -1.27), (3.81, 1.27), 'right'), note=note)
+    gnd(f'{ref}.1', 0)
+    wire(f'{ref}.2', (x, 162.56))
+    label(net, (x, 162.56), 90)
+R('R56', '10k', 91.44, 162.56, '+3V3_AON', 'FE_BTN2', txt=((2.54, -1.27), (2.54, 1.27), 'left'),
+  note='GPIO5 è un pin di avvio: alto a riposo, come richiesto')
+wire('R56.1', (91.44, 154.94))
+label('+3V3_AON', (91.44, 154.94), 90)
+wire('R56.2', (91.44, 170.18), (81.28, 170.18))
+text(25.4, 147.32, 'PULSANTI DEL QUADRO (D-054)')
+
 text(25.4, 45.72, 'CAVETTI MX1.25 VERSO LA S3 (P1, P2, P6)')
 text(106.68, 45.72, 'RELÈ AUDIO (D-028): A RIPOSO RADIO, ECCITATI S3 SUI DUE ALTOPARLANTI IN SERIE')
 text(25.4, 236.22, 'Proposta preliminare, non verificata. Ordine dei piedini della S3 riferito dall’utente il 25/10/2026; P2 e P3 senza massa: '
                    'la massa di riferimento arriva da P1 (J10).', 1.27)
 text(25.4, 241.3, 'Altoparlanti in serie a relè eccitati: l’uscita mono della S3 vede circa 8 ohm. Uscite della radio mai a massa (D-028). '
-                  'IO19 (J11.1) e UART0 (J10.2-3) non collegati per ora.', 1.27)
+                  'UART0 della S3 (J10.2-3) non collegata per ora.', 1.27)
 text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
 
 # === scrittura dei fogli ===============================================================

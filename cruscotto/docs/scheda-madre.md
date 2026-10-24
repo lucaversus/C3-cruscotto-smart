@@ -52,14 +52,16 @@ raccolta dati e uso in auto leggano il veicolo con lo stesso codice.
 | 39 | segnale chiave (+ dopo contatto) | ingresso protetto, solo ingresso |
 | 13 | comando di mantenimento alimentazione | a riposo spento |
 | 4 | LED di stato | |
+| 5 | pulsante destro del quadro (S2) | pull-up 10k; pin di avvio, alto a riposo (D-054) |
 | 26 | ventola 12 V, PWM (D-031) | ingresso PWM della ventola a 4 fili, a collettore aperto (CR-EL-002) |
 | 2 | accensione della ventola | P-MOSFET lato alto; pin di avvio: basso al reset (resistenza da 100k), D-049 |
 | 14 | giri ventola (tachimetrica) | ingresso con pull-up |
 | 36 / 32 | NTC vicino al display / NTC sulla scheda | ADC1 |
 | 18 / 19 / 23 / 27 | MicroSD opzionale | stessi pin del logger: la scheda madre può fare anche da registratore |
 
-Evitati i pin di avvio (0, 5, 12, 15) e quelli della flash (6-11). GPIO2, anch'esso pin di avvio, è
-proposto per l'accensione della ventola perché a riposo deve restare basso come richiede l'avvio.
+Evitati i pin di avvio 0, 12, 15 e quelli della flash (6-11). GPIO2, anch'esso pin di avvio, è
+usato per l'accensione della ventola perché a riposo deve restare basso come richiede l'avvio (D-049);
+GPIO5, anch'esso pin di avvio, per il pulsante destro perché a riposo resta alto (D-054).
 
 ## Schema elettrico: alimentazione (C3AI-CR-EL-001 rev C, proposta)
 
@@ -167,8 +169,8 @@ Foglio `cruscotto/pcb/scheda-madre/s3-audio.kicad_sch`; tavola
   spento o con la S3 spenta la radio resta sugli altoparlanti. Eccitati, l'uscita della S3 va
   sui due altoparlanti **in serie** (D-053; circa 8 Ω visti dall'amplificatore mono U1): le uscite
   della radio restano scollegate, mai a massa.
-- Da decidere: uso di IO19 (pulsante di emergenza D-039, interruttori S1/S2 della scheda) e
-  della UART0 della S3 (porta nascosta).
+- **Pulsanti del quadro** (D-054): S1 (sinistro) a IO19 della S3, S2 (destro) a GPIO5 del
+  front-end con pull-up 10k. Da decidere: UART0 o USB nativa della S3 per la porta nascosta.
 
 ERC con i cinque fogli: 0 errori, 1 avviso per la massa di riferimento VAN (J1 via 7) ancora da
 collegare. Il generatore confronta 95 reti con il netlist di KiCad.
@@ -245,7 +247,7 @@ dall'utente il 25/10/2026, vista dal retro con la USB-C a destra (HW-DASH-DISPLA
 | Connettore S3 | Piedini | Uso sulla scheda madre (CR-EL-005) |
 | --- | --- | --- |
 | P1 (dal basso in alto) | 5V, TXD, RXD, GND | J10: 5 V dalla scheda madre tramite il Schottky D13 e massa comune; UART0 non collegata (riserva) |
-| P2 (da destra a sinistra) | IO19, IO11, IO12, IO13 | J11: IO11 ricezione dal front-end, IO12 trasmissione, IO13 comando relè; IO19 non collegato per ora |
+| P2 (da destra a sinistra) | IO19, IO11, IO12, IO13 | J11: IO19 pulsante sinistro S1 (D-054), IO11 ricezione dal front-end, IO12 trasmissione, IO13 comando relè |
 | P3 | IO17, IO18, IO19, IO20 | non usato; IO19/IO20 = USB nativa (possibile porta nascosta) |
 | P4, P5 | GND, 3.3V, IO17, IO18 | non usati (IO17/IO18 verso U1) |
 | P6 Speak | 2 piedini senza polarità | J12: uscita differenziale verso i relè |
