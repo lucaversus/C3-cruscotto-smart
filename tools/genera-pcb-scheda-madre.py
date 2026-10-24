@@ -52,7 +52,7 @@ ds.SetBoardThickness(pcbnew.FromMM(1.6))
 ds.m_MinClearance = pcbnew.FromMM(0.2)
 ds.m_TrackMinWidth = pcbnew.FromMM(0.2)
 ds.m_ViasMinSize = pcbnew.FromMM(0.6)
-ds.m_MinThroughDrill = pcbnew.FromMM(0.3)
+ds.m_MinThroughDrill = pcbnew.FromMM(0.2)  # fori termici delle impronte (es. ESP32): 0,2 mm, standard dei produttori
 ds.m_CopperEdgeClearance = pcbnew.FromMM(0.5)
 ds.m_HoleClearance = pcbnew.FromMM(0.25)
 
@@ -121,6 +121,251 @@ edge_y = at(0, ing.YMIN).y
 j1.Move(pcbnew.VECTOR2I(at(0, 0).x - box.Centre().x, edge_y - box.GetBottom()))
 
 
+# --- Componenti dello schema (CR-EL-001…005): reti dal netlist di KiCad, piazzamento preliminare a blocchi ----
+import re
+import subprocess
+import tempfile
+
+SCH = OUT / 'scheda-madre.kicad_sch'
+CLI = Path(pcbnew.__file__).resolve().parents[3] / 'bin' / 'kicad-cli.exe'
+if not CLI.is_file():
+    CLI = Path(r'C:\Program Files\KiCad\10.0\bin\kicad-cli.exe')
+
+
+def read_netlist():
+    with tempfile.TemporaryDirectory() as tmp:
+        net = Path(tmp) / 'n.net'
+        subprocess.run([str(CLI), 'sch', 'export', 'netlist', '-o', str(net), str(SCH)], check=True, capture_output=True)
+        t = net.read_text(encoding='utf-8')
+    comps = {}
+    for blk in t.split('\n\t\t(comp\n')[1:]:
+        ref = re.search(r'\(ref "([^"]+)"', blk).group(1)
+        fp = re.search(r'\(footprint "([^"]*)"', blk)
+        if fp and fp.group(1):
+            comps[ref] = (fp.group(1), re.search(r'\(value "([^"]*)"', blk).group(1))
+    pins = {}
+    for blk in re.split(r'\n\t\t\(net\n', t[t.index('(nets'):])[1:]:
+        name = re.search(r'\(name "([^"]+)"', blk).group(1)
+        for ref, pin in re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"', blk):
+            pins[(ref, pin)] = name
+    return comps, pins
+
+
+COMPS, PINS = read_netlist()
+NETS = {}
+
+
+def assign_nets(fp, ref):
+    for pad in fp.Pads():
+        name = PINS.get((ref, pad.GetNumber()))
+        if not name or name.startswith('unconnected-'):
+            continue
+        if name not in NETS:
+            NETS[name] = pcbnew.NETINFO_ITEM(board, name)
+            board.Add(NETS[name])
+        pad.SetNet(NETS[name])
+
+
+def dxf(p):
+    return pcbnew.ToMM(p.x) - CX, CY + 46.0 - pcbnew.ToMM(p.y)
+
+
+def box_dxf(fp):
+    """Ingombro (courtyard, o contorno se manca) in coordinate del DXF: x0, y0, x1, y1 con y verso l'alto."""
+    lay = pcbnew.B_CrtYd if fp.IsFlipped() else pcbnew.F_CrtYd
+    bb = fp.GetCourtyard(lay).BBox()
+    if fp.GetReference() in BODY_ONLY:  # radio del modulo non usata: ingombro del solo corpo, senza zona d'antenna
+        fab = pcbnew.B_Fab if fp.IsFlipped() else pcbnew.F_Fab
+        boxes = [it.GetBoundingBox() for it in fp.GraphicalItems()
+                 if it.GetLayer() == fab and isinstance(it, pcbnew.PCB_SHAPE)]
+        x0, y0 = min(q.GetLeft() for q in boxes), min(q.GetTop() for q in boxes)
+        x1, y1 = max(q.GetRight() for q in boxes), max(q.GetBottom() for q in boxes)
+        m = pcbnew.FromMM(0.5)
+        bb = pcbnew.BOX2I(pcbnew.VECTOR2I(x0 - m, y0 - m), pcbnew.VECTOR2L(x1 - x0 + 2 * m, y1 - y0 + 2 * m))
+    if bb.GetWidth() == 0:
+        bb = fp.GetBoundingBox(False)
+    (x0, y1), (x1, y0) = dxf(bb.GetOrigin()), dxf(bb.GetEnd())
+    return x0, y0, x1, y1
+
+
+BODY_ONLY = {'U4'}  # ESP32 del front-end: Wi-Fi/BLE non usati (D-029, D-036), la zona d'antenna può avere componenti vicini
+FAN_SQ = (ing.FAN_C[0] - 21, ing.FAN_C[1] - 21, ing.FAN_C[0] + 21, ing.FAN_C[1] + 21)   # corpo della ventola sul retro
+OCC = {'F': [], 'B': []}                                    # ingombri già occupati per faccia
+
+
+def is_tht(fp):
+    # Piedini a foro passante veri (non i fori termici sotto le piazzole): occupano anche l'altra faccia.
+    return any(p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH and pcbnew.ToMM(p.GetDrillSize().x) >= 0.6 for p in fp.Pads())
+
+
+def occupy(fp, side):
+    b = box_dxf(fp)
+    for s in (('F', 'B') if is_tht(fp) else (side,)):   # i componenti a foro passante occupano le due facce
+        OCC[s].append(b)
+
+
+WHY = []
+
+
+def free(b, side, margin=0.6, check_outline=True):
+    x0, y0, x1, y1 = b[0] - margin, b[1] - margin, b[2] + margin, b[3] + margin
+    if check_outline:
+        n = max(2, int((x1 - x0) / 1.0)), max(2, int((y1 - y0) / 1.0))
+        per = [(x0 + (x1 - x0) * i / n[0], y) for i in range(n[0] + 1) for y in (y0, y1)]
+        per += [(x, y0 + (y1 - y0) * j / n[1]) for j in range(n[1] + 1) for x in (x0, x1)]
+        if not all(ing.inside(px, py) for px, py in per):
+            WHY.append('bordo')
+            return False
+    for hx, hy, r in ing.HOLES:
+        cx, cy = min(max(hx, x0), x1), min(max(hy, y0), y1)
+        if math.hypot(cx - hx, cy - hy) < r + 3.2:
+            WHY.append(f'foro {hx:g},{hy:g}')
+            return False
+    fx, fy = ing.FAN_C
+    cx, cy = min(max(fx, x0), x1), min(max(fy, y0), y1)
+    if math.hypot(cx - fx, cy - fy) < ing.FAN_HOLE / 2 + 1.0:
+        WHY.append('foro ventola')
+        return False
+    if side == 'B' and not (x1 <= FAN_SQ[0] or x0 >= FAN_SQ[2] or y1 <= FAN_SQ[1] or y0 >= FAN_SQ[3]):
+        WHY.append('ventola')
+        return False
+    hit = [o for o in OCC[side] if not (x1 <= o[0] or x0 >= o[2] or y1 <= o[1] or y0 >= o[3])]
+    if hit:
+        WHY.append(f'occupato {[round(v, 1) for v in hit[0]]}')
+    return all(x1 <= o[0] or x0 >= o[2] or y1 <= o[1] or y0 >= o[3] for o in OCC[side])
+
+
+def new_fp(ref, side, rot=0.0):
+    fpid, value = COMPS[ref]
+    lib, name = fpid.split(':')
+    path = OUT / f'{lib}.pretty' if lib == 'scheda-madre' else LIB / f'{lib}.pretty'
+    fp = pcbnew.FootprintLoad(str(path), name)
+    assert fp is not None, f'impronta non trovata: {fpid}'
+    fp.SetReference(ref)
+    fp.SetValue(value)
+    fp.SetOrientationDegrees(rot)
+    board.Add(fp)
+    if side == 'B':
+        fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_TOP_BOTTOM)
+    assign_nets(fp, ref)
+    if ref in BODY_ONLY:  # niente zona vietata né courtyard d'antenna: courtyard sul solo corpo del modulo
+        for z in list(fp.Zones()):
+            fp.Remove(z)
+        fab = [it for it in fp.GraphicalItems() if it.GetLayer() == pcbnew.F_Fab and isinstance(it, pcbnew.PCB_SHAPE)]
+        x0 = min(it.GetBoundingBox().GetLeft() for it in fab); x1 = max(it.GetBoundingBox().GetRight() for it in fab)
+        y0 = min(it.GetBoundingBox().GetTop() for it in fab); y1 = max(it.GetBoundingBox().GetBottom() for it in fab)
+        for it in [it for it in fp.GraphicalItems() if it.GetLayer() in (pcbnew.F_CrtYd, pcbnew.B_CrtYd)]:
+            fp.Remove(it)
+        m = pcbnew.FromMM(0.5)
+        cy = pcbnew.PCB_SHAPE(fp, pcbnew.SHAPE_T_RECT)
+        cy.SetStart(pcbnew.VECTOR2I(x0 - m, y0 - m))
+        cy.SetEnd(pcbnew.VECTOR2I(x1 + m, y1 + m))
+        cy.SetLayer(pcbnew.B_CrtYd if side == 'B' else pcbnew.F_CrtYd)
+        cy.SetWidth(pcbnew.FromMM(0.05))
+        fp.Add(cy)
+    return fp
+
+
+def move_box_to(fp, cx, cy):
+    """Sposta il componente perché il centro del suo ingombro cada in (cx, cy) del DXF."""
+    b = box_dxf(fp)
+    dx, dy = cx - (b[0] + b[2]) / 2, cy - (b[1] + b[3]) / 2
+    fp.Move(pcbnew.VECTOR2I(pcbnew.FromMM(dx), pcbnew.FromMM(-dy)))
+
+
+def sides_of(fp, side):
+    return ('F', 'B') if is_tht(fp) else (side,)
+
+
+def put(ref, side, cx, cy, rot=0.0, check_outline=True):
+    fp = new_fp(ref, side, rot)
+    move_box_to(fp, cx, cy)
+    WHY.clear()
+    assert all(free(box_dxf(fp), sd, check_outline=check_outline) for sd in sides_of(fp, side)),         f'{ref}: posizione fissa non libera: {WHY}'
+    occupy(fp, side)
+    return fp
+
+
+def pack(refs, side, region, from_right=False, rot=0.0):
+    """Piazza i componenti nella regione (x0, y0, x1, y1) nel primo posto libero, dall'alto, accanto alla ventola se richiesto."""
+    x0, y0, x1, y1 = region
+    for ref in sorted(refs, key=lambda r: -area_of(r)):
+        fp = new_fp(ref, side, rot)
+        done = False
+        for r in (rot, rot + 90):  # prima l'orientamento richiesto, poi ruotato di 90°
+            fp.SetOrientationDegrees(r if side == 'F' else 180 - r)
+            b = box_dxf(fp)
+            w, h = b[2] - b[0], b[3] - b[1]
+            y = y1 - h / 2
+            while y >= y0 + h / 2 and not done:
+                xs = [x1 - w / 2 - i * 0.5 for i in range(int((x1 - x0 - w) / 0.5) + 1)]
+                for x in (xs if from_right else reversed(xs)):
+                    cand = (x - w / 2, y - h / 2, x + w / 2, y + h / 2)
+                    if all(free(cand, sd) for sd in sides_of(fp, side)):
+                        move_box_to(fp, x, y)
+                        occupy(fp, side)
+                        done = True
+                        break
+                y -= 0.5
+            if done:
+                break
+        if not done:  # lasciato fuori dalla scheda, a destra, e segnalato: il piazzamento va rivisto
+            FAILED.append(ref)
+            move_box_to(fp, 110.0 + 25 * (len(FAILED) // 8), 80.0 - 10 * (len(FAILED) % 8))
+
+
+_area = {}
+FAILED = []
+
+
+def area_of(ref):
+    if ref not in _area:
+        fpid = COMPS[ref][0]
+        lib, name = fpid.split(':')
+        path = OUT / f'{lib}.pretty' if lib == 'scheda-madre' else LIB / f'{lib}.pretty'
+        f = pcbnew.FootprintLoad(str(path), name)
+        bb = f.GetCourtyard(pcbnew.F_CrtYd).BBox()
+        _area[ref] = pcbnew.ToMM(bb.GetWidth()) * pcbnew.ToMM(bb.GetHeight())
+    return _area[ref]
+
+
+# Componenti meccanici già posati: reti e ingombri.
+for fp in board.GetFootprints():
+    ref = fp.GetReference()
+    if ref in COMPS:
+        assign_nets(fp, ref)
+    occupy(fp, 'B' if fp.IsFlipped() else 'F')
+placed = {fp.GetReference() for fp in board.GetFootprints()}
+
+# Posizioni fisse: modulo ESP32 con l'antenna al bordo superiore libero dalla S3, USB-C al bordo superiore,
+# cavetti verso i connettori della S3 vicino ai suoi lati (assieme 3D).
+put('J3', 'F', 14.0, ing.YMAX - 5.0, check_outline=False)
+put('J10', 'F', 60.0, 15.0, rot=90)
+put('J11', 'F', 28.0, 14.0)
+put('J12', 'F', 44.0, 14.0)
+put('J4', 'B', 26.0, 30.0, rot=90)
+placed |= {'J3', 'J10', 'J11', 'J12', 'J4'}
+pack(['U4'], 'F', (20.0, 9.0, 80.0, 62.0), from_right=True)
+placed.add('U4')
+
+USB = ['U5', 'U6', 'R31', 'R32', 'R33', 'R34', 'R37', 'C25', 'C26', 'C27', 'Q6', 'Q7', 'R35', 'R36']
+BACK = ['C3', 'K1', 'K2', 'D11', 'D12', 'Q9', 'R54', 'R55', 'J6', 'J8', 'J9', 'BT1', 'U10', 'C34']
+rest = [r for r in COMPS if r not in placed]
+put('J6', 'B', -56.5, 26.5, rot=90)
+placed.add('J6')
+pack(USB, 'F', (-24.0, 62.0, 24.0, ing.YMAX), from_right=False)
+pack(['K1', 'C3', 'D11', 'Q9', 'R54', 'R55', 'U10', 'C34'], 'B', (-72.0, 9.0, -21.5, ing.YMAX), from_right=True)
+pack(['BT1'], 'B', (-72.0, 9.0, 80.0, ing.YMAX), from_right=True)
+pack(['K2', 'D12', 'J8', 'J9'], 'B', (21.5, 9.0, 72.0, ing.YMAX), from_right=False)
+POWER = [r for r in rest if r not in USB + BACK and (
+    re.fullmatch(r'(U[123]|Q1|L[12]|FB1|D[1-6]|C([1-9]|1[0-9])|R([1-9]|1[0-4]))', r))]
+pack(POWER, 'F', (-72.0, 9.0, -20.0, ing.YMAX), from_right=True)
+VEH = [r for r in rest if re.fullmatch(r'(U[789]|Q8|D[89]|D10|C(2[89]|3[0-2])|R(3[89]|4[0-8]))', r)]
+pack(VEH, 'F', (20.0, 9.0, 72.0, 48.0), from_right=False)
+OTHER = [r for r in rest if r not in USB + BACK + POWER + VEH and r not in placed]
+pack(OTHER, 'F', (-24.0, 9.0, 89.0, ing.YMAX), from_right=False)
+
+
 def rect(layer, x, y, w, h, width=0.12):
     for (x1, y1), (x2, y2) in (((x, y), (x + w, y)), ((x + w, y), (x + w, y - h)),
                                ((x + w, y - h), (x, y - h)), ((x, y - h), (x, y))):
@@ -148,6 +393,8 @@ for ref, label, x, y, w, h, optional in ing.ZONES:
     text(pcbnew.Cmts_User, x + w / 2, y - h / 2, ref.lstrip('-'), 1.5)
 
 OUT.mkdir(parents=True, exist_ok=True)
+print('componenti piazzati:', len([f for f in board.GetFootprints() if f.GetReference() in COMPS]), 'di', len(COMPS),
+      '| senza posto:', ' '.join(FAILED) or 'nessuno')
 pcb = OUT / 'scheda-madre.kicad_pcb'
 pcbnew.SaveBoard(str(pcb), board)
 print(pcb)

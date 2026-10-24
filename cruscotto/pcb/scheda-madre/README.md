@@ -39,4 +39,25 @@ python tools/genera-schema-scheda-madre.py
 Le modifiche fatte a mano in KiCad sugli elementi generati si perdono rigenerando: quando
 inizierà lo sbroglio il generatore servirà solo per il bordo.
 
-Controllo DRC del 24/10/2026: 0 violazioni.
+## Piazzamento preliminare (25/10/2026)
+
+Il generatore legge il netlist dello schema con `kicad-cli`, assegna le reti ai piedini e
+dispone tutti i 139 componenti per blocchi, controllando contorno, fori (zona libera di
+3,2 mm oltre il foro), foro e corpo della ventola, sovrapposizioni e, per i componenti a foro
+passante, entrambe le facce. Anteprime: `piazzamento-lato-F.png` (faccia interna verso la
+S3) e `piazzamento-lato-B.png` (retro, vista speculare).
+
+- Faccia F (altezza massima circa 8 mm, distanza dalla S3 ~9,9 mm): alimentazione con le
+  parti calde accanto alla ventola a sinistra (D-046), front-end ESP32 a destra, USB-C e
+  CH340C al bordo superiore libero dalla S3, K-line e VAN, cavetti J10-J12 verso la S3.
+- Faccia B: relè K1/K2, zoccolo dell'IMU J6, modulo VAN (J8/J9), RTC con portapila (pila
+  sostituibile dal retro), condensatore C3, connettore della ventola J4, J1 verso l'auto.
+- Modulo ESP32: radio non usata (D-029, D-036), quindi courtyard sul solo corpo e nessuna
+  zona vietata d'antenna; fori termici da 0,2 mm sotto la piazzola di massa.
+- Regole nel file di progetto `scheda-madre.kicad_pro` (foro minimo 0,2 mm per i fori termici).
+
+DRC del 25/10/2026: nessun errore oltre ai 325 collegamenti non ancora tracciati (sbroglio da
+fare). Da rivedere prima dello sbroglio: J10-J12 PicoBlade verticali (con la spina inserita
+potrebbero superare la distanza dalla S3: valutare la versione ad angolo retto), interasse
+delle file di pin del modulo VAN, verifica delle altezze nell'assieme 3D, posizione fine dei
+gruppi (piazzamento automatico, non ottimizzato per le piste).
