@@ -165,7 +165,7 @@ Foglio `cruscotto/pcb/scheda-madre/s3-audio.kicad_sch`; tavola
 - **Relè audio** (D-028): K1 (sinistro) e K2 (destro), Omron G2RL-2 DPDT con bobina 5 V,
   pilotati da AO3400A sul comando IO13 della S3, 100k verso massa sul gate: a riposo, a quadro
   spento o con la S3 spenta la radio resta sugli altoparlanti. Eccitati, l'uscita della S3 va
-  sui due altoparlanti **in serie** (circa 8 Ω visti dall'amplificatore mono U1): le uscite
+  sui due altoparlanti **in serie** (D-053; circa 8 Ω visti dall'amplificatore mono U1): le uscite
   della radio restano scollegate, mai a massa.
 - Da decidere: uso di IO19 (pulsante di emergenza D-039, interruttori S1/S2 della scheda) e
   della UART0 della S3 (porta nascosta).
