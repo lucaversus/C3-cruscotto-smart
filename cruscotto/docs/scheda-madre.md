@@ -7,7 +7,7 @@ generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 r
 
 **Stato: proposta.** Nessun componente scelto in via definitiva. Schema elettrico
 iniziato in KiCad (fogli alimentazione C3AI-CR-EL-001 rev C, front-end C3AI-CR-EL-002 rev A,
-interfacce veicolo C3AI-CR-EL-003 rev A e sensori e memoria C3AI-CR-EL-004 rev A, proposta non verificata);
+interfacce veicolo C3AI-CR-EL-003 rev B e sensori e memoria C3AI-CR-EL-004 rev B, proposta non verificata);
 circuito stampato con la sola meccanica. I pin del veicolo vengono da manuali
 generici RTA e da fonti comunitarie e vanno verificati (D-008, D-022).
 
@@ -110,7 +110,7 @@ generatore; tavola [CR-EL-002](../../disegni/CR-EL-002_scheda-madre-front-end.pn
 
 Il generatore confronta le reti di tutti i fogli con il netlist di KiCad. Modulo ESP32 e presa USB-C montati a mano (D-050); GPIO2 per la ventola approvato (D-049).
 
-## Schema elettrico: interfacce veicolo (C3AI-CR-EL-003 rev A, proposta)
+## Schema elettrico: interfacce veicolo (C3AI-CR-EL-003 rev B, proposta)
 
 Foglio `cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch`; tavola
 [CR-EL-003](../../disegni/CR-EL-003_scheda-madre-interfacce-veicolo.png).
@@ -122,15 +122,15 @@ Foglio `cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch`; tavola
   con la chiave la linea vale circa la tensione di batteria). Comparatore alimentato dal 5 V
   principale; pull-up dell'uscita al 3,3 V sempre acceso. Protezione dal corto della linea K
   verso la batteria durante la trasmissione: da studiare.
-- **VAN** (-U7 del blocco): SN65HVD230 in SOIC-8 in sola ricezione (D a 3,3 V, nessuna
-  resistenza da 120 Ω), Rs con 10k, NUP2105L sulle due linee, 100k verso massa su GPIO34
-  (nessuna resistenza interna). Alimentato da un 3,3 V separato (U9 AP2112K dal 5 V
-  principale): il VAN si ascolta solo a quadro acceso, nessun consumo a riposo. Ordine DATA /
+- **VAN** (-U7 del blocco, D-051): modulo blu SN65HVD230 (tipo HW-CAN-VP230, resistenza 121
+  rimossa) su file di pin J8 (3.3V/GND/RX/TX) e J9 (CANH/CANL); TX collegato al 3,3 V sulla scheda,
+  quindi sola ricezione; NUP2105L sulle due linee, 100k verso massa su GPIO34 (nessuna resistenza
+  interna). Alimentato da un 3,3 V separato (U9 AP2112K dal 5 V principale): il VAN si ascolta solo a quadro acceso, nessun consumo a riposo. Ordine DATA /
   DATA B da verificare (D-022); la massa di riferimento VAN di J1 (via 7) resta da collegare.
 
 Nessun collegamento all'auto prima dei prerequisiti D-022 e D-008.
 
-## Schema elettrico: sensori e memoria (C3AI-CR-EL-004 rev A, proposta)
+## Schema elettrico: sensori e memoria (C3AI-CR-EL-004 rev B, proposta)
 
 Foglio `cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch`; tavola
 [CR-EL-004](../../disegni/CR-EL-004_scheda-madre-sensori-memoria.png).
@@ -142,12 +142,14 @@ Foglio `cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch`; tavola
 - **RTC** (-U10, facoltativo): DS3231SN in SOIC-16W come il modulo del logger, piedini 5-12 a
   massa come da datasheet, pila CR2032 su portapila (HW-RTC-BATTERY, da procurare) senza
   ricarica (D-019).
-- **MicroSD** (facoltativa): SPI su GPIO18/19/23/27 come il logger, pull-up da 10k, alimentata
-  dal 3,3 V acceso a quadro: a riposo il firmware deve tenere basse le linee SPI.
+- **MicroSD** (facoltativa, D-051): modulo lettore (tipo HW-SD-MODULE) su fila di pin J7
+  (3V3/CS/MOSI/CLK/MISO/GND), SPI su GPIO18/19/23/27 come il logger, 10k di pull-up su CS,
+  alimentato dal 3,3 V acceso a quadro: a riposo il firmware deve tenere basse le linee SPI.
 
 ERC con i quattro fogli: 0 errori, 11 avvisi per i segnali del foglio ancora da disegnare
-(collegamento con l'S3, audio) e per la massa di riferimento VAN. Il generatore confronta 91
-reti con il netlist di KiCad.
+(collegamento con l'S3, audio) e per la massa di riferimento VAN. Il generatore confronta 88
+reti con il netlist di KiCad. Interasse delle file di pin e altezza dei moduli VAN e MicroSD da
+misurare sui pezzi prima dello sbroglio (D-051).
 
 ## Raffreddamento e dominio sempre acceso (D-031)
 

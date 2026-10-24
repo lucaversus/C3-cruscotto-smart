@@ -693,7 +693,7 @@ text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli
 # Foglio 3: interfacce veicolo, K-line e VAN (C3AI-CR-EL-003; D-008, D-022, D-033)
 # ======================================================================================
 begin_sheet('interfacce-veicolo.kicad_sch', 'Scheda madre cruscotto C3+AI - interfacce veicolo', 'C3AI-CR-EL-003',
-            'A', 'D-008, D-022, D-029, D-033, D-046', sheet_uuid=VEH_SHEET)
+            'B', 'D-008, D-022, D-029, D-033, D-046, D-051', sheet_uuid=VEH_SHEET)
 SOIC8 = 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'
 
 # --- K-line: circuito KL-001 rev F (data-logger/docs/kline-autocostruita.md) con protezioni ---
@@ -755,33 +755,33 @@ gnd('C29.2', 0)
 wire('U7.8', (99.06, 104.14), 'C28.1', 'C29.1', (124.46, 104.14))
 label('+5V', (124.46, 104.14), 0)
 
-# --- VAN: SN65HVD230 in sola ricezione, D al livello alto, nessuna resistenza da 120 ohm ----
-symbol('U8', 'Interface_CAN_LIN:SN65HVD230', 'SN65HVD230', SOIC8, 233.68, 66.04,
-       nets={'1': '+3V3_SW', '2': 'GND', '3': '+3V3_SW', '4': 'VAN_RX', '5': None, '6': 'VAN_DATAB',
-             '7': 'VAN_DATA', '8': 'VAN_RS'}, note='Solo ascolto: trasmettitore sempre recessivo (D-022)')
-gnd('U8.2', 0)
+# --- VAN: modulo blu SN65HVD230 (HW-CAN-VP230) su file di pin, sola ricezione (D-051) ----
+HDR = 'Connector_PinHeader_2.54mm:PinHeader_1x%02d_P2.54mm_Vertical'
+symbol('J8', 'Connector_Generic:Conn_01x04', 'Modulo VAN: 3.3V GND RX TX', HDR % 4, 231.14, 66.04,
+       nets={'1': '+3V3_SW', '2': 'GND', '3': 'VAN_RX', '4': '+3V3_SW'}, txt=((0, 10.16), (0, 12.7), ''),
+       note='Modulo con resistenza 121 rimossa (VAN-M002); TX al 3,3 V sulla scheda: trasmettitore sempre recessivo')
 shunt('C30', '100nF', 213.36, 53.34, '+3V3_SW')
-wire((205.74, 53.34), 'C30.1', (218.44, 53.34), (233.68, 53.34), 'U8.3')
+wire((205.74, 53.34), 'C30.1', (220.98, 53.34), (220.98, 63.5), 'J8.1')
 label('+3V3_SW', (205.74, 53.34), 180)
-wire('U8.1', (218.44, 63.5), (218.44, 53.34))
-R('R47', '100k', 210.82, 69.85, 'VAN_RX', 'GND', txt=((-2.54, -1.27), (-2.54, 1.27), 'right'),
-  note='GPIO34 non ha resistenze interne: livello definito con il ricetrasmettitore spento')
+tag('J8.2')
+tag('J8.4')
+R('R47', '100k', 208.28, 72.39, 'VAN_RX', 'GND', txt=((-2.54, -1.27), (-2.54, 1.27), 'right'),
+  note='GPIO34 non ha resistenze interne: livello definito con il modulo spento')
 gnd('R47.2', 0)
-wire('U8.4', 'R47.1', (203.2, 66.04))
-label('VAN_RX', (203.2, 66.04), 180)
-R('R48', '10k', 220.98, 74.93, 'VAN_RS', 'GND', txt=((-2.54, -1.27), (-2.54, 1.27), 'right'))
-gnd('R48.2', 0)
-wire('U8.8', 'R48.1')
-symbol('D10', 'Power_Protection:NUP2105L', 'NUP2105L', SOT23, 259.08, 67.31, rot=90,
+wire('J8.3', 'R47.1', (200.66, 68.58))
+label('VAN_RX', (200.66, 68.58), 180)
+symbol('J9', 'Connector_Generic:Conn_01x02', 'Modulo VAN: CANH CANL', HDR % 2, 309.88, 66.04,
+       nets={'1': 'VAN_DATA', '2': 'VAN_DATAB'}, note='Interasse con J8 da misurare sul modulo')
+symbol('D10', 'Power_Protection:NUP2105L', 'NUP2105L', SOT23, 284.48, 67.31, rot=90,
        nets={'1': 'VAN_DATAB', '2': 'VAN_DATA', '3': 'GND'}, txt=((0, -7.62), (0, -5.08), ''),
        note='Protezione dai transitori sulle due linee VAN')
 tag('D10.3')
-wire('U8.7', (248.92, 66.04), (248.92, 64.77), 'D10.2')
-wire('U8.6', (251.46, 68.58), (251.46, 69.85), 'D10.1')
-wire((248.92, 64.77), (248.92, 58.42))
-label('VAN_DATA', (248.92, 58.42), 90)
-wire((251.46, 69.85), (251.46, 76.2))
-label('VAN_DATAB', (251.46, 76.2), 270)
+wire((269.24, 64.77), (274.32, 64.77), 'D10.2')
+wire((274.32, 64.77), (274.32, 58.42), (302.26, 58.42), (302.26, 66.04), 'J9.1')
+label('VAN_DATA', (269.24, 64.77), 180)
+wire((269.24, 69.85), (276.86, 69.85), 'D10.1')
+wire((276.86, 69.85), (276.86, 76.2), (299.72, 76.2), (299.72, 68.58), 'J9.2')
+label('VAN_DATAB', (269.24, 69.85), 180)
 # 3,3 V acceso con il dominio principale: VAN solo a quadro acceso, nessun consumo a riposo.
 symbol('U9', 'Regulator_Linear:AP2112K-3.3', 'AP2112K-3.3', 'Package_TO_SOT_SMD:SOT-23-5', 233.68, 104.14,
        nets={'1': '+5V', '2': 'GND', '3': '+5V', '4': None, '5': '+3V3_SW'})
@@ -795,7 +795,7 @@ wire('U9.5', 'C32.1', (256.54, 101.6))
 label('+3V3_SW', (256.54, 101.6), 0)
 
 text(25.4, 33.02, 'K-LINE: KL-001 REV F CON PROTEZIONI PER L\'AUTO (D-008, D-022)')
-text(198.12, 33.02, 'VAN: SOLA RICEZIONE (D-022, D-029)')
+text(198.12, 33.02, 'VAN: MODULO BLU SN65HVD230, SOLA RICEZIONE (D-022, D-051)')
 text(198.12, 91.44, '3,3 V PER IL VAN, ACCESO CON IL DOMINIO PRINCIPALE', 1.5)
 text(25.4, 236.22, 'Proposta preliminare, non verificata. Nessun collegamento all\'auto prima dei prerequisiti D-022 e '
                    'della verifica dei pin (D-008). Ordine DATA / DATA B del VAN da verificare.', 1.27)
@@ -806,8 +806,8 @@ text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli
 # ======================================================================================
 # Foglio 4: sensori e memoria, IMU su modulo, RTC, MicroSD (C3AI-CR-EL-004; D-033, D-046)
 # ======================================================================================
-begin_sheet('sensori-memoria.kicad_sch', 'Scheda madre cruscotto C3+AI - sensori e memoria', 'C3AI-CR-EL-004', 'A',
-            'D-019, D-033, D-046', sheet_uuid=SENS_SHEET)
+begin_sheet('sensori-memoria.kicad_sch', 'Scheda madre cruscotto C3+AI - sensori e memoria', 'C3AI-CR-EL-004', 'B',
+            'D-019, D-033, D-046, D-051', sheet_uuid=SENS_SHEET)
 
 # --- IMU su modulo STEVAL-MKI196V1 (LSM6DSO) in zoccolo DIL-24: I2C a 0x6A (SA0 a massa) ---
 IMU = {'1': '+3V3_AON', '2': '+3V3_AON', '13': 'GND', '19': '+3V3_AON', '20': 'I2C_SCL', '21': 'I2C_SDA',
@@ -836,27 +836,24 @@ gnd('BT1.2', 0)
 wire('U10.14', (165.1, 66.04), 'BT1.1')
 flag('RTC_VBAT', (165.1, 66.04))
 
-# --- MicroSD (facoltativa): SPI su GPIO18/19/23/27 come il logger, alimentata dal 3,3 V acceso a quadro ---
-SD = {'1': 'SD_DAT2', '2': 'SD_CS', '3': 'SD_MOSI', '4': '+3V3_SW', '5': 'SD_SCK', '6': 'GND', '7': 'SD_MISO',
-      '8': 'SD_DAT1', 'SH': 'GND'}
-symbol('J7', 'Connector:Micro_SD_Card', 'MicroSD', 'Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5',
-       279.4, 81.28, nets=SD, auto=True, txt=((0, 22.86), (0, 25.4), ''),
-       note='Spenta a riposo: il firmware deve tenere basse le linee SPI quando il 3,3 V a quadro è spento')
+# --- MicroSD (facoltativa): modulo HW-SD-MODULE su fila di pin (D-051), SPI come il logger ---
+symbol('J7', 'Connector_Generic:Conn_01x06', 'Modulo MicroSD: 3V3 CS MOSI CLK MISO GND',
+       'Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical', 264.16, 81.28,
+       nets={'1': '+3V3_SW', '2': 'SD_CS', '3': 'SD_MOSI', '4': 'SD_SCK', '5': 'SD_MISO', '6': 'GND'}, auto=True,
+       note='Spento a riposo: il firmware deve tenere basse le linee SPI quando il 3,3 V a quadro è spento')
 X4 = 228.6
 label('+3V3_SW', (X4 - 7.62, 116.84), 180)
-pulls = ('SD_CS', 'SD_MOSI', 'SD_MISO', 'SD_DAT1', 'SD_DAT2')
-for i, net in enumerate(pulls):
-    R(f'R{49 + i}', '10k', X4 + 10.16 * i, 120.65, '+3V3_SW', net)
-    tag(f'R{49 + i}.2')
-shunt('C35', '10uF', X4 + 10.16 * len(pulls), 116.84, '+3V3_SW', fp=C1206)
-shunt('C36', '100nF', X4 + 10.16 * len(pulls) + 10.16, 116.84, '+3V3_SW')
-wire((X4 - 7.62, 116.84), *[f'R{49 + i}.1' for i in range(len(pulls))], 'C35.1', 'C36.1')
+R('R49', '10k', X4, 120.65, '+3V3_SW', 'SD_CS', note='Scheda deselezionata durante l’avvio')
+tag('R49.2')
+shunt('C35', '10uF', X4 + 10.16, 116.84, '+3V3_SW', fp=C1206)
+shunt('C36', '100nF', X4 + 20.32, 116.84, '+3V3_SW')
+wire((X4 - 7.62, 116.84), 'R49.1', 'C35.1', 'C36.1')
 
 text(25.4, 45.72, 'IMU SU MODULO DIL-24 (D-033, D-046)')
 text(25.4, 50.8, 'STEVAL-MKI196V1, LSM6DSO, I2C 0x6A', 1.5)
 text(142.24, 45.72, 'RTC DS3231SN (FACOLTATIVO) CON CR2032')
-text(215.9, 45.72, 'MICROSD (FACOLTATIVA), SPI COME IL LOGGER')
-text(215.9, 106.68, 'RESISTENZE DI PULL-UP DELLA MICROSD', 1.5)
+text(215.9, 45.72, 'MICROSD (FACOLTATIVA): MODULO SU FILA DI PIN (D-051)')
+text(215.9, 106.68, 'PULL-UP DI CS E CONDENSATORI DEL MODULO MICROSD', 1.5)
 text(25.4, 236.22, 'Proposta preliminare, non verificata. Pull-up I2C sul foglio del front-end. '
                    'Piedinatura del modulo IMU da riscontrare sulla serigrafia all’arrivo (HW-IMU-LSM6DSO).', 1.27)
 text(25.4, 241.3, 'IMU e RTC sul 3,3 V sempre acceso (consumi a riposo di pochi uA); MicroSD sul 3,3 V acceso a quadro. '

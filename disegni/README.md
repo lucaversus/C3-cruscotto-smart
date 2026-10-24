@@ -30,13 +30,13 @@ Modulo ESP32-WROOM-32E, programmazione USB-C a banco, reset automatico, collegam
 
 [![CR-EL-002](CR-EL-002_scheda-madre-front-end.png)](CR-EL-002_scheda-madre-front-end.png)
 
-### CR-EL-003 — Scheda madre, schema elettrico: interfacce veicolo (rev A, proposta non verificata)
-K-line dalla KL-001 rev F con protezioni per l'auto, VAN in sola ricezione con SN65HVD230. Sorgente KiCad: [interfacce-veicolo.kicad_sch](../cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch).
+### CR-EL-003 — Scheda madre, schema elettrico: interfacce veicolo (rev B, proposta non verificata)
+K-line dalla KL-001 rev F con protezioni per l'auto, VAN in sola ricezione con il modulo blu SN65HVD230 su file di pin (D-051). Sorgente KiCad: [interfacce-veicolo.kicad_sch](../cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch).
 
 [![CR-EL-003](CR-EL-003_scheda-madre-interfacce-veicolo.png)](CR-EL-003_scheda-madre-interfacce-veicolo.png)
 
-### CR-EL-004 — Scheda madre, schema elettrico: sensori e memoria (rev A, proposta non verificata)
-Zoccolo per il modulo IMU STEVAL-MKI196V1, RTC DS3231SN con CR2032, MicroSD. Sorgente KiCad: [sensori-memoria.kicad_sch](../cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch).
+### CR-EL-004 — Scheda madre, schema elettrico: sensori e memoria (rev B, proposta non verificata)
+Zoccolo per il modulo IMU STEVAL-MKI196V1, RTC DS3231SN con CR2032, modulo MicroSD su fila di pin (D-051). Sorgente KiCad: [sensori-memoria.kicad_sch](../cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch).
 
 [![CR-EL-004](CR-EL-004_scheda-madre-sensori-memoria.png)](CR-EL-004_scheda-madre-sensori-memoria.png)
 
