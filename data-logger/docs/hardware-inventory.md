@@ -256,7 +256,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `ordered_pending` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029, D-033)
 
-**Fonte:** Utente 22/10/2026: "ST STEVAL-MKI196V1 ho preso questo" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026.
+**Fonte:** Utente 22/10/2026: "ST STEVAL-MKI196V1 ho preso questo" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026. 24/10/2026: misure meccaniche dai Gerber ST steval-mki196v1_gerber.zip (2018, contorno GM1 e foratura): scheda 18,0 × 30,5 mm; 24 fori Ø0,9 mm su due file da 12 a passo 2,54 mm con interasse 15,0 mm (non i 15,24 di uno zoccolo DIP da 600 mil); piedino 1 con piazzola quadrata in alto a sinistra (vista lato componenti), primo e ultimo foro a 1,28 mm dai bordi corti. Impronta del progetto scheda-madre:ST_DIL24_Adapter_W15.0mm (due strip femmina 1x12). Nessun modello 3D dell'utente: modulo non ancora arrivato.
 
 **Verifiche documentate:**
 
@@ -269,6 +269,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Indirizzo I2C 0x6A con SDO/SA0 (piedino 22) a GND; CS (19) a 3,3 V per il modo I2C. SCx/SDx (4/5) a GND in modo 1 secondo ST (riscontrare sulla tabella dei piedini del datasheet LSM6DSO), OCS e OSDO liberi. Pull-up SDA/SCL: verificare quelle del modulo RTC, altrimenti 4,7 kohm verso 3,3 V. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C.
 - Collegamento proposto: bus I2C HW-394 GPIO21/22 su ritaglio di millefori (basetta 4, tavola C3AI-DL-EL-004 rev A, D-042), non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
 - Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).
+- All'arrivo: confermare interasse 15,0 mm e posizione del piedino 1 sul pezzo (misure dai Gerber ST, non dal modulo).
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
 

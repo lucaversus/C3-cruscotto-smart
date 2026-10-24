@@ -81,7 +81,8 @@ def lib_symbol(lib_id):
 
 def check_fp(fp):
     lib, name = fp.split(':')
-    assert (FPDIR / f'{lib}.pretty' / f'{name}.kicad_mod').is_file(), f'impronta non trovata: {fp}'
+    base = OUT.parent if lib == 'scheda-madre' else FPDIR  # libreria del progetto (fp-lib-table) o standard
+    assert (base / f'{lib}.pretty' / f'{name}.kicad_mod').is_file(), f'impronta non trovata: {fp}'
     return fp
 
 
@@ -813,8 +814,8 @@ begin_sheet('sensori-memoria.kicad_sch', 'Scheda madre cruscotto C3+AI - sensori
 IMU = {'1': '+3V3_AON', '2': '+3V3_AON', '13': 'GND', '19': '+3V3_AON', '20': 'I2C_SCL', '21': 'I2C_SDA',
        '22': 'GND'}
 symbol('J6', 'Connector_Generic:Conn_02x12_Top_Bottom', 'STEVAL-MKI196V1 (DIL-24)',
-       'Package_DIP:DIP-24_W15.24mm_Socket', 60.96, 88.9, nets={str(i): IMU.get(str(i)) for i in range(1, 25)},
-       auto=True, note='HW-IMU-LSM6DSO; piedinatura da ST DB3714 rev 1, da riscontrare sulla serigrafia all’arrivo')
+       'scheda-madre:ST_DIL24_Adapter_W15.0mm', 60.96, 88.9, nets={str(i): IMU.get(str(i)) for i in range(1, 25)},
+       auto=True, note='HW-IMU-LSM6DSO; piedinatura ST DB3714 rev 1; file di pin a 15,0 mm (Gerber ST), due strip femmina 1x12')
 shunt('C33', '100nF', 45.72, 124.46, '+3V3_AON')
 wire((35.56, 124.46), 'C33.1')
 label('+3V3_AON', (35.56, 124.46), 180)

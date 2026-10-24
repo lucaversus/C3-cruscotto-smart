@@ -12,4 +12,8 @@ confermate sul pezzo prima di fissare fori e altezze.
 | `modulo-oled-1.9inch.step` | OLED 1,9" (HW-OLED) | 26,0 × 26,0 × 11,1 | per il Data Logger |
 | `tft-5inch.step` | scheda S3 ESP32-S3 8048S050 (HW-DASH-DISPLAY) | 137,0 × 84,0 × 9,7 | stesso modello usato nell'assieme `../assieme-cruscotto.step`; presa USB-C al centro del lato corto |
 
-Mancano ancora: modulo VAN blu (HW-CAN-VP230), STEVAL-MKI196V1 (HW-IMU-LSM6DSO), ventola 40 × 40.
+STEVAL-MKI196V1 (HW-IMU-LSM6DSO), senza modello 3D: dai Gerber ST (2018) scheda 18,0 × 30,5 mm,
+24 pin su due file da 12 a passo 2,54 con interasse 15,0 mm, piedino 1 in alto a sinistra;
+impronta `../../pcb/scheda-madre/scheda-madre.pretty/ST_DIL24_Adapter_W15.0mm.kicad_mod`.
+
+Mancano ancora: modulo VAN blu (HW-CAN-VP230), ventola 40 × 40 (da identificare).

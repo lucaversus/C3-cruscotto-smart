@@ -20,6 +20,8 @@ circuito stampato con la **sola meccanica**; schema elettrico iniziato con il fo
   esportato da KiCad con le reti volute e si ferma a ogni differenza. Etichette globali: valgono in tutti i fogli. ERC: 0 errori,
   11 avvisi per i segnali del foglio non ancora disegnato (collegamento con l'S3, audio) e per
   la massa di riferimento VAN. Anteprima in `disegni/CR-EL-001_scheda-madre-alimentazione.png`.
+- `scheda-madre.pretty/` con `fp-lib-table`: impronte del progetto non presenti nelle librerie
+  standard, per ora `ST_DIL24_Adapter_W15.0mm` (adattatore ST DIL24, interasse 15,0 mm).
 - Faccia **F** = faccia interna verso la S3 (componenti caldi, interruttori); **B** = retro
   (ventola, J1).
 - Regole: 2 strati, 1,6 mm, piste e distanze minime 0,2 mm, via 0,6/0,3, 0,5 mm dal bordo;
