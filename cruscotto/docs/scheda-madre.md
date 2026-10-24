@@ -25,7 +25,7 @@ KL-001 su millefori, HW-IMU-LSM6DSO).
 | -U1…U3 | Ingresso 12 V | TVS bidirezionale, diodo ideale contro l'inversione (LM74700-Q1 + MOSFET N), ferrite; accensione del 5 V con chiave O mantenimento sull'EN del buck | D-030; fusibile di ramo nel cablaggio vicino al prelievo (HW-FUSE-HOLDER); schema CR-EL-001 |
 | -C1 | Riserva avviamento | diodo + supercondensatore con carica limitata | capacità da calcolare dopo la misura C3AI-CR-PR-001 (P5) |
 | -U4/U5 | Alimentazione | buck 12 → 5 V 3,5 A (TPS54360B, 60 V) acceso a comando + buck 12 → 3,3 V 1 A sempre acceso a basso consumo (LMR36510, 65 V, 26 µA) | 5 V anche per l'S3 tramite -J2 / P1; schema CR-EL-001 |
-| -U6 | Front-end | ESP32-WROOM-32E-**H4/H8** montato in fabbrica (HW-FE-MODULE) | senza PSRAM; stessi GPIO del logger 0.3.x |
+| -U6 | Front-end | ESP32-WROOM-32E-**H4/H8** montato a mano (HW-FE-MODULE, D-050) | senza PSRAM; stessi GPIO del logger 0.3.x |
 | -U7 | VAN | SN65HVD230 solo ricezione: D a 3V3, nessuna resistenza da 120 Ω | prerequisiti D-022 bloccanti |
 | -U8 | K-line | circuito KL-001 rev F (2N5551 + LM2903B, isteresi R10) | progetto da banco: protezioni auto da aggiungere |
 | -U9 | IMU | LSM6DSO a 0x6A (prototipo: STEVAL-MKI196V1 DIL-24); in definitiva valutare ISM330 −40…+105 °C | fissaggio rigido, assi indicati in serigrafia; stesso chip del logger (D-033) |
@@ -51,7 +51,7 @@ raccolta dati e uso in auto leggano il veicolo con lo stesso codice.
 | 13 | comando di mantenimento alimentazione | a riposo spento |
 | 4 | LED di stato | |
 | 26 | ventola 12 V, PWM (D-031) | ingresso PWM della ventola a 4 fili, a collettore aperto (CR-EL-002) |
-| 2 | accensione della ventola | P-MOSFET lato alto; pin di avvio: basso al reset (resistenza da 100k), proposta CR-EL-002 |
+| 2 | accensione della ventola | P-MOSFET lato alto; pin di avvio: basso al reset (resistenza da 100k), D-049 |
 | 14 | giri ventola (tachimetrica) | ingresso con pull-up |
 | 36 / 32 | NTC vicino al display / NTC sulla scheda | ADC1 |
 | 18 / 19 / 23 / 27 | MicroSD opzionale | stessi pin del logger: la scheda madre può fare anche da registratore |
@@ -109,7 +109,7 @@ generatore; tavola [CR-EL-002](../../disegni/CR-EL-002_scheda-madre-front-end.pn
 
 ERC con i due fogli: 1 errore atteso (IO34 `VAN_RX` senza sorgente finché non c'è il foglio VAN)
 e 21 avvisi per i segnali dei fogli successivi. Il generatore confronta 81 reti con il netlist
-di KiCad. Da risolvere: montaggio del modulo ESP32 a mano o in fabbrica (inventario HW-FE-MODULE).
+di KiCad. Modulo ESP32 e presa USB-C montati a mano (D-050); GPIO2 per la ventola approvato (D-049).
 
 ## Raffreddamento e dominio sempre acceso (D-031)
 

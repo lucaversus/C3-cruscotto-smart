@@ -285,11 +285,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Prova da fare: tono 200 Hz di speak-test 0.1.1 per chiarire la funzione di U1 "AKK 7HG" (amplificatore o altro), prima di definire amplificatore e relè D-028.
 - Solo banco: non è l'altoparlante del veicolo; relè e amplificatore D-028 ancora da definire.
 
-### HW-FE-MODULE — Modulo ESP32-WROOM-32E-H4/H8 per il front-end, montato in fabbrica sulla scheda madre (D-029)
+### HW-FE-MODULE — Modulo ESP32-WROOM-32E-H4/H8 per il front-end, montato a mano sulla scheda madre (D-029, D-050)
 
 **Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale (scheda madre)
 
-**Fonte:** Ricerca 20/10/2026: Reichelt offre ESP32WROOM32E (N4, 3,70 €), ESP32WROOM32E8 (8 MB, 4,18 €) ed ESP32WROOM32E16 (N16, 4,43 €), tutte −40…+85 °C; variante H non disponibile (utente: "non la trovo la h8 nel sito"). H4 presente nel catalogo componenti JLCPCB (C3013935) per montaggio in fabbrica. Utente 20/10/2026: "ok la faremo montare sulla mainboard": nessun acquisto separato del modulo.
+**Fonte:** Ricerca 20/10/2026: Reichelt offre ESP32WROOM32E (N4, 3,70 €), ESP32WROOM32E8 (8 MB, 4,18 €) ed ESP32WROOM32E16 (N16, 4,43 €), tutte −40…+85 °C; variante H non disponibile (utente: "non la trovo la h8 nel sito"). H4 presente nel catalogo componenti JLCPCB (C3013935) per montaggio in fabbrica. Utente 20/10/2026: "ok la faremo montare sulla mainboard": nessun acquisto separato del modulo. 24/10/2026: D-046 (solo circuito stampato, montaggio a mano) e D-050: l'utente sceglie il montaggio a mano anche per il modulo ("montaggio a mano"), superando il montaggio in fabbrica del 20/10/2026. Schema C3AI-CR-EL-002 rev A: U4, impronta RF_Module:ESP32-WROOM-32E.
 
 **Verifiche documentate:**
 
@@ -297,8 +297,8 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Conflitto da risolvere con l'utente: il 20/10/2026 il modulo era previsto montato in fabbrica ("la faremo montare sulla mainboard"), mentre D-046 (24/10/2026) prevede il solo circuito stampato e il montaggio a mano. Se si monta a mano, la variante H4/H8 va comprata a parte (non disponibile su Reichelt il 20/10/2026) e la piazzola di massa sotto il modulo va saldata dal retro come in D-048. Schema C3AI-CR-EL-002 rev A: U4 con impronta RF_Module:ESP32-WROOM-32E.
-- Variante H4 o H8 (−40…+105 °C, senza PSRAM) da far montare dal produttore della scheda madre (utente 20/10/2026: "la faremo montare sulla mainboard"); varianti R2 escluse (PSRAM su GPIO16/17).
+- Variante H4 o H8 (−40…+105 °C, senza PSRAM) da comprare a parte per il montaggio a mano (D-050); fornitore da trovare (non disponibile su Reichelt il 20/10/2026); varianti R2 escluse (PSRAM su GPIO16/17).
+- Piazzola di massa sotto il modulo da saldare dal retro come in D-048: fori sotto la piazzola da prevedere nello sbroglio.
 - Temperatura reale dietro il quadro da misurare prima della versione definitiva.
 - Nessun acquisto deciso: prototipo con HW-ESP32 (HW-394).
 
