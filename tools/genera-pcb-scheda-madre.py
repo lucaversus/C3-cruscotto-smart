@@ -107,8 +107,11 @@ for i, (dx, dy) in enumerate(((-16, -16), (16, -16), (-16, 16), (16, 16)), 1):
           value='Ventola 40x40')
 for i, (sx, sy) in enumerate(ing.SW, 1):
     # Pulsanti originali inclinati di circa 21° (assieme 3D): interruttore ruotato come il pulsante.
-    place('Button_Switch_THT', 'SW_PUSH_6mm_H7.3mm', f'S{i}', sx, sy, angle=21.0 if sx > 0 else -21.0,
-          value='Tattile 6x6 H7,3 (pulsante quadro)')
+    sw = place('Button_Switch_THT', 'SW_PUSH_6mm_H7.3mm', f'S{i}', sx, sy, angle=111.0 if sx > 0 else -111.0,
+               value='Tattile 6x6 H7,3 (pulsante quadro)')
+    # L'origine dell'impronta è il piedino 1: si sposta il centro del corpo sotto il pulsante.
+    centre = sw.GetCourtyard(pcbnew.F_CrtYd).BBox().Centre()
+    sw.Move(pcbnew.VECTOR2I(at(sx, sy).x - centre.x, at(sx, sy).y - centre.y))
 j1 = place('Connector_Molex', 'Molex_Micro-Fit_3.0_43045-2400_2x12_P3.00mm_Horizontal', 'J1', 0.0, 16.0, angle=0.0,
            back=True, value='Micro-Fit 2x12 verso auto (D-044)')
 # L'origine dell'impronta è il piedino 1: centrare in x e portare il fronte del connettore al bordo

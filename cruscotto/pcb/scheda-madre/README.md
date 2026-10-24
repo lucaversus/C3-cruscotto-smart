@@ -7,7 +7,9 @@ Progetto KiCad della scheda madre del cruscotto (D-029, D-044, D-045, D-046). St
   KiCad. Contiene il bordo letto dal DXF dell'utente (`cruscotto/meccanica/scheda-madre-contorno.dxf`),
   il foro Ø38 della ventola, 6 fori di fissaggio Ø3 senza rame, 4 fori Ø3,2 della ventola
   40 × 40, gli interruttori S1/S2 (tattili 6 × 6 alti 7,3 mm) sotto i pulsanti originali e il
-  connettore J1 Micro-Fit 2×12 orizzontale sul retro, con il fronte al bordo inferiore. Su
+  connettore J1 Micro-Fit 2×12 orizzontale sul retro, con il fronte al bordo inferiore.
+  S1/S2 centrati sotto i pulsanti e ruotati di ±111° (piedini paralleli al bordo): i piedini
+  rispettano 0,5 mm dal bordo, gli angoli dell'ingombro del corpo sporgono di circa 0,5 mm. Su
   User.Drawings il contorno della S3, su User.Comments le zone dello studio C3AI-CR-PL-001.
 - Faccia **F** = faccia interna verso la S3 (componenti caldi, interruttori); **B** = retro
   (ventola, J1).
