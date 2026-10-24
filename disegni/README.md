@@ -35,6 +35,11 @@ K-line dalla KL-001 rev F con protezioni per l'auto, VAN in sola ricezione con S
 
 [![CR-EL-003](CR-EL-003_scheda-madre-interfacce-veicolo.png)](CR-EL-003_scheda-madre-interfacce-veicolo.png)
 
+### CR-EL-004 — Scheda madre, schema elettrico: sensori e memoria (rev A, proposta non verificata)
+Zoccolo per il modulo IMU STEVAL-MKI196V1, RTC DS3231SN con CR2032, MicroSD. Sorgente KiCad: [sensori-memoria.kicad_sch](../cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch).
+
+[![CR-EL-004](CR-EL-004_scheda-madre-sensori-memoria.png)](CR-EL-004_scheda-madre-sensori-memoria.png)
+
 ### CR-PL-001 — Scheda madre, studio d'ingombro (rev E, preliminare)
 Zone dei componenti sul contorno definitivo dal modello 3D (178,7 × 74 mm, D-045), foro centrale della ventola e interruttori dei pulsanti del quadro.
 

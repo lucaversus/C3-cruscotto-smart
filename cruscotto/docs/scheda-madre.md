@@ -6,8 +6,8 @@ generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 r
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva. Schema elettrico
-iniziato in KiCad (fogli alimentazione C3AI-CR-EL-001 rev C, front-end C3AI-CR-EL-002 rev A e
-interfacce veicolo C3AI-CR-EL-003 rev A, proposta non verificata);
+iniziato in KiCad (fogli alimentazione C3AI-CR-EL-001 rev C, front-end C3AI-CR-EL-002 rev A,
+interfacce veicolo C3AI-CR-EL-003 rev A e sensori e memoria C3AI-CR-EL-004 rev A, proposta non verificata);
 circuito stampato con la sola meccanica. I pin del veicolo vengono da manuali
 generici RTA e da fonti comunitarie e vanno verificati (D-008, D-022).
 
@@ -128,9 +128,26 @@ Foglio `cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch`; tavola
   principale): il VAN si ascolta solo a quadro acceso, nessun consumo a riposo. Ordine DATA /
   DATA B da verificare (D-022); la massa di riferimento VAN di J1 (via 7) resta da collegare.
 
-ERC con i tre fogli: 0 errori, 15 avvisi per i segnali dei fogli successivi (audio, MicroSD,
-collegamento con l'S3) e per la massa di riferimento VAN. Il generatore confronta 88 reti con
-il netlist di KiCad. Nessun collegamento all'auto prima dei prerequisiti D-022 e D-008.
+Nessun collegamento all'auto prima dei prerequisiti D-022 e D-008.
+
+## Schema elettrico: sensori e memoria (C3AI-CR-EL-004 rev A, proposta)
+
+Foglio `cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch`; tavola
+[CR-EL-004](../../disegni/CR-EL-004_scheda-madre-sensori-memoria.png).
+
+- **IMU** (-U9 del blocco): zoccolo DIL-24 per il modulo STEVAL-MKI196V1 (HW-IMU-LSM6DSO,
+  D-046), piedinatura da ST DB3714 rev 1: VDD/VDDIO e CS al 3,3 V sempre acceso (CS alto =
+  I2C), SDO/SA0 a massa (indirizzo 0x6A), SCL/SDA sul bus I2C; INT1/INT2 non collegati (GPIO
+  libero eventuale: 5). Da riscontrare sulla serigrafia all'arrivo.
+- **RTC** (-U10, facoltativo): DS3231SN in SOIC-16W come il modulo del logger, piedini 5-12 a
+  massa come da datasheet, pila CR2032 su portapila (HW-RTC-BATTERY, da procurare) senza
+  ricarica (D-019).
+- **MicroSD** (facoltativa): SPI su GPIO18/19/23/27 come il logger, pull-up da 10k, alimentata
+  dal 3,3 V acceso a quadro: a riposo il firmware deve tenere basse le linee SPI.
+
+ERC con i quattro fogli: 0 errori, 11 avvisi per i segnali del foglio ancora da disegnare
+(collegamento con l'S3, audio) e per la massa di riferimento VAN. Il generatore confronta 91
+reti con il netlist di KiCad.
 
 ## Raffreddamento e dominio sempre acceso (D-031)
 

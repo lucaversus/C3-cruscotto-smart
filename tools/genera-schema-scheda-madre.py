@@ -301,8 +301,9 @@ def shunt(ref, value, x, top, net, fp=C0805, kind='C', note=''):
 
 begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazione', 'C3AI-CR-EL-001', 'C',
             'D-030, D-031, D-044, D-046, D-047, D-048')
-FE_SHEET = sheet_box('front-end.kicad_sch', 'Front-end', 20.32, 187.96, 38.1, 15.24, 2)
-VEH_SHEET = sheet_box('interfacce-veicolo.kicad_sch', 'Interfacce veicolo', 20.32, 213.36, 38.1, 15.24, 3)
+FE_SHEET = sheet_box('front-end.kicad_sch', 'Front-end', 279.4, 205.74, 38.1, 12.7, 2)
+VEH_SHEET = sheet_box('interfacce-veicolo.kicad_sch', 'Interfacce veicolo', 279.4, 228.6, 38.1, 12.7, 3)
+SENS_SHEET = sheet_box('sensori-memoria.kicad_sch', 'Sensori e memoria', 332.74, 205.74, 38.1, 12.7, 4)
 
 # === J1: connettore verso l'auto (D-044), vie dalla tabella bozza di scheda-madre.md ======
 J1_NETS = {1: 'VBAT_IN', 2: 'GND', 3: 'KEY_IN', 4: 'KLINE', 5: 'VAN_DATA', 6: 'VAN_DATAB', 7: 'VAN_GND_REF',
@@ -472,8 +473,8 @@ text(25.4, 236.22, 'Proposta preliminare, non verificata. Fusibile di ramo nel c
                    'Montaggio a mano (D-046): U2/U3 con piazzola esposta, saldatura dal retro attraverso i fori termici.', 1.27)
 text(25.4, 241.3, 'Consumo a riposo stimato: U1 80 uA + U3 26 uA + partitori ~25 uA + front-end in sonno: < 1 mA (D-030), '
                   'da misurare.', 1.27)
-text(25.4, 246.38, 'Ventola 12 V (D-031), relè audio, front-end, VAN, K-line, IMU: fogli successivi. '
-                   'Etichette con lo stesso nome sono collegate.', 1.27)
+text(25.4, 246.38, 'Sottofogli: front-end, interfacce veicolo, sensori e memoria. Collegamento con l’S3 e relè audio: '
+                   'da disegnare dopo il rilievo dei connettori della S3. Etichette con lo stesso nome sono collegate.', 1.27)
 
 
 # ======================================================================================
@@ -800,6 +801,66 @@ text(25.4, 236.22, 'Proposta preliminare, non verificata. Nessun collegamento al
                    'della verifica dei pin (D-008). Ordine DATA / DATA B del VAN da verificare.', 1.27)
 text(25.4, 241.3, 'K-line: rispetto alla rev F aggiunti TVS D8 e diodo D9; soglia R42 dalla linea chiave. '
                   'Protezione dal corto della linea K verso la batteria durante la trasmissione: da studiare.', 1.27)
+text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
+
+# ======================================================================================
+# Foglio 4: sensori e memoria, IMU su modulo, RTC, MicroSD (C3AI-CR-EL-004; D-033, D-046)
+# ======================================================================================
+begin_sheet('sensori-memoria.kicad_sch', 'Scheda madre cruscotto C3+AI - sensori e memoria', 'C3AI-CR-EL-004', 'A',
+            'D-019, D-033, D-046', sheet_uuid=SENS_SHEET)
+
+# --- IMU su modulo STEVAL-MKI196V1 (LSM6DSO) in zoccolo DIL-24: I2C a 0x6A (SA0 a massa) ---
+IMU = {'1': '+3V3_AON', '2': '+3V3_AON', '13': 'GND', '19': '+3V3_AON', '20': 'I2C_SCL', '21': 'I2C_SDA',
+       '22': 'GND'}
+symbol('J6', 'Connector_Generic:Conn_02x12_Top_Bottom', 'STEVAL-MKI196V1 (DIL-24)',
+       'Package_DIP:DIP-24_W15.24mm_Socket', 60.96, 88.9, nets={str(i): IMU.get(str(i)) for i in range(1, 25)},
+       auto=True, note='HW-IMU-LSM6DSO; piedinatura da ST DB3714 rev 1, da riscontrare sulla serigrafia all’arrivo')
+shunt('C33', '100nF', 45.72, 124.46, '+3V3_AON')
+wire((35.56, 124.46), 'C33.1')
+label('+3V3_AON', (35.56, 124.46), 180)
+
+# --- RTC DS3231SN (facoltativo, -U10): pila CR2032 non ricaricata (D-019) -----------------
+RTC = {'1': None, '2': '+3V3_AON', '3': None, '4': None, '14': 'RTC_VBAT', '15': 'I2C_SDA', '16': 'I2C_SCL'}
+RTC.update({str(n): 'GND' for n in range(5, 14)})  # 5-12 da collegare a massa secondo il datasheet DS3231
+symbol('U10', 'Timer_RTC:DS3231M', 'DS3231SN', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 165.1, 81.28, nets=RTC,
+       txt=((5.08, 12.7), (5.08, 15.24), 'left'), note='Stessa piedinatura del DS3231SN del logger (HW-RTC)')
+gnd('U10.5', 0)
+tag('U10.15')
+tag('U10.16')
+shunt('C34', '100nF', 154.94, 63.5, '+3V3_AON')
+wire((147.32, 63.5), 'C34.1', (162.56, 63.5), 'U10.2')
+label('+3V3_AON', (147.32, 63.5), 180)
+symbol('BT1', 'Device:Battery_Cell', 'CR2032', 'Battery:BatteryHolder_Keystone_3034_1x20mm', 175.26, 71.12,
+       nets={'1': 'RTC_VBAT', '2': 'GND'}, note='HW-RTC-BATTERY, da procurare')
+gnd('BT1.2', 0)
+wire('U10.14', (165.1, 66.04), 'BT1.1')
+flag('RTC_VBAT', (165.1, 66.04))
+
+# --- MicroSD (facoltativa): SPI su GPIO18/19/23/27 come il logger, alimentata dal 3,3 V acceso a quadro ---
+SD = {'1': 'SD_DAT2', '2': 'SD_CS', '3': 'SD_MOSI', '4': '+3V3_SW', '5': 'SD_SCK', '6': 'GND', '7': 'SD_MISO',
+      '8': 'SD_DAT1', 'SH': 'GND'}
+symbol('J7', 'Connector:Micro_SD_Card', 'MicroSD', 'Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5',
+       279.4, 81.28, nets=SD, auto=True, txt=((0, 22.86), (0, 25.4), ''),
+       note='Spenta a riposo: il firmware deve tenere basse le linee SPI quando il 3,3 V a quadro è spento')
+X4 = 228.6
+label('+3V3_SW', (X4 - 7.62, 116.84), 180)
+pulls = ('SD_CS', 'SD_MOSI', 'SD_MISO', 'SD_DAT1', 'SD_DAT2')
+for i, net in enumerate(pulls):
+    R(f'R{49 + i}', '10k', X4 + 10.16 * i, 120.65, '+3V3_SW', net)
+    tag(f'R{49 + i}.2')
+shunt('C35', '10uF', X4 + 10.16 * len(pulls), 116.84, '+3V3_SW', fp=C1206)
+shunt('C36', '100nF', X4 + 10.16 * len(pulls) + 10.16, 116.84, '+3V3_SW')
+wire((X4 - 7.62, 116.84), *[f'R{49 + i}.1' for i in range(len(pulls))], 'C35.1', 'C36.1')
+
+text(25.4, 45.72, 'IMU SU MODULO DIL-24 (D-033, D-046)')
+text(25.4, 50.8, 'STEVAL-MKI196V1, LSM6DSO, I2C 0x6A', 1.5)
+text(142.24, 45.72, 'RTC DS3231SN (FACOLTATIVO) CON CR2032')
+text(215.9, 45.72, 'MICROSD (FACOLTATIVA), SPI COME IL LOGGER')
+text(215.9, 106.68, 'RESISTENZE DI PULL-UP DELLA MICROSD', 1.5)
+text(25.4, 236.22, 'Proposta preliminare, non verificata. Pull-up I2C sul foglio del front-end. '
+                   'Piedinatura del modulo IMU da riscontrare sulla serigrafia all’arrivo (HW-IMU-LSM6DSO).', 1.27)
+text(25.4, 241.3, 'IMU e RTC sul 3,3 V sempre acceso (consumi a riposo di pochi uA); MicroSD sul 3,3 V acceso a quadro. '
+                  'Pila dell’RTC non ricaricata (D-019).', 1.27)
 text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
 
 # === scrittura dei fogli ===============================================================
