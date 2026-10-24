@@ -30,6 +30,11 @@ Modulo ESP32-WROOM-32E, programmazione USB-C a banco, reset automatico, collegam
 
 [![CR-EL-002](CR-EL-002_scheda-madre-front-end.png)](CR-EL-002_scheda-madre-front-end.png)
 
+### CR-EL-003 — Scheda madre, schema elettrico: interfacce veicolo (rev A, proposta non verificata)
+K-line dalla KL-001 rev F con protezioni per l'auto, VAN in sola ricezione con SN65HVD230. Sorgente KiCad: [interfacce-veicolo.kicad_sch](../cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch).
+
+[![CR-EL-003](CR-EL-003_scheda-madre-interfacce-veicolo.png)](CR-EL-003_scheda-madre-interfacce-veicolo.png)
+
 ### CR-PL-001 — Scheda madre, studio d'ingombro (rev E, preliminare)
 Zone dei componenti sul contorno definitivo dal modello 3D (178,7 × 74 mm, D-045), foro centrale della ventola e interruttori dei pulsanti del quadro.
 

@@ -6,7 +6,8 @@ generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 r
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva. Schema elettrico
-iniziato in KiCad (fogli alimentazione C3AI-CR-EL-001 rev C e front-end C3AI-CR-EL-002 rev A, proposta non verificata);
+iniziato in KiCad (fogli alimentazione C3AI-CR-EL-001 rev C, front-end C3AI-CR-EL-002 rev A e
+interfacce veicolo C3AI-CR-EL-003 rev A, proposta non verificata);
 circuito stampato con la sola meccanica. I pin del veicolo vengono da manuali
 generici RTA e da fonti comunitarie e vanno verificati (D-008, D-022).
 
@@ -107,9 +108,29 @@ generatore; tavola [CR-EL-002](../../disegni/CR-EL-002_scheda-madre-front-end.pn
   60 V (ZXMP6A13F proposto) comandato da GPIO2, velocità con PWM a collettore aperto
   (GPIO26, logica invertita), giri con pull-up a 3,3 V e 1k verso GPIO14.
 
-ERC con i due fogli: 1 errore atteso (IO34 `VAN_RX` senza sorgente finché non c'è il foglio VAN)
-e 21 avvisi per i segnali dei fogli successivi. Il generatore confronta 81 reti con il netlist
-di KiCad. Modulo ESP32 e presa USB-C montati a mano (D-050); GPIO2 per la ventola approvato (D-049).
+Il generatore confronta le reti di tutti i fogli con il netlist di KiCad. Modulo ESP32 e presa USB-C montati a mano (D-050); GPIO2 per la ventola approvato (D-049).
+
+## Schema elettrico: interfacce veicolo (C3AI-CR-EL-003 rev A, proposta)
+
+Foglio `cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch`; tavola
+[CR-EL-003](../../disegni/CR-EL-003_scheda-madre-interfacce-veicolo.png).
+
+- **K-line** (-U8 del blocco): reti della KL-001 rev F (Q8 MMBT5551, versione SMD del 2N5551;
+  U7 LM2903B; isteresi R44 = R10 della rev F), con tre cambiamenti per l'auto:
+  TVS bidirezionale D8 (SMBJ26CA) sulla linea, diodo D9 in serie al collettore (linea negativa),
+  soglia R42 presa dalla **linea chiave** invece che dalla batteria (nessun consumo a riposo;
+  con la chiave la linea vale circa la tensione di batteria). Comparatore alimentato dal 5 V
+  principale; pull-up dell'uscita al 3,3 V sempre acceso. Protezione dal corto della linea K
+  verso la batteria durante la trasmissione: da studiare.
+- **VAN** (-U7 del blocco): SN65HVD230 in SOIC-8 in sola ricezione (D a 3,3 V, nessuna
+  resistenza da 120 Ω), Rs con 10k, NUP2105L sulle due linee, 100k verso massa su GPIO34
+  (nessuna resistenza interna). Alimentato da un 3,3 V separato (U9 AP2112K dal 5 V
+  principale): il VAN si ascolta solo a quadro acceso, nessun consumo a riposo. Ordine DATA /
+  DATA B da verificare (D-022); la massa di riferimento VAN di J1 (via 7) resta da collegare.
+
+ERC con i tre fogli: 0 errori, 15 avvisi per i segnali dei fogli successivi (audio, MicroSD,
+collegamento con l'S3) e per la massa di riferimento VAN. Il generatore confronta 88 reti con
+il netlist di KiCad. Nessun collegamento all'auto prima dei prerequisiti D-022 e D-008.
 
 ## Raffreddamento e dominio sempre acceso (D-031)
 

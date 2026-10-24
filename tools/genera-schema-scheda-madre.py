@@ -72,8 +72,10 @@ def lib_symbol(lib_id):
             pbody = pbody[:end] + ''.join('\n\t\t' + v for v in child.values()) + pbody[end:]
         body = pbody
     pins = {}
+    units = [(mm.start(), int(mm.group(1))) for mm in re.finditer(r'\(symbol "%s_(\d+)_\d+"' % re.escape(name), body)]
     for p in re.finditer(r'\(pin \w+ \w+\s+\(at ([-\d.]+) ([-\d.]+) (\d+)\).*?\(number "([^"]*)"', body, re.S):
-        pins.setdefault(p.group(4), []).append((float(p.group(1)), float(p.group(2)), int(p.group(3))))
+        unit = [u for pos, u in units if pos < p.start()][-1]  # unità del sottosimbolo che contiene il piedino
+        pins.setdefault(p.group(4), []).append((float(p.group(1)), float(p.group(2)), int(p.group(3)), unit))
     return f'\t\t(symbol "{lib_id}"\n{body}\n\t\t)', pins
 
 
@@ -146,7 +148,7 @@ def sheet_box(file, name, x, y, w, h, page):
     return su
 
 
-def symbol(ref, lib_id, value, fp, x, y, rot=0, mirror=False, note='', nets=None, auto=False, txt=None):
+def symbol(ref, lib_id, value, fp, x, y, rot=0, mirror=False, note='', nets=None, auto=False, txt=None, unit=1):
     """Posa un simbolo. nets = {piedino: rete voluta}; None = non collegato (croce).
     auto=True: ogni piedino riceve un tratto e un'etichetta (connettori verso altri fogli)."""
     global n_parts
@@ -157,8 +159,10 @@ def symbol(ref, lib_id, value, fp, x, y, rot=0, mirror=False, note='', nets=None
     _, lpins = lib_defs[lib_id]
     hidden = ref.startswith('#')
     pts = {}
+    lpins = {n: [q for q in ps if q[3] in (0, unit)] for n, ps in lpins.items()}  # piedini di questa unità
+    lpins = {n: ps for n, ps in lpins.items() if ps}
     for num, ps in lpins.items():
-        px, py, ang = ps[0]
+        px, py, ang, _ = ps[0]
         tx, ty = transform(px, py, rot, mirror)
         pts[num] = (x + tx, y - ty, ang)
     xs = [p[0] for p in pts.values()]
@@ -174,8 +178,8 @@ def symbol(ref, lib_id, value, fp, x, y, rot=0, mirror=False, note='', nets=None
         rpos, vpos = (x + rdx, y + rdy), (x + vdx, y + vdy)
     ang = 90 if rot in (90, 270) else 0  # testi orizzontali e non capovolti anche sui simboli ruotati
     m = ' (mirror y)' if mirror else ''
-    s = (f'\t(symbol (lib_id "{lib_id}") (at {fnum(x)} {fnum(y)} {rot}){m} (unit 1) (exclude_from_sim no) '
-         f'(in_bom {"no" if hidden else "yes"}) (on_board {"no" if hidden else "yes"}) (dnp no) (uuid "{uid(ref)}")\n')
+    s = (f'\t(symbol (lib_id "{lib_id}") (at {fnum(x)} {fnum(y)} {rot}){m} (unit {unit}) (exclude_from_sim no) '
+         f'(in_bom {"no" if hidden else "yes"}) (on_board {"no" if hidden else "yes"}) (dnp no) (uuid "{uid(ref if unit == 1 else f"{ref}/{unit}")}")\n')
     s += prop('Reference', ref, *rpos, just, hide=hidden, angle=ang)
     s += prop('Value', value, *vpos, just, hide=hidden, angle=ang)
     s += prop('Footprint', fp, x, y, hide=True)
@@ -183,7 +187,7 @@ def symbol(ref, lib_id, value, fp, x, y, rot=0, mirror=False, note='', nets=None
     s += prop('Description', note, x, y, hide=True)
     for num in lpins:
         s += f'\t\t(pin "{num}" (uuid "{uid(ref + "/pin/" + num)}"))\n'
-    s += f'\t\t(instances (project "scheda-madre" (path "{CUR_PATH}" (reference "{ref}") (unit 1))))\n\t)\n'
+    s += f'\t\t(instances (project "scheda-madre" (path "{CUR_PATH}" (reference "{ref}") (unit {unit}))))\n\t)\n'
     items.append(s)
     if hidden:
         return pts
@@ -227,6 +231,7 @@ def wire(*pts):
     pts = [P(p) for p in pts]
     for a, b in zip(pts, pts[1:]):
         assert abs(a[0] - b[0]) < 1e-6 or abs(a[1] - b[1]) < 1e-6, f'filo non ortogonale {a} {b}'
+        assert key(a) != key(b), f'filo di lunghezza nulla in {a}'
         items.append(f'\t(wire (pts (xy {fnum(a[0])} {fnum(a[1])}) (xy {fnum(b[0])} {fnum(b[1])})) '
                      f'(stroke (width 0) (type default)) (uuid "{uid(f"{CUR}/w/{a}/{b}")}"))\n')
         ends[key(a)] += 1
@@ -297,6 +302,7 @@ def shunt(ref, value, x, top, net, fp=C0805, kind='C', note=''):
 begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazione', 'C3AI-CR-EL-001', 'C',
             'D-030, D-031, D-044, D-046, D-047, D-048')
 FE_SHEET = sheet_box('front-end.kicad_sch', 'Front-end', 20.32, 187.96, 38.1, 15.24, 2)
+VEH_SHEET = sheet_box('interfacce-veicolo.kicad_sch', 'Interfacce veicolo', 20.32, 213.36, 38.1, 15.24, 3)
 
 # === J1: connettore verso l'auto (D-044), vie dalla tabella bozza di scheda-madre.md ======
 J1_NETS = {1: 'VBAT_IN', 2: 'GND', 3: 'KEY_IN', 4: 'KLINE', 5: 'VAN_DATA', 6: 'VAN_DATAB', 7: 'VAN_GND_REF',
@@ -680,6 +686,120 @@ text(25.4, 236.22, 'Proposta preliminare, non verificata. GPIO dalla tabella di 
                    'GPIO2 (accensione ventola) nuovo, pin di avvio: deve restare basso al reset (R27).', 1.27)
 text(25.4, 241.3, 'USB-C e CH340C solo per la programmazione a banco; in auto aggiornamenti via S3 (D-039). '
                   'K-line, VAN, IMU, RTC, MicroSD e collegamento all\'S3 (J2): fogli successivi.', 1.27)
+text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
+
+# ======================================================================================
+# Foglio 3: interfacce veicolo, K-line e VAN (C3AI-CR-EL-003; D-008, D-022, D-033)
+# ======================================================================================
+begin_sheet('interfacce-veicolo.kicad_sch', 'Scheda madre cruscotto C3+AI - interfacce veicolo', 'C3AI-CR-EL-003',
+            'A', 'D-008, D-022, D-029, D-033, D-046', sheet_uuid=VEH_SHEET)
+SOIC8 = 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'
+
+# --- K-line: circuito KL-001 rev F (data-logger/docs/kline-autocostruita.md) con protezioni ---
+YK = 50.8
+label('KLINE', (30.48, YK), 180)
+symbol('D8', 'Device:D_TVS', 'SMBJ26CA', 'Diode_SMD:D_SMB', 40.64, YK + 3.81, rot=270,
+       nets={'1': 'KLINE', '2': 'GND'}, note='Aggiunta per l\'auto: transitori sulla linea K')
+gnd('D8.2', 0)
+symbol('D9', 'Device:D', '1N4148W', 'Diode_SMD:D_SOD-123', 55.88, 58.42, rot=90, nets={'1': 'KL_COLL', '2': 'KLINE'}, txt=((-2.54, -1.27), (-2.54, 1.27), 'right'),
+       note='Aggiunta per l\'auto: con la linea negativa il transistor non conduce al contrario')
+symbol('Q8', NPN, 'MMBT5551', SOT23, 53.34, 67.31, nets={'1': 'KL_BASE', '2': 'GND', '3': 'KL_COLL'},
+       txt=((5.08, -1.27), (5.08, 1.27), 'left'), note='Versione SMD del 2N5551 della rev F')
+gnd('Q8.2', 0)
+R('R38', '330', 40.64, 67.31, 'KL_TX', 'KL_BASE', rot=90, txt=((0, -5.08), (0, -2.54), ''))
+R('R39', '47k', 46.99, 71.12, 'KL_BASE', 'GND', txt=((-2.54, -1.27), (-2.54, 1.27), 'right'))
+gnd('R39.2', 0)
+wire('R38.2', 'R39.1', 'Q8.1')
+wire((30.48, 67.31), 'R38.1')
+label('KL_TX', (30.48, 67.31), 180)
+R('R40', '68k', 81.28, 54.61, 'KLINE', 'KL_VSENSE')
+R('R41', '10k', 81.28, 62.23, 'KL_VSENSE', 'GND')
+gnd('R41.2', 0)
+wire((30.48, YK), 'D8.1', (55.88, YK), 'R40.1')
+wire('D9.2', (55.88, YK))
+symbol('U7', 'Comparator:LM2903', 'LM2903B', SOIC8, 101.6, 60.96, unit=1,
+       nets={'1': 'KL_RAW', '2': 'KL_VREF', '3': 'KL_VSENSE'}, txt=((0, 7.62), (0, 10.16), ''))
+wire('R40.2', (88.9, 58.42), 'U7.3')
+R('R42', '150k', 83.82, 76.2, 'KEY_IN', 'KL_VREF', rot=90,
+  note='Soglia riferita alla linea chiave invece che alla batteria: nessun consumo a riposo')
+R('R43', '10k', 91.44, 80.01, 'KL_VREF', 'GND')
+gnd('R43.2', 0)
+wire('U7.2', (91.44, 63.5), 'R43.1')
+wire('R42.2', (91.44, 76.2), (96.52, 76.2))
+label('KL_VREF', (96.52, 76.2), 0)
+wire('R42.1', (76.2, 76.2))
+label('KEY_IN', (76.2, 76.2), 180)
+R('R44', '330k', 101.6, 48.26, 'KL_VSENSE', 'KL_RAW', rot=90, note='Isteresi (D-022)')
+wire((88.9, 58.42), (88.9, 48.26), 'R44.1')
+wire('R44.2', (114.3, 48.26), (114.3, 60.96), 'U7.1')
+R('R45', '4.7k', 121.92, 57.15, '+3V3_AON', 'KL_RAW')
+wire('R45.1', (121.92, 50.8))
+label('+3V3_AON', (121.92, 50.8), 90)
+R('R46', '1k', 132.08, 60.96, 'KL_RAW', 'KL_RX', rot=90)
+wire((114.3, 60.96), 'R45.2', 'R46.1')
+wire('R46.2', (142.24, 60.96))
+label('KL_RX', (142.24, 60.96), 0)
+# Seconda metà del comparatore non usata (come rev F) e alimentazione dal 5 V principale.
+symbol('U7', 'Comparator:LM2903', 'LM2903B', SOIC8, 101.6, 91.44, unit=2,
+       nets={'5': 'GND', '6': 'KL_VREF', '7': None}, txt=((0, 7.62), (0, 10.16), ''))
+tag('U7.5')
+tag('U7.6')
+symbol('U7', 'Comparator:LM2903', 'LM2903B', SOIC8, 101.6, 116.84, unit=3, nets={'4': 'GND', '8': '+5V'},
+       txt=((5.08, -1.27), (5.08, 1.27), 'left'))
+gnd('U7.4', 0)
+shunt('C28', '100nF', 106.68, 104.14, '+5V')
+symbol('C29', 'Device:C_Polarized', '10uF 16V', 'Capacitor_SMD:CP_Elec_4x5.4', 116.84, 107.95,
+       nets={'1': '+5V', '2': 'GND'})
+gnd('C29.2', 0)
+wire('U7.8', (99.06, 104.14), 'C28.1', 'C29.1', (124.46, 104.14))
+label('+5V', (124.46, 104.14), 0)
+
+# --- VAN: SN65HVD230 in sola ricezione, D al livello alto, nessuna resistenza da 120 ohm ----
+symbol('U8', 'Interface_CAN_LIN:SN65HVD230', 'SN65HVD230', SOIC8, 233.68, 66.04,
+       nets={'1': '+3V3_SW', '2': 'GND', '3': '+3V3_SW', '4': 'VAN_RX', '5': None, '6': 'VAN_DATAB',
+             '7': 'VAN_DATA', '8': 'VAN_RS'}, note='Solo ascolto: trasmettitore sempre recessivo (D-022)')
+gnd('U8.2', 0)
+shunt('C30', '100nF', 213.36, 53.34, '+3V3_SW')
+wire((205.74, 53.34), 'C30.1', (218.44, 53.34), (233.68, 53.34), 'U8.3')
+label('+3V3_SW', (205.74, 53.34), 180)
+wire('U8.1', (218.44, 63.5), (218.44, 53.34))
+R('R47', '100k', 210.82, 69.85, 'VAN_RX', 'GND', txt=((-2.54, -1.27), (-2.54, 1.27), 'right'),
+  note='GPIO34 non ha resistenze interne: livello definito con il ricetrasmettitore spento')
+gnd('R47.2', 0)
+wire('U8.4', 'R47.1', (203.2, 66.04))
+label('VAN_RX', (203.2, 66.04), 180)
+R('R48', '10k', 220.98, 74.93, 'VAN_RS', 'GND', txt=((-2.54, -1.27), (-2.54, 1.27), 'right'))
+gnd('R48.2', 0)
+wire('U8.8', 'R48.1')
+symbol('D10', 'Power_Protection:NUP2105L', 'NUP2105L', SOT23, 259.08, 67.31, rot=90,
+       nets={'1': 'VAN_DATAB', '2': 'VAN_DATA', '3': 'GND'}, txt=((0, -7.62), (0, -5.08), ''),
+       note='Protezione dai transitori sulle due linee VAN')
+tag('D10.3')
+wire('U8.7', (248.92, 66.04), (248.92, 64.77), 'D10.2')
+wire('U8.6', (251.46, 68.58), (251.46, 69.85), 'D10.1')
+wire((248.92, 64.77), (248.92, 58.42))
+label('VAN_DATA', (248.92, 58.42), 90)
+wire((251.46, 69.85), (251.46, 76.2))
+label('VAN_DATAB', (251.46, 76.2), 270)
+# 3,3 V acceso con il dominio principale: VAN solo a quadro acceso, nessun consumo a riposo.
+symbol('U9', 'Regulator_Linear:AP2112K-3.3', 'AP2112K-3.3', 'Package_TO_SOT_SMD:SOT-23-5', 233.68, 104.14,
+       nets={'1': '+5V', '2': 'GND', '3': '+5V', '4': None, '5': '+3V3_SW'})
+gnd('U9.2', 0)
+shunt('C31', '1uF', 218.44, 101.6, '+5V')
+shunt('C32', '1uF', 248.92, 101.6, '+3V3_SW')
+wire((210.82, 101.6), 'C31.1', 'U9.1')
+label('+5V', (210.82, 101.6), 180)
+wire('U9.3', 'U9.1')
+wire('U9.5', 'C32.1', (256.54, 101.6))
+label('+3V3_SW', (256.54, 101.6), 0)
+
+text(25.4, 33.02, 'K-LINE: KL-001 REV F CON PROTEZIONI PER L\'AUTO (D-008, D-022)')
+text(198.12, 33.02, 'VAN: SOLA RICEZIONE (D-022, D-029)')
+text(198.12, 91.44, '3,3 V PER IL VAN, ACCESO CON IL DOMINIO PRINCIPALE', 1.5)
+text(25.4, 236.22, 'Proposta preliminare, non verificata. Nessun collegamento all\'auto prima dei prerequisiti D-022 e '
+                   'della verifica dei pin (D-008). Ordine DATA / DATA B del VAN da verificare.', 1.27)
+text(25.4, 241.3, 'K-line: rispetto alla rev F aggiunti TVS D8 e diodo D9; soglia R42 dalla linea chiave. '
+                  'Protezione dal corto della linea K verso la batteria durante la trasmissione: da studiare.', 1.27)
 text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
 
 # === scrittura dei fogli ===============================================================
