@@ -654,8 +654,9 @@ gnd('R27.2', 0)
 wire((X0 - 5.08, 205.74), 'R26.1')
 label('FAN_EN', (X0 - 5.08, 205.74), 180)
 wire('R26.2', 'R27.1', 'Q4.1')
-symbol('J4', 'Connector_Generic:Conn_01x04', 'Ventola 4 fili', 'Connector:FanPinHeader_1x04_P2.54mm_Vertical',
-       X0 + 68.58, 187.96, nets={'1': 'GND', '2': '+12V_FAN', '3': 'FAN_SENSE', '4': 'FAN_CTRL'})
+symbol('J4', 'Connector_Generic:Conn_01x04', 'Ventola Delta AFB0412VA-00 (D-052)', 'Connector:FanPinHeader_1x04_P2.54mm_Vertical',
+       X0 + 68.58, 187.96, nets={'1': 'GND', '2': '+12V_FAN', '3': 'FAN_SENSE', '4': 'FAN_CTRL'},
+       note='Fili Delta: nero GND, rosso +12V, blu giri, giallo PWM')
 wire('Q3.3', (X0 + 50.8, 185.42), (X0 + 50.8, 187.96), 'J4.2')
 for n in ('1', '3', '4'):
     tag(f'J4.{n}')

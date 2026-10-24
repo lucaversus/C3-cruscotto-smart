@@ -104,7 +104,7 @@ generatore; tavola [CR-EL-002](../../disegni/CR-EL-002_scheda-madre-front-end.pn
   successivo; limitano la corrente verso l'S3 spenta.
 - **I2C**: 4,7k verso il 3,3 V sempre acceso.
 - **NTC 100k** (B3950) sulla scheda (GPIO32) e vicino al display su JST-XH (GPIO36): 16 µA ciascuna.
-- **Ventola a 4 fili** su connettore standard: alimentazione staccata a riposo da un P-MOSFET
+- **Ventola a 4 fili** Delta AFB0412VA-00 (D-052; fili nero GND, rosso +12 V, blu giri, giallo PWM) su connettore standard: alimentazione staccata a riposo da un P-MOSFET
   60 V (ZXMP6A13F proposto) comandato da GPIO2, velocità con PWM a collettore aperto
   (GPIO26, logica invertita), giri con pull-up a 3,3 V e 1k verso GPIO14.
 
