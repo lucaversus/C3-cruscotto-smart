@@ -2,7 +2,7 @@
 
 Revisione B, 21/10/2026 (rev A 20/10/2026). Cruscotto C3+AI, decisioni D-028…D-031.
 Schema a blocchi: [C3AI-CR-BL-001 rev D](../../disegni/CR-BL-001_scheda-madre-blocchi.png) ([SVG](../../disegni/sorgenti/CR-BL-001_scheda-madre-blocchi.svg),
-generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev C](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
+generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev D](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
 **Stato: proposta.** Nessun componente scelto in via definitiva, nessuno schema
@@ -103,6 +103,19 @@ della prova sulla presa OBD) non trova posto su questa faccia: retro o fuori sch
 decidere. Da rilevare sul pezzo: posizione relativa delle due schede, connettori P1/P2/P6
 e altezze dei componenti sul retro della S3.
 
+## Montaggio a mano e raffreddamento dei componenti (D-046)
+
+- Si fa produrre **solo il circuito stampato**; i componenti li salda l'utente.
+- Componenti ammessi: foro passante; SMD con passivi **0805 o più grandi**, integrati in
+  **SOIC, SOT, TSSOP**; moduli con piazzole sul bordo (WROOM). **Esclusi QFN, BGA, LGA**:
+  l'IMU (LGA) resta su modulo o adattatore con connettore (es. STEVAL-MKI196V1 o il suo
+  equivalente definitivo, D-033). Ogni scelta di componente va controllata con questa regola.
+- **Componenti che scaldano di più sulla faccia interna**, rivolta verso la S3, attorno al
+  foro della ventola (D-045): convertitore 12 → 5 V, regolatore 3,3 V, protezioni d'ingresso,
+  front-end. Il flusso della ventola li investe prima di uscire tra le due schede.
+- Distanza tra scheda madre e S3: da fissare a progetto completato, simulando nel modello 3D
+  lo spessore della scheda con i componenti.
+
 ## Collegamenti verso l'S3 (-J2)
 
 | Connettore S3 | Segnale | Note |
@@ -152,4 +165,5 @@ interfacce 0,1-0,25 A, relè 0,07 A, amplificatore a picchi 0,5-1 A. A riposo
    componenti sul retro, zona antenna Wi-Fi; scelta dei distanziali con dissipatore.
 7. Misura della temperatura dietro il quadro; scelta di connettori e componenti
    con temperatura e vibrazioni adatte.
-8. Strumento di progetto del circuito stampato: KiCad (gratuito, open source, D-003).
+8. Strumento di progetto del circuito stampato: KiCad (gratuito, open source, D-003); produzione del solo
+   circuito stampato e montaggio a mano (D-046).
