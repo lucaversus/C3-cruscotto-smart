@@ -5,8 +5,9 @@ Schema a blocchi: [C3AI-CR-BL-001 rev D](../../disegni/CR-BL-001_scheda-madre-bl
 generatore `tools/genera-scheda-madre.py`). Studio d'ingombro: [C3AI-CR-PL-001 rev E](../../disegni/CR-PL-001_scheda-madre-ingombro.png)
 ([SVG](../../disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg), generatore `tools/genera-ingombro-scheda-madre.py`).
 
-**Stato: proposta.** Nessun componente scelto in via definitiva, nessuno schema
-elettrico esecutivo, nessun circuito stampato. I pin del veicolo vengono da manuali
+**Stato: proposta.** Nessun componente scelto in via definitiva. Schema elettrico
+iniziato in KiCad (foglio alimentazione C3AI-CR-EL-001 rev A, proposta non verificata);
+circuito stampato con la sola meccanica. I pin del veicolo vengono da manuali
 generici RTA e da fonti comunitarie e vanno verificati (D-008, D-022).
 
 ## Scopo
@@ -21,9 +22,9 @@ KL-001 su millefori, HW-IMU-LSM6DSO).
 
 | Sigla | Blocco | Contenuto proposto | Vincoli |
 | --- | --- | --- | --- |
-| -U1…U3 | Ingresso 12 V | protezione inversione polarità, TVS, filtro LC, interruttore di mantenimento lato alto (MOSFET P o driver dedicato) | D-030; fusibile di ramo nel cablaggio vicino al prelievo (HW-FUSE-HOLDER) |
+| -U1…U3 | Ingresso 12 V | TVS bidirezionale, diodo ideale contro l'inversione (LM74700-Q1 + MOSFET N), ferrite; accensione del 5 V con chiave O mantenimento sull'EN del buck | D-030; fusibile di ramo nel cablaggio vicino al prelievo (HW-FUSE-HOLDER); schema CR-EL-001 |
 | -C1 | Riserva avviamento | diodo + supercondensatore con carica limitata | capacità da calcolare dopo la misura C3AI-CR-PR-001 (P5) |
-| -U4/U5 | Alimentazione | buck 12 → 5 V (ingresso ≥ 40 V, 2-3 A) + LDO 3,3 V a basso consumo | 5 V anche per l'S3 tramite -J2 / P1 |
+| -U4/U5 | Alimentazione | buck 12 → 5 V 3,5 A (TPS54360B, 60 V) acceso a comando + buck 12 → 3,3 V 1 A sempre acceso a basso consumo (LMR36510, 65 V, 26 µA) | 5 V anche per l'S3 tramite -J2 / P1; schema CR-EL-001 |
 | -U6 | Front-end | ESP32-WROOM-32E-**H4/H8** montato in fabbrica (HW-FE-MODULE) | senza PSRAM; stessi GPIO del logger 0.3.x |
 | -U7 | VAN | SN65HVD230 solo ricezione: D a 3V3, nessuna resistenza da 120 Ω | prerequisiti D-022 bloccanti |
 | -U8 | K-line | circuito KL-001 rev F (2N5551 + LM2903B, isteresi R10) | progetto da banco: protezioni auto da aggiungere |
@@ -56,10 +57,39 @@ raccolta dati e uso in auto leggano il veicolo con lo stesso codice.
 
 Evitati i pin di avvio (0, 2, 5, 12, 15) e quelli della flash (6-11).
 
+## Schema elettrico: alimentazione (C3AI-CR-EL-001 rev A, proposta)
+
+Foglio KiCad `cruscotto/pcb/scheda-madre/scheda-madre.kicad_sch`, generato da
+`tools/genera-schema-scheda-madre.py`; tavola [CR-EL-001](../../disegni/CR-EL-001_scheda-madre-alimentazione.png).
+Valori ripresi dagli esempi dei datasheet TI e dalla prova OBD-M001 (12,2 V a riposo,
+14,2 V a motore acceso, minimo 9,0 V in avviamento letto dal tester).
+
+- **Ingresso**: J1 via 1 → D1 SMCJ26CA (bidirezionale, blocca circa 42 V) → U1 LM74700-Q1
+  con Q1 MOSFET N 60 V in DPAK (diodo ideale: inversione di polarità e niente ritorno di
+  corrente verso l'auto durante l'avviamento) → C3 220 µF 50 V di riserva → ferrite FB1 → `+12V_F`.
+- **5 V principale**: U2 TPS54360B 60 V / 3,5 A, 600 kHz, L1 8,2 µH, diodo B560C. Acceso se
+  la chiave è inserita (`KEY_IN` tramite D3 e partitore R5/R6: avvio a circa 8 V, arresto a
+  circa 6,3 V) **oppure** se il front-end tiene alto GPIO13 (`PWR_HOLD` tramite D4/R7). R8
+  tiene spento a riposo: al reset del front-end il 5 V dipende solo dalla chiave (D-030).
+- **3,3 V sempre acceso**: U3 LMR36510 65 V / 1 A, 26 µA a vuoto, EN collegato all'ingresso.
+  Alimenta front-end e sensori anche a motore spento (D-031). Al posto del regolatore
+  lineare della proposta precedente: con il front-end attivo un lineare dal 12 V
+  dissiperebbe 0,5-0,8 W vicino al display.
+- **Misure verso il front-end**: `KEY_SENSE` (GPIO39, 100k/22k) e `VBAT_SENSE` (GPIO35,
+  470k/100k, circa 21 µA a 12 V), filtrate da 100 nF e limitate da BAT54S verso massa e 3,3 V.
+- Consumo a riposo stimato: U1 80 µA + U3 26 µA + partitori circa 25 µA + front-end in sonno,
+  sotto 1 mA (D-030). Da misurare sul prototipo.
+
+Da verificare prima dell'ordine: modello del MOSFET (proposto IPD50N06S4L-12), induttori L1/L2
+(corrente di saturazione), ferrite, capacità di riserva dopo la misura del calo
+all'avviamento con un oscilloscopio o un registratore (il tester non vede i picchi brevi).
+U2 e U3 hanno la piazzola termica sotto il corpo (HSOIC, ammessi da D-046): si saldano a mano
+riempiendo di stagno i fori termici dal retro.
+
 ## Raffreddamento e dominio sempre acceso (D-031)
 
-- **Due domini di alimentazione.** Sempre acceso: regolatore lineare a bassissimo
-  consumo dal +12 V protetto, front-end in sonno con risveglio periodico, NTC,
+- **Due domini di alimentazione.** Sempre acceso: buck 3,3 V a bassissimo consumo
+  (LMR36510, CR-EL-001) dal +12 V protetto, front-end in sonno con risveglio periodico, NTC,
   misura della batteria, comando ventola. Principale: buck 5 V e S3, accesi con
   chiave e mantenimento (D-030).
 - **Ventola 12 V** alimentata direttamente dal +12 V protetto (nessun bisogno del
@@ -160,7 +190,8 @@ interfacce 0,1-0,25 A, relè 0,07 A, amplificatore a picchi 0,5-1 A. A riposo
 
 ## Prima di disegnare lo schema elettrico
 
-1. Esiti della prova C3AI-CR-PR-001: vie 16/1 della presa OBD e calo all'avviamento.
+1. Esiti della prova C3AI-CR-PR-001: vie 16/1 della presa OBD e calo all'avviamento (eseguita,
+   OBD-M001; picchi brevi da rimisurare con strumento più veloce).
 2. Prova d'ascolto su P6 per la funzione di U1.
 3. Prototipo a banco: front-end HW-394 + S3 su UART, VP230 e KL-001 montati.
 4. Prerequisiti VAN D-022 e prima cattura passiva dal quadro.

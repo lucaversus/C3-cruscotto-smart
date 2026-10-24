@@ -1,7 +1,8 @@
 # Scheda madre — circuito stampato (KiCad 10)
 
 Progetto KiCad della scheda madre del cruscotto (D-029, D-044, D-045, D-046). Stato:
-**solo meccanica**, nessuno schema elettrico ancora.
+circuito stampato con la **sola meccanica**; schema elettrico iniziato con il foglio
+**alimentazione** (C3AI-CR-EL-001 rev A, proposta non verificata).
 
 - `scheda-madre.kicad_pcb`: generato da `tools/genera-pcb-scheda-madre.py` con il Python di
   KiCad. Contiene il bordo letto dal DXF dell'utente (`cruscotto/meccanica/scheda-madre-contorno.dxf`),
@@ -11,6 +12,10 @@ Progetto KiCad della scheda madre del cruscotto (D-029, D-044, D-045, D-046). St
   S1/S2 centrati sotto i pulsanti e ruotati di ±111° (piedini paralleli al bordo): i piedini
   rispettano 0,5 mm dal bordo, gli angoli dell'ingombro del corpo sporgono di circa 0,5 mm. Su
   User.Drawings il contorno della S3, su User.Comments le zone dello studio C3AI-CR-PL-001.
+- `scheda-madre.kicad_sch`: generato da `tools/genera-schema-scheda-madre.py` (Python normale)
+  con i simboli delle librerie di KiCad 10. Ogni piedino ha un'etichetta: le reti con lo stesso
+  nome sono collegate. ERC: 0 errori, 12 avvisi attesi (segnali di J1 per i fogli non ancora
+  disegnati: K-line, VAN, audio). Anteprima in `disegni/CR-EL-001_scheda-madre-alimentazione.png`.
 - Faccia **F** = faccia interna verso la S3 (componenti caldi, interruttori); **B** = retro
   (ventola, J1).
 - Regole: 2 strati, 1,6 mm, piste e distanze minime 0,2 mm, via 0,6/0,3, 0,5 mm dal bordo;
@@ -19,6 +24,8 @@ Progetto KiCad della scheda madre del cruscotto (D-029, D-044, D-045, D-046). St
 Rigenerare:
 
 ```text
+python tools/genera-schema-scheda-madre.py
+"C:\Program Files\KiCad\10.0\bin\kicad-cli.exe" sch erc cruscotto/pcb/scheda-madre/scheda-madre.kicad_sch
 "C:\Program Files\KiCad\10.0\bin\python.exe" tools/genera-pcb-scheda-madre.py
 "C:\Program Files\KiCad\10.0\bin\kicad-cli.exe" pcb drc cruscotto/pcb/scheda-madre/scheda-madre.kicad_pcb
 ```
