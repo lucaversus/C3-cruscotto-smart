@@ -8,3 +8,10 @@ __pycache__/
 cruscotto/firmware/*/sdkconfig.*
 !cruscotto/firmware/*/sdkconfig.defaults
 cruscotto/firmware/*/managed_components/
+
+# KiCad: stato locale, rapporti e anteprime rigenerabili
+*.kicad_prl
+*-backups/
+cruscotto/pcb/*/drc.rpt
+cruscotto/pcb/*/anteprima.svg
+fp-info-cache
