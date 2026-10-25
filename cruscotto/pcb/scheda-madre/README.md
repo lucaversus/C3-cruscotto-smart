@@ -73,3 +73,15 @@ dietro la scheda madre da misurare (verifica aperta 1 in `cruscotto/docs/scheda-
 DRC del 25/10/2026: nessun errore oltre ai 325 collegamenti non ancora tracciati (sbroglio da
 fare). Da rivedere prima dello sbroglio: interasse delle file di pin del modulo VAN, profondità
 dietro la scheda, posizione fine dei gruppi (piazzamento automatico, non ottimizzato per le piste).
+
+## Sbroglio automatico, prima stesura (25/10/2026)
+
+`tools/sbroglia-scheda-madre.py` (Python di KiCad): classi di rete (Potenza 1,0 mm, Medio 0,5 mm,
+segnali 0,25 mm), piani di massa sulle due facce, esportazione Specctra, Freerouting 2.5.0 su Java 25
+portatile (la versione CLI nativa per Windows si blocca), importazione e riempimento dei piani.
+Esito con 25 passate (circa 30 minuti): 1617 piste e 210 via, **71 connessioni non tracciate**
+secondo Freerouting; DRC: 108 elementi non connessi (comprese isole del piano di massa), 187 tratti
+sotto 0,2 mm vicino alle piazzole, 36 piste troppo vicine al foro della ventola (Freerouting non
+vede il foro come bordo), 34 raccordi termici incompleti. Anteprime `sbroglio-rame-F.png` e
+`sbroglio-rame-B.png`. **Non utilizzabile così**: serve un piazzamento più raccolto per gruppo e
+una zona vietata attorno al foro della ventola, poi un nuovo sbroglio.

@@ -1,7 +1,9 @@
-"""Sbroglio automatico della scheda madre con Freerouting (KiCad 10 + Freerouting CLI 2.5).
+"""Sbroglio automatico della scheda madre con Freerouting (KiCad 10 + Freerouting 2.5 su Java 25).
 
 Uso (con il Python di KiCad, dopo tools/genera-pcb-scheda-madre.py):
-  "C:\\Program Files\\KiCad\\10.0\\bin\\python.exe" tools/sbroglia-scheda-madre.py <freerouting-cli.exe> [passate]
+  "C:\\Program Files\\KiCad\\10.0\\bin\\python.exe" tools/sbroglia-scheda-madre.py <java.exe> <freerouting.jar> [passate]
+Freerouting 2.5.0 richiede Java 25 (es. Eclipse Temurin 25, anche in versione portatile .zip). La versione
+CLI nativa per Windows 2.5.0 si blocca all'avvio dello sbroglio (errore di serializzazione): usare il .jar.
 Passi: classi di rete (larghezze delle piste), piani di massa sulle due facce, esportazione Specctra
 (.dsn), sbroglio con Freerouting, importazione delle piste (.ses), riempimento dei piani, salvataggio.
 Freerouting (GPL-3) non è nel repository: si scarica dalla pagina delle release del progetto.
@@ -16,13 +18,13 @@ import pcbnew
 
 ROOT = Path(__file__).resolve().parents[1]
 PCB = ROOT / 'cruscotto/pcb/scheda-madre/scheda-madre.kicad_pcb'
-FR = Path(sys.argv[1])
-PASSES = sys.argv[2] if len(sys.argv) > 2 else '40'
+JAVA, JAR = Path(sys.argv[1]), Path(sys.argv[2])
+PASSES = sys.argv[3] if len(sys.argv) > 3 else '25'
 mm = pcbnew.FromMM
 
 # Classi di rete: (nome, pista, distanza, via, foro, reti). Correnti stimate in scheda-madre.md.
 CLASSES = [
-    ('Potenza', 1.0, 0.25, 0.8, 0.4, ['VBAT_IN', 'VBAT_P', '+12V_F', '+5V', 'S3_5V', 'SW_5V', '+12V_FAN',
+    ('Potenza', 1.0, 0.2, 0.8, 0.4, ['VBAT_IN', 'VBAT_P', '+12V_F', '+5V', 'S3_5V', 'SW_5V', '+12V_FAN',
                                       'SPK_*', 'RADIO_*', 'S3_SPK_*', 'SPK_SERIE', 'RELAY_COIL', 'GND']),
     ('Medio', 0.5, 0.2, 0.6, 0.3, ['+3V3_AON', '+3V3_SW', '+3V3_USB', 'USB_VBUS', 'SW_3V3', 'KLINE', 'VAN_DATA*',
                                    'KEY_IN', 'U2_BOOT', 'U3_BOOT', 'CH_V3']),
@@ -73,9 +75,11 @@ for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
 with tempfile.TemporaryDirectory() as tmp:
     dsn, ses = Path(tmp) / 'scheda-madre.dsn', Path(tmp) / 'scheda-madre.ses'
     assert pcbnew.ExportSpecctraDSN(board, str(dsn)), 'esportazione DSN non riuscita'
-    r = subprocess.run([str(FR), '-de', str(dsn), '-do', str(ses), '-mp', PASSES], capture_output=True, text=True,
-                       encoding='utf-8', errors='replace')
-    print('\n'.join(l for l in r.stdout.splitlines()[-12:]))
+    r = subprocess.run([str(JAVA), '-jar', str(JAR), '--gui.enabled=false', '-de', str(dsn), '-do', str(ses),
+                        f'--router.autorouter.max_passes={PASSES}'], capture_output=True, text=True,
+                       encoding='utf-8', errors='replace', stdin=subprocess.DEVNULL)
+    log = [l for l in (r.stdout + r.stderr).splitlines() if ' INFO ' in l and ('pass #' in l or 'completed' in l)]
+    print('\n'.join(log[-8:]))
     assert ses.is_file(), 'Freerouting non ha prodotto la sessione .ses:\n' + r.stderr[-2000:]
     assert pcbnew.ImportSpecctraSES(board, str(ses)), 'importazione SES non riuscita'
 
