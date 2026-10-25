@@ -352,13 +352,12 @@ pack(['U4'], 'F', (20.0, 9.0, 80.0, 62.0), from_right=True)
 placed.add('U4')
 
 USB = ['U5', 'U6', 'R31', 'R32', 'R33', 'R34', 'R37', 'C25', 'C26', 'C27', 'Q6', 'Q7', 'R35', 'R36']
-BACK = ['C3', 'K1', 'K2', 'D11', 'D12', 'Q9', 'R54', 'R55', 'J6', 'J8', 'J9', 'BT1', 'U10', 'C34']
+BACK = ['C3', 'K1', 'K2', 'D11', 'D12', 'Q9', 'R54', 'R55', 'J6', 'J8', 'J9', 'U10', 'C34']
 rest = [r for r in COMPS if r not in placed]
 put('J6', 'B', 56.5, 25.0, rot=90)
 placed.add('J6')
 pack(USB, 'F', (-24.0, 62.0, 24.0, ing.YMAX), from_right=False)
 pack(['K1', 'K2', 'C3', 'D11', 'D12', 'Q9', 'R54', 'R55', 'U10', 'C34'], 'B', (-72.0, 9.0, -21.5, ing.YMAX), from_right=True)
-pack(['BT1'], 'B', (-72.0, 9.0, 80.0, ing.YMAX), from_right=True)
 pack(['J8', 'J9'], 'B', (21.5, 9.0, 72.0, ing.YMAX), from_right=False)
 POWER = [r for r in rest if r not in USB + BACK and (
     re.fullmatch(r'(U[123]|Q1|L[12]|FB1|D[1-6]|C([1-9]|1[0-9])|R([1-9]|1[0-4]))', r))]

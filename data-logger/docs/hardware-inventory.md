@@ -471,7 +471,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: "la pila non ce l'ho". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare).
+**Fonte:** Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: "la pila non ce l'ho". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare). 25/10/2026: non serve alla scheda madre del cruscotto, il cui RTC è senza pila (D-056); resta per il modulo RTC del Data Logger.
 
 **Verifiche documentate:**
 

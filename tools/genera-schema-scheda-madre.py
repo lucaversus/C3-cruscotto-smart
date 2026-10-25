@@ -822,8 +822,8 @@ shunt('C33', '100nF', 45.72, 124.46, '+3V3_AON')
 wire((35.56, 124.46), 'C33.1')
 label('+3V3_AON', (35.56, 124.46), 180)
 
-# --- RTC DS3231SN (facoltativo, -U10): pila CR2032 non ricaricata (D-019) -----------------
-RTC = {'1': None, '2': '+3V3_AON', '3': None, '4': None, '14': 'RTC_VBAT', '15': 'I2C_SDA', '16': 'I2C_SCL'}
+# --- RTC DS3231SN (facoltativo, -U10) senza pila (D-056): alimentato dal 3,3 V sempre acceso, VBAT a massa ---
+RTC = {'1': None, '2': '+3V3_AON', '3': None, '4': None, '14': 'GND', '15': 'I2C_SDA', '16': 'I2C_SCL'}
 RTC.update({str(n): 'GND' for n in range(5, 14)})  # 5-12 da collegare a massa secondo il datasheet DS3231
 symbol('U10', 'Timer_RTC:DS3231M', 'DS3231SN', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 165.1, 81.28, nets=RTC,
        txt=((5.08, 12.7), (5.08, 15.24), 'left'), note='Stessa piedinatura del DS3231SN del logger (HW-RTC)')
@@ -833,11 +833,7 @@ tag('U10.16')
 shunt('C34', '100nF', 154.94, 63.5, '+3V3_AON')
 wire((147.32, 63.5), 'C34.1', (162.56, 63.5), 'U10.2')
 label('+3V3_AON', (147.32, 63.5), 180)
-symbol('BT1', 'Device:Battery_Cell', 'CR2032', 'Battery:BatteryHolder_Keystone_3034_1x20mm', 175.26, 71.12,
-       nets={'1': 'RTC_VBAT', '2': 'GND'}, note='HW-RTC-BATTERY, da procurare')
-gnd('BT1.2', 0)
-wire('U10.14', (165.1, 66.04), 'BT1.1')
-flag('RTC_VBAT', (165.1, 66.04))
+tag('U10.14')  # VBAT non usato: a massa come richiede la scheda tecnica del DS3231
 
 # --- MicroSD (facoltativa): modulo HW-SD-MODULE su fila di pin (D-051), SPI come il logger ---
 symbol('J7', 'Connector_Generic:Conn_01x06', 'Modulo MicroSD: 3V3 CS MOSI CLK MISO GND',
@@ -854,13 +850,13 @@ wire((X4 - 7.62, 116.84), 'R49.1', 'C35.1', 'C36.1')
 
 text(25.4, 45.72, 'IMU SU MODULO DIL-24 (D-033, D-046)')
 text(25.4, 50.8, 'STEVAL-MKI196V1, LSM6DSO, I2C 0x6A', 1.5)
-text(142.24, 45.72, 'RTC DS3231SN (FACOLTATIVO) CON CR2032')
+text(142.24, 45.72, 'RTC DS3231SN (FACOLTATIVO) SENZA PILA (D-056)')
 text(215.9, 45.72, 'MICROSD (FACOLTATIVA): MODULO SU FILA DI PIN (D-051)')
 text(215.9, 106.68, 'PULL-UP DI CS E CONDENSATORI DEL MODULO MICROSD', 1.5)
 text(25.4, 236.22, 'Proposta preliminare, non verificata. Pull-up I2C sul foglio del front-end. '
                    'Piedinatura del modulo IMU da riscontrare sulla serigrafia all’arrivo (HW-IMU-LSM6DSO).', 1.27)
 text(25.4, 241.3, 'IMU e RTC sul 3,3 V sempre acceso (consumi a riposo di pochi uA); MicroSD sul 3,3 V acceso a quadro. '
-                  'Pila dell’RTC non ricaricata (D-019).', 1.27)
+                  'RTC senza pila (D-056): ora persa solo staccando la batteria dell’auto.', 1.27)
 text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli diversi.', 1.27)
 
 # ======================================================================================

@@ -1472,343 +1472,6 @@
 			)
 		)
 		(embedded_fonts no)
-		)		(symbol "Device:Battery_Cell"
-		(pin_numbers
-			(hide yes)
-		)
-		(pin_names
-			(offset 0)
-			(hide yes)
-		)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(duplicate_pin_numbers_are_jumpers no)
-		(property "Reference" "BT"
-			(at 2.54 2.54 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Battery_Cell"
-			(at 2.54 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 0 1.524 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 1.524 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Single-cell battery"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "V"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Type" "DC"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=+ 2=-"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ki_keywords" "battery cell"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(symbol "Battery_Cell_0_1"
-			(rectangle
-				(start -2.286 1.778)
-				(end 2.286 1.524)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type outline)
-				)
-			)
-			(rectangle
-				(start -1.524 1.016)
-				(end 1.524 0.508)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type outline)
-				)
-			)
-			(polyline
-				(pts
-					(xy 0 1.778) (xy 0 2.54)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 0 0.762) (xy 0 0)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 0.762 3.048) (xy 1.778 3.048)
-				)
-				(stroke
-					(width 0.254)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 1.27 3.556) (xy 1.27 2.54)
-				)
-				(stroke
-					(width 0.254)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-		)
-		(symbol "Battery_Cell_1_1"
-			(pin passive line
-				(at 0 5.08 270)
-				(length 2.54)
-				(name "+"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin passive line
-				(at 0 -2.54 90)
-				(length 2.54)
-				(name "-"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "2"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-		)
-		(embedded_fonts no)
-		)		(symbol "power:PWR_FLAG"
-		(power global)
-		(pin_numbers
-			(hide yes)
-		)
-		(pin_names
-			(offset 0)
-			(hide yes)
-		)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(duplicate_pin_numbers_are_jumpers no)
-		(property "Reference" "#FLG"
-			(at 0 1.905 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 0 3.81 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ki_keywords" "flag power"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(symbol "PWR_FLAG_0_0"
-			(pin power_out line
-				(at 0 0 90)
-				(length 0)
-				(name ""
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-		)
-		(symbol "PWR_FLAG_0_1"
-			(polyline
-				(pts
-					(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-		)
-		(embedded_fonts no)
 		)		(symbol "Connector_Generic:Conn_01x06"
 		(pin_names
 			(offset 1.016)
@@ -2395,35 +2058,15 @@
 	(wire (pts (xy 162.56 63.5) (xy 162.56 71.12)) (stroke (width 0) (type default)) (uuid "2efd76b2-5163-5105-85cf-2de1f8828c4c"))
 	(global_label "+3V3_AON" (shape passive) (at 147.32 63.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2057ff3d-5132-599b-872f-1bbf387db84d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 147.32 63.5 0) (effects (font (size 1.27 1.27)) (justify right) (hide yes))))
-	(symbol (lib_id "Device:Battery_Cell") (at 175.26 71.12 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a03fedb3-bcc2-5c15-a5b4-a1f5aafeaa0f")
-		(property "Reference" "BT1" (at 177.8 69.85 0) (effects (font (size 1.27 1.27)) (justify left)))
-		(property "Value" "CR2032" (at 177.8 72.39 0) (effects (font (size 1.27 1.27)) (justify left)))
-		(property "Footprint" "Battery:BatteryHolder_Keystone_3034_1x20mm" (at 175.26 71.12 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Datasheet" "" (at 175.26 71.12 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Description" "HW-RTC-BATTERY, da procurare" (at 175.26 71.12 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(pin "1" (uuid "9469cf04-2a26-5d81-843c-5c96dc0524ed"))
-		(pin "2" (uuid "2b64b93d-101c-53d5-be80-1df46857736d"))
-		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "BT1") (unit 1))))
-	)
-	(symbol (lib_id "power:GND") (at 175.26 73.66 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "15fdaccf-58a7-5bac-a43b-718b625f264b")
-		(property "Reference" "#PWR087" (at 175.26 67.31 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Value" "GND" (at 175.26 69.85 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Footprint" "" (at 175.26 73.66 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Datasheet" "" (at 175.26 73.66 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Description" "" (at 175.26 73.66 0) (hide yes) (effects (font (size 1.27 1.27))))
+	(wire (pts (xy 165.1 71.12) (xy 165.1 68.58)) (stroke (width 0) (type default)) (uuid "0d9ba108-0a44-57a2-b47e-84c790356949"))
+	(symbol (lib_id "power:GND") (at 165.1 68.58 180) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "15fdaccf-58a7-5bac-a43b-718b625f264b")
+		(property "Reference" "#PWR087" (at 165.1 62.23 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 165.1 64.77 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 165.1 68.58 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 165.1 68.58 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 165.1 68.58 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(pin "1" (uuid "5acaaab9-818e-5904-b3c3-1d85250b6841"))
 		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#PWR087") (unit 1))))
-	)
-	(wire (pts (xy 165.1 71.12) (xy 165.1 66.04)) (stroke (width 0) (type default)) (uuid "f3dfe236-836e-5b2f-9c3c-e14695c35886"))
-	(wire (pts (xy 165.1 66.04) (xy 175.26 66.04)) (stroke (width 0) (type default)) (uuid "b2b48a2d-05b2-5a30-b484-b8b4b9906e7d"))
-	(symbol (lib_id "power:PWR_FLAG") (at 165.1 66.04 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "3d5b616b-2883-5c08-adc4-fd568bc7479a")
-		(property "Reference" "#FLG088" (at 165.1 59.69 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Value" "PWR_FLAG" (at 165.1 62.23 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Footprint" "" (at 165.1 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Datasheet" "" (at 165.1 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(property "Description" "" (at 165.1 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(pin "1" (uuid "39009800-e8a9-5fbf-b180-302fc4a14915"))
-		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#FLG088") (unit 1))))
 	)
 	(symbol (lib_id "Connector_Generic:Conn_01x06") (at 264.16 81.28 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "ea5d62a1-d421-5a3d-9ab6-48edf8e0bd68")
 		(property "Reference" "J7" (at 264.16 69.85 0) (effects (font (size 1.27 1.27))))
@@ -2455,14 +2098,14 @@
 	(global_label "SD_MISO" (shape passive) (at 256.54 86.36 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "60c94b9e-0472-5758-8ce3-bb896803c0ed")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 256.54 86.36 0) (effects (font (size 1.27 1.27)) (justify right) (hide yes))))
 	(wire (pts (xy 259.08 88.9) (xy 256.54 88.9)) (stroke (width 0) (type default)) (uuid "94ad6f5c-941d-5059-be11-181ee18d8212"))
-	(symbol (lib_id "power:GND") (at 256.54 88.9 270) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "97917afb-7ba0-513b-a9e0-925d1f7a23dd")
-		(property "Reference" "#PWR089" (at 256.54 82.55 90) (hide yes) (effects (font (size 1.27 1.27))))
+	(symbol (lib_id "power:GND") (at 256.54 88.9 270) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "6a31d183-f4bf-500f-b329-709e3bad960b")
+		(property "Reference" "#PWR088" (at 256.54 82.55 90) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Value" "GND" (at 256.54 85.09 90) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "" (at 256.54 88.9 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Datasheet" "" (at 256.54 88.9 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Description" "" (at 256.54 88.9 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(pin "1" (uuid "c613ba0b-ddca-566f-abb5-a5821c1f05d4"))
-		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#PWR089") (unit 1))))
+		(pin "1" (uuid "389ca0e7-825c-5eab-bd89-49b293bc6b79"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#PWR088") (unit 1))))
 	)
 	(global_label "+3V3_SW" (shape passive) (at 220.98 116.84 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ee88f1e5-e743-5e9d-8f57-5912401429b7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 220.98 116.84 0) (effects (font (size 1.27 1.27)) (justify right) (hide yes))))
@@ -2489,14 +2132,14 @@
 		(pin "2" (uuid "6ec049d9-8a6e-5804-a360-34e95ad1b24d"))
 		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "C35") (unit 1))))
 	)
-	(symbol (lib_id "power:GND") (at 238.76 124.46 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "95300406-0305-5c81-994b-e90ddf18f9f1")
-		(property "Reference" "#PWR090" (at 238.76 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+	(symbol (lib_id "power:GND") (at 238.76 124.46 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "97917afb-7ba0-513b-a9e0-925d1f7a23dd")
+		(property "Reference" "#PWR089" (at 238.76 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Value" "GND" (at 238.76 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "" (at 238.76 124.46 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Datasheet" "" (at 238.76 124.46 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Description" "" (at 238.76 124.46 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(pin "1" (uuid "fa4be0db-1b4b-529e-9c8f-92280b7adc04"))
-		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#PWR090") (unit 1))))
+		(pin "1" (uuid "c613ba0b-ddca-566f-abb5-a5821c1f05d4"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#PWR089") (unit 1))))
 	)
 	(symbol (lib_id "Device:C") (at 248.92 120.65 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "4085eb27-9256-51e7-8da6-7c6291d0cccc")
 		(property "Reference" "C36" (at 251.46 119.38 0) (effects (font (size 1.27 1.27)) (justify left)))
@@ -2508,28 +2151,27 @@
 		(pin "2" (uuid "f1a78ff3-9088-5c52-9d86-cc2d8e1c2e8d"))
 		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "C36") (unit 1))))
 	)
-	(symbol (lib_id "power:GND") (at 248.92 124.46 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "85e50adb-4931-5486-af5a-cb0e73a45198")
-		(property "Reference" "#PWR091" (at 248.92 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+	(symbol (lib_id "power:GND") (at 248.92 124.46 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "95300406-0305-5c81-994b-e90ddf18f9f1")
+		(property "Reference" "#PWR090" (at 248.92 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Value" "GND" (at 248.92 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "" (at 248.92 124.46 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Datasheet" "" (at 248.92 124.46 0) (hide yes) (effects (font (size 1.27 1.27))))
 		(property "Description" "" (at 248.92 124.46 0) (hide yes) (effects (font (size 1.27 1.27))))
-		(pin "1" (uuid "9b638bb1-400b-528a-aa2e-05fe38c4ef51"))
-		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#PWR091") (unit 1))))
+		(pin "1" (uuid "fa4be0db-1b4b-529e-9c8f-92280b7adc04"))
+		(instances (project "scheda-madre" (path "/ccee1fe6-cbff-5665-be3b-629f18d22eb3/d397dd4f-6a73-5b5c-8d15-f0483e1efe4f" (reference "#PWR090") (unit 1))))
 	)
 	(wire (pts (xy 220.98 116.84) (xy 228.6 116.84)) (stroke (width 0) (type default)) (uuid "72e4d003-cb2e-5abc-bf3b-7d8b12e27314"))
 	(wire (pts (xy 228.6 116.84) (xy 238.76 116.84)) (stroke (width 0) (type default)) (uuid "54b0569c-edb0-5a81-8ad7-9c77eae76937"))
 	(wire (pts (xy 238.76 116.84) (xy 248.92 116.84)) (stroke (width 0) (type default)) (uuid "e464b543-082c-598c-8bb3-bca6fa2a27a2"))
 	(text "IMU SU MODULO DIL-24 (D-033, D-046)" (exclude_from_sim no) (at 25.4 45.72 0) (effects (font (size 2.0 2.0)) (justify left bottom)) (uuid "edc08e2a-fd62-51c1-8d8b-905a0096dccf"))
 	(text "STEVAL-MKI196V1, LSM6DSO, I2C 0x6A" (exclude_from_sim no) (at 25.4 50.8 0) (effects (font (size 1.5 1.5)) (justify left bottom)) (uuid "0953eede-14fd-5aa6-adb8-7b0444762297"))
-	(text "RTC DS3231SN (FACOLTATIVO) CON CR2032" (exclude_from_sim no) (at 142.24 45.72 0) (effects (font (size 2.0 2.0)) (justify left bottom)) (uuid "fd9eb879-8ae1-5900-add2-1ad086e62856"))
+	(text "RTC DS3231SN (FACOLTATIVO) SENZA PILA (D-056)" (exclude_from_sim no) (at 142.24 45.72 0) (effects (font (size 2.0 2.0)) (justify left bottom)) (uuid "7b4c0c0c-3dac-5af2-abca-c2ef868a98c3"))
 	(text "MICROSD (FACOLTATIVA): MODULO SU FILA DI PIN (D-051)" (exclude_from_sim no) (at 215.9 45.72 0) (effects (font (size 2.0 2.0)) (justify left bottom)) (uuid "5af5147d-18c3-5278-b6fe-eba48d1ae3de"))
 	(text "PULL-UP DI CS E CONDENSATORI DEL MODULO MICROSD" (exclude_from_sim no) (at 215.9 106.68 0) (effects (font (size 1.5 1.5)) (justify left bottom)) (uuid "eae60cbb-a8ad-5291-b668-7ec51ee2a164"))
 	(text "Proposta preliminare, non verificata. Pull-up I2C sul foglio del front-end. Piedinatura del modulo IMU da riscontrare sulla serigrafia all’arrivo (HW-IMU-LSM6DSO)." (exclude_from_sim no) (at 25.4 236.22 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "85175b1b-3ee4-53b8-b375-7189c8e4af69"))
-	(text "IMU e RTC sul 3,3 V sempre acceso (consumi a riposo di pochi uA); MicroSD sul 3,3 V acceso a quadro. Pila dell’RTC non ricaricata (D-019)." (exclude_from_sim no) (at 25.4 241.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "6dcd1818-7a05-593f-9839-7b61406dde76"))
+	(text "IMU e RTC sul 3,3 V sempre acceso (consumi a riposo di pochi uA); MicroSD sul 3,3 V acceso a quadro. RTC senza pila (D-056): ora persa solo staccando la batteria dell’auto." (exclude_from_sim no) (at 25.4 241.3 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "3ebb9895-60ce-5ab2-b73e-6c3cc1a39a74"))
 	(text "Etichette con lo stesso nome sono collegate, anche tra fogli diversi." (exclude_from_sim no) (at 25.4 246.38 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "7c2f4c17-6312-53f9-85cc-2c0c52f20bef"))
 	(junction (at 154.94 63.5) (diameter 0) (color 0 0 0 0) (uuid "f1e7d0a3-baed-5c90-a1ca-fea0390c296d"))
-	(junction (at 165.1 66.04) (diameter 0) (color 0 0 0 0) (uuid "a555bd31-ba05-5571-9bde-44fe6b419a74"))
 	(junction (at 165.1 91.44) (diameter 0) (color 0 0 0 0) (uuid "102af410-47b9-5244-8560-583bae4a2bc0"))
 	(junction (at 228.6 116.84) (diameter 0) (color 0 0 0 0) (uuid "a9c53ec2-a314-5f3a-ba0f-908259093e25"))
 	(junction (at 238.76 116.84) (diameter 0) (color 0 0 0 0) (uuid "446875e4-18cf-5ac1-b4ad-522f7784e80d"))

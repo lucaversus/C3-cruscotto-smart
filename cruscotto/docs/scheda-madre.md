@@ -145,8 +145,8 @@ Foglio `cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch`; tavola
   I2C), SDO/SA0 a massa (indirizzo 0x6A), SCL/SDA sul bus I2C; INT1/INT2 non collegati (GPIO
   libero eventuale: 5). Da riscontrare sulla serigrafia all'arrivo.
 - **RTC** (-U10, facoltativo): DS3231SN in SOIC-16W come il modulo del logger, piedini 5-12 a
-  massa come da datasheet, pila CR2032 su portapila (HW-RTC-BATTERY, da procurare) senza
-  ricarica (D-019).
+  massa come da datasheet, **senza pila** (D-056): alimentato dal 3,3 V sempre acceso, VBAT a
+  massa; ora da reimpostare da app o pulsanti solo dopo lo stacco della batteria dell'auto.
 - **MicroSD** (facoltativa, D-051): modulo lettore (tipo HW-SD-MODULE) su fila di pin J7
   (3V3/CS/MOSI/CLK/MISO/GND), SPI su GPIO18/19/23/27 come il logger, 10k di pull-up su CS,
   alimentato dal 3,3 V acceso a quadro: a riposo il firmware deve tenere basse le linee SPI.

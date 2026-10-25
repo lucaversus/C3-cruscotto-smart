@@ -601,7 +601,7 @@
       "scope": "Data Logger",
       "quantity": null,
       "status": "candidate",
-      "evidence": "Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: \"la pila non ce l'ho\". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare).",
+      "evidence": "Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: \"la pila non ce l'ho\". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare). 25/10/2026: non serve alla scheda madre del cruscotto, il cui RTC è senza pila (D-056); resta per il modulo RTC del Data Logger.",
       "verified": [],
       "open_checks": [
         "Da procurare: una CR2032 (3 V, non ricaricabile). Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).",
