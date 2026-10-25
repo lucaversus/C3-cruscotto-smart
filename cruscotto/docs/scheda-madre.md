@@ -176,6 +176,20 @@ Foglio `cruscotto/pcb/scheda-madre/s3-audio.kicad_sch`; tavola
 ERC con i cinque fogli: 0 errori, 1 avviso per la massa di riferimento VAN (J1 via 7) ancora da
 collegare. Il generatore confronta 95 reti con il netlist di KiCad.
 
+## Verifiche aperte prima dello sbroglio (25/10/2026)
+
+1. **Profondità dietro la scheda madre** (verso il fondo del quadro): sul retro i pezzi più alti
+   sono i relè K1/K2 (15,7 mm), C3 e J4 (circa 10 mm), la ventola (10 mm) e J1 con la spina del
+   cablaggio inserita. Da misurare sull'auto o sul modello del quadro.
+2. **Modulo VAN blu**: interasse tra le file di pin J8 (4 vie) e J9 (CANH/CANL) e altezza, dal
+   pezzo o da un modello 3D (D-051).
+3. **STEVAL-MKI196V1**: confermare sul pezzo interasse 15,0 mm e piedino 1 (misure dai Gerber ST).
+4. **Telaio stampato**: nessun contatto con i componenti della faccia F (controllo fatto solo
+   verso i componenti della S3, margine minimo 5,5 mm).
+5. **Audio (D-053)**: potenza di U1 (prova d'ascolto su P6), impedenza degli altoparlanti, fase.
+6. **Ventola (D-052)**: limite +70 °C rispetto alla temperatura misurata dietro il quadro.
+7. **Massa di riferimento VAN** (J1 via 7): collegamento da decidere con la verifica sul quadro.
+
 ## Raffreddamento e dominio sempre acceso (D-031)
 
 - **Due domini di alimentazione.** Sempre acceso: buck 3,3 V a bassissimo consumo
