@@ -340,9 +340,12 @@ placed = {fp.GetReference() for fp in board.GetFootprints()}
 # Posizioni fisse: modulo ESP32 con l'antenna al bordo superiore libero dalla S3, USB-C al bordo superiore,
 # cavetti verso i connettori della S3 vicino ai suoi lati (assieme 3D).
 put('J3', 'F', 14.0, ing.YMAX - 5.0, check_outline=False)
-put('J10', 'F', 60.0, 15.0, rot=90)
-put('J11', 'F', 28.0, 14.0)
-put('J12', 'F', 44.0, 14.0)
+# La faccia F guarda la S3: rispetto al DXF (visto dal retro) le x dei pezzi legati alla S3 sono speculari.
+# P1 della S3 è nell'assieme a x ≈ +65, Speak a +56, P2 a +2: qui a x negative. Spine ad angolo retto verso il
+# bordo inferiore, da cui i cavetti scendono ai connettori sul lato inferiore della S3.
+put('J10', 'F', -64.0, 13.5)
+put('J12', 'F', -52.0, 13.5)
+put('J11', 'F', -26.0, 13.5)
 put('J4', 'B', 26.0, 30.0, rot=90)
 placed |= {'J3', 'J10', 'J11', 'J12', 'J4'}
 pack(['U4'], 'F', (20.0, 9.0, 80.0, 62.0), from_right=True)
@@ -351,12 +354,12 @@ placed.add('U4')
 USB = ['U5', 'U6', 'R31', 'R32', 'R33', 'R34', 'R37', 'C25', 'C26', 'C27', 'Q6', 'Q7', 'R35', 'R36']
 BACK = ['C3', 'K1', 'K2', 'D11', 'D12', 'Q9', 'R54', 'R55', 'J6', 'J8', 'J9', 'BT1', 'U10', 'C34']
 rest = [r for r in COMPS if r not in placed]
-put('J6', 'B', -56.5, 26.5, rot=90)
+put('J6', 'B', 56.5, 25.0, rot=90)
 placed.add('J6')
 pack(USB, 'F', (-24.0, 62.0, 24.0, ing.YMAX), from_right=False)
-pack(['K1', 'C3', 'D11', 'Q9', 'R54', 'R55', 'U10', 'C34'], 'B', (-72.0, 9.0, -21.5, ing.YMAX), from_right=True)
+pack(['K1', 'K2', 'C3', 'D11', 'D12', 'Q9', 'R54', 'R55', 'U10', 'C34'], 'B', (-72.0, 9.0, -21.5, ing.YMAX), from_right=True)
 pack(['BT1'], 'B', (-72.0, 9.0, 80.0, ing.YMAX), from_right=True)
-pack(['K2', 'D12', 'J8', 'J9'], 'B', (21.5, 9.0, 72.0, ing.YMAX), from_right=False)
+pack(['J8', 'J9'], 'B', (21.5, 9.0, 72.0, ing.YMAX), from_right=False)
 POWER = [r for r in rest if r not in USB + BACK and (
     re.fullmatch(r'(U[123]|Q1|L[12]|FB1|D[1-6]|C([1-9]|1[0-9])|R([1-9]|1[0-4]))', r))]
 pack(POWER, 'F', (-72.0, 9.0, -20.0, ing.YMAX), from_right=True)

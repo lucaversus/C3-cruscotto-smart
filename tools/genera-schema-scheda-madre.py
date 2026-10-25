@@ -868,7 +868,7 @@ text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli
 # ======================================================================================
 begin_sheet('s3-audio.kicad_sch', 'Scheda madre cruscotto C3+AI - collegamento S3 e audio', 'C3AI-CR-EL-005', 'A',
             'D-028, D-029, D-039', sheet_uuid=S3_SHEET)
-PB = 'Connector_Molex:Molex_PicoBlade_53047-%02d10_1x%02d_P1.25mm_Vertical'
+PB = 'Connector_Molex:Molex_PicoBlade_53048-%02d10_1x%02d_P1.25mm_Horizontal'  # angolo retto: spina parallela alla scheda
 
 # --- Cavetti MX1.25 verso la S3 (vista dal retro, USB-C a destra; HW-DASH-DISPLAY) --------
 symbol('J10', 'Connector_Generic:Conn_01x04', 'Verso P1 S3: 5V TXD RXD GND', PB % (4, 4), 60.96, 63.5,

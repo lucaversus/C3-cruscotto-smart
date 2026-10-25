@@ -56,8 +56,20 @@ S3) e `piazzamento-lato-B.png` (retro, vista speculare).
   zona vietata d'antenna; fori termici da 0,2 mm sotto la piazzola di massa.
 - Regole nel file di progetto `scheda-madre.kicad_pro` (foro minimo 0,2 mm per i fori termici).
 
+**Orientamento:** il DXF dell'utente descrive la scheda vista dal retro, KiCad la disegna vista
+dalla faccia F (verso la S3): le x sono speculari. Per i pezzi legati alla S3 vale x(KiCad) =
+−x(assieme): J10 (P1), J12 (Speak) e J11 (P2) stanno quindi a x negative. Per inserire il modello 3D
+esportato (`kicad-cli pcb export step --subst-models --user-origin 148.5x151mm`) nell'assieme:
+rotazione di 180° attorno all'asse y, poi traslazione (0, 12, 23,6) mm.
+
+**Altezze (25/10/2026, modello 3D di KiCad e tft-5inch.step):** sulla faccia F il componente più
+critico è C29 (5,4 mm) con 5,5 mm di spazio residuo verso i componenti della S3; poi L1 (6,0 mm,
+6,2 mm residui) e J5 (7,0 mm, 7,4 mm residui). Cavetti verso la S3 su PicoBlade ad angolo retto
+(53048), spina parallela alla scheda. Sul retro i più alti sono i relè K1/K2 (15,7 mm), C3 e J4
+(10,1 mm), le file di pin del modulo VAN (8,7 mm) e J1 con la spina: profondità disponibile
+dietro la scheda madre da conoscere. Senza modello 3D in KiCad: U2, J1, J3, J10-J12, K1/K2
+(altezze dalle schede tecniche).
+
 DRC del 25/10/2026: nessun errore oltre ai 325 collegamenti non ancora tracciati (sbroglio da
-fare). Da rivedere prima dello sbroglio: J10-J12 PicoBlade verticali (con la spina inserita
-potrebbero superare la distanza dalla S3: valutare la versione ad angolo retto), interasse
-delle file di pin del modulo VAN, verifica delle altezze nell'assieme 3D, posizione fine dei
-gruppi (piazzamento automatico, non ottimizzato per le piste).
+fare). Da rivedere prima dello sbroglio: interasse delle file di pin del modulo VAN, profondità
+dietro la scheda, posizione fine dei gruppi (piazzamento automatico, non ottimizzato per le piste).
