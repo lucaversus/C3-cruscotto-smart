@@ -178,6 +178,10 @@ collegare. Il generatore confronta 95 reti con il netlist di KiCad.
 
 ## Verifiche aperte prima dello sbroglio (25/10/2026)
 
+Sbroglio completato il 26/10/2026 a 4 strati (D-057), DRC senza errori: dettagli e limiti in
+`cruscotto/pcb/scheda-madre/README.md`. Le verifiche seguenti restano aperte e vanno chiuse prima
+dei Gerber e dell'ordine dei circuiti stampati.
+
 1. **Profondità dietro la scheda madre** (verso il fondo del quadro): sul retro i pezzi più alti
    sono i relè K1/K2 (15,7 mm), C3 e J4 (circa 10 mm), la ventola (10 mm) e J1 con la spina del
    cablaggio inserita. Da misurare sull'auto o sul modello del quadro.

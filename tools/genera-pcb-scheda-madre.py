@@ -47,13 +47,14 @@ tb.SetComment(0, 'Contorno D-045, montaggio a mano D-046, J1 D-044')
 tb.SetComment(1, 'Generato da tools/genera-pcb-scheda-madre.py - preliminare, non verificato')
 
 ds = board.GetDesignSettings()
-ds.SetCopperLayerCount(2)
+board.SetCopperLayerCount(4)  # D-057: F e B segnali, In1 massa, In2 segnali e massa
+ds.SetCopperLayerCount(4)
 ds.SetBoardThickness(pcbnew.FromMM(1.6))
 ds.m_MinClearance = pcbnew.FromMM(0.2)
-ds.m_TrackMinWidth = pcbnew.FromMM(0.2)
+ds.m_TrackMinWidth = pcbnew.FromMM(0.15)  # restringimenti dello sbroglio vicino ai piedini piccoli
 ds.m_ViasMinSize = pcbnew.FromMM(0.6)
 ds.m_MinThroughDrill = pcbnew.FromMM(0.2)  # fori termici delle impronte (es. ESP32): 0,2 mm, standard dei produttori
-ds.m_CopperEdgeClearance = pcbnew.FromMM(0.5)
+ds.m_CopperEdgeClearance = pcbnew.FromMM(0.3)  # capacità dei produttori (es. JLCPCB) per bordo fresato
 ds.m_HoleClearance = pcbnew.FromMM(0.25)
 
 
@@ -194,8 +195,9 @@ OCC = {'F': [], 'B': []}                                    # ingombri già occu
 
 
 def is_tht(fp):
-    # Piedini a foro passante veri (non i fori termici sotto le piazzole): occupano anche l'altra faccia.
-    return any(p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH and pcbnew.ToMM(p.GetDrillSize().x) >= 0.6 for p in fp.Pads())
+    # Qualunque foro passante occupa anche l'altra faccia: piedini, e fori termici sotto le piazzole da saldare
+    # dal retro (D-048).
+    return any(p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH for p in fp.Pads())
 
 
 def occupy(fp, side):
@@ -348,24 +350,126 @@ put('J12', 'F', -52.0, 13.5)
 put('J11', 'F', -26.0, 13.5)
 put('J4', 'B', 26.0, 30.0, rot=90)
 placed |= {'J3', 'J10', 'J11', 'J12', 'J4'}
-pack(['U4'], 'F', (20.0, 9.0, 80.0, 62.0), from_right=True)
-placed.add('U4')
-
-USB = ['U5', 'U6', 'R31', 'R32', 'R33', 'R34', 'R37', 'C25', 'C26', 'C27', 'Q6', 'Q7', 'R35', 'R36']
-BACK = ['C3', 'K1', 'K2', 'D11', 'D12', 'Q9', 'R54', 'R55', 'J6', 'J8', 'J9', 'U10', 'C34']
-rest = [r for r in COMPS if r not in placed]
 put('J6', 'B', 56.5, 25.0, rot=90)
-placed.add('J6')
-pack(USB, 'F', (-24.0, 62.0, 24.0, ing.YMAX), from_right=False)
-pack(['K1', 'K2', 'C3', 'D11', 'D12', 'Q9', 'R54', 'R55', 'U10', 'C34'], 'B', (-72.0, 9.0, -21.5, ing.YMAX), from_right=True)
-pack(['J8', 'J9'], 'B', (21.5, 9.0, 72.0, ing.YMAX), from_right=False)
-POWER = [r for r in rest if r not in USB + BACK and (
-    re.fullmatch(r'(U[123]|Q1|L[12]|FB1|D[1-6]|C([1-9]|1[0-9])|R([1-9]|1[0-4]))', r))]
-pack(POWER, 'F', (-72.0, 9.0, -20.0, ing.YMAX), from_right=True)
-VEH = [r for r in rest if re.fullmatch(r'(U[789]|Q8|D[89]|D10|C(2[89]|3[0-2])|R(3[89]|4[0-8]))', r)]
-pack(VEH, 'F', (20.0, 9.0, 72.0, 48.0), from_right=False)
-OTHER = [r for r in rest if r not in USB + BACK + POWER + VEH and r not in placed]
-pack(OTHER, 'F', (-24.0, 9.0, 89.0, ing.YMAX), from_right=False)
+placed |= {'J6'}
+
+# Pezzi principali di ogni blocco (coordinate del DXF; faccia F verso la S3, B retro). Le parti calde stanno
+# accanto alla ventola (D-046); i relè e i pezzi alti sul retro.
+ANCHORS = [
+    ('U4', 'F', 48.0, 50.0, 0),     # front-end ESP32 (radio non usata)
+    ('Q1', 'F', -32.0, 24.5, 0),    # diodo ideale d'ingresso vicino a J1
+    ('L1', 'F', -48.0, 25.0, 0),
+    ('U2', 'F', -27.0, 35.0, 0),    # buck 5 V accanto alla ventola
+    ('U3', 'F', -26.0, 66.0, 0),    # buck 3,3 V sempre acceso
+    ('U6', 'F', -4.0, 74.0, 0),     # CH340C accanto alla USB-C
+    ('U7', 'F', 36.0, 16.0, 0),     # comparatore della K-line
+    ('K1', 'B', -52.0, 40.0, 90),   # relè in orizzontale sul retro
+    ('K2', 'B', -44.0, 55.0, 90),
+    ('C3', 'B', -62.0, 24.5, 0),
+    ('J8', 'B', 30.0, 54.0, 0),     # modulo VAN
+]
+for ref, side, x, y, rot in ANCHORS:
+    put(ref, side, x, y, rot=rot)
+    placed.add(ref)
+
+# Reti molto diffuse: arrivano dai piani o da più punti, non attirano i componenti.
+WIDE = {'GND', '+3V3_AON', '+5V', '+12V_F', '+3V3_SW', 'VBAT_P', 'VBAT_IN', 'I2C_SDA', 'I2C_SCL', 'KEY_IN', '+3V3_USB'}
+BACK_SIDE = {'D11', 'D12', 'Q9', 'R54', 'R55', 'J9'}  # pilota dei relè e modulo VAN sul retro
+
+
+def pad_points(ref):
+    fp = board.FindFootprintByReference(ref)
+    return {(ref, p.GetNumber()): dxf(p.GetPosition()) for p in fp.Pads()}
+
+
+def target(ref):
+    """Baricentro dei piedini già piazzati che condividono reti non diffuse con il componente."""
+    nets = {n for (r, _), n in PINS.items() if r == ref and n not in WIDE and not n.startswith('unconnected')}
+    pts, sides = [], {'F': 0, 'B': 0}
+    for (r, pin), n in PINS.items():
+        if n in nets and r != ref and r in placed:
+            fp = board.FindFootprintByReference(r)
+            for p in fp.Pads():
+                if p.GetNumber() == pin:
+                    pts.append(dxf(p.GetPosition()))
+            sides['B' if fp.IsFlipped() else 'F'] += 1
+    if not pts:
+        return None, None, 0
+    return (sum(x for x, _ in pts) / len(pts), sum(y for _, y in pts) / len(pts),
+            'B' if sides['B'] > sides['F'] else 'F'), len(nets), len(pts)
+
+
+# Distanza tra i componenti piazzati per connessione. Provato 1,3 mm: piste più lunghe, sbroglio peggiore
+# (42 connessioni aperte invece di 21).
+SPREAD = 0.6
+
+
+def place_near(ref, tx, ty, side, rmax=45.0):
+    fp = new_fp(ref, side)
+    best = None
+    for rot in (0.0, 90.0):
+        fp.SetOrientationDegrees(rot if side == 'F' else 180 - rot)
+        b = box_dxf(fp)
+        w, h = b[2] - b[0], b[3] - b[1]
+        r = 0.0
+        while r <= rmax and best is None:
+            n = max(1, int(2 * math.pi * r / 0.8))
+            for k in range(n):
+                a = 2 * math.pi * k / n
+                x, y = tx + r * math.cos(a), ty + r * math.sin(a)
+                cand = (x - w / 2, y - h / 2, x + w / 2, y + h / 2)
+                if all(free(cand, sd, margin=SPREAD) for sd in sides_of(fp, side)):
+                    best = (r, rot, x, y)
+                    break
+            r += 0.8
+        if best is not None and best[1] == rot:
+            break
+    if best is None:
+        board.Remove(fp)
+        return False
+    r, rot, x, y = best
+    fp.SetOrientationDegrees(rot if side == 'F' else 180 - rot)
+    move_box_to(fp, x, y)
+    occupy(fp, side)
+    return True
+
+
+# Ordine: prima i componenti più legati a quelli già posati, poi gli altri; più vicino possibile ai loro piedini.
+todo = [r for r in COMPS if r not in placed]
+while todo:
+    scored = []
+    for r in todo:
+        t, nn, npts = target(r)
+        scored.append((npts > 0, npts, area_of(r), r, t))
+    scored.sort(reverse=True)
+    has, npts, _, ref, t = scored[0]
+    if t is None:
+        t = (0.0, 20.0, 'F')
+    side = 'B' if ref in BACK_SIDE else 'F'
+    ok = place_near(ref, t[0], t[1], side) or place_near(ref, t[0], t[1], 'B' if side == 'F' else 'F')
+    if ok:
+        placed.add(ref)
+    else:
+        FAILED.append(ref)
+    todo.remove(ref)
+
+
+# Zona vietata per piste, via e piani attorno al foro della ventola (Freerouting non vede i fori interni).
+ko = pcbnew.ZONE(board)
+ko.SetIsRuleArea(True)
+ko.SetDoNotAllowTracks(True)
+ko.SetDoNotAllowVias(True)
+ko.SetDoNotAllowZoneFills(True)
+ko.SetDoNotAllowPads(False)
+ko.SetDoNotAllowFootprints(False)
+ko.SetLayerSet(pcbnew.LSET.AllCuMask())
+ol = ko.Outline()
+ol.NewOutline()
+for k in range(48):
+    a = 2 * math.pi * k / 48
+    p = at(ing.FAN_C[0] + (ing.FAN_HOLE / 2 + 1.5) * math.cos(a), ing.FAN_C[1] + (ing.FAN_HOLE / 2 + 1.5) * math.sin(a))
+    ol.Append(p.x, p.y)
+board.Add(ko)
 
 
 def rect(layer, x, y, w, h, width=0.12):

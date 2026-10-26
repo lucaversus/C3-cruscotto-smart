@@ -24,7 +24,9 @@ rev A, `s3-audio.kicad_sch`), proposte non verificate.
   standard, per ora `ST_DIL24_Adapter_W15.0mm` (adattatore ST DIL24, interasse 15,0 mm).
 - Faccia **F** = faccia interna verso la S3 (componenti caldi, interruttori); **B** = retro
   (ventola, J1).
-- Regole: 2 strati, 1,6 mm, piste e distanze minime 0,2 mm, via 0,6/0,3, 0,5 mm dal bordo;
+- Regole: 4 strati (D-057: F e B componenti e piste, In1 piano di massa continuo, In2 piste e massa),
+  1,6 mm, distanza minima 0,2 mm, pista minima 0,15 mm, via 0,6/0,3, 0,3 mm dal bordo; regola di progetto
+  `scheda-madre.kicad_dru` (un raggio di raccordo termico basta sui fori passanti, massa garantita da In1);
   montaggio a mano, si produce solo il circuito stampato (D-046).
 
 Rigenerare:
@@ -36,8 +38,8 @@ python tools/genera-schema-scheda-madre.py
 "C:\Program Files\KiCad\10.0\bin\kicad-cli.exe" pcb drc cruscotto/pcb/scheda-madre/scheda-madre.kicad_pcb
 ```
 
-Le modifiche fatte a mano in KiCad sugli elementi generati si perdono rigenerando: quando
-inizierà lo sbroglio il generatore servirà solo per il bordo.
+Le modifiche fatte a mano in KiCad sugli elementi generati si perdono rigenerando: la rigenerazione
+rifà piazzamento e sbroglio da capo (sezione «Sbroglio completo» qui sotto).
 
 ## Piazzamento preliminare (25/10/2026)
 
@@ -83,5 +85,42 @@ Esito con 25 passate (circa 30 minuti): 1617 piste e 210 via, **71 connessioni n
 secondo Freerouting; DRC: 108 elementi non connessi (comprese isole del piano di massa), 187 tratti
 sotto 0,2 mm vicino alle piazzole, 36 piste troppo vicine al foro della ventola (Freerouting non
 vede il foro come bordo), 34 raccordi termici incompleti. Anteprime `sbroglio-rame-F.png` e
-`sbroglio-rame-B.png`. **Non utilizzabile così**: serve un piazzamento più raccolto per gruppo e
+`sbroglio-rame-B.png` (superate). **Non utilizzabile così**: serve un piazzamento più raccolto per gruppo e
 una zona vietata attorno al foro della ventola, poi un nuovo sbroglio.
+
+## Sbroglio completo a 4 strati (26/10/2026)
+
+Con due strati Freerouting si fermava a 28-32 connessioni aperte; la scheda passa a 4 strati (D-057).
+Lo spostamento della ventola verso il centro della S3 (D-058) è stato provato e scartato: peggiorava lo
+sbroglio (46 connessioni aperte).
+
+Procedura (Python di KiCad; Freerouting e Java come sopra):
+
+```text
+"C:\Program Files\KiCad\10.0\bin\python.exe" tools/genera-pcb-scheda-madre.py
+"C:\Program Files\KiCad\10.0\bin\python.exe" tools/sbroglia-scheda-madre.py <java.exe> <freerouting.jar> 40
+"C:\Program Files\KiCad\10.0\bin\python.exe" tools/completa-sbroglio-scheda-madre.py
+```
+
+1. `sbroglia-scheda-madre.py`: classi di rete (Potenza 0,8 mm, 5V 0,6 mm, Medio 0,3 mm, segnali 0,2 mm),
+   riempimenti di massa su F, In1 e B, In1 dichiarato strato di alimentazione nel file Specctra (niente piste,
+   piano continuo), Freerouting con 40 passate (si ferma da solo dopo 10 passate senza miglioramenti),
+   massa anche su In2, via di cucitura ogni 4 mm. Esito: 27-31 connessioni aperte. Freerouting usa limiti di
+   tempo interni: due esecuzioni sullo stesso piazzamento danno risultati leggermente diversi.
+2. `completa-sbroglio-scheda-madre.py`: uscita fissa dei piedini della USB-C (D+ e D- alternati su A6/B6 e
+   A7/B7, impossibili da unire sullo stesso strato: ogni piedino scende a una via sfalsata), poi ricerca A*
+   su griglia di 0,05 mm negli strati F, In2 e B per ogni collegamento mancante, con rimozione e nuovo
+   tracciamento delle reti che si bloccano a vicenda, una via verso In1 nelle isole di massa e controllo
+   finale con il DRC di KiCad (errori e avvisi su distanze, fori e tratti morti), ripetuto fino a esito pulito.
+
+Esito della scheda in questo repository: 2854 piste (F 985, In2 1240, B 629, 4,1 m in tutto) e 468 via.
+**DRC: 0 errori, 0 collegamenti mancanti**; restano 87 avvisi di serigrafia (scritte sopra il rame, sovrapposte
+o vicine al bordo), da sistemare a mano prima dei Gerber. Il confronto con lo schema segnala differenze di
+forma: le impronte sono assegnate dal generatore (varianti HandSolder) e non collegate ai simboli; le reti sono
+verificate dal generatore dello schema. Anteprime: `sbroglio-rame-F.png`, `sbroglio-rame-In2.png`,
+`sbroglio-rame-B.png` (B in vista speculare).
+
+Limiti: sbroglio generato e controllato solo dal DRC; nessuna revisione di integrità del segnale (USB senza
+impedenza controllata, piste lunghe di potenza da verificare con le correnti), serigrafia da riordinare,
+nessun Gerber prodotto, nessuna scheda costruita o collaudata. Verifiche aperte in
+`cruscotto/docs/scheda-madre.md` ancora valide (profondità dietro la scheda, interasse del modulo VAN, ecc.).
