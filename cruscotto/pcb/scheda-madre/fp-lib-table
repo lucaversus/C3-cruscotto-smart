@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "scheda-madre")(type "KiCad")(uri "${KIPRJMOD}/scheda-madre.pretty")(options "")(descr "Impronte del progetto scheda madre (non presenti nelle librerie standard di KiCad)"))
+)

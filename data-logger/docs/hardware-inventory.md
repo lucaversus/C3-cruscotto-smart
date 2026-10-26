@@ -89,12 +89,13 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Candidato per ricezione fisica VAN con decoder software ESP32: applicazione documentata dal progetto VanBus, non collaudata su questo modulo o veicolo. Prima verificare alimentazione 3,3 V, assenza di terminazione aggiunta, livelli e inibizione hardware TX. Non usare il controller MCP2515 come decoder VAN.
 - BLOCCANTE prima del collegamento VAN (D-022): prove 1-4 a banco superate il 23/10/2026 (VAN-M002…M005: terminazione rimossa, TX fisso a 3V3, H-L recessivo 45 mV, RX 3,3 V). Resta la prova 5: punto di collegamento sul veicolo (quadro 0004 vie 1/3, ordine DATA/DATAB) da fonte documentale e conferma elettrica. Procedura in docs/protocolli-veicolo.md.
 - Disegnato nella tavola C3AI-DL-EL-004 rev A (D-042): RX→GPIO34 (W28), 3V3/GND dalla basetta 3 (W29/W30), ponticello TX–3V3, resistenza 121 da scollegare, CANH/CANL verso -X3 e quadro 0004 vie 1/3 solo dopo le verifiche D-022 1-5. Ordine DATA/DATAB non verificato.
+- Scheda madre (D-051, 24/10/2026): stesso tipo di modulo su file di pin J8 (3.3V/GND/RX/TX) e J9 (CANH/CANL), schema C3AI-CR-EL-003 rev B. Esemplare per la scheda madre distinto da quello del Data Logger (D-042), con resistenza 121 rimossa; interasse tra le due file di pin e altezza del modulo da misurare. Utente 24/10/2026: acquista sempre almeno 2 esemplari di ogni componente; quantità effettiva da riscontrare. Dimensioni dai file STEP dell'utente; i pin piegati a 90° si possono sostituire con pin dritti.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
 **Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: modulo non collegato, pin ancora da saldare; saldatore non disponibile sul posto.
+**Fonte:** Link precedente; utente conferma “quelli che avevi consigliato tu”, poi “non sono arrivati” il 18/10/2026. Riferimento di acquisto non verificato fisicamente. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: modulo non collegato, pin ancora da saldare; saldatore non disponibile sul posto. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/modulo-sd.step: circuito 17,8 × 17,8 × 1,5 mm, 6 pin in fila (passo circa 2,5 nel modello), ingombro con scheda inserita 17,8 × 26,6 × 11,5 mm; modello, non misura del pezzo.
 
 **Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
@@ -109,12 +110,13 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Alimentazione, livelli SPI e picchi di corrente
 - SD-M002, 20/10/2026: utente dichiara il modulo sistemato (strip pin); continuita, ponti di stagno, cablaggio EL-003 W1-W6 e prova di scrittura ancora da verificare.
 - Prove a banco P-001 (interruzione senza STOP, 20-30 volte) e P-002 (calo tensione da avviamento) prima dell'auto, D-022; procedura in docs/alimentazione-spegnimento.md. Frequenza SPI oltre 1 MHz non collaudata.
+- Scheda madre (D-051, 24/10/2026): stesso tipo di modulo su fila di pin J7 (3V3/CS/MOSI/CLK/MISO/GND), schema C3AI-CR-EL-004 rev B. Esemplare per la scheda madre distinto da quello del Data Logger (D-042); ordine dei pin riscontrato solo da foto, ingombro e altezza da misurare. Utente 24/10/2026: acquista sempre almeno 2 esemplari di ogni componente; quantità effettiva da riscontrare. Dimensioni dai file STEP dell'utente; i pin piegati a 90° si possono sostituire con pin dritti.
 
 ### HW-RTC — RTC DS3231SN con AT24C32 e portabatteria sul retro da verificare
 
 **Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Risolta la voce temporanea HW-BATTERY-MODULE-UNIDENTIFIED: coincide con HW-RTC. Utente 19/10/2026: sul retro nessuna scritta, visibile soltanto il portabatteria. Verifica ricarica ancora aperta; non richiedere altra foto del retro per cercare scritte assenti. Utente 19/10/2026 identifica la pila come CR2032, confermando prefisso CR dopo 2032. Utente 19/10/2026 sceglie rimozione della resistenza marcata 201 per evitare ricarica CR2032 (D-019). Dichiarazione al futuro: non ancora eseguita o collaudata. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.
+**Fonte:** Link e conferma ordine in chat; “non sono arrivati” il 18/10/2026. Nessuna batteria confermata. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Risolta la voce temporanea HW-BATTERY-MODULE-UNIDENTIFIED: coincide con HW-RTC. Utente 19/10/2026: sul retro nessuna scritta, visibile soltanto il portabatteria. Verifica ricarica ancora aperta; non richiedere altra foto del retro per cercare scritte assenti. Utente 19/10/2026 identifica la pila come CR2032, confermando prefisso CR dopo 2032. Utente 19/10/2026 sceglie rimozione della resistenza marcata 201 per evitare ricarica CR2032 (D-019). Dichiarazione al futuro: non ancora eseguita o collaudata. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/modulo-rtc.step, ingombro 45,0 × 28,9 × 14,3 mm con portapila; modello, non misura del pezzo.
 
 **Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
@@ -138,7 +140,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Conferma ordine dei componenti consigliati; non è disponibile un riepilogo ordine che identifichi esattamente il display. Non richiedere di nuovo tutti i link già in chat. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201.
+**Fonte:** Conferma ordine dei componenti consigliati; non è disponibile un riepilogo ordine che identifichi esattamente il display. Non richiedere di nuovo tutti i link già in chat. Utente 19/10/2026: modulo arrivato. Consegna dichiarata; modello fisico, quantita e collaudi ancora da riscontrare. Foto utente PXL_20261019_210229701.jpg del 19/10/2026, archiviata e collegata con SHA-256; identificazione visiva, nessun collaudo. Utente 20/10/2026: riferisce collegato tutto il banco tranne SD. Dichiarazione di montaggio, nessuna prova funzionale o conferma della modifica RTC 201. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/modulo-oled-1.9inch.step (OLED 1,9"), ingombro 26 × 26 × 11,1 mm; modello, non misura del pezzo.
 
 **Foto archiviate:** [sd-oled-rtc-arrivo.jpg](hardware-photos/sd-oled-rtc-arrivo.jpg)
 
@@ -219,7 +221,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `present_verified` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale
 
-**Fonte:** Osservazioni preliminari nel README originale. Utente 20/10/2026: alla domanda sul possesso risponde "Ce l'ho" (D-026). Possesso dichiarato. Foto retro e fronte fornite in chat il 20/10/2026, archiviate senza metadati; nessun collaudo. Chip, flash e PSRAM letti con esptool il 20/10/2026.
+**Fonte:** Osservazioni preliminari nel README originale. Utente 20/10/2026: alla domanda sul possesso risponde "Ce l'ho" (D-026). Possesso dichiarato. Foto retro e fronte fornite in chat il 20/10/2026, archiviate senza metadati; nessun collaudo. Chip, flash e PSRAM letti con esptool il 20/10/2026. 24/10/2026: modello 3D dell'utente cruscotto/meccanica/moduli/tft-5inch.step, 137 × 84 × 9,7 mm, presa USB-C al centro di un lato corto (coperta dal pulsante destro nell'assieme). 25/10/2026, posizione dei connettori riferita dall'utente: subito sotto la presa USB-C, sullo stesso lato verticale, P1; vicino allo spigolo tra quel lato e il lato orizzontale, con uscita sul lato orizzontale, Speak (P6); poi lungo il lato orizzontale, verso il lato verticale opposto, P5, P4, P3, P2 e infine lo slot MicroSD. Confronto con il modello tft-5inch.step (coordinate dell'assieme): un blocco 6 × 10 mm sotto la USB-C (P1), un blocco piccolo 7,5 × 3,7 mm vicino allo spigolo, tre blocchi 10 × 6 mm e un blocco 15 × 15 mm (probabile slot MicroSD) lungo il lato orizzontale: nel modello i connettori tra Speak e lo slot sono 3 invece di 4. Descrizione e modello, nessuna misura. 25/10/2026, utente: connettori a passo 1,25 mm; P5 con attacco diverso, più piccolo degli altri. Guardando la scheda dal retro con la USB-C a destra, piedini da destra verso sinistra: P5 GND, 3.3V, IO17, IO18; P4 uguale a P5; P3 IO17, IO18, IO19, IO20; P2 IO19, IO11, IO12, IO13. P2 e P3 non portano massa né alimentazione. Dichiarazione dell'utente, nessuna misura. 25/10/2026, utente: P1 sul lato verticale, piedini dal basso verso l'alto (vista dal retro, USB-C a destra) 5V, TXD, RXD, GND. 25/10/2026, utente: su P6 Speak nessuna indicazione di + o di piedino 1. Uscita da trattare come differenziale (nessun piedino a massa, come le uscite della radio, D-028); fase da verificare all'ascolto. 25/10/2026, utente: i connettori maschi MX1.25 in suo possesso si innestano su P1-P4 e P6; P5 è a passo 1,0 mm.
 
 **Foto archiviate:** [dash-display-retro.jpg](hardware-photos/dash-display-retro.jpg), [dash-display-fronte.jpg](hardware-photos/dash-display-fronte.jpg)
 
@@ -249,12 +251,13 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Variante senza touch: nessun dispositivo I2C su GPIO19/20 (DSP-M001); assenza fisica del GT911 non ispezionata. GPIO19/20 riusabili solo dopo nuova decisione.
 - U1 ('AKK 7HG') collegato a P6 e, da ispezione visiva, a IO17/IO18: conflitto con la K-line proposta su IO17/IO18. Confermare funzione di U1 con tono di prova. P1 TXD/RXD presumibilmente UART0 (GPIO43/44) condiviso con il CH340.
 - Limiti termici dichiarati dal rivenditore Spotpear per ESP32-8048S050N/C (https://spotpear.com/index.php/index/product/detail/id/1426.html, letto 21/10/2026): funzionamento −20…+70 °C, magazzinaggio −30…+80 °C, assorbimento 320 mA a 5 V (non precisato se con retroilluminazione). Dato commerciale, nessun datasheet del pannello trovato; temperatura reale dietro la copertura del quadro da misurare (auto al sole, ferma e in marcia).
+- Manca ancora nel modello tft-5inch.step uno dei connettori P5-P2 (3 blocchi da 10 mm invece di 4); quote dei connettori dai bordi da riscontrare prima di fissare la lunghezza dei cavetti.
 
 ### HW-IMU-LSM6DSO — ST STEVAL-MKI196V1: adattatore DIL-24 con IMU LSM6DSO (accelerometro + giroscopio 6 assi)
 
 **Stato:** `ordered_pending` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029, D-033)
 
-**Fonte:** Utente 22/10/2026: "ST STEVAL-MKI196V1 ho preso questo" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026.
+**Fonte:** Utente 22/10/2026: "ST STEVAL-MKI196V1 ho preso questo" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026. 24/10/2026: misure meccaniche dai Gerber ST steval-mki196v1_gerber.zip (2018, contorno GM1 e foratura): scheda 18,0 × 30,5 mm; 24 fori Ø0,9 mm su due file da 12 a passo 2,54 mm con interasse 15,0 mm (non i 15,24 di uno zoccolo DIP da 600 mil); piedino 1 con piazzola quadrata in alto a sinistra (vista lato componenti), primo e ultimo foro a 1,28 mm dai bordi corti. Impronta del progetto scheda-madre:ST_DIL24_Adapter_W15.0mm (due strip femmina 1x12). Nessun modello 3D dell'utente: modulo non ancora arrivato.
 
 **Verifiche documentate:**
 
@@ -267,6 +270,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Indirizzo I2C 0x6A con SDO/SA0 (piedino 22) a GND; CS (19) a 3,3 V per il modo I2C. SCx/SDx (4/5) a GND in modo 1 secondo ST (riscontrare sulla tabella dei piedini del datasheet LSM6DSO), OCS e OSDO liberi. Pull-up SDA/SCL: verificare quelle del modulo RTC, altrimenti 4,7 kohm verso 3,3 V. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C.
 - Collegamento proposto: bus I2C HW-394 GPIO21/22 su ritaglio di millefori (basetta 4, tavola C3AI-DL-EL-004 rev A, D-042), non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
 - Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).
+- All'arrivo: confermare interasse 15,0 mm e posizione del piedino 1 sul pezzo (misure dai Gerber ST, non dal modulo).
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
 
@@ -285,11 +289,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Prova da fare: tono 200 Hz di speak-test 0.1.1 per chiarire la funzione di U1 "AKK 7HG" (amplificatore o altro), prima di definire amplificatore e relè D-028.
 - Solo banco: non è l'altoparlante del veicolo; relè e amplificatore D-028 ancora da definire.
 
-### HW-FE-MODULE — Modulo ESP32-WROOM-32E-H4/H8 per il front-end, montato in fabbrica sulla scheda madre (D-029)
+### HW-FE-MODULE — Modulo ESP32-WROOM-32E-H4/H8 per il front-end, montato a mano sulla scheda madre (D-029, D-050)
 
 **Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale (scheda madre)
 
-**Fonte:** Ricerca 20/10/2026: Reichelt offre ESP32WROOM32E (N4, 3,70 €), ESP32WROOM32E8 (8 MB, 4,18 €) ed ESP32WROOM32E16 (N16, 4,43 €), tutte −40…+85 °C; variante H non disponibile (utente: "non la trovo la h8 nel sito"). H4 presente nel catalogo componenti JLCPCB (C3013935) per montaggio in fabbrica. Utente 20/10/2026: "ok la faremo montare sulla mainboard": nessun acquisto separato del modulo.
+**Fonte:** Ricerca 20/10/2026: Reichelt offre ESP32WROOM32E (N4, 3,70 €), ESP32WROOM32E8 (8 MB, 4,18 €) ed ESP32WROOM32E16 (N16, 4,43 €), tutte −40…+85 °C; variante H non disponibile (utente: "non la trovo la h8 nel sito"). H4 presente nel catalogo componenti JLCPCB (C3013935) per montaggio in fabbrica. Utente 20/10/2026: "ok la faremo montare sulla mainboard": nessun acquisto separato del modulo. 24/10/2026: D-046 (solo circuito stampato, montaggio a mano) e D-050: l'utente sceglie il montaggio a mano anche per il modulo ("montaggio a mano"), superando il montaggio in fabbrica del 20/10/2026. Schema C3AI-CR-EL-002 rev A: U4, impronta RF_Module:ESP32-WROOM-32E.
 
 **Verifiche documentate:**
 
@@ -297,7 +301,8 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Variante H4 o H8 (−40…+105 °C, senza PSRAM) da far montare dal produttore della scheda madre (utente 20/10/2026: "la faremo montare sulla mainboard"); varianti R2 escluse (PSRAM su GPIO16/17).
+- Variante H4 o H8 (−40…+105 °C, senza PSRAM) da comprare a parte per il montaggio a mano (D-050); fornitore da trovare (non disponibile su Reichelt il 20/10/2026); varianti R2 escluse (PSRAM su GPIO16/17).
+- Piazzola di massa sotto il modulo da saldare dal retro come in D-048: fori sotto la piazzola da prevedere nello sbroglio.
 - Temperatura reale dietro il quadro da misurare prima della versione definitiva.
 - Nessun acquisto deciso: prototipo con HW-ESP32 (HW-394).
 
@@ -466,7 +471,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: "la pila non ce l'ho". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare).
+**Fonte:** Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: "la pila non ce l'ho". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare). 25/10/2026: non serve alla scheda madre del cruscotto, il cui RTC è senza pila (D-056); resta per il modulo RTC del Data Logger.
 
 **Verifiche documentate:**
 
@@ -476,6 +481,38 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - Da procurare: una CR2032 (3 V, non ricaricabile). Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).
 - Prima dell inserimento misurare la tensione (attesi circa 3 V; sotto 2,7 V scarica).
+
+### HW-DASH-FAN — Ventola 40 × 40 × 10 mm 12 V a 4 fili per la scheda madre del cruscotto: Delta AFB0412VA-00 (D-031, D-052)
+
+**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale (scheda madre)
+
+**Fonte:** Ricerca 25/10/2026 sui fornitori dell'utente (Farnell, DigiKey; Mouser e TME non consultabili dal browser per i controlli anti-robot). Requisiti D-031: 40 × 40 × 10, 12 V, cuscinetti a sfera, ≥ 70 °C, 4 fili. Candidato 1, Delta AFB0412VA-00 (scheda tecnica Delta): 12 V (10,8-13,8), 0,05 A (max 0,10), 0,6 W, 7000 giri/min, 8,15 CFM, 31,5 dB(A), doppio cuscinetto a sfera, −10…+70 °C, L10 70 000 h a 40 °C, PWM preferito 25 kHz, 0 % = fermo, filo PWM scollegato = massima velocità, giri a collettore aperto (5 mA max), 2 impulsi per giro; DigiKey 560 a magazzino, 12,48 € (1 pezzo) il 25/10/2026. Candidato 2, Delta AFB0412VHA-AWA2: 8000 giri/min, 8,8 CFM, 33 dB(A), 0,72 W, −10…+70 °C, 4 fili PWM; DigiKey 382 a magazzino, 13,02 €. Scartati: Same Sky CFM-4010B-165-251-22 (−10…+70 °C, PWM 8-55 kHz) solo a lotti da 400 pezzi su Farnell e DigiKey; il codice senza -22 venduto su Farnell è a 2 fili; Wakefield DC0401012V2B-BT0 10 000 giri/min, 39 dB(A), 2 W; San Ace 40 serie 9P −10…+60 °C. 25/10/2026: utente sceglie Delta AFB0412VA-00 (D-052).
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Modello scelto (D-052, 25/10/2026); ordine e consegna non ancora dichiarati.
+- Temperatura massima di funzionamento +70 °C, uguale al limite del pannello: da confrontare con la misura della temperatura dietro il quadro.
+- Colori dei fili Delta non standard (rosso +, nero −, blu FG/giri, giallo PWM): cablaggio verso J4 (4 vie GND/+12V/giri/PWM) da fare secondo la scheda tecnica.
+- Con PWM a 0 % la ventola si ferma ma assorbe circa 10 mA: lo stacco dell'alimentazione con Q3 (GPIO2, D-049) resta necessario a riposo.
+
+### HW-MX125-PLUGS — Connettori maschi MX1.25 (passo 1,25 mm) per i cavetti verso la scheda S3
+
+**Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Cruscotto digitale
+
+**Fonte:** Utente 25/10/2026: "ho dei connettori maschi mx e sembrano andarci bene" (P1-P4 e P6 della scheda S3); P5 a passo 1,0 mm non compatibile.
+
+**Verifiche documentate:**
+
+- Nessun collaudo elettrico del modulo documentato.
+
+**Da verificare:**
+
+- Quantità, numero di vie e contatti da crimpare o già cablati da riscontrare.
+- Innesto verificato solo a vista dall'utente su P1-P4 e P6.
 
 ## Proposta di collegamento — non validata fisicamente
 

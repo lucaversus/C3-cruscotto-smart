@@ -59,6 +59,11 @@ presente non collaudato e ordinato non significano assente. Riutilizzare prima;
 un sostituto richiede motivazione verificabile e autorizzazione sul cambiamento.
 Non chiedere all'utente di reinviare informazioni che sono già nel repository.
 
+Per cercare componenti, schede tecniche e codici usare prima i fornitori con account
+aziendale dell'utente: Farnell, Future Electronics, RS (RS Pro), Mouser, DigiKey, TME
+(utente 24/10/2026). Altri negozi solo se il pezzo non c'è, dichiarandolo. L'utente compra
+almeno due esemplari di ogni componente: non serve segnalare la necessità di una scorta.
+
 ## Quando cambia una informazione
 
 Aggiornare hardware.json (fonte, stato, quantità soltanto se nota, prove aperte), poi:

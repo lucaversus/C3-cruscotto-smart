@@ -20,8 +20,33 @@ Architettura della scheda madre: alimentazione, front-end, interfacce, audio. Do
 
 [![CR-BL-001](CR-BL-001_scheda-madre-blocchi.png)](CR-BL-001_scheda-madre-blocchi.png)
 
-### CR-PL-001 — Scheda madre, studio d'ingombro (rev B, preliminare)
-Zone dei componenti sul contorno della scheda S3 (137 × 84 mm).
+### CR-EL-001 — Scheda madre, schema elettrico: alimentazione (rev C, proposta non verificata)
+Ingresso 12 V protetto, 5 V principale acceso con chiave o mantenimento, 3,3 V sempre acceso, misure per il front-end. Sorgente KiCad: [scheda-madre.kicad_sch](../cruscotto/pcb/scheda-madre/scheda-madre.kicad_sch), generata da `tools/genera-schema-scheda-madre.py`.
+
+[![CR-EL-001](CR-EL-001_scheda-madre-alimentazione.png)](CR-EL-001_scheda-madre-alimentazione.png)
+
+### CR-EL-002 — Scheda madre, schema elettrico: front-end ESP32 (rev A, proposta non verificata)
+Modulo ESP32-WROOM-32E, programmazione USB-C a banco, reset automatico, collegamento con l'S3, NTC, ventola a 4 fili. Sorgente KiCad: [front-end.kicad_sch](../cruscotto/pcb/scheda-madre/front-end.kicad_sch).
+
+[![CR-EL-002](CR-EL-002_scheda-madre-front-end.png)](CR-EL-002_scheda-madre-front-end.png)
+
+### CR-EL-003 — Scheda madre, schema elettrico: interfacce veicolo (rev B, proposta non verificata)
+K-line dalla KL-001 rev F con protezioni per l'auto, VAN in sola ricezione con il modulo blu SN65HVD230 su file di pin (D-051). Sorgente KiCad: [interfacce-veicolo.kicad_sch](../cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch).
+
+[![CR-EL-003](CR-EL-003_scheda-madre-interfacce-veicolo.png)](CR-EL-003_scheda-madre-interfacce-veicolo.png)
+
+### CR-EL-004 — Scheda madre, schema elettrico: sensori e memoria (rev B, proposta non verificata)
+Zoccolo per il modulo IMU STEVAL-MKI196V1, RTC DS3231SN con CR2032, modulo MicroSD su fila di pin (D-051). Sorgente KiCad: [sensori-memoria.kicad_sch](../cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch).
+
+[![CR-EL-004](CR-EL-004_scheda-madre-sensori-memoria.png)](CR-EL-004_scheda-madre-sensori-memoria.png)
+
+### CR-EL-005 — Scheda madre, schema elettrico: collegamento S3 e audio (rev A, proposta non verificata)
+Cavetti MX1.25 verso P1, P2 e P6 della S3, relè audio con altoparlanti in serie sull'uscita della S3. Sorgente KiCad: [s3-audio.kicad_sch](../cruscotto/pcb/scheda-madre/s3-audio.kicad_sch).
+
+[![CR-EL-005](CR-EL-005_scheda-madre-s3-audio.png)](CR-EL-005_scheda-madre-s3-audio.png)
+
+### CR-PL-001 — Scheda madre, studio d'ingombro (rev E, preliminare)
+Zone dei componenti sul contorno definitivo dal modello 3D (178,7 × 74 mm, D-045), foro centrale della ventola e interruttori dei pulsanti del quadro.
 
 [![CR-PL-001](CR-PL-001_scheda-madre-ingombro.png)](CR-PL-001_scheda-madre-ingombro.png)
 

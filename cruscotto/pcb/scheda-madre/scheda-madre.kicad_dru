@@ -1,0 +1,7 @@
+(version 1)
+
+# D-057: la massa dei fori passanti è garantita dal piano continuo In1. Sugli altri strati (riempimenti di
+# massa spezzati dalle piste) basta un raggio del raccordo termico.
+(rule "Raccordi termici dei fori passanti"
+  (condition "A.Pad_Type == 'Through-hole'")
+  (constraint min_resolved_spokes 1))
