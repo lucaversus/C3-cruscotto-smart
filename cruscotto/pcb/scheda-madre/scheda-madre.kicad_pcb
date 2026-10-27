@@ -15900,7 +15900,7 @@
 				)
 			)
 		)
-		(property "Value" "NTC 100k B3950"
+		(property "Value" "NTCS0805E3104FXT"
 			(at 0 1.65 0)
 			(layer "F.Fab")
 			(uuid "e6fea99f-70a2-4279-8f02-12a4794e1e48")
@@ -18422,7 +18422,7 @@
 				)
 			)
 		)
-		(property "Value" "Tattile 6x6 H7,3 (pulsante quadro)"
+		(property "Value" "B3F-1050"
 			(at 3.75 6.7 111)
 			(layer "F.Fab")
 			(uuid "d8790fdf-c008-4c7a-aab3-461df1db3f56")
@@ -22665,7 +22665,7 @@
 				)
 			)
 		)
-		(property "Value" "Tattile 6x6 H7,3 (pulsante quadro)"
+		(property "Value" "B3F-1050"
 			(at 3.75 6.7 249)
 			(layer "F.Fab")
 			(uuid "5c018e4c-809d-4e05-882f-2a05d346ba2c")

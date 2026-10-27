@@ -621,8 +621,8 @@ label('LINK_S32FE', (X0 + 20.32, 132.08), 0)
 R('R22', '100k', X0 + 5.08, 151.13, '+3V3_AON', 'NTC_PCB')
 wire('R22.1', (X0 + 5.08, 144.78))
 label('+3V3_AON', (X0 + 5.08, 144.78), 90)
-symbol('RT1', 'Device:Thermistor_NTC', 'NTC 100k B3950', R0805, X0 + 5.08, 158.75, nets={'1': 'NTC_PCB', '2': 'GND'},
-       txt=((-3.81, -1.27), (-3.81, 1.27), 'right'))
+symbol('RT1', 'Device:Thermistor_NTC', 'NTCS0805E3104FXT', R0805, X0 + 5.08, 158.75, nets={'1': 'NTC_PCB', '2': 'GND'},
+       txt=((-3.81, -1.27), (-3.81, 1.27), 'right'), note='Vishay 100k 1 %; valore B dalla scheda tecnica nel firmware')
 gnd('RT1.2', 0)
 shunt('C23', '100nF', X0 + 12.7, 154.94, 'NTC_PCB')
 wire('R22.2', 'C23.1', (X0 + 20.32, 154.94))
@@ -632,7 +632,7 @@ wire('R23.1', (X0 + 63.5, 144.78))
 label('+3V3_AON', (X0 + 63.5, 144.78), 90)
 shunt('C24', '100nF', X0 + 71.12, 154.94, 'NTC_DISP')
 symbol('J5', 'Connector_Generic:Conn_01x02', 'NTC display', WIRE % 2,
-       X0 + 86.36, 154.94, nets={'1': 'NTC_DISP', '2': 'GND'}, note='NTC 100k incollata vicino al display')
+       X0 + 86.36, 154.94, nets={'1': 'NTC_DISP', '2': 'GND'}, note='Vishay NTCLE100E3104JB0 (100k) incollata vicino al display; valore B dalla scheda tecnica')
 wire('R23.2', 'C24.1', 'J5.1')
 wire('J5.2', (X0 + 78.74, 157.48))
 gnd((X0 + 78.74, 157.48))
@@ -921,7 +921,7 @@ label('RELAY_CMD', (129.54, 124.46), 180)
 # --- Pulsanti del quadro originale (D-054): S1 sinistro -> IO19 della S3, S2 destro -> GPIO5 del front-end ---
 for ref, x, net, note in (('S1', 45.72, 'S3_IO19', 'Pulsante sinistro: IO19 della S3 (emergenza D-039, cambio pagina); pull-up interno della S3'),
                           ('S2', 81.28, 'FE_BTN2', 'Pulsante destro: GPIO5 del front-end, pull-up R56')):
-    symbol(ref, 'Switch:SW_Push', '6x6 H7,3', 'Button_Switch_THT:SW_PUSH_6mm_H7.3mm', x, 175.26,
+    symbol(ref, 'Switch:SW_Push', 'B3F-1050', 'Button_Switch_THT:SW_PUSH_6mm_H7.3mm', x, 175.26,
            rot=90, nets={'1': 'GND', '2': net}, txt=((3.81, -1.27), (3.81, 1.27), 'right'), note=note)
     gnd(f'{ref}.1', 0)
     wire(f'{ref}.2', (x, 162.56))

@@ -64,3 +64,6 @@ R37,1,RC0805JR-070RL,mpn,"0"
 ventola,1,AFB0412VA-00,mpn,"Delta (D-052)"
 femmina J1,1,43025-2400,mpn,"cablaggio auto"
 contatti J1,12,43030-0007,mpn,"cablaggio auto"
+S1 S2,2,B3F-1050,mpn,"tattile 7,3 mm"
+RT1,1,NTCS0805E3104FXT,mpn,NTC 0805
+NTC display,1,NTCLE100E3104JB0,mpn,NTC a reofori

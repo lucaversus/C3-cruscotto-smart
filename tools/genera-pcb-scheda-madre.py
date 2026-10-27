@@ -109,7 +109,7 @@ for i, (dx, dy) in enumerate(((-16, -16), (16, -16), (-16, 16), (16, 16)), 1):
 for i, (sx, sy) in enumerate(ing.SW, 1):
     # Pulsanti originali inclinati di circa 21° (assieme 3D): interruttore ruotato come il pulsante.
     sw = place('Button_Switch_THT', 'SW_PUSH_6mm_H7.3mm', f'S{i}', sx, sy, angle=111.0 if sx > 0 else -111.0,
-               value='Tattile 6x6 H7,3 (pulsante quadro)')
+               value='B3F-1050')  # tattile 6x6 alto 7,3 mm sotto il pulsante del quadro
     # L'origine dell'impronta è il piedino 1: si sposta il centro del corpo sotto il pulsante.
     centre = sw.GetCourtyard(pcbnew.F_CrtYd).BBox().Centre()
     sw.Move(pcbnew.VECTOR2I(at(sx, sy).x - centre.x, at(sx, sy).y - centre.y))

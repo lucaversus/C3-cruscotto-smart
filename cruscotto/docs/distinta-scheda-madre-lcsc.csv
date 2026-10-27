@@ -66,3 +66,6 @@
 24,43030-0007,Molex,,contatti J1,cablaggio auto
 2,CH340C,WCH,C84681,U6,USB-seriale
 2,TYPE-C-31-M-12,HRO,C165948,J3,USB-C 16 pin
+4,B3F-1050,Omron,,S1 S2,"tattile 7,3 mm"
+2,NTCS0805E3104FXT,Vishay,,RT1,NTC 0805
+2,NTCLE100E3104JB0,Vishay,,NTC display,NTC a reofori
