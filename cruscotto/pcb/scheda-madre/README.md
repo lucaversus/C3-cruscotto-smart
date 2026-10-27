@@ -100,6 +100,7 @@ Procedura (Python di KiCad; Freerouting e Java come sopra):
 "C:\Program Files\KiCad\10.0\bin\python.exe" tools/genera-pcb-scheda-madre.py
 "C:\Program Files\KiCad\10.0\bin\python.exe" tools/sbroglia-scheda-madre.py <java.exe> <freerouting.jar> 40
 "C:\Program Files\KiCad\10.0\bin\python.exe" tools/completa-sbroglio-scheda-madre.py
+"C:\Program Files\KiCad\10.0\bin\python.exe" tools/serigrafia-scheda-madre.py
 ```
 
 1. `sbroglia-scheda-madre.py`: classi di rete (Potenza 0,8 mm, 5V 0,6 mm, Medio 0,3 mm, segnali 0,2 mm),
@@ -115,8 +116,10 @@ Procedura (Python di KiCad; Freerouting e Java come sopra):
 
 Esito della scheda in questo repository (rifatta il 27/10/2026 con le piazzole per fili di D-059): 3987 piste
 (F 1602, In2 1678, B 707, 4,2 m in tutto) e 514 via. **DRC: 0 errori, 0 collegamenti mancanti**, nessun avviso
-su fori o tratti morti; restano 92 avvisi di serigrafia (scritte sopra il rame, sovrapposte
-o vicine al bordo), da sistemare a mano prima dei Gerber. Il confronto con lo schema segnala differenze di
+su fori o tratti morti. Serigrafia (28/10/2026, `tools/serigrafia-scheda-madre.py`): sigle alte 1,0 mm (0,8 mm
+dove serve) lontane da piazzole e bordo, pallino sul piedino 1 di integrati, transistor e connettori, nomi dei fili
+accanto alle piazzole, titolo e lato su F e B; DRC con **0 violazioni anche tra gli avvisi**. Nove sigle senza posto
+restano solo nel disegno di montaggio (`montaggio/`), con la guida in `cruscotto/docs/montaggio-scheda-madre.md`. Il confronto con lo schema segnala differenze di
 forma: le impronte sono assegnate dal generatore (varianti HandSolder) e non collegate ai simboli; le reti sono
 verificate dal generatore dello schema. Anteprime: `sbroglio-rame-F.png`, `sbroglio-rame-In2.png`,
 `sbroglio-rame-B.png` (B in vista speculare).

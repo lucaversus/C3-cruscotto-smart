@@ -1,0 +1,139 @@
+lato,tipo,sigla,valore,impronta,X mm (da sinistra),Y mm (dal basso),polarità,sigla stampata
+F (lato S3),SMD,C2,100nF 25V,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,45.9,7.6,,sì
+F (lato S3),SMD,C5,2.2uF 100V,C_1210_3225Metric_Pad1.33x2.70mm_HandSolder,45.1,4.3,,sì
+F (lato S3),SMD,C6,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,55.4,24.0,,sì
+F (lato S3),SMD,C7,47uF 10V,C_1210_3225Metric_Pad1.33x2.70mm_HandSolder,50.8,4.3,,sì
+F (lato S3),SMD,C8,47uF 10V,C_1210_3225Metric_Pad1.33x2.70mm_HandSolder,58.3,9.1,,sì
+F (lato S3),SMD,C9,6.8nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,66.4,33.5,,sì
+F (lato S3),SMD,C10,39pF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,69.0,26.2,,sì
+F (lato S3),SMD,C13,1uF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,65.3,52.5,,sì
+F (lato S3),SMD,C14,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,66.5,61.5,,sì
+F (lato S3),SMD,C18,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,121.6,63.5,,sì
+F (lato S3),SMD,C19,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,114.4,39.2,,sì
+F (lato S3),SMD,C22,1uF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,124.0,49.7,,sì
+F (lato S3),SMD,C23,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,124.3,20.4,,sì
+F (lato S3),SMD,C24,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,132.0,59.6,,no: solo nel disegno
+F (lato S3),SMD,C25,1uF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,95.4,67.8,,sì
+F (lato S3),SMD,C26,1uF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,92.1,65.1,,sì
+F (lato S3),SMD,C27,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,84.5,72.2,,sì
+F (lato S3),SMD,C29,10uF 16V,CP_Elec_4x5.4,65.1,40.8,«+» sul piedino segnato,sì
+F (lato S3),SMD,C31,1uF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,68.8,46.2,,sì
+F (lato S3),SMD,C32,1uF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,110.7,43.0,,sì
+F (lato S3),SMD,C33,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,119.9,4.7,,sì
+F (lato S3),SMD,C34,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,66.4,36.6,,sì
+F (lato S3),SMD,C36,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,70.8,15.8,,sì
+F (lato S3),SMD,D2,B560C,D_SMC,58.4,33.2,catodo dal lato della staffa (piedino 1),sì
+F (lato S3),SMD,D3,1N4148W,D_SOD-123,64.3,8.2,catodo dal lato della staffa (piedino 1),sì
+F (lato S3),SMD,D4,BAT54J,D_SOD-323F,154.0,31.7,catodo dal lato della staffa (piedino 1),sì
+F (lato S3),SMD,D5,BAT54S,SOT-23,126.8,62.0,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,D6,BAT54S,SOT-23,114.9,43.0,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,D7,verde,LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder,159.3,27.9,catodo dal lato della staffa (piedino 1),sì
+F (lato S3),SMD,D8,SMBJ26CA,D_SMB,114.5,4.8,catodo dal lato della staffa (piedino 1),sì
+F (lato S3),SMD,D9,1N4148W,D_SOD-123,103.9,15.7,catodo dal lato della staffa (piedino 1),sì
+F (lato S3),SMD,D10,NUP2105L,SOT-23,67.2,19.4,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,D13,B340A,D_SMA,17.7,8.8,catodo dal lato della staffa (piedino 1),sì
+F (lato S3),SMD,FB1,"ferrite >= 3A, 1206",L_1206_3216Metric_Pad1.22x1.90mm_HandSolder,49.8,16.6,,sì
+F (lato S3),SMD,L1,SRR1260-8R2Y,L_Bourns_SRR1260,41.4,16.1,,sì
+F (lato S3),SMD,L2,SRN6045TA-220M,L_Bourns_SRN6045TA,73.2,61.0,,sì
+F (lato S3),SMD,Q1,IPD50N06S4L-12,TO-252-2,58.2,15.6,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,Q3,ZXMP6A13F (P 60 V),SOT-23,114.8,31.7,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,Q4,MMBTA06 (80 V),SOT-23,156.7,38.5,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,Q5,MMBT3904,SOT-23,119.4,15.5,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,Q6,MMBT3904,SOT-23,112.3,55.4,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,Q7,MMBT3904,SOT-23,114.7,48.6,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,Q8,MMBT5551,SOT-23,110.7,27.4,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,R1,53.6k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,53.4,21.0,,sì
+F (lato S3),SMD,RT1,NTCS0805E3104FXT,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,111.4,16.3,,sì
+F (lato S3),SMD,R2,10.2k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,55.9,26.9,,sì
+F (lato S3),SMD,R3,162k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,58.3,21.2,,sì
+F (lato S3),SMD,R4,13.0k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,66.7,30.6,,sì
+F (lato S3),SMD,R5,523k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,75.6,15.7,,sì
+F (lato S3),SMD,R6,84.5k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,80.4,16.2,,sì
+F (lato S3),SMD,R7,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,111.4,20.5,,sì
+F (lato S3),SMD,R8,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,154.5,28.6,,sì
+F (lato S3),SMD,R9,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,64.5,49.8,,sì
+F (lato S3),SMD,R10,43.2k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,64.1,47.2,,sì
+F (lato S3),SMD,R11,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,127.4,65.3,,sì
+F (lato S3),SMD,R12,22k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,132.1,62.7,,no: solo nel disegno
+F (lato S3),SMD,R13,470k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,110.2,47.6,,sì
+F (lato S3),SMD,R14,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,114.1,36.6,,sì
+F (lato S3),SMD,R15,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,124.1,46.8,,sì
+F (lato S3),SMD,R16,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,125.2,40.5,,sì
+F (lato S3),SMD,R17,1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,158.9,31.1,,sì
+F (lato S3),SMD,R19,4.7k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,111.5,24.0,,no: solo nel disegno
+F (lato S3),SMD,R20,1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,85.2,15.4,,sì
+F (lato S3),SMD,R21,1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,95.1,15.6,,sì
+F (lato S3),SMD,R22,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,119.7,19.2,,sì
+F (lato S3),SMD,R23,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,138.1,56.0,,sì
+F (lato S3),SMD,R24,6.8k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,136.5,59.8,,sì
+F (lato S3),SMD,R25,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,150.3,48.1,,sì
+F (lato S3),SMD,R26,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,154.3,34.7,,no: solo nel disegno
+F (lato S3),SMD,R27,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,155.8,41.9,,sì
+F (lato S3),SMD,R28,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,119.8,22.2,,no: solo nel disegno
+F (lato S3),SMD,R29,1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,122.0,25.1,,sì
+F (lato S3),SMD,R30,1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,126.6,25.8,,sì
+F (lato S3),SMD,R31,5.1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,111.7,66.7,,sì
+F (lato S3),SMD,R32,5.1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,111.4,70.1,,sì
+F (lato S3),SMD,R33,4.7k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,118.4,60.8,,sì
+F (lato S3),SMD,R34,4.7k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,113.9,59.5,,sì
+F (lato S3),SMD,R35,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,106.1,61.0,,sì
+F (lato S3),SMD,R36,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,105.1,58.3,,sì
+F (lato S3),SMD,R37,0,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,89.9,72.3,,no: solo nel disegno
+F (lato S3),SMD,R38,330,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,124.5,29.0,,no: solo nel disegno
+F (lato S3),SMD,R39,47k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,120.0,28.7,,sì
+F (lato S3),SMD,R40,68k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,112.5,9.6,,sì
+F (lato S3),SMD,R41,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,119.1,9.6,,sì
+F (lato S3),SMD,R42,150k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,128.8,1.8,,sì
+F (lato S3),SMD,R43,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,124.0,2.5,,no: solo nel disegno
+F (lato S3),SMD,R44,330k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,124.2,12.8,,sì
+F (lato S3),SMD,R45,4.7k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,125.3,15.6,,sì
+F (lato S3),SMD,R46,1k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,127.7,23.0,,sì
+F (lato S3),SMD,R47,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,124.0,43.1,,sì
+F (lato S3),SMD,R49,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,150.0,27.4,,sì
+F (lato S3),SMD,R56,10k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,165.9,27.6,,sì
+F (lato S3),SMD,U1,LM74700-Q1,SOT-23-6,51.0,9.3,pallino/triangolo = piedino 1,no: solo nel disegno
+F (lato S3),SMD,U5,AP2112K-3.3,SOT-23-5,94.7,71.5,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,U6,CH340C,SOIC-16_3.9x9.9mm_P1.27mm,85.4,65.1,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,U7,LM2903B,SOIC-8_3.9x4.9mm_P1.27mm,125.4,7.1,pallino/triangolo = piedino 1,sì
+F (lato S3),SMD,U9,AP2112K-3.3,SOT-23-5,133.5,3.1,pallino/triangolo = piedino 1,sì
+F (lato S3),foro passante,J3,USB-C (solo a banco),USB_C_Receptacle_HRO_TYPE-C-31-M-12,103.4,68.5,piedino 1 = piazzola quadrata o pallino,sì
+F (lato S3),foro passante,J5,NTC display,SolderWire-0.127sqmm_1x02_P3.7mm_D0.48mm_OD1mm,130.1,56.5,fili: nomi scritti accanto alle piazzole,sì
+F (lato S3),foro passante,J7,Modulo MicroSD: 3V3 CS MOSI CLK MISO GND,PinHeader_1x06_P2.54mm_Vertical,149.8,44.1,piedino 1 = piazzola quadrata o pallino,sì
+F (lato S3),foro passante,J10,Verso P1 S3: 5V TXD RXD GND,SolderWire-0.127sqmm_1x04_P3.7mm_D0.48mm_OD1mm,19.8,4.6,fili: nomi scritti accanto alle piazzole,sì
+F (lato S3),foro passante,J11,Verso P2 S3: IO19 IO11 IO12 IO13,SolderWire-0.127sqmm_1x04_P3.7mm_D0.48mm_OD1mm,55.3,4.6,fili: nomi scritti accanto alle piazzole,sì
+F (lato S3),foro passante,J12,Verso P6 Speak S3,SolderWire-0.127sqmm_1x02_P3.7mm_D0.48mm_OD1mm,35.5,4.6,fili: nomi scritti accanto alle piazzole,sì
+F (lato S3),foro passante,S1,B3F-1050,SW_PUSH_6mm_H7.3mm,8.4,25.4,,sì
+F (lato S3),foro passante,S2,B3F-1050,SW_PUSH_6mm_H7.3mm,172.7,19.4,,sì
+F (lato S3),foro passante,SW3,RESET,SW_PUSH_6mm,118.3,57.4,,sì
+F (lato S3),foro passante,SW4,BOOT,SW_PUSH_6mm,119.1,37.2,,sì
+F (lato S3),foro passante,U2,TPS54360B,TI_SO-PowerPAD-8_ThermalVias,62.4,26.1,pallino/triangolo = piedino 1,sì
+F (lato S3),foro passante,U3,LMR36510,Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias,63.4,57.1,pallino/triangolo = piedino 1,sì
+F (lato S3),foro passante,U4,ESP32-WROOM-32E-H4,ESP32-WROOM-32E,137.4,41.1,pallino/triangolo = piedino 1,sì
+B (retro),SMD,C1,100nF 100V,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,119.8,27.2,,sì
+B (retro),SMD,C4,2.2uF 100V,C_1210_3225Metric_Pad1.33x2.70mm_HandSolder,60.6,9.4,,sì
+B (retro),SMD,C11,2.2uF 100V,C_1210_3225Metric_Pad1.33x2.70mm_HandSolder,120.4,14.2,,sì
+B (retro),SMD,C12,220nF 100V,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,65.8,33.9,,sì
+B (retro),SMD,C15,22uF 10V,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,58.9,20.9,,sì
+B (retro),SMD,C16,22uF 10V,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,120.6,18.2,,sì
+B (retro),SMD,C17,22uF 10V,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,65.1,30.7,,sì
+B (retro),SMD,C20,22uF 10V,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,113.9,30.3,,sì
+B (retro),SMD,C21,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,113.2,33.6,,sì
+B (retro),SMD,C28,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,119.4,24.3,,sì
+B (retro),SMD,C30,100nF,C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,119.7,21.3,,sì
+B (retro),SMD,C35,10uF,C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,64.9,20.8,,sì
+B (retro),SMD,D1,SMCJ26CA,D_SMC,58.5,15.4,catodo dal lato della staffa (piedino 1),sì
+B (retro),SMD,D11,1N4148W,D_SOD-123,22.3,39.6,catodo dal lato della staffa (piedino 1),sì
+B (retro),SMD,D12,1N4148W,D_SOD-123,27.6,43.7,catodo dal lato della staffa (piedino 1),sì
+B (retro),SMD,Q9,AO3400A,SOT-23,27.5,40.1,pallino/triangolo = piedino 1,sì
+B (retro),SMD,R18,4.7k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,55.0,10.2,,sì
+B (retro),SMD,R54,100,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,47.4,22.8,,sì
+B (retro),SMD,R55,100k,R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,34.8,22.7,,sì
+B (retro),SMD,U10,DS3231SN,SOIC-16W_7.5x10.3mm_P1.27mm,117.0,6.3,pallino/triangolo = piedino 1,sì
+B (retro),foro passante,C3,220uF 50V,CP_Radial_D10.0mm_P5.00mm,24.9,15.6,«+» sul piedino segnato,sì
+B (retro),foro passante,J1,Micro-Fit 2x12 verso auto (D-044),Molex_Micro-Fit_3.0_43045-2400_2x12_P3.00mm_Horizontal,72.9,9.5,piedino 1 = piazzola quadrata o pallino,sì
+B (retro),foro passante,J4,Ventola Delta AFB0412VA-00 (D-052),SolderWire-0.127sqmm_1x04_P3.7mm_D0.48mm_OD1mm,115.4,26.6,fili: nomi scritti accanto alle piazzole,sì
+B (retro),foro passante,J6,STEVAL-MKI196V1 (DIL-24),ST_DIL24_Adapter_W15.0mm,131.9,23.6,piedino 1 = piazzola quadrata o pallino,sì
+B (retro),foro passante,J8,Modulo VAN: 3.3V GND RX TX,PinHeader_1x04_P2.54mm_Vertical,119.4,41.2,piedino 1 = piazzola quadrata o pallino,sì
+B (retro),foro passante,J9,Modulo VAN: CANH CANL,PinHeader_1x02_P2.54mm_Vertical,65.9,14.4,piedino 1 = piazzola quadrata o pallino,sì
+B (retro),foro passante,K1,G2RL-2 DC5,Relay_DPDT_Omron_G2RL-2,25.3,34.8,verso obbligato dai piedini,sì
+B (retro),foro passante,K2,G2RL-2 DC5,Relay_DPDT_Omron_G2RL-2,33.3,49.8,verso obbligato dai piedini,sì
