@@ -26,7 +26,7 @@ consegna non ancora riscontrata). Quantità da riscontrare all'arrivo.
 | U7 | LM2903BYDT SOIC-8 | 2 ordinati per la K-line del logger, che ne usa 1 | **usare il secondo** |
 | C29 | Elettrolitico 10 µF 16 V Panasonic EEEHB1C100R (SMD 4 × 5,4) | nel carrello del logger; versione ordinata (SMD o THT) da riscontrare | utilizzabile se arrivato SMD |
 | J8, J9 | Modulo VAN blu SN65HVD230 | HW-CAN-VP230: 1 pezzo, quello del logger (resistenza 121 tolta, prove 1-4) | **serve un secondo modulo**, modificato allo stesso modo |
-| J7 | Modulo MicroSD SPI 3,3 V | HW-SD-MODULE: presente, quantità non riscontrata | serve un esemplare distinto da quello del logger |
+| J7 | Modulo MicroSD SPI 3,3 V | HW-SD-MODULE: quello in possesso è del logger | **non montato** (facoltativo, D-051; decisione 28/10/2026): la S3 ha il suo slot MicroSD |
 | J6 | STEVAL-MKI196V1 (LSM6DSO su DIL-24) | HW-IMU-LSM6DSO: 1 ordinato, non arrivato | se ne serve uno anche al logger (D-033), ne manca uno |
 | — | Spine MX1.25 sul lato S3 dei cavetti (P1, P2, Speak) | HW-MX125-PLUGS, presenti | sì |
 | — | Scheda S3 con display 5" | HW-DASH-DISPLAY, presente | sì |
