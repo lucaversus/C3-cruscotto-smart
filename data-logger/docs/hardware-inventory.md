@@ -390,6 +390,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Pinza a crimpare compatibile Micro-Fit da scegliere (quella originale Molex è costosa): verificare la tenuta di ogni crimpatura.
 - Assegnazione delle vie: bozza in cruscotto/docs/scheda-madre.md (1 +BAT, 2 massa, 3 +APC, 4 K, 5/6 VAN, 7 massa VAN, 8-15 audio, 16-24 riserva).
 - Scheda definitiva: connettore da circuito stampato 43045-2400 da prevedere nel disegno della scheda madre.
+- Utente 28/10/2026: niente pinza a crimpare; fili Molex già crimpati da 300 mm al posto dei contatti sciolti: femmina 214761-2124 (18 AWG rosso, +batteria), 214761-1124 (18 AWG nero, massa), 214761-1104 (22 AWG nero, altre vie); spina da banco 43020-2400 con fili maschio 214763-2124 e 214763-1104. Lista acquisti in cruscotto/docs/lista-acquisti-scheda-madre.md; nulla ordinato.
 
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
 

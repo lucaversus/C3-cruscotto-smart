@@ -111,7 +111,7 @@ tensione minima ricavata dalle reti dello schema.
 | Qtà | Voce | Note |
 | --- | --- | --- |
 | 1 | Ventola Delta AFB0412VA-00, 40 × 40 × 10, 12 V, 4 fili | HW-DASH-FAN, scelta (D-052), non ordinata |
-| 1 + 12 | Femmina Micro-Fit 43025-2400 e contatti 43030-0007 (più scorta) | cablaggio dell'auto (HW-J1-MICROFIT24); per il banco anche spina 43020-2400 e contatti 43031-0007 |
+| 1 + 19 | Femmina Micro-Fit 43025-2400 e fili Molex già crimpati 214761 (2 da 18 AWG per +batteria e massa, 15 da 22 AWG), 300 mm | cablaggio dell'auto (HW-J1-MICROFIT24), senza pinza a crimpare; per il banco spina 43020-2400 con fili maschio 214763 |
 | 1 | NTC Vishay NTCLE100E3104JB0, 100 kΩ a reofori | incollata al display, fili saldati a J5; valore B dalla scheda tecnica |
 
 ## 7. Disponibilità presso i fornitori (27/10/2026)

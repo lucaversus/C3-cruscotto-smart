@@ -1,22 +1,25 @@
 # Lista acquisti — scheda madre del cruscotto
 
-Revisione A — 28/10/2026. Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
+Revisione B — 28/10/2026. Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
 esclusa del 27-28/10/2026, da ricontrollare al momento dell'ordine. Riferimenti, valori e verifiche in
 `distinta-scheda-madre.md`; viti, filo, guaina e stagno esclusi (materiale di consumo). Niente è ancora ordinato.
+Cablaggio verso l'auto con fili Molex già crimpati (niente pinza): alloggiamento femmina 43025-2400 e fili
+214761 da infilare; spina da banco 43020-2400 con fili 214763 (D-044).
 
-| Fornitore | Righe | Merce | Spedizione | Note |
+| Fornitore | Righe | Merce | Spedizione | File |
 | --- | --- | --- | --- | --- |
-| LCSC | 55 | 84.52 $ | 13 $ | carrello dell'utente; pezzi costosi per una scheda |
-| Farnell | 16 | circa 29.78 € | da verificare | `ordine-farnell-scheda-madre.csv` |
-| DigiKey | 2 | circa 13,60 € | circa 18 € | L1 e ventola: solo qui (scelta da confermare) |
+| LCSC | 54 | 82.59 $ | 13 $ | `ordine-lcsc-scheda-madre.csv` |
+| Farnell | 15 | circa 28.35 € | da verificare | `ordine-farnell-scheda-madre.csv` |
+| DigiKey | 7 | circa 52 € | gratuita sopra 50 € (da verificare) | `ordine-digikey-scheda-madre.csv` |
 | Amazon o fornitore abituale | 2 | — | — | secondo modulo MicroSD e secondo modulo VAN |
 | Produttore di circuiti stampati | 1 | preventivo | — | dopo serigrafia e Gerber (D-057) |
 
-## 1. LCSC (`ordine-lcsc-scheda-madre.csv`)
+## 1. LCSC
 
-Carrello del 28/10/2026 senza le tre righe a prezzo zero (1 µF, 22 µF, 10 kΩ, presi da Farnell) e senza
-l'AP2112K di TECH PUBLIC (preso originale da Farnell). Produttori diversi dall'originale ma stesso componente:
-AO3400A ElecSuper, MMBT3904 FUXINSEMI, SMBJ26CA R+O, BAT54J Blue Rocket.
+Carrello del 28/10/2026 senza: le tre righe a prezzo zero (1 µF, 22 µF, 10 kΩ, presi da Farnell), l'AP2112K di
+TECH PUBLIC (originale da Farnell) e i contatti sciolti Micro-Fit 430300007 (sostituiti dai fili già crimpati).
+Produttori diversi dall'originale ma stesso componente: AO3400A ElecSuper, MMBT3904 FUXINSEMI, SMBJ26CA R+O,
+BAT54J Blue Rocket.
 
 | Codice LCSC | Qtà | Componente |
 | --- | --- | --- |
@@ -44,7 +47,6 @@ AO3400A ElecSuper, MMBT3904 FUXINSEMI, SMBJ26CA R+O, BAT54J Blue Rocket.
 | C105577 | 100 | RC0805FR-07100RL (YAGEO) |
 | C96345 | 100 | RC0805JR-070RL (YAGEO) |
 | C485674 | 2 | 430252400 (MOLEX) |
-| C293530 | 25 | 430300007 (MOLEX) |
 | C84681 | 2 | CH340C (WCH) |
 | C165948 | 5 | TYPE-C-31-M-12 (Korean Hroparts Elec) |
 | C85098 | 10 | B340A-13-F (DIODES) |
@@ -76,7 +78,7 @@ AO3400A ElecSuper, MMBT3904 FUXINSEMI, SMBJ26CA R+O, BAT54J Blue Rocket.
 | C49678 | 40 | CC0805KRX7R9BB104 (YAGEO) |
 | C3151888 | 20 | C0805C104K1RACTU (KEMET) |
 
-## 2. Farnell (`ordine-farnell-scheda-madre.csv`)
+## 2. Farnell
 
 Da incollare in «Aggiungi rapidamente» del carrello (codice, quantità); Farnell può arrotondare ai suoi minimi.
 
@@ -97,14 +99,21 @@ Da incollare in «Aggiungi rapidamente» del carrello (codice, quantità); Farne
 | 3257429 | 4 | DIODES INC. AP2112K-3.3TRG1 | U5 U9 |
 | 2987032 | 1 | STMICROELECTRONICS STEVAL-MKI196V1 | J6 (IMU) |
 | 634712 | 1 | MOLEX 43020-2400 | spina volante per il banco (D-044) |
-| 4234086 | 12 | MOLEX 43031-0007 | contatti maschio della spina |
 
-## 3. DigiKey (oppure alternativa da decidere)
+## 3. DigiKey
 
-| Codice produttore | Qtà | Per | Note |
+Un solo ordine sopra la soglia della spedizione gratuita. DigiKey non ha il filo maschio nero da 18 AWG
+(214763-1124): per la massa della spina da banco va bene il 22 AWG (corrente al banco sotto 1 A).
+
+| Codice produttore | Qtà | Componente | Per |
 | --- | --- | --- | --- |
-| SRR1260-8R2Y (Bourns) | 2 | L1 | non su Farnell né su LCSC; Mouser ne ha solo 5 |
-| AFB0412VA-00 (Delta) | 1 | ventola (D-052) | Farnell ha solo la AFB0412HA-A, più veloce e rumorosa |
+| 214761-2124 | 2 | Molex femmina pre-crimpato 300 mm 18 AWG rosso | cablaggio auto: J1 via 1 (+batteria) |
+| 214761-1124 | 2 | Molex femmina pre-crimpato 300 mm 18 AWG nero | cablaggio auto: J1 via 2 (massa) |
+| 214761-1104 | 15 | Molex femmina pre-crimpato 300 mm 22 AWG nero | cablaggio auto: vie 3-15 e scorta |
+| 214763-2124 | 2 | Molex maschio pre-crimpato 300 mm 18 AWG rosso | spina da banco: +batteria |
+| 214763-1104 | 17 | Molex maschio pre-crimpato 300 mm 22 AWG nero | spina da banco: massa e vie 3-15 |
+| SRR1260-8R2Y | 2 | Bourns 8,2 µH | L1 |
+| AFB0412VA-00 | 1 | Delta ventola 40 x 40 x 10, 12 V, 4 fili | ventola (D-052) |
 
 ## 4. Moduli da ricomprare
 
