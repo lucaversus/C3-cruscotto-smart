@@ -300,8 +300,8 @@ def shunt(ref, value, x, top, net, fp=C0805, kind='C', note=''):
     gnd(f'{ref}.2', 0)
 
 
-begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazione', 'C3AI-CR-EL-001', 'C',
-            'D-030, D-031, D-044, D-046, D-047, D-048')
+begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazione', 'C3AI-CR-EL-001', 'D',
+            'D-030, D-031, D-044, D-046, D-047, D-048', date='2026-10-28')
 FE_SHEET = sheet_box('front-end.kicad_sch', 'Front-end', 279.4, 205.74, 38.1, 12.7, 2)
 VEH_SHEET = sheet_box('interfacce-veicolo.kicad_sch', 'Interfacce veicolo', 279.4, 228.6, 38.1, 12.7, 3)
 SENS_SHEET = sheet_box('sensori-memoria.kicad_sch', 'Sensori e memoria', 332.74, 205.74, 38.1, 12.7, 4)
@@ -327,7 +327,7 @@ symbol('D1', 'Device:D_TVS', 'SMCJ26CA', 'Diode_SMD:D_SMC', 83.82, Y + 3.81, rot
        nets={'1': 'VBAT_IN', '2': 'GND'}, txt=((-2.54, -1.27), (-2.54, 1.27), 'right'), note='Bidirezionale 26 V, blocca ~42 V: sotto i 60-65 V dei regolatori')
 gnd('D1.2', 0)
 shunt('C1', '100nF 100V', 91.44, Y, 'VBAT_IN')
-symbol('Q1', 'Transistor_FET:IPD50R380CE', 'IPD50N06S4L-12 (da confermare)', 'Package_TO_SOT_SMD:TO-252-2',
+symbol('Q1', 'Transistor_FET:IPD50R380CE', 'IPD50N06S4L-12', 'Package_TO_SOT_SMD:TO-252-2',
        121.92, Y + 2.54, rot=90, mirror=True, nets={'1': 'U1_GATE', '2': 'VBAT_P', '3': 'VBAT_IN'},
        txt=((0, -10.16), (0, -7.62), ''),
        note='MOSFET N 60 V: S verso la batteria, D verso il carico')
@@ -344,7 +344,7 @@ wire('Q1.1', 'U1.5')
 wire('U1.6', (114.3, Y))
 wire('U1.4', (129.54, Y))
 symbol('C3', 'Device:C_Polarized', '220uF 50V', 'Capacitor_THT:CP_Radial_D10.0mm_P5.00mm', 139.7, Y + 3.81,
-       nets={'1': 'VBAT_P', '2': 'GND'}, note='Riserva per l\'avviamento (-C1), capacità da confermare')
+       nets={'1': 'VBAT_P', '2': 'GND'}, note='Panasonic EEU-FR1H221, alto 17,5 mm: montarlo coricato; riserva di circa 1 ms, i cali lunghi li reggono i convertitori')
 gnd('C3.2', 0)
 symbol('FB1', 'Device:FerriteBead', 'ferrite >= 3A, 1206', 'Inductor_SMD:L_1206_3216Metric_Pad1.22x1.90mm_HandSolder',
        157.48, Y, rot=90, nets={'1': 'VBAT_P', '2': '+12V_F'})
@@ -396,8 +396,8 @@ wire('U2.1', (266.7, 58.42), (266.7, 48.26), (271.78, 48.26), 'C6.1')
 wire('C6.2', (271.78, 63.5))
 symbol('D2', 'Device:D_Schottky', 'B560C', 'Diode_SMD:D_SMC', 302.26, 67.31, rot=270, nets={'1': 'SW_5V', '2': 'GND'})
 gnd('D2.2', 0)
-symbol('L1', 'Device:L', '8.2uH Isat>=5A', 'Inductor_SMD:L_Bourns_SRR1260', 318.77, 63.5, rot=90,
-       nets={'1': 'SW_5V', '2': '+5V'}, note='Es. Bourns SRR1260-8R2Y, da verificare corrente di saturazione')
+symbol('L1', 'Device:L', 'SRR1260-8R2Y', 'Inductor_SMD:L_Bourns_SRR1260', 318.77, 63.5, rot=90,
+       nets={'1': 'SW_5V', '2': '+5V'}, note='Bourns 8,2 uH, Isat 5,8 A, Irms 5,7 A: picco 2,5 A con 2 A di carico, 4 A a 3,5 A (verifica 28/10/2026)')
 wire('U2.8', (271.78, 63.5), 'D2.1', 'L1.1')
 shunt('C7', '47uF 10V', 330.2, 63.5, '+5V', fp=C1210)
 shunt('C8', '47uF 10V', 342.9, 63.5, '+5V', fp=C1210)
@@ -435,8 +435,8 @@ shunt('C13', '1uF', 233.68, 177.8, 'U3_VCC')
 wire('U3.6', 'C13.1')
 C('C14', '100nF', 271.78, 166.37, 'U3_BOOT', 'SW_3V3')
 wire('U3.7', (266.7, 167.64), (266.7, 160.02), (271.78, 160.02), 'C14.1')
-symbol('L2', 'Device:L', '22uH Isat>=1.5A', 'Inductor_SMD:L_Bourns_SRN6045TA', 281.94, 170.18, rot=90,
-       nets={'1': 'SW_3V3', '2': '+3V3_AON'}, note='Es. Bourns SRN6045TA-220M, da verificare')
+symbol('L2', 'Device:L', 'SRN6045TA-220M', 'Inductor_SMD:L_Bourns_SRN6045TA', 281.94, 170.18, rot=90,
+       nets={'1': 'SW_3V3', '2': '+3V3_AON'}, note='Bourns 22 uH, Isat 3,3 A, Irms 2,3 A: picco 1,2 A a 1 A di carico (verifica 28/10/2026)')
 wire('U3.8', 'C14.2', 'L2.1')
 for ref, x in (('C15', 294.64), ('C16', 307.34), ('C17', 320.04)):
     shunt(ref, '22uF 10V', x, 170.18, '+3V3_AON', fp=C1206)

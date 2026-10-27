@@ -46,7 +46,7 @@ K-line, modulo RTC DS3231 (qui il chip DS3231SN), ESP32 HW-394 (qui il modulo WR
 | 1 | CH340C | SOIC-16 | U6 | USB-seriale, solo a banco |
 | 1 | LM2903B | SOIC-8 | U7 | comparatore K-line |
 | 1 | DS3231SN | SOIC-16W | U10 | RTC senza pila (D-056) |
-| 1 | IPD50N06S4L-12 | TO-252 | Q1 | MOSFET N 60 V del diodo ideale, **da confermare** |
+| 1 | IPD50N06S4L-12 | TO-252 | Q1 | MOSFET N 60 V del diodo ideale, verificato (sezione 9) |
 | 1 | ZXMP6A13F | SOT-23 | Q3 | P-MOSFET 60 V, stacco ventola |
 | 1 | AO3400A | SOT-23 | Q9 | pilota bobine relè |
 | 1 | MMBTA06 | SOT-23 | Q4 | |
@@ -89,9 +89,9 @@ tensione minima ricavata dalle reti dello schema.
 | 1 | 10 µF 16 V elettrolitico SMD 4 × 5,4 | C29 |
 | 1 | 6,8 nF C0G 50 V | C9 |
 | 1 | 39 pF C0G 50 V | C10 |
-| 1 | 220 µF 50 V elettrolitico radiale Ø10 passo 5, alta temperatura | C3 (riserva per l'avviamento, **capacità da confermare**) |
-| 1 | 8,2 µH, Isat ≥ 5 A (es. Bourns SRR1260-8R2Y) | L1, **corrente di saturazione da verificare** |
-| 1 | 22 µH, Isat ≥ 1,5 A (es. Bourns SRN6045TA-220M) | L2, **da verificare** |
+| 1 | Panasonic EEU-FR1H221, 220 µF 50 V radiale Ø10 passo 5, alto 17,5 mm | C3, verificato (sezione 9): montarlo coricato |
+| 1 | Bourns SRR1260-8R2Y, 8,2 µH, Isat 5,8 A | L1, verificata (sezione 9) |
+| 1 | Bourns SRN6045TA-220M, 22 µH, Isat 3,3 A | L2, verificata (sezione 9) |
 | 1 | Ferrite ≥ 3 A, 1206 | FB1 |
 
 ## 5. Connettori ed elettromeccanici sulla scheda
@@ -158,9 +158,24 @@ fuori dal repository): `tools/controlla-distinta-farnell.py` → `distinta-sched
   Farnell ha solo la AFB0412HA-A). Su Farnell la SRR1280-8R2Y è alta 8 mm, troppo per la faccia F; la
   SRR1260-100M da 10 µH cambierebbe il dimensionamento del convertitore 5 V.
 
+## 9. Verifica dei componenti di potenza (28/10/2026)
+
+Dati: parametri DigiKey (API) e pagine TI; carico dal bilancio di `scheda-madre.md` (5 V fino a 2 A, 3,3 V sempre
+acceso fino a 0,3 A, ventola 0,6 W, totale circa 13 W dalla batteria); ingresso 6-42 V (calo d'avviamento, TVS D1).
+
+| Pezzo | Dato | Calcolo | Esito |
+| --- | --- | --- | --- |
+| Q1 IPD50N06S4L-12 | 60 V, RDSon ≤ 12 mΩ a 10 V, VGS max ±16 V | corrente d'ingresso ≤ 2,2 A (13 W a 6 V): 2,2² × 0,012 = 0,06 W; comando dell'LM74700 12,1-13 V (pompa di carica), sotto i 16 V; 42 V di picco sotto i 60 V; C2 100 nF ≥ 10 × Ciss (29 nF) | adatto |
+| L1 SRR1260-8R2Y | 8,2 µH ±30 %, Isat 5,8 A, Irms 5,7 A, 19,5 mΩ, alta 6,5 mm | ondulazione a 42 V e 600 kHz: 5 × (1 − 5/42) / (8,2 µH × 600 kHz) = 0,9 A; picco 2,45 A a 2 A di carico, 3,95 A al massimo del TPS54360B (3,5 A); perdite 0,08 W | adatta; in cortocircuito il limite del chip (minimo 4,5 A) si avvicina all'Isat: protezione affidata al limite di corrente |
+| L2 SRN6045TA-220M | 22 µH, Isat 3,3 A, Irms 2,3 A, AEC-Q200 | ondulazione a 42 V e 400 kHz: 3,3 × (1 − 3,3/42) / (22 µH × 400 kHz) = 0,35 A; picco 1,17 A a 1 A | adatta, margine ampio sul limite di un convertitore da 1 A |
+| C3 EEU-FR1H221 | 220 µF 50 V, 30 mΩ, 1,65 A di ondulazione, alto 17,5 mm | a 13 W e 12 V (1,1 A) scende di 1,1 A / 220 µF = 5 V/ms: copre interruzioni di circa 1 ms; i cali dell'avviamento (minimo misurato 9,0 V) li reggono i convertitori, che funzionano fino a circa 5,5-6 V per il 5 V e 4,2 V per il 3,3 V | adatto come condensatore d'ingresso; una riserva lunga (supercondensatore, -C1) servirebbe solo se l'oscilloscopio mostrasse cali sotto i 6 V |
+
+Conseguenze: **C3 alto 17,5 mm** è il pezzo più alto del retro (relè 15,7 mm): montarlo coricato sulla scheda o
+verificare la profondità disponibile (verifica aperta 1). FB1 (2,9 A) e D2 B560C (5 A, 60 V) adatti alle stesse
+correnti.
+
 ## Da chiudere prima dell'ordine
 
-- Valori **da confermare**: Q1, L1, L2, C3 (segnati sopra).
 - Verifiche aperte in `cruscotto/docs/scheda-madre.md`: profondità dietro la scheda (relè e C3 sul retro),
   interasse del modulo VAN, misure della STEVAL, telaio, audio, temperatura della ventola, massa VAN.
-- Codici d'ordine e prezzi dai fornitori: non ancora cercati, salvo quelli di J1 già in inventario.
+- Lista acquisti completa per fornitore: `lista-acquisti-scheda-madre.md`.

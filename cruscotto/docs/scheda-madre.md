@@ -86,9 +86,10 @@ Valori ripresi dagli esempi dei datasheet TI e dalla prova OBD-M001 (12,2 V a ri
 - Consumo a riposo stimato: U1 80 µA + U3 26 µA + partitori circa 25 µA + front-end in sonno,
   sotto 1 mA (D-030). Da misurare sul prototipo.
 
-Da verificare prima dell'ordine: modello del MOSFET (proposto IPD50N06S4L-12), induttori L1/L2
-(corrente di saturazione), ferrite, capacità di riserva dopo la misura del calo
-all'avviamento con un oscilloscopio o un registratore (il tester non vede i picchi brevi).
+Verificati il 28/10/2026 (calcoli in `distinta-scheda-madre.md`, sezione 9): Q1 IPD50N06S4L-12, L1
+SRR1260-8R2Y, L2 SRN6045TA-220M, ferrite e C3. C3 copre solo interruzioni di circa 1 ms: la riserva lunga (-C1)
+resta da valutare dopo la misura del calo all'avviamento con un oscilloscopio o un registratore (il tester non vede
+i picchi brevi). C3 è alto 17,5 mm: montarlo coricato.
 U2 e U3 hanno la piazzola termica sotto il corpo (HSOIC, ammessi da D-046): si saldano a mano
 riempiendo di stagno dal retro un foro metallizzato centrale da circa 1-1,5 mm più i fori termici
 dell'impronta (D-048); diametro da fissare nello sbroglio.

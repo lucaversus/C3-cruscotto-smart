@@ -6086,7 +6086,7 @@
 				)
 			)
 		)
-		(property "Value" "IPD50N06S4L-12 (da confermare)"
+		(property "Value" "IPD50N06S4L-12"
 			(at 0 4.5 0)
 			(layer "F.Fab")
 			(uuid "49211369-33dd-4af6-a147-9e199cc819a2")
@@ -6391,7 +6391,7 @@
 				)
 			)
 		)
-		(property "Value" "22uH Isat>=1.5A"
+		(property "Value" "SRN6045TA-220M"
 			(at 0 4.2 0)
 			(layer "F.Fab")
 			(uuid "b7f5a6d6-564c-4923-b6c4-58d2e14ac3f0")
@@ -21763,7 +21763,7 @@
 				)
 			)
 		)
-		(property "Value" "8.2uH Isat>=5A"
+		(property "Value" "SRR1260-8R2Y"
 			(at 0 7.4 0)
 			(layer "F.Fab")
 			(uuid "6747127c-a7dc-4bc6-8675-808c3a249da3")
