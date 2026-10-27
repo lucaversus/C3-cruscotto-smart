@@ -1,0 +1,98 @@
+sezione,fornitore,codice fornitore,codice produttore,produttore / descrizione,quantità presa,usati logger,usati scheda madre,avanzo,note
+in possesso o ordinato,,,HW-ESP32,"ESP32 HW-394 (ESP-32D, 30 pin)",1,1,—,0,scheda del Data Logger
+in possesso o ordinato,,,HW-ESP32-TERMINAL-BASE,Basetta a morsetti per HW-394,1,1,—,0,
+in possesso o ordinato,,,HW-CAN-MCP2515,"Modulo MCP2515 (quarzo 8 MHz, VP230)",1,0,0,1,non usato: il VAN usa il modulo blu (D-022)
+in possesso o ordinato,,,HW-CAN-VP230,Modulo CAN blu SN65HVD230,2,1,1 (J8/J9),0,il secondo va modificato come il primo
+in possesso o ordinato,,,HW-SD-MODULE,"Lettore MicroSD SPI 3,3 V (Create idea B0DRWPJ1T5, Amazon)",da riscontrare,1,0 (J7 non montato),presi − 1,
+in possesso o ordinato,,,HW-SD-CARD,Scheda MicroSD,da riscontrare,1,—,presi − 1,
+in possesso o ordinato,,,HW-RTC,Modulo RTC DS3231SN + AT24C32,da riscontrare,1,0 (sulla scheda il chip),presi − 1,
+in possesso o ordinato,,,HW-OLED,Display OLED I2C,da riscontrare,1,—,presi − 1,modello da riscontrare
+in possesso o ordinato,,,HW-DASH-DISPLAY,"Scheda RCmall ESP32-S3 con display 5""",1,—,1,0,
+in possesso o ordinato,,,HW-MX125-PLUGS,Spine MX1.25 per i cavetti verso la S3,da riscontrare,—,"3 (P1, P2, Speak)",presi − 3,
+in possesso o ordinato,,,HW-IMU-LSM6DSO,"STEVAL-MKI196V1 (IMU LSM6DSO), Farnell 2987032",1 ordinata,1,vedi sezione 2,0,in arrivo
+in possesso o ordinato,,,HW-AUDIO-SPK-TEST,"Altoparlante di prova Multicomp Pro ABS-216-RC, Farnell",1 ordinato,—,prova a banco,0,in arrivo
+in possesso o ordinato,,,HW-FUSE-HOLDER,Portafusibile,"ordinato, quantità da riscontrare",1,—,,modello da riscontrare
+in possesso o ordinato,,,HW-KLINE-INTERFACE,"LM2903BYDT (SOIC-8), Farnell 22/10/2026",2,1,0 (la scheda usa quello LCSC),1,in arrivo
+in possesso o ordinato,,,HW-KLINE-INTERFACE,"2N5551BU (TO-92), Farnell 22/10/2026",5,1,0 (la scheda usa MMBT5551),4,in arrivo
+in possesso o ordinato,,,HW-KLINE-INTERFACE,"Resistenze a foro passante 330 Ω, 47 kΩ, 510 Ω 1 W, 68 kΩ, 10 kΩ, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ, Farnell 22/10/2026",da riscontrare sulla conferma dell’ordine,1 ciascuna (10 kΩ: 2; 510 Ω solo simulatore),0,,in arrivo
+in possesso o ordinato,,,HW-KLINE-INTERFACE,"Condensatori 100 nF e 10 µF (C1, C2 della K-line), Farnell 22/10/2026",da riscontrare (SMD o a foro passante),1 + 1,0,,in arrivo
+in possesso o ordinato,,,HW-KLINE-INTERFACE,"Millefori Multicomp MC01009 72 × 47 mm, Farnell 22/10/2026",1,1,—,0,in arrivo
+in possesso o ordinato,,,HW-SCANNER,Launch Creader 3001 (scanner),1,strumento,strumento,—,
+in possesso o ordinato,,,HW-MULTIMETER,UNI-T UT210E (multimetro),1,strumento,strumento,—,
+in possesso o ordinato,,,HW-BENCH-PSU,Alimentatore da banco,1,strumento,strumento,—,
+ordini scheda madre (da fare),LCSC,C137592,RC0805FR-0713KL,YAGEO,100,0,1,99,R4
+ordini scheda madre (da fare),LCSC,C55151,CL32B225KCJSNNE,Samsung Electro-Mechanics,6,0,3,3,C4 C5 C11
+ordini scheda madre (da fare),LCSC,C397312,GRM32ER61A476KE20L,muRata,4,0,2,2,C7 C8
+ordini scheda madre (da fare),LCSC,C97954,GRM31CR71C106KA12L,muRata,5,0,1,4,C35
+ordini scheda madre (da fare),LCSC,C77068,GRM2195C1H682JA01D,muRata,20,0,1,19,C9
+ordini scheda madre (da fare),LCSC,C107117,CC0805JRNPO9BN390,YAGEO,50,0,1,49,C10
+ordini scheda madre (da fare),LCSC,C96346,RC0805FR-07100KL,YAGEO,100,0,9,91,R8 R9 R11 R14 R22 R23 R27 R47 R55
+ordini scheda madre (da fare),LCSC,C95781,RC0805FR-071KL,YAGEO,100,0,6,94,R17 R20 R21 R29 R30 R46
+ordini scheda madre (da fare),LCSC,C60816,RC0805FR-074K7L,YAGEO,100,0,5,95,R18 R19 R33 R34 R45
+ordini scheda madre (da fare),LCSC,C84375,RC0805FR-075K1L,YAGEO,100,0,2,98,R31 R32
+ordini scheda madre (da fare),LCSC,C273984,RC0805FR-0710K2L,YAGEO,100,0,1,99,R2
+ordini scheda madre (da fare),LCSC,C273888,RC0805FR-07162KL,YAGEO,100,0,1,99,R3
+ordini scheda madre (da fare),LCSC,C2167405,C0805C224K1RACTU,KEMET,5,0,1,4,C12
+ordini scheda madre (da fare),LCSC,C273920,RC0805FR-0784K5L,YAGEO,100,0,1,99,R6
+ordini scheda madre (da fare),LCSC,C137525,RC0805FR-0743K2L,YAGEO,100,0,1,99,R10
+ordini scheda madre (da fare),LCSC,C89104,RC0805FR-07470KL,YAGEO,100,0,1,99,R13
+ordini scheda madre (da fare),LCSC,C114550,RC0805FR-076K8L,YAGEO,100,0,1,99,R24
+ordini scheda madre (da fare),LCSC,C126351,RC0805FR-0747KL,YAGEO,100,0,1,99,R39
+ordini scheda madre (da fare),LCSC,C114548,RC0805FR-0768KL,YAGEO,100,0,1,99,R40
+ordini scheda madre (da fare),LCSC,C114558,RC0805FR-07150KL,YAGEO,100,0,1,99,R42
+ordini scheda madre (da fare),LCSC,C114528,RC0805FR-07330KL,YAGEO,100,0,1,99,R44
+ordini scheda madre (da fare),LCSC,C105577,RC0805FR-07100RL,YAGEO,100,0,1,99,R54
+ordini scheda madre (da fare),LCSC,C96345,RC0805JR-070RL,YAGEO,100,0,1,99,R37
+ordini scheda madre (da fare),LCSC,C485674,430252400,MOLEX,2,0,1,1,femmina J1 del cablaggio
+ordini scheda madre (da fare),LCSC,C84681,CH340C,WCH,2,0,1,1,U6
+ordini scheda madre (da fare),LCSC,C165948,TYPE-C-31-M-12,Korean Hroparts Elec,5,0,1,4,J3
+ordini scheda madre (da fare),LCSC,C85098,B340A-13-F,DIODES,10,0,1,9,D13
+ordini scheda madre (da fare),LCSC,C1355730,TPS54360BDDA,TI,2,0,1,1,U2
+ordini scheda madre (da fare),LCSC,C1858393,LMR36510ADDAR,TI,2,0,1,1,U3
+ordini scheda madre (da fare),LCSC,C2653623,LM74700QDBVTQ1,TI,2,0,1,1,U1
+ordini scheda madre (da fare),LCSC,C5456174,LM2903BYDT,ST,2,0,1,1,U7
+ordini scheda madre (da fare),LCSC,C722469,DS3231SN#,MAXIM,1,0,1,0,U10
+ordini scheda madre (da fare),LCSC,C154761,ZXMP6A13FTA,DIODES,2,0,1,1,Q3
+ordini scheda madre (da fare),LCSC,C5224194,AO3400A,ElecSuper,20,0,1,19,Q9
+ordini scheda madre (da fare),LCSC,C77760,MMBTA06LT1G,onsemi,20,0,1,19,Q4
+ordini scheda madre (da fare),LCSC,C7422625,MMBT3904LT1G,FUXINSEMI,50,0,3,47,Q5-Q7
+ordini scheda madre (da fare),LCSC,C41095,MMBT5551LT1G,onsemi,20,0,1,19,Q8
+ordini scheda madre (da fare),LCSC,C151280,SMCJ26CA,Littelfuse,5,0,1,4,D1
+ordini scheda madre (da fare),LCSC,C19077581,SMBJ26CA,R+O,10,0,1,9,D8
+ordini scheda madre (da fare),LCSC,C85100,B560C-13-F,DIODES,5,0,1,4,D2
+ordini scheda madre (da fare),LCSC,C3013935,ESP32-WROOM-32E-H4,ESPRESSIF,1,0,1,0,U4
+ordini scheda madre (da fare),LCSC,C83528,1N4148W-7-F,DIODES,20,0,4,16,D3 D9 D11 D12
+ordini scheda madre (da fare),LCSC,C358488,BAT54J,BLUE ROCKET,50,0,1,49,D4
+ordini scheda madre (da fare),LCSC,C83574,BAT54S-7-F,DIODES,5,0,2,3,D5 D6
+ordini scheda madre (da fare),LCSC,C14486,NUP2105LT1G,onsemi,5,0,1,4,D10
+ordini scheda madre (da fare),LCSC,C5875740,APT2012CGCK,Kingbright,5,0,1,4,D7
+ordini scheda madre (da fare),LCSC,C2044314,SRN6045TA-220M,BOURNS,5,0,1,4,L2
+ordini scheda madre (da fare),LCSC,C668306,BLM31KN601SN1L,muRata,5,0,1,4,FB1
+ordini scheda madre (da fare),LCSC,C277384,430452400,MOLEX,1,0,1,0,J1
+ordini scheda madre (da fare),LCSC,C1524519,G2RL-2 DC5,OMRON,2,0,2,0,K1 K2
+ordini scheda madre (da fare),LCSC,C93157,B3F-1000,OMRON,5,0,2,3,SW3 SW4
+ordini scheda madre (da fare),LCSC,C336241,EEEHB1C100R,PANASONIC,5,0,1,4,C29
+ordini scheda madre (da fare),LCSC,C49678,CC0805KRX7R9BB104,YAGEO,40,0,14,26,C2 C6 C14 C18 C19 C21 C23 C24 C27 C28 C30 C33 C34 C36
+ordini scheda madre (da fare),LCSC,C3151888,C0805C104K1RACTU,KEMET,20,0,1,19,C1
+ordini scheda madre (da fare),Farnell,2803392,IPD50N06S4L12ATMA2,INFINEON,2,0,1,1,Q1
+ordini scheda madre (da fare),Farnell,2508133,EEUFR1H221,PANASONIC,2,0,1,1,C3
+ordini scheda madre (da fare),Farnell,1458903,CC0805KKX7R8BB105,YAGEO,12,0,6,6,C13 C22 C25 C26 C31 C32
+ordini scheda madre (da fare),Farnell,2695995,GRM31CR71A226KE15L,MURATA,8,0,4,4,C15 C16 C17 C20
+ordini scheda madre (da fare),Farnell,2421936,RC0805FR-0710KL,YAGEO,24,0,12,12,R7 R15 R16 R25 R26 R28 R35 R36 R41 R43 R49 R56
+ordini scheda madre (da fare),Farnell,3951634,RC0805FR-0753K6L,YAGEO,2,0,1,1,R1
+ordini scheda madre (da fare),Farnell,4062544,RC0805FR-07523KL,YAGEO,2,0,1,1,R5
+ordini scheda madre (da fare),Farnell,9237798,RC0805FR-0722KL,YAGEO,2,0,1,1,R12
+ordini scheda madre (da fare),Farnell,9237429,RC0805FR-07330RL,YAGEO,2,0,1,1,R38
+ordini scheda madre (da fare),Farnell,4356874,B3F-1050,OMRON / PARTNER STOCK,4,0,2,2,S1 S2
+ordini scheda madre (da fare),Farnell,2747614,NTCS0805E3104FXT,VISHAY,2,0,1,1,RT1
+ordini scheda madre (da fare),Farnell,1187033,NTCLE100E3104JB0,VISHAY,2,0,1,1,NTC display
+ordini scheda madre (da fare),Farnell,3257429,AP2112K-3.3TRG1,DIODES INC.,4,0,2,2,U5 U9
+ordini scheda madre (da fare),Farnell,2987032,STEVAL-MKI196V1,STMICROELECTRONICS,1,0,1,0,"J6 (seconda STEVAL, da confermare)"
+ordini scheda madre (da fare),Farnell,634712,43020-2400,MOLEX,1,0,1,0,spina volante da banco
+ordini scheda madre (da fare),DigiKey,,214761-2124,Molex femmina pre-crimpato 300 mm 18 AWG rosso,2,0,1,1,cablaggio: +batteria
+ordini scheda madre (da fare),DigiKey,,214761-1124,Molex femmina pre-crimpato 300 mm 18 AWG nero,2,0,1,1,cablaggio: massa
+ordini scheda madre (da fare),DigiKey,,214761-1104,Molex femmina pre-crimpato 300 mm 22 AWG nero,15,0,13,2,cablaggio: vie 3-15
+ordini scheda madre (da fare),DigiKey,,214763-2124,Molex maschio pre-crimpato 300 mm 18 AWG rosso,2,0,1,1,spina banco: +batteria
+ordini scheda madre (da fare),DigiKey,,214763-1104,Molex maschio pre-crimpato 300 mm 22 AWG nero,17,0,14,3,spina banco: massa e vie 3-15
+ordini scheda madre (da fare),DigiKey,,SRR1260-8R2Y,"Bourns 8,2 µH",2,0,1,1,L1
+ordini scheda madre (da fare),DigiKey,,AFB0412VA-00,"Delta ventola 40 x 40 x 10, 12 V, 4 fili",1,0,1,0,ventola

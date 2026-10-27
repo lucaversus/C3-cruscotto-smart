@@ -166,6 +166,21 @@ def seg_seg_dist(xa, ya, xb, yb):
 
 
 COP = np.zeros((4, NY, NX), np.int32)   # numero di rete per cella e strato; -1 = vietato
+HOLES = np.zeros((NY, NX), bool)        # fori di tutte le reti (distanza minima tra fori 0,25 mm)
+HOLE_GAP = 0.25 + MARGIN
+
+
+def paint_hole(it):
+    """Segna il foro di una via o di una piazzola passante nella mappa dei fori."""
+    if it.GetClass() == 'PCB_VIA':
+        r = nm(it.GetDrillValue()) / 2
+    elif it.GetClass() == 'PAD' and it.GetAttribute() in (pcbnew.PAD_ATTRIB_PTH, pcbnew.PAD_ATTRIB_NPTH):
+        r = nm(max(it.GetDrillSize().x, it.GetDrillSize().y)) / 2
+    else:
+        return
+    c = it.GetPosition()
+    (i0, j0, i1, j1), m = seg_mask(nm(c.x), nm(c.y), nm(c.x), nm(c.y), r + G / 2)
+    HOLES[j0:j1, i0:i1] |= m
 
 
 def netclass(code):
@@ -177,9 +192,11 @@ def netclass(code):
 def build_copper():
     OWN_AXIS.clear()
     COP[:] = 0
+    HOLES[:] = False
     for fp in board.GetFootprints():
         for p in fp.Pads():
             code = p.GetNetCode() if p.GetNetCode() > 0 else -1  # fori di fissaggio e piedini senza rete
+            paint_hole(p)
             for li, w, m in item_masks(p, G / 2):  # celle non allineate al rame: mezza cella in più
                 paint(COP, li, w, m, code)
             if p.GetAttribute() == pcbnew.PAD_ATTRIB_NPTH:  # foro senza rame: vietato su tutti gli strati
@@ -188,6 +205,7 @@ def build_copper():
                 for li in range(4):
                     paint(COP, li, w, m, -1)
     for t in board.GetTracks():
+        paint_hole(t)
         for li, w, m in item_masks(t, G / 2):
             paint(COP, li, w, m, t.GetNetCode())
 
@@ -327,7 +345,7 @@ def route(code, src, dst, width, via_d, window, layers=None, via_goal=None):
         # il rame dipinto è allargato di mezza cella: erosione di hw + G/2 perché la pista non sporga
         free[li] = (f | (own & ~dilate(~own, hw + G / 2) & edge_ok)
                     | (OWN_AXIS[code][li][wj0:wj1, wi0:wi1] & edge_ok))
-    via_ok = ~dilate(out_w, EDGE + via_d / 2)
+    via_ok = ~dilate(out_w, EDGE + via_d / 2) & ~dilate(HOLES[wj0:wj1, wi0:wi1], HOLE_GAP + 0.2)  # foro via ≤ 0,4
     for li in range(4):
         via_ok &= ~dilate(other[li], CLEAR + via_d / 2)
     starts = [(li, int(i), int(j)) for li in layers for j, i in zip(*np.nonzero(s_m[li] & free[li]))]
@@ -428,6 +446,7 @@ def add_path(code, path, width, via_d, via_h):
         new.append(t)
         k = m
     for it in new:
+        paint_hole(it)
         for li, w, m in item_masks(it, G / 2):
             paint(COP, li, w, m, code)
     OWN_AXIS.pop(code, None)
@@ -462,6 +481,7 @@ def stitch_islands():
             (i0, j0, i1, j1), m = poly_mask(pts, min(xs), min(ys), max(xs), max(ys))
             cop = COP[:, j0:j1, i0:i1]
             ok = m & ~dilate(~m, via_d / 2 + G) & ~dilate(OUTSIDE[j0:j1, i0:i1], EDGE + via_d / 2)
+            ok &= ~dilate(HOLES[j0:j1, i0:i1], HOLE_GAP + via_h / 2)
             for li in range(4):
                 ok &= ~dilate((cop[li] != 0) & (cop[li] != gnd), CLEAR + via_d / 2)
             cand = np.argwhere(ok)
@@ -476,6 +496,7 @@ def stitch_islands():
             v.SetNetCode(gnd)
             board.Add(v)
             vias.append((x, y))
+            paint_hole(v)
             for li, w, mk in item_masks(v, G / 2):
                 paint(COP, li, w, mk, gnd)
             added += 1
