@@ -124,3 +124,12 @@ Limiti: sbroglio generato e controllato solo dal DRC; nessuna revisione di integ
 impedenza controllata, piste lunghe di potenza da verificare con le correnti), serigrafia da riordinare,
 nessun Gerber prodotto, nessuna scheda costruita o collaudata. Verifiche aperte in
 `cruscotto/docs/scheda-madre.md` ancora valide (profondità dietro la scheda, interasse del modulo VAN, ecc.).
+
+## Distinta materiali
+
+Elenco generato dallo schema in `distinta-materiali.csv`; distinta ragionata (moduli già presenti, valori da
+confermare, cablaggi) in `cruscotto/docs/distinta-scheda-madre.md`. Rigenerare l'elenco:
+
+```text
+kicad-cli sch export bom --fields "Reference,Value,Footprint,Description,QUANTITY,DNP" --labels "Rif,Valore,Impronta,Descrizione,Qta,DNP" --group-by "Value,Footprint" --ref-range-delimiter "" -o cruscotto/pcb/scheda-madre/distinta-materiali.csv cruscotto/pcb/scheda-madre/scheda-madre.kicad_sch
+```
