@@ -148,6 +148,16 @@ fuori dal repository): `tools/controlla-distinta-farnell.py` → `distinta-sched
   una scheda sui pezzi più costosi; da altri fornitori Q1, L1, C3, R5, R38, ventola, 22 µF 1206, 10 kΩ e
   100 kΩ (senza giacenza su LCSC). AP2112K del carrello di TECH PUBLIC: preferire l'originale Diodes.
 
+## 8. Piano d'acquisto (28/10/2026)
+
+- **LCSC**: carrello dell'utente, 59 righe, 85,08 $ più 13 $ di spedizione (pezzi costosi per una scheda).
+- **Farnell**: 13 voci in `ordine-farnell-scheda-madre.csv` (codici Farnell e quantità per 2 schede, circa 11 €
+  IVA esclusa; Farnell arrotonda ai propri minimi d'ordine): Q1, C3, 1 µF, 22 µF, 10 kΩ, R1, R5, R12, R38,
+  B3F-1050, le due NTC, AP2112K originale Diodes (togliere dal carrello LCSC la copia TECH PUBLIC).
+- **Non su Farnell né su LCSC**: L1 SRR1260-8R2Y (DigiKey 604, Mouser 5) e ventola AFB0412VA-00 (DigiKey 310;
+  Farnell ha solo la AFB0412HA-A). Su Farnell la SRR1280-8R2Y è alta 8 mm, troppo per la faccia F; la
+  SRR1260-100M da 10 µH cambierebbe il dimensionamento del convertitore 5 V.
+
 ## Da chiudere prima dell'ordine
 
 - Valori **da confermare**: Q1, L1, L2, C3 (segnati sopra).
