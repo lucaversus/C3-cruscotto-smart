@@ -127,10 +127,10 @@ n_parts = 0
 _pwr = 0
 
 
-def begin_sheet(file, title, code, rev, decisions, sheet_uuid=None):
+def begin_sheet(file, title, code, rev, decisions, sheet_uuid=None, date='2026-10-24'):
     """Apre un foglio: la radice (sheet_uuid None) o un sottofoglio richiamato dalla radice."""
     global items, lib_defs, ends, CUR, CUR_PATH
-    sh = dict(file=file, title=title, code=code, rev=rev, decisions=decisions, uuid=sheet_uuid or ROOT_UUID,
+    sh = dict(file=file, title=title, code=code, rev=rev, decisions=decisions, uuid=sheet_uuid or ROOT_UUID, date=date,
               items=[], lib_defs={}, ends=Counter())
     SHEETS.append(sh)
     items, lib_defs, ends, CUR = sh['items'], sh['lib_defs'], sh['ends'], file
@@ -482,8 +482,10 @@ text(25.4, 246.38, 'Sottofogli: front-end, interfacce veicolo, sensori e memoria
 # ======================================================================================
 # Foglio 2: front-end ESP32 (C3AI-CR-EL-002; D-029, D-031, D-033, D-039)
 # ======================================================================================
-begin_sheet('front-end.kicad_sch', 'Scheda madre cruscotto C3+AI - front-end ESP32', 'C3AI-CR-EL-002', 'A',
-            'D-029, D-031, D-033, D-039, D-046', sheet_uuid=FE_SHEET)
+begin_sheet('front-end.kicad_sch', 'Scheda madre cruscotto C3+AI - front-end ESP32', 'C3AI-CR-EL-002', 'B',
+            'D-029, D-031, D-033, D-039, D-046, D-059', sheet_uuid=FE_SHEET, date='2026-10-27')
+# Fili saldati direttamente alla scheda al posto dei connettori dei cavi (D-059): piazzole per filo 26 AWG.
+WIRE = 'Connector_Wire:SolderWire-0.127sqmm_1x%02d_P3.7mm_D0.48mm_OD1mm'
 SOT23 = 'Package_TO_SOT_SMD:SOT-23'
 NPN = 'Transistor_BJT:MMBT3904'
 
@@ -629,7 +631,7 @@ R('R23', '100k', X0 + 63.5, 151.13, '+3V3_AON', 'NTC_DISP')
 wire('R23.1', (X0 + 63.5, 144.78))
 label('+3V3_AON', (X0 + 63.5, 144.78), 90)
 shunt('C24', '100nF', X0 + 71.12, 154.94, 'NTC_DISP')
-symbol('J5', 'Connector_Generic:Conn_01x02', 'NTC display', 'Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical',
+symbol('J5', 'Connector_Generic:Conn_01x02', 'NTC display', WIRE % 2,
        X0 + 86.36, 154.94, nets={'1': 'NTC_DISP', '2': 'GND'}, note='NTC 100k incollata vicino al display')
 wire('R23.2', 'C24.1', 'J5.1')
 wire('J5.2', (X0 + 78.74, 157.48))
@@ -655,7 +657,7 @@ gnd('R27.2', 0)
 wire((X0 - 5.08, 205.74), 'R26.1')
 label('FAN_EN', (X0 - 5.08, 205.74), 180)
 wire('R26.2', 'R27.1', 'Q4.1')
-symbol('J4', 'Connector_Generic:Conn_01x04', 'Ventola Delta AFB0412VA-00 (D-052)', 'Connector:FanPinHeader_1x04_P2.54mm_Vertical',
+symbol('J4', 'Connector_Generic:Conn_01x04', 'Ventola Delta AFB0412VA-00 (D-052)', WIRE % 4,
        X0 + 68.58, 187.96, nets={'1': 'GND', '2': '+12V_FAN', '3': 'FAN_SENSE', '4': 'FAN_CTRL'},
        note='Fili Delta: nero GND, rosso +12V, blu giri, giallo PWM')
 wire('Q3.3', (X0 + 50.8, 185.42), (X0 + 50.8, 187.96), 'J4.2')
@@ -809,15 +811,15 @@ text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli
 # ======================================================================================
 # Foglio 4: sensori e memoria, IMU su modulo, RTC, MicroSD (C3AI-CR-EL-004; D-033, D-046)
 # ======================================================================================
-begin_sheet('sensori-memoria.kicad_sch', 'Scheda madre cruscotto C3+AI - sensori e memoria', 'C3AI-CR-EL-004', 'B',
-            'D-019, D-033, D-046, D-051', sheet_uuid=SENS_SHEET)
+begin_sheet('sensori-memoria.kicad_sch', 'Scheda madre cruscotto C3+AI - sensori e memoria', 'C3AI-CR-EL-004', 'C',
+            'D-019, D-033, D-046, D-051, D-059', sheet_uuid=SENS_SHEET, date='2026-10-27')
 
 # --- IMU su modulo STEVAL-MKI196V1 (LSM6DSO) in zoccolo DIL-24: I2C a 0x6A (SA0 a massa) ---
 IMU = {'1': '+3V3_AON', '2': '+3V3_AON', '13': 'GND', '19': '+3V3_AON', '20': 'I2C_SCL', '21': 'I2C_SDA',
        '22': 'GND'}
 symbol('J6', 'Connector_Generic:Conn_02x12_Top_Bottom', 'STEVAL-MKI196V1 (DIL-24)',
        'scheda-madre:ST_DIL24_Adapter_W15.0mm', 60.96, 88.9, nets={str(i): IMU.get(str(i)) for i in range(1, 25)},
-       auto=True, note='HW-IMU-LSM6DSO; piedinatura ST DB3714 rev 1; file di pin a 15,0 mm (Gerber ST), due strip femmina 1x12')
+       auto=True, note='HW-IMU-LSM6DSO; piedinatura ST DB3714 rev 1; file di pin a 15,0 mm (Gerber ST), saldata direttamente alla scheda (D-059)')
 shunt('C33', '100nF', 45.72, 124.46, '+3V3_AON')
 wire((35.56, 124.46), 'C33.1')
 label('+3V3_AON', (35.56, 124.46), 180)
@@ -862,12 +864,11 @@ text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli
 # ======================================================================================
 # Foglio 5: collegamento con la S3 (P1, P2, P6) e relè audio (C3AI-CR-EL-005; D-028, D-029)
 # ======================================================================================
-begin_sheet('s3-audio.kicad_sch', 'Scheda madre cruscotto C3+AI - collegamento S3 e audio', 'C3AI-CR-EL-005', 'A',
-            'D-028, D-029, D-039', sheet_uuid=S3_SHEET)
-PB = 'Connector_Molex:Molex_PicoBlade_53048-%02d10_1x%02d_P1.25mm_Horizontal'  # angolo retto: spina parallela alla scheda
+begin_sheet('s3-audio.kicad_sch', 'Scheda madre cruscotto C3+AI - collegamento S3 e audio', 'C3AI-CR-EL-005', 'B',
+            'D-028, D-029, D-039, D-059', sheet_uuid=S3_SHEET, date='2026-10-27')
 
 # --- Cavetti MX1.25 verso la S3 (vista dal retro, USB-C a destra; HW-DASH-DISPLAY) --------
-symbol('J10', 'Connector_Generic:Conn_01x04', 'Verso P1 S3: 5V TXD RXD GND', PB % (4, 4), 60.96, 63.5,
+symbol('J10', 'Connector_Generic:Conn_01x04', 'Verso P1 S3: 5V TXD RXD GND', WIRE % 4, 60.96, 63.5,
        nets={'1': 'S3_5V', '2': None, '3': None, '4': 'GND'}, txt=((0, 10.16), (0, 12.7), ''),
        note='P1 dal basso verso l’alto 5V, TXD, RXD, GND; UART0 della S3 non usata (riserva per la porta nascosta)')
 tag('J10.4')
@@ -876,10 +877,10 @@ symbol('D13', 'Device:D_Schottky', 'B340A', 'Diode_SMD:D_SMA', 43.18, 60.96, rot
 wire('D13.1', (50.8, 60.96), 'J10.1')
 wire('D13.2', (33.02, 60.96))
 label('+5V', (33.02, 60.96), 180)
-symbol('J11', 'Connector_Generic:Conn_01x04', 'Verso P2 S3: IO19 IO11 IO12 IO13', PB % (4, 4), 60.96, 96.52,
+symbol('J11', 'Connector_Generic:Conn_01x04', 'Verso P2 S3: IO19 IO11 IO12 IO13', WIRE % 4, 60.96, 96.52,
        nets={'1': 'S3_IO19', '2': 'LINK_FE2S3', '3': 'LINK_S32FE', '4': 'RELAY_CMD'}, auto=True, txt=((0, 10.16), (0, 12.7), ''),
        note='P2 da destra a sinistra IO19, IO11, IO12, IO13; P2 non porta massa: riferimento da J10 (P1)')
-symbol('J12', 'Connector_Generic:Conn_01x02', 'Verso P6 Speak S3', PB % (2, 2), 60.96, 127,
+symbol('J12', 'Connector_Generic:Conn_01x02', 'Verso P6 Speak S3', WIRE % 2, 60.96, 127,
        nets={'1': 'S3_SPK_A', '2': 'S3_SPK_B'}, auto=True,
        note='Uscita differenziale senza indicazione di polarità: nessun filo a massa, fase da verificare all’ascolto')
 
@@ -948,7 +949,7 @@ for sh in SHEETS:
             sh['items'].append(f'\t(junction (at {fnum(x)} {fnum(y)}) (diameter 0) (color 0 0 0 0) (uuid "{j}"))\n')
     head = (f'(kicad_sch\n\t(version 20250610)\n\t(generator "genera-schema-scheda-madre")\n'
             f'\t(generator_version "10.0")\n\t(uuid "{sh["uuid"]}")\n\t(paper "A3")\n\t(title_block\n'
-            f'\t\t(title "{sh["title"]}")\n\t\t(date "2026-10-24")\n\t\t(rev "{sh["rev"]}")\n'
+            f'\t\t(title "{sh["title"]}")\n\t\t(date "{sh["date"]}")\n\t\t(rev "{sh["rev"]}")\n'
             f'\t\t(company "Cruscotto C3+AI")\n'
             f'\t\t(comment 1 "{sh["code"]} rev {sh["rev"]} - proposta preliminare, non verificata")\n'
             f'\t\t(comment 2 "{sh["decisions"]}")\n'

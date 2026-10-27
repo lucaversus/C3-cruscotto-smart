@@ -66,8 +66,8 @@ rotazione di 180° attorno all'asse y, poi traslazione (0, 12, 23,6) mm.
 
 **Altezze (25/10/2026, modello 3D di KiCad e tft-5inch.step):** sulla faccia F il componente più
 critico è C29 (5,4 mm) con 5,5 mm di spazio residuo verso i componenti della S3; poi L1 (6,0 mm,
-6,2 mm residui) e J5 (7,0 mm, 7,4 mm residui). Cavetti verso la S3 su PicoBlade ad angolo retto
-(53048), spina parallela alla scheda. Sul retro i più alti sono i relè K1/K2 (15,7 mm), C3 e J4
+6,2 mm residui). Dal 27/10/2026 (D-059) J4, J5 e J10-J12 sono piazzole per fili saldati: il filo verso la
+S3 va piegato parallelo alla scheda (spazio di circa 9,9 mm). Sul retro i più alti sono i relè K1/K2 (15,7 mm), C3
 (10,1 mm), le file di pin del modulo VAN (8,7 mm) e J1 con la spina: profondità disponibile
 dietro la scheda madre da misurare (verifica aperta 1 in `cruscotto/docs/scheda-madre.md`). Senza modello 3D in KiCad: U2, J1, J3, J10-J12, K1/K2
 (altezze dalle schede tecniche).
@@ -113,8 +113,9 @@ Procedura (Python di KiCad; Freerouting e Java come sopra):
    tracciamento delle reti che si bloccano a vicenda, una via verso In1 nelle isole di massa e controllo
    finale con il DRC di KiCad (errori e avvisi su distanze, fori e tratti morti), ripetuto fino a esito pulito.
 
-Esito della scheda in questo repository: 2854 piste (F 985, In2 1240, B 629, 4,1 m in tutto) e 468 via.
-**DRC: 0 errori, 0 collegamenti mancanti**; restano 87 avvisi di serigrafia (scritte sopra il rame, sovrapposte
+Esito della scheda in questo repository (rifatta il 27/10/2026 con le piazzole per fili di D-059): 3987 piste
+(F 1602, In2 1678, B 707, 4,2 m in tutto) e 514 via. **DRC: 0 errori, 0 collegamenti mancanti**, nessun avviso
+su fori o tratti morti; restano 92 avvisi di serigrafia (scritte sopra il rame, sovrapposte
 o vicine al bordo), da sistemare a mano prima dei Gerber. Il confronto con lo schema segnala differenze di
 forma: le impronte sono assegnate dal generatore (varianti HandSolder) e non collegate ai simboli; le reti sono
 verificate dal generatore dello schema. Anteprime: `sbroglio-rame-F.png`, `sbroglio-rame-In2.png`,

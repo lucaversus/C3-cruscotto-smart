@@ -347,7 +347,7 @@ put('J3', 'F', 14.0, ing.YMAX - 5.0, check_outline=False)
 # bordo inferiore, da cui i cavetti scendono ai connettori sul lato inferiore della S3.
 put('J10', 'F', -64.0, 13.5)
 put('J12', 'F', -52.0, 13.5)
-put('J11', 'F', -26.0, 13.5)
+put('J11', 'F', -28.5, 13.5)  # piazzole per fili (D-059): 2,5 mm più all'esterno per J1
 put('J4', 'B', 26.0, 30.0, rot=90)
 placed |= {'J3', 'J10', 'J11', 'J12', 'J4'}
 put('J6', 'B', 56.5, 25.0, rot=90)

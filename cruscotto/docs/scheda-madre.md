@@ -106,8 +106,8 @@ generatore; tavola [CR-EL-002](../../disegni/CR-EL-002_scheda-madre-front-end.pn
 - **Collegamento con l'S3**: 1k in serie su GPIO25/GPIO33, verso il connettore -J2 del foglio
   successivo; limitano la corrente verso l'S3 spenta.
 - **I2C**: 4,7k verso il 3,3 V sempre acceso.
-- **NTC 100k** (B3950) sulla scheda (GPIO32) e vicino al display su JST-XH (GPIO36): 16 µA ciascuna.
-- **Ventola a 4 fili** Delta AFB0412VA-00 (D-052; fili nero GND, rosso +12 V, blu giri, giallo PWM) su connettore standard: alimentazione staccata a riposo da un P-MOSFET
+- **NTC 100k** (B3950) sulla scheda (GPIO32) e vicino al display con fili saldati a J5 (GPIO36, D-059): 16 µA ciascuna.
+- **Ventola a 4 fili** Delta AFB0412VA-00 (D-052; fili nero GND, rosso +12 V, blu giri, giallo PWM) con i fili saldati a J4 (D-059): alimentazione staccata a riposo da un P-MOSFET
   60 V (ZXMP6A13F proposto) comandato da GPIO2, velocità con PWM a collettore aperto
   (GPIO26, logica invertita), giri con pull-up a 3,3 V e 1k verso GPIO14.
 
@@ -140,7 +140,7 @@ Foglio `cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch`; tavola
 
 - **IMU** (-U9 del blocco): zoccolo per il modulo STEVAL-MKI196V1 (HW-IMU-LSM6DSO, D-046):
   scheda 18,0 × 30,5 mm, due file da 12 pin a passo 2,54 con **interasse 15,0 mm** (Gerber ST,
-  non 15,24 come uno zoccolo DIP), quindi due strip femmina 1x12 sull'impronta del progetto
+  non 15,24 come uno zoccolo DIP), saldato direttamente con i suoi pin (D-059) sull'impronta del progetto
   `scheda-madre:ST_DIL24_Adapter_W15.0mm`; piedinatura da ST DB3714 rev 1: VDD/VDDIO e CS al 3,3 V sempre acceso (CS alto =
   I2C), SDO/SA0 a massa (indirizzo 0x6A), SCL/SDA sul bus I2C; INT1/INT2 non collegati (GPIO
   libero eventuale: 5). Da riscontrare sulla serigrafia all'arrivo.
@@ -161,8 +161,8 @@ misurare sui pezzi prima dello sbroglio (D-051).
 Foglio `cruscotto/pcb/scheda-madre/s3-audio.kicad_sch`; tavola
 [CR-EL-005](../../disegni/CR-EL-005_scheda-madre-s3-audio.png).
 
-- **Cavetti verso la S3**: J10 (P1), J11 (P2), J12 (P6) su connettori PicoBlade/MX1.25 a 1,25 mm
-  (cavetti con i connettori MX1.25 dell'utente, HW-MX125-PLUGS). Il 5 V passa dal Schottky D13
+- **Cavetti verso la S3**: J10 (P1), J11 (P2), J12 (P6) saldati alla scheda madre su piazzole per filo
+  26 AWG (D-059); dal lato S3 le spine MX1.25 dell'utente (HW-MX125-PLUGS). Il 5 V passa dal Schottky D13
   (B340A): se la S3 è collegata anche alla USB, il suo 5 V non risale nella scheda madre.
 - **Relè audio** (D-028): K1 (sinistro) e K2 (destro), Omron G2RL-2 DPDT con bobina 5 V,
   pilotati da AO3400A sul comando IO13 della S3, 100k verso massa sul gate: a riposo, a quadro

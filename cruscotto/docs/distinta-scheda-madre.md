@@ -1,13 +1,14 @@
 # Distinta materiali — scheda madre del cruscotto
 
-Revisione A — 27/10/2026. Riferimento: schema C3AI-CR-EL-001…005 e circuito stampato sbrogliato
+Revisione B — 27/10/2026. Riferimento: schema C3AI-CR-EL-001…005 e circuito stampato sbrogliato
 (`cruscotto/pcb/scheda-madre/`, D-057). Quantità **per una scheda**. Non è un ordine: i componenti
 non sono ordinati né collaudati; disponibilità e stato dei moduli restano in `data-logger/docs/hardware.json`.
 Fornitori da consultare per primi: Farnell, Future, RS, Mouser, DigiKey, TME.
 
 Elenco completo generato dallo schema, con riferimenti e impronte: `cruscotto/pcb/scheda-madre/distinta-materiali.csv`
 (rigenerare con `kicad-cli sch export bom`, vedi il README della scheda). Montaggio a mano (D-046): passivi 0805
-o più grandi, impronte HandSolder.
+o più grandi, impronte HandSolder. Cavi saldati direttamente alla scheda e moduli saldati senza zoccoli (D-059).
+Comprende tutto il necessario tranne il materiale di consumo (viti, filo, guaina, stagno).
 
 ## 1. Circuito stampato
 
@@ -15,15 +16,23 @@ o più grandi, impronte HandSolder.
 | --- | --- | --- |
 | 1 | Circuito stampato 4 strati, 178,7 × 74 mm, 1,6 mm, rame 35 µm, foro minimo 0,2 mm, pista minima 0,15 mm | Solo dopo serigrafia sistemata, Gerber e verifiche aperte di `scheda-madre.md`; preventivo da fare (D-057) |
 
-## 2. Già presenti o già ordinati: non ricomprare
+## 2. Già in possesso o ordinati (anche per il Data Logger)
 
-| Rif. | Voce | Stato (inventario) |
-| --- | --- | --- |
-| J8, J9 | Modulo VAN blu SN65HVD230 (resistenza 121 tolta) | HW-CAN-VP230, presente, prove a banco 1-4 superate |
-| J7 | Modulo MicroSD SPI 3,3 V | HW-SD-MODULE, presente (stesso tipo del Data Logger) |
-| J6 | STEVAL-MKI196V1 (LSM6DSO su DIL-24) | HW-IMU-LSM6DSO, ordinato, non ancora arrivato |
-| J10-J12 | Spine MX1.25 per i cavetti verso la S3 | HW-MX125-PLUGS, presenti |
-| — | Scheda S3 con display 5" | HW-DASH-DISPLAY, presente |
+Confronto con l'inventario e con l'ordine Farnell del Data Logger del 22/10/2026 (HW-KLINE-INTERFACE,
+consegna non ancora riscontrata). Quantità da riscontrare all'arrivo.
+
+| Rif. | Voce | Stato | Per la scheda madre |
+| --- | --- | --- | --- |
+| U7 | LM2903BYDT SOIC-8 | 2 ordinati per la K-line del logger, che ne usa 1 | **usare il secondo** |
+| C29 | Elettrolitico 10 µF 16 V Panasonic EEEHB1C100R (SMD 4 × 5,4) | nel carrello del logger; versione ordinata (SMD o THT) da riscontrare | utilizzabile se arrivato SMD |
+| J8, J9 | Modulo VAN blu SN65HVD230 | HW-CAN-VP230: 1 pezzo, quello del logger (resistenza 121 tolta, prove 1-4) | **serve un secondo modulo**, modificato allo stesso modo |
+| J7 | Modulo MicroSD SPI 3,3 V | HW-SD-MODULE: presente, quantità non riscontrata | serve un esemplare distinto da quello del logger |
+| J6 | STEVAL-MKI196V1 (LSM6DSO su DIL-24) | HW-IMU-LSM6DSO: 1 ordinato, non arrivato | se ne serve uno anche al logger (D-033), ne manca uno |
+| — | Spine MX1.25 sul lato S3 dei cavetti (P1, P2, Speak) | HW-MX125-PLUGS, presenti | sì |
+| — | Scheda S3 con display 5" | HW-DASH-DISPLAY, presente | sì |
+
+Non utilizzabili per questa scheda: 2N5551BU (TO-92, qui MMBT5551 SOT-23), resistenze a foro passante della
+K-line, modulo RTC DS3231 (qui il chip DS3231SN), ESP32 HW-394 (qui il modulo WROOM).
 
 ## 3. Semiconduttori
 
@@ -91,33 +100,39 @@ tensione minima ricavata dalle reti dello schema.
 | --- | --- | --- | --- |
 | 1 | Molex Micro-Fit 3.0 43045-2400, 2 × 12, orizzontale | J1 | verso l'auto (D-044) |
 | 1 | USB-C HRO TYPE-C-31-M-12 | J3 | passo 0,5 mm, saldatura a trascinamento |
-| 2 | Molex PicoBlade 53048-0410, 4 vie, ad angolo retto | J10, J11 | verso P1 e P2 della S3 |
-| 1 | Molex PicoBlade 53048-0210, 2 vie, ad angolo retto | J12 | verso Speak della S3 |
-| 1 | Connettore ventola 4 vie passo 2,54 (FanPinHeader) | J4 | per la Delta AFB0412VA-00 |
-| 1 | JST XH B2B-XH-A, 2 vie | J5 | NTC del display |
-| 2 | Strip femmina 1 × 12 passo 2,54 | J6 | zoccolo per la STEVAL (file a 15,0 mm) |
-| 1 + 1 + 1 | Strip 1 × 6, 1 × 4, 1 × 2 passo 2,54 | J7, J8, J9 | femmina se i moduli si innestano, oppure moduli saldati direttamente: da decidere |
+| — | Piazzole per filo 26 AWG, nessun componente | J4, J5, J10-J12 | ventola, NTC del display, cavetti verso la S3 (D-059) |
+| — | Moduli saldati direttamente con i loro pin | J6-J9 | STEVAL, MicroSD, VAN (D-059) |
 | 2 | Relè Omron G2RL-2 DC5 | K1, K2 | |
 | 2 | Pulsante tattile 6 × 6, alto 7,3 mm | S1, S2 | sotto i pulsanti del quadro (D-054) |
 | 2 | Pulsante tattile 6 × 6 | SW3, SW4 | RESET e BOOT del front-end |
 
-## 6. Fuori dalla scheda: cablaggi e montaggio
+## 6. Fuori dalla scheda
 
 | Qtà | Voce | Note |
 | --- | --- | --- |
 | 1 | Ventola Delta AFB0412VA-00, 40 × 40 × 10, 12 V, 4 fili | HW-DASH-FAN, scelta (D-052), non ordinata |
-| 4 | Viti per la ventola (fori Ø3,2) | lunghezza dal montaggio |
-| 6 | Viti di fissaggio della scheda (fori Ø3) | dal telaio del quadro |
 | 1 + 12 | Femmina Micro-Fit 43025-2400 e contatti 43030-0007 (più scorta) | cablaggio dell'auto (HW-J1-MICROFIT24); per il banco anche spina 43020-2400 e contatti 43031-0007 |
-| 2 + 1 | Alloggiamenti PicoBlade 51021-0400 e 51021-0200, con contatti a crimpare 50079-8000 (circa 12) | cavetti verso la S3, dal lato scheda madre; codici da confermare sulla scheda tecnica Molex |
-| 1 | Alloggiamento JST XHP-2 con 2 contatti SXH-001T-P0.6 | NTC del display |
-| 1 | Sonda NTC 100 kΩ B3950 con fili | sul display |
-| — | Filo 20-24 AWG per J1, 26-28 AWG per i cavetti PicoBlade | |
+| 1 | Sonda NTC 100 kΩ B3950 con fili | sul display, saldata a J5 |
+
+## 7. Disponibilità su Farnell (27/10/2026)
+
+Codici d'ordine scelti in `distinta-scheda-madre-codici.csv`; controllo con `tools/controlla-distinta-farnell.py`
+(API element14, chiave personale fuori dal repository), esito in `distinta-scheda-madre-codici-farnell.csv`.
+Fotografia del giorno: giacenze e prezzi cambiano.
+
+- **Disponibili** (codice esatto o stesso componente di altro produttore): passivi, AP2112K, LM2903B, DS3231SN,
+  IPD50N06S4L-12, transistor, diodi e TVS, NUP2105L, L2, ferrite, J1 con femmina e contatti, relè G2RL-2,
+  pulsanti B3F-1000, C3, C29. Spesa indicativa circa 100 € IVA esclusa, senza minimi d'ordine dei passivi.
+- **Non a catalogo**: ESP32-WROOM-32E-H4, TPS54360B, LMR36510, LM74700-Q1, CH340C, AO3400A, SRR1260-8R2Y,
+  USB-C HRO TYPE-C-31-M-12, pulsanti 6 × 6 alti 7,3 mm, ventola AFB0412VA-00 (c'è solo la AFB0412HA-A, più
+  veloce e rumorosa): da cercare su Mouser o DigiKey.
+- **Giacenza 0**: ZXMP6A13F, BAT54J, 2,2 µF 100 V 1210, 47 µF 10 V 1210.
+- **NTC**: quelle trovate (Vishay NTCS0805, sonda TDK B57045) non hanno B = 3950; se scelte, aggiornare il
+  coefficiente nel firmware.
 
 ## Da chiudere prima dell'ordine
 
 - Valori **da confermare**: Q1, L1, L2, C3 (segnati sopra).
-- Strip dei moduli (J7-J9): innesto o saldatura diretta.
 - Verifiche aperte in `cruscotto/docs/scheda-madre.md`: profondità dietro la scheda (relè e C3 sul retro),
   interasse del modulo VAN, misure della STEVAL, telaio, audio, temperatura della ventola, massa VAN.
 - Codici d'ordine e prezzi dai fornitori: non ancora cercati, salvo quelli di J1 già in inventario.
