@@ -21,8 +21,8 @@ Revisione A — 28/10/2026. Procedura proposta, non ancora eseguita: nessuna sch
 | Connettori, modulo ESP32, STEVAL (J6) | pallino o piazzola quadrata | piedino 1 dal lato segnato |
 | Fili saldati (J4, J5, J10-J12) | nome di ogni filo accanto alla piazzola | vedi «Fili» sotto |
 
-Nove componenti in zone fitte non hanno la sigla stampata (U1, C24, R12, R19, R26, R28, R37, R38, R43): sono
-nel disegno di montaggio e nell'elenco.
+Sei componenti in zone fitte non hanno la sigla stampata (U1, R13, R17, R20, R37, R42): sono nel disegno di
+montaggio e nell'elenco.
 
 ## Ordine di montaggio
 
@@ -34,7 +34,10 @@ nel disegno di montaggio e nell'elenco.
 4. **Componenti SMD del lato B** con lo stesso ordine.
 5. **Foro passante**, per ultimi perché sporgono su entrambe le facce: pulsanti S1, S2, SW3, SW4, connettore J1,
    relè K1 e K2, C3 **coricato** sulla scheda (alto 17,5 mm in piedi), STEVAL J6.
-6. **Modulo VAN** (J8/J9): montaggio da definire (vedi verifiche aperte in `scheda-madre.md`).
+6. **Modulo VAN** (D-060), dopo U4 perché ne copre i fori termici: togliere il connettore ad angolo, saldare
+   4 pin diritti con il distanziale di plastica, appoggiare il modulo sul retro e saldare i pin in J8 (3V3, GND,
+   RX, TX). CANH e CANL: due fili corti dal morsetto a vite alle piazzole J9. Resistenza 121 tolta e prove 1-4
+   D-022 prima del montaggio, come per il primo modulo.
 7. **Fili** (tabella sotto), con guaina termorestringente sui capi.
 
 ## Fili saldati (D-059)
@@ -46,6 +49,7 @@ nel disegno di montaggio e nell'elenco.
 | J10 | 5V, TXD, RXD, GND | verso P1 della S3; TXD e RXD per ora non collegati |
 | J11 | IO19, IO11, IO12, IO13 | verso P2 della S3 |
 | J12 | SPK, SPK | verso Speak (P6) della S3, senza polarità |
+| J9 | CANH, CANL | dal morsetto a vite del modulo VAN (D-060) |
 
 ## Prima di alimentare
 
