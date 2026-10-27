@@ -1,6 +1,6 @@
 # Lista acquisti — scheda madre del cruscotto
 
-Revisione C — 28/10/2026. Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
+Revisione D — 28/10/2026. Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
 esclusa del 27-28/10/2026, da ricontrollare al momento dell'ordine. Riferimenti, valori e verifiche in
 `distinta-scheda-madre.md`; viti, filo, guaina e stagno esclusi (materiale di consumo). Niente è ancora ordinato.
 Cablaggio verso l'auto con fili Molex già crimpati (niente pinza): alloggiamento femmina 43025-2400 e fili
@@ -11,7 +11,6 @@ Cablaggio verso l'auto con fili Molex già crimpati (niente pinza): alloggiament
 | LCSC | 54 | 82.59 $ | 13 $ | `ordine-lcsc-scheda-madre.csv` |
 | Farnell | 15 | circa 28.35 € | da verificare | `ordine-farnell-scheda-madre.csv` |
 | DigiKey | 7 | circa 52 € | gratuita sopra 50 € (da verificare) | `ordine-digikey-scheda-madre.csv` |
-| Amazon o fornitore abituale | 1 | — | — | secondo modulo VAN |
 | Produttore di circuiti stampati | 1 | preventivo | — | dopo serigrafia e Gerber (D-057) |
 
 ## 1. LCSC
@@ -115,21 +114,17 @@ Un solo ordine sopra la soglia della spedizione gratuita. DigiKey non ha il filo
 | SRR1260-8R2Y | 2 | Bourns 8,2 µH | L1 |
 | AFB0412VA-00 | 1 | Delta ventola 40 x 40 x 10, 12 V, 4 fili | ventola (D-052) |
 
-## 4. Moduli da ricomprare
-
-| Modulo | Qtà | Per | Note |
-| --- | --- | --- | --- |
-| Modulo CAN blu SN65HVD230, stesso tipo di HW-CAN-VP230 | 1 | J8, J9 | da modificare come il primo (resistenza 121 tolta) |
-
-## 5. Già in possesso o non montato
+## 4. Già in possesso o non montato
 
 - **J7 MicroSD non montato** (facoltativo, D-051): la registrazione resta al Data Logger e la S3 ha il suo slot
   MicroSD; i pin restano pronti per un modulo HW-SD-MODULE in futuro.
+- Modulo VAN blu SN65HVD230 (HW-CAN-VP230): 2 esemplari, il secondo per J8/J9; da modificare e provare come il
+  primo (resistenza 121 tolta, prove 1-4 D-022).
 - Spine MX1.25 lato S3 (HW-MX125-PLUGS); scheda S3 con display (HW-DASH-DISPLAY).
 - LM2903BYDT e EEEHB1C100R in arrivo con l'ordine del logger: utilizzabili come scorta.
 - STEVAL-MKI196V1: 1 già ordinata (HW-IMU-LSM6DSO); quella della lista Farnell è la seconda (logger e cruscotto, D-033).
 
-## 6. Circuito stampato
+## 5. Circuito stampato
 
 4 strati, 178,7 × 74 mm, 1,6 mm: preventivo e ordine dopo la sistemazione della serigrafia, i file Gerber e le
 verifiche aperte di `scheda-madre.md` (profondità dietro la scheda, interasse del modulo VAN, misure della STEVAL).

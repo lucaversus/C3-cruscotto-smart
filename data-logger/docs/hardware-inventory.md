@@ -69,9 +69,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-CAN-VP230 — Modulo CAN blu VP230 / SN65HVD230
 
-**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger
+**Stato:** `present_declared` · **Quantità:** 2 · **Ambito:** Data Logger
 
-**Fonte:** Inventario iniziale utente e correzione sul CAN del 18/10/2026. Nessun collaudo del modulo documentato. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json. Valutazione 18/10/2026: https://github.com/0xCAFEDECAF/VanBus sezione Schematics documenta SN65HVD230 come ricevitore fisico VAN; datasheet TI SN65HVD230 descrive RS e driver disabilitabile. Non prova funzionamento del modulo posseduto.
+**Fonte:** Inventario iniziale utente e correzione sul CAN del 18/10/2026. Nessun collaudo del modulo documentato. Foto recuperate dai Download il 18/10/2026, archiviate con SHA-256 in docs/hardware-photos/manifest.json. Valutazione 18/10/2026: https://github.com/0xCAFEDECAF/VanBus sezione Schematics documenta SN65HVD230 come ricevitore fisico VAN; datasheet TI SN65HVD230 descrive RS e driver disabilitabile. Non prova funzionamento del modulo posseduto. Utente 28/10/2026: "ne avevo presi 2": quantità 2 dichiarata. Il secondo esemplare è per la scheda madre (J8/J9).
 
 **Foto archiviate:** [can-vp230-fronte.jpg](hardware-photos/can-vp230-fronte.jpg), [can-vp230-dettaglio.jpg](hardware-photos/can-vp230-dettaglio.jpg)
 
@@ -90,6 +90,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - BLOCCANTE prima del collegamento VAN (D-022): prove 1-4 a banco superate il 23/10/2026 (VAN-M002…M005: terminazione rimossa, TX fisso a 3V3, H-L recessivo 45 mV, RX 3,3 V). Resta la prova 5: punto di collegamento sul veicolo (quadro 0004 vie 1/3, ordine DATA/DATAB) da fonte documentale e conferma elettrica. Procedura in docs/protocolli-veicolo.md.
 - Disegnato nella tavola C3AI-DL-EL-004 rev A (D-042): RX→GPIO34 (W28), 3V3/GND dalla basetta 3 (W29/W30), ponticello TX–3V3, resistenza 121 da scollegare, CANH/CANL verso -X3 e quadro 0004 vie 1/3 solo dopo le verifiche D-022 1-5. Ordine DATA/DATAB non verificato.
 - Scheda madre (D-051, 24/10/2026): stesso tipo di modulo su file di pin J8 (3.3V/GND/RX/TX) e J9 (CANH/CANL), schema C3AI-CR-EL-003 rev B. Esemplare per la scheda madre distinto da quello del Data Logger (D-042), con resistenza 121 rimossa; interasse tra le due file di pin e altezza del modulo da misurare. Utente 24/10/2026: acquista sempre almeno 2 esemplari di ogni componente; quantità effettiva da riscontrare. Dimensioni dai file STEP dell'utente; i pin piegati a 90° si possono sostituire con pin dritti.
+- Secondo esemplare (scheda madre, J8/J9): resistenza 121 da togliere e prove 1-4 D-022 da ripetere come per il primo (VAN-M002…M005); finora solo il primo è modificato e provato.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
