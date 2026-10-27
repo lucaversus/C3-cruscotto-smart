@@ -1,0 +1,29 @@
+rif,qta,codice,fornitore,codice fornitore,produttore e codice trovato,giacenza,prezzo unitario €,totale €,stato,note
+U4,1,ESP32-WROOM-32E-H4,Mouser,356-ESP32WRM320EH3PS,Espressif Systems ESP32-WROOM-32E-H4,216,4.58,4.58,,modulo front-end (HW-FE-MODULE); non a catalogo Farnell
+U4,1,ESP32-WROOM-32E-H4,DigiKey,1965-ESP32-WROOM-32E-H4CT-ND,Espressif Systems ESP32-WROOM-32E-H4,226,4.62,4.62,Attivo,modulo front-end (HW-FE-MODULE); non a catalogo Farnell
+U2,1,TPS54360BDDAR,Mouser,595-TPS54360BDDAR,Texas Instruments TPS54360BDDAR,0,4.0,4.0,,buck 5 V; non a catalogo Farnell
+U2,1,TPS54360BDDAR,DigiKey,296-TPS54360BDDARTR-ND,Texas Instruments TPS54360BDDAR,0,2.27248,2.27,Attivo,buck 5 V; non a catalogo Farnell
+U3,1,LMR36510ADDAR,Mouser,595-LMR36510ADDAR,Texas Instruments LMR36510ADDAR,472,2.76,2.76,,"buck 3,3 V (LMR36510ADDA nello schema); non a catalogo Farnell"
+U3,1,LMR36510ADDAR,DigiKey,296-LMR36510ADDARCT-ND,Texas Instruments LMR36510ADDAR,12931,2.8,2.8,Attivo,"buck 3,3 V (LMR36510ADDA nello schema); non a catalogo Farnell"
+U1,1,LM74700QDBVRQ1,Mouser,595-LM74700QDBVRQ1,Texas Instruments LM74700QDBVRQ1,0,1.82,1.82,,diodo ideale; non a catalogo Farnell
+U1,1,LM74700QDBVRQ1,DigiKey,296-LM74700QDBVRQ1TR-ND,Texas Instruments LM74700QDBVRQ1,0,1.09365,1.09,Attivo,diodo ideale; non a catalogo Farnell
+U6,1,CH340C,Mouser,,,,,,non trovato,USB-seriale; non a catalogo Farnell
+U6,1,CH340C,DigiKey,1568-15316-ND,SparkFun Electronics 15316,96,12.38,12.38,Attivo (codice diverso: da controllare),USB-seriale; non a catalogo Farnell
+Q9,1,AO3400A,Mouser,,,,,,non trovato,MOSFET N SOT-23; non a catalogo Farnell
+Q9,1,AO3400A,DigiKey,785-1000-1-ND,Alpha & Omega Semiconductor Inc. AO3400A,210799,0.46,0.46,Attivo,MOSFET N SOT-23; non a catalogo Farnell
+L1,1,SRR1260-8R2Y,Mouser,652-SRR1260-8R2Y,Bourns SRR1260-8R2Y,5,0.955,0.95,,"8,2 µH; non a catalogo Farnell"
+L1,1,SRR1260-8R2Y,DigiKey,SRR1260-8R2YCT-ND,Bourns Inc. SRR1260-8R2Y,604,0.99,0.99,Attivo,"8,2 µH; non a catalogo Farnell"
+J3,1,TYPE-C-31-M-12,Mouser,,,,,,non trovato,USB-C HRO; non a catalogo Farnell
+J3,1,TYPE-C-31-M-12,DigiKey,,,,,,non trovato,USB-C HRO; non a catalogo Farnell
+S1 S2,2,tactile switch 6x6mm 7.3mm,Mouser,179-TS046665BK260SMT,Same Sky TS04-66-65-BK-260-SMT,80077,0.163,0.33, (codice diverso: da controllare),"altezza 7,3 mm; non trovato su Farnell"
+S1 S2,2,tactile switch 6x6mm 7.3mm,DigiKey,,,,,,non trovato,"altezza 7,3 mm; non trovato su Farnell"
+ventola,1,AFB0412VA-00,Mouser,108-AFB0412VA-00,Delta Electronics AFB0412VA-00,0,12.22,12.22,New at Mouser,Delta (D-052); su Farnell solo AFB0412HA-A
+ventola,1,AFB0412VA-00,DigiKey,603-AFB0412VA-00-ND,Delta Electronics AFB0412VA-00,310,12.61,12.61,Attivo,Delta (D-052); su Farnell solo AFB0412HA-A
+Q3,1,ZXMP6A13FTA,Mouser,522-ZXMP6A13FTA,Diodes Incorporated ZXMP6A13FTA,0,0.989,0.99,,giacenza 0 su Farnell
+Q3,1,ZXMP6A13FTA,DigiKey,ZXMP6A13FTR-ND,Diodes Incorporated ZXMP6A13FTA,0,0.19814,0.2,Attivo,giacenza 0 su Farnell
+D4,1,BAT54J,Mouser,N/A,Nexperia BAT54J,0,,,,giacenza 0 su Farnell
+D4,1,BAT54J,DigiKey,497-7163-2-ND,STMicroelectronics BAT54JFILM,0,0.05497,0.05,Attivo,giacenza 0 su Farnell
+C4 C5 C11,3,GRM32ER72A225KA35L,Mouser,81-GRM32ER72A225KA35,Murata Electronics GRM32ER72A225KA35L,50805,1.57,4.71,End of Life,"2,2 µF 100 V 1210; giacenza 0 su Farnell"
+C4 C5 C11,3,GRM32ER72A225KA35L,DigiKey,490-3385-2-ND,Murata Electronics GRM32ER72A225KA35L,0,0.60472,1.81,Non per nuovi progetti,"2,2 µF 100 V 1210; giacenza 0 su Farnell"
+C7 C8,2,GRM32ER71A476KE15L,Mouser,81-GRM32ER71A476KE5L,Murata Electronics GRM32ER71A476KE15L,0,0.8,1.6,,47 µF 10 V 1210; giacenza 0 su Farnell
+C7 C8,2,GRM32ER71A476KE15L,DigiKey,490-5312-2-ND,Murata Electronics GRM32ER71A476KE15L,0,0.26398,0.53,Attivo,47 µF 10 V 1210; giacenza 0 su Farnell

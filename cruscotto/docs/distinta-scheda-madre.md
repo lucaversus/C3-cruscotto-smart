@@ -114,20 +114,35 @@ tensione minima ricavata dalle reti dello schema.
 | 1 + 12 | Femmina Micro-Fit 43025-2400 e contatti 43030-0007 (più scorta) | cablaggio dell'auto (HW-J1-MICROFIT24); per il banco anche spina 43020-2400 e contatti 43031-0007 |
 | 1 | Sonda NTC 100 kΩ B3950 con fili | sul display, saldata a J5 |
 
-## 7. Disponibilità su Farnell (27/10/2026)
+## 7. Disponibilità presso i fornitori (27/10/2026)
 
-Codici d'ordine scelti in `distinta-scheda-madre-codici.csv`; controllo con `tools/controlla-distinta-farnell.py`
-(API element14, chiave personale fuori dal repository), esito in `distinta-scheda-madre-codici-farnell.csv`.
-Fotografia del giorno: giacenze e prezzi cambiano.
+Codici d'ordine in `distinta-scheda-madre-codici.csv`; controlli con le API ufficiali (credenziali personali
+fuori dal repository): `tools/controlla-distinta-farnell.py` → `distinta-scheda-madre-codici-farnell.csv`,
+`tools/controlla-distinta-mouser-digikey.py` sui pezzi mancanti (`distinta-scheda-madre-da-cercare.csv` →
+`…-da-cercare-mouser-digikey.csv`). Fotografia del giorno: giacenze e prezzi cambiano.
 
-- **Disponibili** (codice esatto o stesso componente di altro produttore): passivi, AP2112K, LM2903B, DS3231SN,
-  IPD50N06S4L-12, transistor, diodi e TVS, NUP2105L, L2, ferrite, J1 con femmina e contatti, relè G2RL-2,
-  pulsanti B3F-1000, C3, C29. Spesa indicativa circa 100 € IVA esclusa, senza minimi d'ordine dei passivi.
-- **Non a catalogo**: ESP32-WROOM-32E-H4, TPS54360B, LMR36510, LM74700-Q1, CH340C, AO3400A, SRR1260-8R2Y,
-  USB-C HRO TYPE-C-31-M-12, pulsanti 6 × 6 alti 7,3 mm, ventola AFB0412VA-00 (c'è solo la AFB0412HA-A, più
-  veloce e rumorosa): da cercare su Mouser o DigiKey.
-- **Giacenza 0**: ZXMP6A13F, BAT54J, 2,2 µF 100 V 1210, 47 µF 10 V 1210.
-- **NTC**: quelle trovate (Vishay NTCS0805, sonda TDK B57045) non hanno B = 3950; se scelte, aggiornare il
+- **Farnell**: passivi, AP2112K, LM2903B, DS3231SN, IPD50N06S4L-12, transistor, diodi e TVS, NUP2105L, L2,
+  ferrite, J1 con femmina e contatti, relè G2RL-2, pulsanti B3F-1000, C3, C29 (circa 100 € IVA esclusa).
+- **Mouser / DigiKey** per quello che Farnell non ha:
+
+| Rif. | Codice da ordinare | Dove (giacenza) |
+| --- | --- | --- |
+| U4 | ESP32-WROOM-32E-H4 | Mouser 216, DigiKey 226 (circa 4,60 €) |
+| U2 | TPS54360BDDA (tubetto; la bobina BDDAR è a zero) | Mouser 981, DigiKey 2300; in alternativa TPS54360BQDDARQ1 (Mouser 19 033) |
+| U3 | LMR36510ADDAR | DigiKey 12 931, Mouser 472 |
+| U1 | LM74700QDBVTQ1 (bobina piccola, stesso chip) | Mouser 99 |
+| L1 | SRR1260-8R2Y | DigiKey 604 |
+| Q9 | AO3400A | DigiKey 210 799 |
+| C4, C5, C11 | Samsung CL32B225KCJSNNE (2,2 µF 100 V X7R 1210) | DigiKey 69 933 |
+| C7, C8 | GRM32ER61A476KE20L (47 µF 10 V X5R 1210) | DigiKey 28: scorte basse |
+| ventola | Delta AFB0412VA-00 | DigiKey 310 (12,61 €) |
+
+- **LCSC** (account dell'utente dal 27/10/2026) per i pezzi che gli altri non hanno: CH340C (LCSC C84681),
+  USB-C HRO TYPE-C-31-M-12 (LCSC C165948); codici LCSC da confermare sul sito.
+- **Senza giacenza ovunque** (Farnell, Mouser, DigiKey): ZXMP6A13F (Q3) e BAT54J (D4): controllare LCSC,
+  altrimenti scegliere equivalenti nello stesso contenitore (P-MOSFET 60 V SOT-23, Schottky singolo SOD-323).
+- **Pulsanti 6 × 6 alti 7,3 mm** (S1, S2): codice preciso ancora da scegliere.
+- **NTC**: quelle trovate su Farnell (Vishay NTCS0805, sonda TDK) non hanno B = 3950; se scelte, aggiornare il
   coefficiente nel firmware.
 
 ## Da chiudere prima dell'ordine
