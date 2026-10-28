@@ -515,7 +515,9 @@
       "scope": "Data Logger",
       "quantity": 1,
       "status": "present_declared",
-      "verified": [],
+      "verified": [
+        "28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica."
+      ],
       "open_checks": [
         "Ordine Farnell 22/10/2026 (dichiarato, consegna non riscontrata): 2× LM2903BYDT (SOIC-8, versione B), 5× 2N5551BU onsemi, resistenze R1…R10 (330 Ω, 47 kΩ, 510 Ω 1 W 5 %, 68 kΩ, 10 kΩ 0,5 %, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ), C1 100 nF e C2 10 µF, millefori MC01009 72×47 mm come base. All'arrivo riscontrare valori e sigle.",
         "Condensatori: nel carrello allegato erano SMD (KEMET 0603 100 nF, Panasonic EEEHB1C100R 10 µF); consigliata sostituzione con THT 1216438 e 8766754, versione effettivamente ordinata da riscontrare all'arrivo.",

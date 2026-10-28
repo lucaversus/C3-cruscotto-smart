@@ -370,7 +370,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- 28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica.
 
 **Da verificare:**
 
