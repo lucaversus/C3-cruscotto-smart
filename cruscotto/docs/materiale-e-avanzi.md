@@ -4,6 +4,8 @@ Revisione A — 28/10/2026. Per proporre ad altri progetti i componenti che avan
 `data-logger/docs/hardware.json` (possesso, ordini) e dagli ordini preparati per la scheda madre
 (`cruscotto/docs/lista-acquisti-scheda-madre.md`). Quantità usate: un Data Logger e una scheda madre. Dove la
 quantità non è registrata è scritto «da riscontrare»: non è stimata. Elenco anche in `materiale-e-avanzi.csv`.
+Dal 28/10/2026 giacenze, impegni per progetto e ordini sono tenuti anche nel magazzino condiviso
+`lucaversus/DB-componenti-elettronici` (progetti `c3-data-logger` e `c3-scheda-madre`).
 
 ## 1. In possesso o già ordinato
 
@@ -19,14 +21,14 @@ quantità non è registrata è scritto «da riscontrare»: non è stimata. Elenc
 | Display OLED I2C | HW-OLED | da riscontrare | 1 | — | presi − 1 | modello da riscontrare |
 | Scheda RCmall ESP32-S3 con display 5" | HW-DASH-DISPLAY | 1 | — | 1 | 0 |  |
 | Spine MX1.25 per i cavetti verso la S3 | HW-MX125-PLUGS | da riscontrare | — | 3 (P1, P2, Speak) | presi − 3 |  |
-| STEVAL-MKI196V1 (IMU LSM6DSO), Farnell 2987032 | HW-IMU-LSM6DSO | 1 ordinata | 1 | vedi sezione 2 | 0 | in arrivo |
-| Altoparlante di prova Multicomp Pro ABS-216-RC, Farnell | HW-AUDIO-SPK-TEST | 1 ordinato | — | prova a banco | 0 | in arrivo |
+| STEVAL-MKI196V1 (IMU LSM6DSO), Farnell 2987032 | HW-IMU-LSM6DSO | 1 | 1 | vedi sezione 2 | 0 | arrivata 28/10/2026 |
+| Altoparlante di prova Multicomp Pro ABS-216-RC, Farnell | HW-AUDIO-SPK-TEST | 1 | — | prova a banco | 0 | arrivato 28/10/2026 |
 | Portafusibile | HW-FUSE-HOLDER | ordinato, quantità da riscontrare | 1 | — |  | modello da riscontrare |
-| LM2903BYDT (SOIC-8), Farnell 22/10/2026 | HW-KLINE-INTERFACE | 2 | 1 | 0 (la scheda usa quello LCSC) | 1 | in arrivo |
-| 2N5551BU (TO-92), Farnell 22/10/2026 | HW-KLINE-INTERFACE | 5 | 1 | 0 (la scheda usa MMBT5551) | 4 | in arrivo |
-| Resistenze a foro passante 330 Ω, 47 kΩ, 510 Ω 1 W, 68 kΩ, 10 kΩ, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ, Farnell 22/10/2026 | HW-KLINE-INTERFACE | da riscontrare sulla conferma dell’ordine | 1 ciascuna (10 kΩ: 2; 510 Ω solo simulatore) | 0 |  | in arrivo |
-| Condensatori 100 nF e 10 µF (C1, C2 della K-line), Farnell 22/10/2026 | HW-KLINE-INTERFACE | da riscontrare (SMD o a foro passante) | 1 + 1 | 0 |  | in arrivo |
-| Millefori Multicomp MC01009 72 × 47 mm, Farnell 22/10/2026 | HW-KLINE-INTERFACE | 1 | 1 | — | 0 | in arrivo |
+| LM2903BYDT (SOIC-8), Farnell 22/10/2026 | HW-KLINE-INTERFACE | 2 | 1 | 0 (la scheda usa quello LCSC) | 1 | arrivato 28/10/2026 |
+| 2N5551BU (TO-92), Farnell 22/10/2026 | HW-KLINE-INTERFACE | 5 | 1 | 0 (la scheda usa MMBT5551) | 4 | arrivato 28/10/2026 |
+| Resistenze a foro passante 330 Ω, 47 kΩ, 510 Ω 1 W, 68 kΩ, 10 kΩ, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ, Farnell 22/10/2026 | HW-KLINE-INTERFACE | 10 per valore | 1 ciascuna (10 kΩ: 2; 510 Ω solo simulatore) | 0 | 9 per valore (10 kΩ: 8; 510 Ω: 10) | arrivate 28/10/2026, a foro passante |
+| Condensatori 100 nF e 10 µF (C1, C2 della K-line), Farnell 22/10/2026 | HW-KLINE-INTERFACE | 10 + 10 | 1 + 1 | 0 | 9 + 9 | arrivati 28/10/2026, a foro passante |
+| Millefori Multicomp MC01009 72 × 47 mm, Farnell 22/10/2026 | HW-KLINE-INTERFACE | 5 | 1 | — | 4 | arrivati 28/10/2026 |
 | Launch Creader 3001 (scanner) | HW-SCANNER | 1 | strumento | strumento | — |  |
 | UNI-T UT210E (multimetro) | HW-MULTIMETER | 1 | strumento | strumento | — |  |
 | Alimentatore da banco | HW-BENCH-PSU | 1 | strumento | strumento | — |  |
