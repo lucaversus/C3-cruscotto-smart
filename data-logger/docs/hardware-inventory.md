@@ -258,37 +258,40 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-IMU-LSM6DSO — ST STEVAL-MKI196V1: adattatore DIL-24 con IMU LSM6DSO (accelerometro + giroscopio 6 assi)
 
-**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029, D-033)
+**Stato:** `present_verified` · **Quantità:** 1 · **Ambito:** Data Logger e Cruscotto digitale (front-end, D-029, D-033)
 
-**Fonte:** Utente 22/10/2026: "ST STEVAL-MKI196V1 ho preso questo" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026. 24/10/2026: misure meccaniche dai Gerber ST steval-mki196v1_gerber.zip (2018, contorno GM1 e foratura): scheda 18,0 × 30,5 mm; 24 fori Ø0,9 mm su due file da 12 a passo 2,54 mm con interasse 15,0 mm (non i 15,24 di uno zoccolo DIP da 600 mil); piedino 1 con piazzola quadrata in alto a sinistra (vista lato componenti), primo e ultimo foro a 1,28 mm dai bordi corti. Impronta del progetto scheda-madre:ST_DIL24_Adapter_W15.0mm (due strip femmina 1x12). Nessun modello 3D dell'utente: modulo non ancora arrivato. 28/10/2026: ordine Farnell 20261022194931 arrivato, caricato dall'utente nel magazzino lucaversus/DB-componenti-elettronici; presenza dichiarata, non ancora verificata al banco.
+**Fonte:** Utente 22/10/2026: "ST STEVAL-MKI196V1 ho preso questo" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: "sostituiscilo con questo", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026. 24/10/2026: misure meccaniche dai Gerber ST steval-mki196v1_gerber.zip (2018, contorno GM1 e foratura): scheda 18,0 × 30,5 mm; 24 fori Ø0,9 mm su due file da 12 a passo 2,54 mm con interasse 15,0 mm (non i 15,24 di uno zoccolo DIP da 600 mil); piedino 1 con piazzola quadrata in alto a sinistra (vista lato componenti), primo e ultimo foro a 1,28 mm dai bordi corti. Impronta del progetto scheda-madre:ST_DIL24_Adapter_W15.0mm (due strip femmina 1x12). Nessun modello 3D dell'utente: modulo non ancora arrivato. 28/10/2026: ordine Farnell 20261022194931 arrivato, caricato dall'utente nel magazzino lucaversus/DB-componenti-elettronici; presenza dichiarata, non ancora verificata al banco. 28/10/2026: foto fronte e retro dell'utente archiviate; misure con il calibro 18,5 × 30,9 mm, interasse 15 mm, passo 2,54 mm. Impronta e ingombro della scheda madre portati a 18,5 × 30,9 mm.
+
+**Foto archiviate:** [steval-mki196v1-fronte.jpg](hardware-photos/steval-mki196v1-fronte.jpg), [steval-mki196v1-retro.jpg](hardware-photos/steval-mki196v1-retro.jpg)
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- 28/10/2026, utente con foto e calibro: sigla STEVAL-MKI196V1 serigrafata; scheda 18,5 × 30,9 mm; passo 2,54 mm; interasse tra le file 15 mm (non 15,24); piedino 1 = piazzola quadrata accanto a VDD; serigrafia dei piedini uguale alla piedinatura ST DB3714 (1 VDD, 2 VDDIO, 13 GND, 19 CS, 20 SCL, 21 SDA, 22 SDO). Solo verifica visiva e meccanica, nessuna prova elettrica.
 
 **Da verificare:**
 
-- All'arrivo: riscontrare sigla STEVAL-MKI196V1 e marcatura del chip; foto da archiviare.
-- Piedinatura DIL-24 ricavata da ST DB3714 rev 1 (schema STEVAL-MKI196V1, 22/10/2026): 1 VDD, 2 VDDIO, 3 OCS, 4 SCx, 5 SDx, 6 OSDO, 13 GND, 14 INT1, 15 INT2, 19 CS, 20 SCL, 21 SDA, 22 SDO/SA0; 7-12 e 23 liberi, 16-18 e 24 con resistenze non montate. Condensatori 100 nF su VDD e VDDIO presenti, nessuna pull-up I2C sulla scheda. Da riscontrare sulla serigrafia all'arrivo. Alimentazione 1,71-3,6 V: solo 3,3 V.
+- Marcatura del chip U1 illeggibile anche a occhio (utente 28/10/2026, chip troppo piccolo): identità LSM6DSO accettata dalla sigla della scheda STEVAL-MKI196V1; conferma elettrica alla prima lettura del registro WHO_AM_I (0x6C atteso da datasheet, da riscontrare).
+- Piedinatura DIL-24 ricavata da ST DB3714 rev 1 (schema STEVAL-MKI196V1, 22/10/2026): 1 VDD, 2 VDDIO, 3 OCS, 4 SCx, 5 SDx, 6 OSDO, 13 GND, 14 INT1, 15 INT2, 19 CS, 20 SCL, 21 SDA, 22 SDO/SA0; 7-12 e 23 liberi, 16-18 e 24 con resistenze non montate. Condensatori 100 nF su VDD e VDDIO presenti, nessuna pull-up I2C sulla scheda. Serigrafia riscontrata il 28/10/2026 (foto archiviate). Alimentazione 1,71-3,6 V: solo 3,3 V.
 - Indirizzo I2C 0x6A con SDO/SA0 (piedino 22) a GND; CS (19) a 3,3 V per il modo I2C. SCx/SDx (4/5) a GND in modo 1 secondo ST (riscontrare sulla tabella dei piedini del datasheet LSM6DSO), OCS e OSDO liberi. Pull-up SDA/SCL: verificare quelle del modulo RTC, altrimenti 4,7 kohm verso 3,3 V. Nessun conflitto atteso con RTC 0x68, EEPROM 0x57, OLED 0x3C.
 - Collegamento proposto: bus I2C HW-394 GPIO21/22 su ritaglio di millefori (basetta 4, tavola C3AI-DL-EL-004 rev A, D-042), non verificato. Fissaggio rigido e orientamento assi da definire; stesso sensore e montaggio tra raccolta dati e cruscotto (D-033).
 - Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).
-- All'arrivo: confermare interasse 15,0 mm e posizione del piedino 1 sul pezzo (misure dai Gerber ST, non dal modulo).
 - Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).
+- Utente 28/10/2026: l'unica STEVAL posseduta va sulla scheda madre (J6), nessuna seconda STEVAL in ordine; il Data Logger in pausa ne richiederà un'altra alla ripresa. Impegno spostato nel magazzino condiviso.
+- Il modulo è arrivato con le strip maschio già saldate (foto retro): per la scheda madre (J6, D-059) si salda così com'è nei fori da 1 mm; altezza reale sopra la scheda da misurare per il modello 3D (stima 5,6 mm del corpo).
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
 
-**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Cruscotto digitale: prova a banco dell'uscita audio P6 dell'S3 (DSP-M005/M006, D-028)
+**Stato:** `present_verified` · **Quantità:** 1 · **Ambito:** Cruscotto digitale: prova a banco dell'uscita audio P6 dell'S3 (DSP-M005/M006, D-028)
 
 **Fonte:** Utente 22/10/2026: "1504105 preso" (Farnell Italia, codice 1504105, 3,64 € IVA esclusa, scelto dalla ricerca del 22/10/2026). Ordine dichiarato, consegna non riscontrata. 28/10/2026: ordine Farnell 20261022194931 arrivato, caricato dall'utente nel magazzino lucaversus/DB-componenti-elettronici; presenza dichiarata, non ancora verificata al banco.
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- 28/10/2026, utente con tester: resistenza in continua 7,9 Ω ai capi, coerente con 8 Ω nominali (bobina integra). Nessuna prova di suono.
 
 **Da verificare:**
 
-- All'arrivo: riscontrare sigla e impedenza (circa 8 Ω misurati al tester, valore in continua leggermente inferiore).
+- Sigla ABS-216-RC sul pezzo da riscontrare; resistenza misurata 7,9 Ω il 28/10/2026.
 - Senza cavetti: saldare due fili o usare coccodrilli; collegarlo solo a P6 Speak con firmware speak-test caricato.
 - Prova da fare: tono 200 Hz di speak-test 0.1.1 per chiarire la funzione di U1 "AKK 7HG" (amplificatore o altro), prima di definire amplificatore e relè D-028.
 - Solo banco: non è l'altoparlante del veicolo; relè e amplificatore D-028 ancora da definire.
@@ -367,12 +370,13 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- 28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica.
+- 28/10/2026, utente a vista: condensatori C1 100 nF e C2 10 µF arrivati a foro passante (versione THT, non le SMD del primo carrello).
 
 **Da verificare:**
 
 - Ordine Farnell 22/10/2026 (dichiarato, consegna non riscontrata): 2× LM2903BYDT (SOIC-8, versione B), 5× 2N5551BU onsemi, resistenze R1…R10 (330 Ω, 47 kΩ, 510 Ω 1 W 5 %, 68 kΩ, 10 kΩ 0,5 %, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ), C1 100 nF e C2 10 µF, millefori MC01009 72×47 mm come base. All'arrivo riscontrare valori e sigle.
-- Condensatori: nel carrello allegato erano SMD (KEMET 0603 100 nF, Panasonic EEEHB1C100R 10 µF); consigliata sostituzione con THT 1216438 e 8766754, versione effettivamente ordinata da riscontrare all'arrivo.
+- Condensatori: arrivati a foro passante (utente 28/10/2026), adatti alla millefori; codice esatto Farnell non riscontrato sul pezzo.
 - Montaggio scelto dall'utente: collegamenti volanti sulla millefori, senza zoccolo, adattatore SOIC-8→DIP-8 né morsettiere (KL-003 resta riferimento per un montaggio successivo). Fili sottili saldati direttamente ai piedini SOIC (passo 1,27 mm): controllare al tester assenza di ponti prima di alimentare; fissare meccanicamente chip e fili.
 - Verifica montaggio, pin E-B-C del 2N5551 onsemi sul datasheet, assenza corti e alimentazioni su banco limitato in corrente (HW-BENCH-PSU dichiarato).
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.

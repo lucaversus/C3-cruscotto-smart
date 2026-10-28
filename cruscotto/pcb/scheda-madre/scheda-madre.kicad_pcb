@@ -30960,8 +30960,8 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
-			(start -1.62 1.4)
-			(end 16.62 -29.34)
+			(start -1.87 1.6)
+			(end 16.87 -29.54)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -30971,8 +30971,8 @@
 			(uuid "abc5bc6d-6bfd-46ce-b071-716a1c35dc84")
 		)
 		(fp_rect
-			(start -1.75 1.53)
-			(end 16.75 -29.47)
+			(start -2 1.73)
+			(end 17 -29.67)
 			(stroke
 				(width 0.05)
 				(type solid)
@@ -30982,8 +30982,8 @@
 			(uuid "ee5611dc-7856-477d-aa28-b5111f94bd57")
 		)
 		(fp_rect
-			(start -1.5 1.28)
-			(end 16.5 -29.22)
+			(start -1.75 1.48)
+			(end 16.75 -29.42)
 			(stroke
 				(width 0.1)
 				(type solid)

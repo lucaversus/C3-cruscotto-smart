@@ -140,7 +140,7 @@ Foglio `cruscotto/pcb/scheda-madre/sensori-memoria.kicad_sch`; tavola
 [CR-EL-004](../../disegni/CR-EL-004_scheda-madre-sensori-memoria.png).
 
 - **IMU** (-U9 del blocco): zoccolo per il modulo STEVAL-MKI196V1 (HW-IMU-LSM6DSO, D-046):
-  scheda 18,0 × 30,5 mm, due file da 12 pin a passo 2,54 con **interasse 15,0 mm** (Gerber ST,
+  scheda 18,5 × 30,9 mm (calibro, 28/10/2026), due file da 12 pin a passo 2,54 con **interasse 15,0 mm** (Gerber ST e pezzo,
   non 15,24 come uno zoccolo DIP), saldato direttamente con i suoi pin (D-059) sull'impronta del progetto
   `scheda-madre:ST_DIL24_Adapter_W15.0mm`; piedinatura da ST DB3714 rev 1: VDD/VDDIO e CS al 3,3 V sempre acceso (CS alto =
   I2C), SDO/SA0 a massa (indirizzo 0x6A), SCL/SDA sul bus I2C; INT1/INT2 non collegati (GPIO
