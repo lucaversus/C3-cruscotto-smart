@@ -14,7 +14,7 @@ Comprende tutto il necessario tranne il materiale di consumo (viti, filo, guaina
 
 | Qtà | Voce | Note |
 | --- | --- | --- |
-| 1 | Circuito stampato 4 strati, 178,7 × 74 mm, 1,6 mm, rame 35 µm, foro minimo 0,2 mm, pista minima 0,15 mm | Solo dopo serigrafia sistemata, Gerber e verifiche aperte di `scheda-madre.md`; preventivo da fare (D-057) |
+| 1 | Circuito stampato 4 strati, 178,7 × 89 mm (contorno v3, D-061), 1,6 mm, rame 35 µm, foro minimo 0,2 mm, pista minima 0,15 mm | Solo dopo serigrafia sistemata, Gerber e verifiche aperte di `scheda-madre.md`; preventivo da fare (D-057) |
 
 ## 2. Già in possesso o ordinati (anche per il Data Logger)
 
@@ -98,7 +98,7 @@ tensione minima ricavata dalle reti dello schema.
 
 | Qtà | Componente | Rif. | Note |
 | --- | --- | --- | --- |
-| 1 | Molex Micro-Fit 3.0 43045-2400, 2 × 12, orizzontale | J1 | verso l'auto (D-044) |
+| 1 | Molex Micro-Fit 3.0 43045-2412, 2 × 12, verticale con pioli | J1 | verso l'auto (D-044, D-061) |
 | 1 | USB-C HRO TYPE-C-31-M-12 | J3 | passo 0,5 mm, saldatura a trascinamento |
 | — | Piazzole per filo 26 AWG, nessun componente | J4, J5, J10-J12 | ventola, NTC del display, cavetti verso la S3 (D-059) |
 | — | Moduli saldati direttamente con i loro pin | J6-J9 | STEVAL, MicroSD, VAN (D-059) |

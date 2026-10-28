@@ -1,4 +1,7 @@
-"""Studio d'ingombro della scheda madre (C3AI-CR-PL-001), D-029…D-031, D-044, D-045.
+"""Studio d'ingombro della scheda madre (C3AI-CR-PL-001), D-029…D-031, D-044, D-045, D-061.
+
+Rev. F (D-061): contorno v3 dell'utente, 15 mm più in basso (bordo inferiore a y −6, raccordi R10),
+fori invariati; -J1 Micro-Fit verticale nella nuova fascia in basso, spina innestata dal retro.
 
 Rev. E: posizione degli interruttori e della scheda S3 dall'assieme 3D dell'utente
 (cruscotto/meccanica/assieme-cruscotto.step): pulsanti originali in (±84,3, 32,2) mm nelle
@@ -107,7 +110,7 @@ KEEP = 3.5                                                # zona libera attorno 
 
 # Zone: sigla, descrizione, x sinistra, y alta (mm del DXF), larghezza, altezza, facoltativa
 ZONES = [
-    ('-J1', 'Micro-Fit 3.0 2×12 (D-044)', -20, 23, 40, 13, False),
+    ('-J1', 'Micro-Fit 3.0 2×12 verticale (D-061)', -21, 4.5, 42, 10, False),
     ('-X2', 'J2 verso S3 (P1, P2, P6)', -17, 81, 34, 8, False),
     ('-U1…U3', 'Ingresso 12 V protetto', -73, 42, 26, 20, False),
     ('-U4', 'Buck 12→5 V 3 A', -45, 41, 22, 16, False),
@@ -123,7 +126,7 @@ ZONES = [
     ('-X4', 'MicroSD', 23, 73, 15, 15, True),
 ]
 HOT = {'-U1…U3', '-U4', '-U5', '-U6'}   # componenti più caldi: faccia interna, nel flusso della ventola (D-046)
-AREAS = {'-J1': 520, '-X2': 272, '-U1…U3': 520, '-U4': 352, '-U5': 160, '-U6': 459, '-U9': 120, '-K1/K2': 476,
+AREAS = {'-J1': 420, '-X2': 272, '-U1…U3': 520, '-U4': 352, '-U5': 160, '-U6': 459, '-U9': 120, '-K1/K2': 476,
          '-U7': 108, '-U8': 308, '-U11': 288, '-X3': 96, '-U10': 480, '-X4': 225}
 
 
@@ -164,7 +167,7 @@ assert not problems, '\n'.join(problems)
 d = Sheet('C3AI-CR-PL-001 rev E — Scheda madre, studio d\'ingombro')
 d.frame()
 d.text(25, 20, 'SCHEDA MADRE — STUDIO D\'INGOMBRO SUL CONTORNO DEFINITIVO (SCALA 1,5:1)', 5, bold=True)
-d.text(25, 25, 'Contorno e fori dal disegno dell\'utente (scheda-madre-contorno.dxf, 178,7 × 74 mm). Zone con ingombri stimati, '
+d.text(25, 25, 'Contorno e fori dal disegno dell\'utente (scheda-madre-contorno.dxf v3, 178,7 × 89 mm). Zone con ingombri stimati, '
                'controllate dal generatore: non è un circuito stampato.', 2.5)
 
 pts = ' '.join(f'{P(x, y)[0]:.2f},{P(x, y)[1]:.2f}' for x, y in POLY)
@@ -240,7 +243,7 @@ d.notes(25, 214, 'NOTE', [
     '   in alternativa 30 × 30 con foro Ø28. Distanza tra le schede da scegliere per il flusso d\'aria.',
     '3  -S1/-S2 sotto i pulsanti originali (assieme 3D): estremità del pulsante a circa 6,3 mm dalla scheda, quindi',
     '   interruttore tattile con pulsante alto circa 7 mm o prolunga; corsa da verificare.',
-    '4  -J1 al bordo inferiore, al centro: il cablaggio esce verso il basso. Antenna del front-end -U6 verso il bordo, senza rame.',
+    '4  -J1 verticale in basso, al centro (D-061): la spina entra dal retro, servono circa 30-35 mm dietro la scheda. Antenna del front-end -U6 verso il bordo, senza rame.',
     '5  Supercondensatore di riserva (-C1, 36 × 24) non trova posto su questa faccia: retro o fuori scheda, da decidere.',
     '6  Montaggio a mano, si produce solo il circuito stampato (D-046): passivi da 0805, SOIC/SOT/TSSOP, moduli; niente',
     '   QFN, BGA, LGA (IMU su modulo con connettore). Distanza tra le schede da fissare simulando lo spessore nel 3D.',
@@ -248,12 +251,13 @@ d.notes(25, 214, 'NOTE', [
 
 d.title_block(title=['Scheda madre', 'studio d\'ingombro'], subtitle='Cruscotto digitale',
               doc_type='Disposizione (1,5:1)', status='PRELIMINARE · NON VERIFICATO',
-              code='C3AI-CR-PL-001', rev='E', date='24/10/2026', sheet='1/1',
+              code='C3AI-CR-PL-001', rev='F', date='28/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione: contorno S3, zone e bilancio aree (D-029…D-031)', '21/10/2026'),
                          ('B', 'IMU LSM6DSO (HW-IMU-LSM6DSO) al posto di LSM6DS3', '22/10/2026'),
                          ('C', 'Contorno definitivo dal DXF dell\'utente, foro ventola, interruttori -S1/-S2, J1 24 vie (D-045)', '24/10/2026'),
                          ('D', 'Componenti caldi sulla faccia interna, montaggio a mano (D-046)', '24/10/2026'),
-                         ('E', 'Interruttori e scheda S3 posizionati dall’assieme 3D', '24/10/2026')])
+                         ('E', 'Interruttori e scheda S3 posizionati dall’assieme 3D', '24/10/2026'),
+                         ('F', 'Contorno v3 (+15 mm in basso), J1 Micro-Fit verticale (D-061)', '28/10/2026')])
 out = ROOT / 'disegni/sorgenti/CR-PL-001_scheda-madre-ingombro.svg'
 out.write_text(d.svg('Studio d\'ingombro della scheda madre sul contorno definitivo; stime, non PCB.'), encoding='utf-8')
 print(out, 'base', core, 'facoltative', opt, 'area utile', round(board_area - fan_area))

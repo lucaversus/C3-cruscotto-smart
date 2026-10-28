@@ -7,7 +7,7 @@ Crea cruscotto/pcb/scheda-madre/scheda-madre.kicad_pcb con:
   centrale Ø38 della ventola;
 - 6 fori di fissaggio Ø3 senza rame, 4 fori Ø3,2 per la ventola 40 × 40 (interasse 32);
 - interruttori -S1/-S2 (tattili 6 × 6 alti 7,3 mm) sotto i pulsanti originali (assieme 3D);
-- connettore -J1 Micro-Fit 2×12 orizzontale al bordo inferiore (D-044);
+- connettore -J1 Micro-Fit 2×12 verticale nella fascia inferiore, spina dal retro (D-044, D-061);
 - su User.Drawings il contorno della S3 e le zone dello studio C3AI-CR-PL-001.
 Faccia F (rame superiore) = faccia interna rivolta verso la S3 (D-046).
 Regole minime per un circuito stampato a 2 strati prodotto senza montaggio (D-046).
@@ -43,7 +43,7 @@ tb.SetTitle('Scheda madre cruscotto C3+AI')
 tb.SetRevision('A')
 tb.SetDate('2026-10-24')
 tb.SetCompany('Cruscotto C3+AI')
-tb.SetComment(0, 'Contorno D-045, montaggio a mano D-046, J1 D-044')
+tb.SetComment(0, 'Contorno D-045, montaggio a mano D-046, J1 D-044/D-061')
 tb.SetComment(1, 'Generato da tools/genera-pcb-scheda-madre.py - preliminare, non verificato')
 
 ds = board.GetDesignSettings()
@@ -113,12 +113,12 @@ for i, (sx, sy) in enumerate(ing.SW, 1):
     # L'origine dell'impronta è il piedino 1: si sposta il centro del corpo sotto il pulsante.
     centre = sw.GetCourtyard(pcbnew.F_CrtYd).BBox().Centre()
     sw.Move(pcbnew.VECTOR2I(at(sx, sy).x - centre.x, at(sx, sy).y - centre.y))
-j1 = place('Connector_Molex', 'Molex_Micro-Fit_3.0_43045-2400_2x12_P3.00mm_Horizontal', 'J1', 0.0, 16.0, angle=0.0,
-           back=True, value='Micro-Fit 2x12 verso auto (D-044)')
-# L'origine dell'impronta è il piedino 1: centrare in x e portare il fronte del connettore al bordo
-# inferiore (y = 9 mm nel DXF), così la spina si innesta dal basso.
+j1 = place('Connector_Molex', 'Molex_Micro-Fit_3.0_43045-2412_2x12_P3.00mm_Vertical', 'J1', 0.0, 0.0, angle=0.0,
+           back=True, value='Micro-Fit 2x12 verticale verso auto (D-061)')
+# L'origine dell'impronta è il piedino 1: centrare in x e portare il courtyard a 1 mm dal bordo inferiore
+# (y = -6 mm nel DXF v3); la spina si innesta dal retro, perpendicolare alla scheda.
 box = j1.GetCourtyard(pcbnew.B_CrtYd).BBox()
-edge_y = at(0, ing.YMIN).y
+edge_y = at(0, ing.YMIN + 1.0).y
 j1.Move(pcbnew.VECTOR2I(at(0, 0).x - box.Centre().x, edge_y - box.GetBottom()))
 
 
