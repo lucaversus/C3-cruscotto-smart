@@ -698,7 +698,7 @@ text(25.4, 246.38, 'Etichette con lo stesso nome sono collegate, anche tra fogli
 # Foglio 3: interfacce veicolo, K-line e VAN (C3AI-CR-EL-003; D-008, D-022, D-033)
 # ======================================================================================
 begin_sheet('interfacce-veicolo.kicad_sch', 'Scheda madre cruscotto C3+AI - interfacce veicolo', 'C3AI-CR-EL-003',
-            'B', 'D-008, D-022, D-029, D-033, D-046, D-051', sheet_uuid=VEH_SHEET)
+            'C', 'D-008, D-022, D-029, D-033, D-046, D-051, D-060', sheet_uuid=VEH_SHEET, date='2026-10-28')
 SOIC8 = 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'
 
 # --- K-line: circuito KL-001 rev F (data-logger/docs/kline-autocostruita.md) con protezioni ---
@@ -762,7 +762,7 @@ label('+5V', (124.46, 104.14), 0)
 
 # --- VAN: modulo blu SN65HVD230 (HW-CAN-VP230) su file di pin, sola ricezione (D-051) ----
 HDR = 'Connector_PinHeader_2.54mm:PinHeader_1x%02d_P2.54mm_Vertical'
-symbol('J8', 'Connector_Generic:Conn_01x04', 'Modulo VAN: 3.3V GND RX TX', HDR % 4, 231.14, 66.04,
+symbol('J8', 'Connector_Generic:Conn_01x04', 'Modulo VAN: 3.3V GND RX TX', 'scheda-madre:Modulo_VAN_SN65HVD230', 231.14, 66.04,
        nets={'1': '+3V3_SW', '2': 'GND', '3': 'VAN_RX', '4': '+3V3_SW'}, txt=((0, 10.16), (0, 12.7), ''),
        note='Modulo con resistenza 121 rimossa (VAN-M002); TX al 3,3 V sulla scheda: trasmettitore sempre recessivo')
 shunt('C30', '100nF', 213.36, 53.34, '+3V3_SW')
@@ -775,8 +775,8 @@ R('R47', '100k', 208.28, 72.39, 'VAN_RX', 'GND', txt=((-2.54, -1.27), (-2.54, 1.
 gnd('R47.2', 0)
 wire('J8.3', 'R47.1', (200.66, 68.58))
 label('VAN_RX', (200.66, 68.58), 180)
-symbol('J9', 'Connector_Generic:Conn_01x02', 'Modulo VAN: CANH CANL', HDR % 2, 309.88, 66.04,
-       nets={'1': 'VAN_DATA', '2': 'VAN_DATAB'}, note='Interasse con J8 da misurare sul modulo')
+symbol('J9', 'Connector_Generic:Conn_01x02', 'Modulo VAN: CANH CANL', WIRE % 2, 309.88, 66.04,
+       nets={'1': 'VAN_DATA', '2': 'VAN_DATAB'}, note='Due fili dal morsetto a vite del modulo (D-060)')
 symbol('D10', 'Power_Protection:NUP2105L', 'NUP2105L', SOT23, 284.48, 67.31, rot=90,
        nets={'1': 'VAN_DATAB', '2': 'VAN_DATA', '3': 'GND'}, txt=((0, -7.62), (0, -5.08), ''),
        note='Protezione dai transitori sulle due linee VAN')

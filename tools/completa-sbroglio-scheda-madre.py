@@ -635,8 +635,12 @@ def route_all(rounds=6):
                     ends = np.any(src, axis=0) | (np.any(main, axis=0) if name != 'GND' else False)
                     near = dilate(ends, 1.5)  # attorno a entrambi i capi (per la massa solo il gruppo staccato)
                     blockers = {int(v) for li in ROUTE for v in np.unique(COP[li][near])} - {0, -1, code}
-                    blockers = {b for b in blockers if b not in RIPPED and netclass(b)[0] <= 0.25
-                                and sum(t.GetNetCode() == b for t in board.GetTracks()) <= 60}
+                    gnd_code = board.FindNet('GND').GetNetCode()
+                    signal = {b for b in blockers if b not in RIPPED and netclass(b)[0] <= 0.25
+                              and sum(t.GetNetCode() == b for t in board.GetTracks()) <= 60}
+                    # se non c'è nessun segnale da spostare, anche le piste di potenza vicine (non la massa)
+                    blockers = signal or {b for b in blockers if b not in RIPPED and b != gnd_code
+                                          and sum(t.GetNetCode() == b for t in board.GetTracks()) <= 150}
                     rip = ({code} if name != 'GND' and code not in RIPPED else set()) | blockers
                     if rip:
                         RIPPED.update(rip)

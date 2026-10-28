@@ -200,8 +200,30 @@ def is_tht(fp):
     return any(p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH for p in fp.Pads())
 
 
+# Componenti con pochi fori passanti: il corpo occupa una sola faccia, sull'altra solo i fori (modulo VAN appoggiato
+# sul retro, D-060; ESP32 U4 con i fori termici da saldare dal retro, D-048, che restano liberi e raggiungibili).
+PINS_ONLY_OTHER_SIDE = {'J8', 'U4'}
+
+
+def pads_dxf(fp):
+    xs, ys = [], []
+    for p in fp.Pads():
+        if p.GetAttribute() != pcbnew.PAD_ATTRIB_PTH:
+            continue
+        bb = p.GetBoundingBox()
+        for x, y in ((bb.GetLeft(), bb.GetTop()), (bb.GetRight(), bb.GetBottom())):
+            dx, dy = dxf(pcbnew.VECTOR2I(x, y))
+            xs.append(dx)
+            ys.append(dy)
+    return (min(xs) - 1.0, min(ys) - 1.0, max(xs) + 1.0, max(ys) + 1.0)  # margine per il saldatore
+
+
 def occupy(fp, side):
     b = box_dxf(fp)
+    if fp.GetReference() in PINS_ONLY_OTHER_SIDE:
+        OCC[side].append(b)
+        OCC['F' if side == 'B' else 'B'].append(pads_dxf(fp))
+        return
     for s in (('F', 'B') if is_tht(fp) else (side,)):   # i componenti a foro passante occupano le due facce
         OCC[s].append(b)
 
@@ -276,6 +298,8 @@ def move_box_to(fp, cx, cy):
 
 
 def sides_of(fp, side):
+    if fp.GetReference() in PINS_ONLY_OTHER_SIDE:
+        return (side,)
     return ('F', 'B') if is_tht(fp) else (side,)
 
 
@@ -356,6 +380,7 @@ placed |= {'J6'}
 # Pezzi principali di ogni blocco (coordinate del DXF; faccia F verso la S3, B retro). Le parti calde stanno
 # accanto alla ventola (D-046); i relè e i pezzi alti sul retro.
 ANCHORS = [
+    ('J8', 'B', 47.5, 42.5, 0),     # modulo VAN sul retro, sopra i fori termici di U4: montarlo dopo U4 (D-060)
     ('U4', 'F', 48.0, 50.0, 0),     # front-end ESP32 (radio non usata)
     ('Q1', 'F', -32.0, 24.5, 0),    # diodo ideale d'ingresso vicino a J1
     ('L1', 'F', -48.0, 25.0, 0),
@@ -366,7 +391,6 @@ ANCHORS = [
     ('K1', 'B', -52.0, 40.0, 90),   # relè in orizzontale sul retro
     ('K2', 'B', -44.0, 55.0, 90),
     ('C3', 'B', -62.0, 24.5, 0),
-    ('J8', 'B', 30.0, 54.0, 0),     # modulo VAN
 ]
 for ref, side, x, y, rot in ANCHORS:
     put(ref, side, x, y, rot=rot)
