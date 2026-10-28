@@ -1,6 +1,6 @@
 # Lista acquisti — scheda madre del cruscotto
 
-Revisione E — 28/10/2026 (J1 verticale, D-061). Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
+Revisione F — 28/10/2026 (J1 verticale D-061; STEVAL già posseduta usata su J6). Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
 esclusa del 27-28/10/2026, da ricontrollare al momento dell'ordine. Riferimenti, valori e verifiche in
 `distinta-scheda-madre.md`; viti, filo, guaina e stagno esclusi (materiale di consumo). Niente è ancora ordinato.
 Cablaggio verso l'auto con fili Molex già crimpati (niente pinza): alloggiamento femmina 43025-2400 e fili
@@ -9,7 +9,7 @@ Cablaggio verso l'auto con fili Molex già crimpati (niente pinza): alloggiament
 | Fornitore | Righe | Merce | Spedizione | File |
 | --- | --- | --- | --- | --- |
 | LCSC | 53 | 80.50 $ | 13 $ | `ordine-lcsc-scheda-madre.csv` |
-| Farnell | 16 | circa 33.79 € | da verificare | `ordine-farnell-scheda-madre.csv` |
+| Farnell | 15 | circa 18.43 € | da verificare | `ordine-farnell-scheda-madre.csv` |
 | DigiKey | 7 | circa 52 € | gratuita sopra 50 € (da verificare) | `ordine-digikey-scheda-madre.csv` |
 | Produttore di circuiti stampati | 1 | preventivo | — | dopo serigrafia e Gerber (D-057) |
 
@@ -96,7 +96,6 @@ Da incollare in «Aggiungi rapidamente» del carrello (codice, quantità); Farne
 | 2747614 | 2 | VISHAY NTCS0805E3104FXT | RT1 |
 | 1187033 | 2 | VISHAY NTCLE100E3104JB0 | NTC display |
 | 3257429 | 4 | DIODES INC. AP2112K-3.3TRG1 | U5 U9 |
-| 2987032 | 1 | STMICROELECTRONICS STEVAL-MKI196V1 | J6 (IMU) |
 | 634712 | 1 | MOLEX 43020-2400 | spina volante per il banco (D-044) |
 | 1012244 | 2 | MOLEX 43045-2412 | J1 verticale (D-061) |
 
@@ -123,7 +122,8 @@ Un solo ordine sopra la soglia della spedizione gratuita. DigiKey non ha il filo
   primo (resistenza 121 tolta, prove 1-4 D-022).
 - Spine MX1.25 lato S3 (HW-MX125-PLUGS); scheda S3 con display (HW-DASH-DISPLAY).
 - LM2903BYDT e EEEHB1C100R in arrivo con l'ordine del logger: utilizzabili come scorta.
-- STEVAL-MKI196V1: 1 già ordinata (HW-IMU-LSM6DSO); quella della lista Farnell è la seconda (logger e cruscotto, D-033).
+- STEVAL-MKI196V1: quella posseduta (HW-IMU-LSM6DSO, arrivata il 28/10/2026) va su J6 della scheda madre (utente 28/10/2026);
+  il Data Logger in pausa ne richiederà un'altra alla ripresa.
 
 ## 5. Circuito stampato
 

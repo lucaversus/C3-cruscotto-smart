@@ -21,7 +21,7 @@ Dal 28/10/2026 giacenze, impegni per progetto e ordini sono tenuti anche nel mag
 | Display OLED I2C | HW-OLED | da riscontrare | 1 | — | presi − 1 | modello da riscontrare |
 | Scheda RCmall ESP32-S3 con display 5" | HW-DASH-DISPLAY | 1 | — | 1 | 0 |  |
 | Spine MX1.25 per i cavetti verso la S3 | HW-MX125-PLUGS | da riscontrare | — | 3 (P1, P2, Speak) | presi − 3 |  |
-| STEVAL-MKI196V1 (IMU LSM6DSO), Farnell 2987032 | HW-IMU-LSM6DSO | 1 | 1 | vedi sezione 2 | 0 | arrivata 28/10/2026 |
+| STEVAL-MKI196V1 (IMU LSM6DSO), Farnell 2987032 | HW-IMU-LSM6DSO | 1 | — (logger in pausa) | 1 (J6) | 0 | arrivata 28/10/2026; usata sulla scheda madre |
 | Altoparlante di prova Multicomp Pro ABS-216-RC, Farnell | HW-AUDIO-SPK-TEST | 1 | — | prova a banco | 0 | arrivato 28/10/2026 |
 | Portafusibile | HW-FUSE-HOLDER | ordinato, quantità da riscontrare | 1 | — |  | modello da riscontrare |
 | LM2903BYDT (SOIC-8), Farnell 22/10/2026 | HW-KLINE-INTERFACE | 2 | 1 | 0 (la scheda usa quello LCSC) | 1 | arrivato 28/10/2026 |
@@ -106,7 +106,6 @@ Avanzo = quantità da ordinare − quantità usata da una scheda. Su LCSC molti 
 | Farnell | NTCS0805E3104FXT | VISHAY | 2 | 1 | 1 | RT1 |
 | Farnell | NTCLE100E3104JB0 | VISHAY | 2 | 1 | 1 | NTC display |
 | Farnell | AP2112K-3.3TRG1 | DIODES INC. | 4 | 2 | 2 | U5 U9 |
-| Farnell | STEVAL-MKI196V1 | STMICROELECTRONICS | 1 | 1 | 0 | J6 (seconda STEVAL, da confermare) |
 | Farnell | 43020-2400 | MOLEX | 1 | 1 | 0 | spina volante da banco |
 | DigiKey | 214761-2124 | Molex femmina pre-crimpato 300 mm 18 AWG rosso | 2 | 1 | 1 | cablaggio: +batteria |
 | DigiKey | 214761-1124 | Molex femmina pre-crimpato 300 mm 18 AWG nero | 2 | 1 | 1 | cablaggio: massa |

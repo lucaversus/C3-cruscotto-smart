@@ -275,6 +275,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).
 - All'arrivo: confermare interasse 15,0 mm e posizione del piedino 1 sul pezzo (misure dai Gerber ST, non dal modulo).
 - Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).
+- Utente 28/10/2026: l'unica STEVAL posseduta va sulla scheda madre (J6), nessuna seconda STEVAL in ordine; il Data Logger in pausa ne richiederà un'altra alla ripresa. Impegno spostato nel magazzino condiviso.
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
 
