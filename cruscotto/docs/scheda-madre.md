@@ -186,8 +186,8 @@ dei Gerber e dell'ordine dei circuiti stampati.
 1. **Profondità dietro la scheda madre** (verso il fondo del quadro): sul retro i pezzi più alti
    sono i relè K1/K2 (15,7 mm), C3 e J4 (circa 10 mm), la ventola (10 mm) e J1 con la spina del
    cablaggio inserita: con J1 verticale (D-061) servono circa 30-35 mm per spina e curva dei fili. Utente
-   28/10/2026: la parte più profonda del vano è a circa 3 cm dal lato lungo della scheda (lato e profondità da
-   precisare). Da misurare sull'auto o sul modello del quadro.
+   28/10/2026: la parte più profonda del vano è a circa 3 cm dal lato lungo inferiore della scheda, profonda circa
+   4 cm; profondità al bordo inferiore, dove sta J1, da precisare. Da misurare sull'auto o sul modello del quadro.
 2. **Modulo VAN blu**: risolta con D-060 (pin diritti su J8, modulo appoggiato sul retro, CANH/CANL con due
    fili a J9); resta da confermare sul pezzo la posizione dei 4 pin rispetto al bordo del modulo (ingombro
    35 × 13 mm misurato dall'utente).
