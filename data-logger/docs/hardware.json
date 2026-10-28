@@ -421,10 +421,12 @@
       "name": "Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)",
       "scope": "Cruscotto digitale: prova a banco dell'uscita audio P6 dell'S3 (DSP-M005/M006, D-028)",
       "quantity": 1,
-      "status": "present_declared",
-      "verified": [],
+      "status": "present_verified",
+      "verified": [
+        "28/10/2026, utente con tester: resistenza in continua 7,9 Ω ai capi, coerente con 8 Ω nominali (bobina integra). Nessuna prova di suono."
+      ],
       "open_checks": [
-        "All'arrivo: riscontrare sigla e impedenza (circa 8 Ω misurati al tester, valore in continua leggermente inferiore).",
+        "Sigla ABS-216-RC sul pezzo da riscontrare; resistenza misurata 7,9 Ω il 28/10/2026.",
         "Senza cavetti: saldare due fili o usare coccodrilli; collegarlo solo a P6 Speak con firmware speak-test caricato.",
         "Prova da fare: tono 200 Hz di speak-test 0.1.1 per chiarire la funzione di U1 \"AKK 7HG\" (amplificatore o altro), prima di definire amplificatore e relè D-028.",
         "Solo banco: non è l'altoparlante del veicolo; relè e amplificatore D-028 ancora da definire.",

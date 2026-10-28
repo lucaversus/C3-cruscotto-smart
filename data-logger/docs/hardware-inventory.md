@@ -281,17 +281,17 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
 
-**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Cruscotto digitale: prova a banco dell'uscita audio P6 dell'S3 (DSP-M005/M006, D-028)
+**Stato:** `present_verified` · **Quantità:** 1 · **Ambito:** Cruscotto digitale: prova a banco dell'uscita audio P6 dell'S3 (DSP-M005/M006, D-028)
 
 **Fonte:** Utente 22/10/2026: "1504105 preso" (Farnell Italia, codice 1504105, 3,64 € IVA esclusa, scelto dalla ricerca del 22/10/2026). Ordine dichiarato, consegna non riscontrata. 28/10/2026: ordine Farnell 20261022194931 arrivato, caricato dall'utente nel magazzino lucaversus/DB-componenti-elettronici; presenza dichiarata, non ancora verificata al banco.
 
 **Verifiche documentate:**
 
-- Nessun collaudo elettrico del modulo documentato.
+- 28/10/2026, utente con tester: resistenza in continua 7,9 Ω ai capi, coerente con 8 Ω nominali (bobina integra). Nessuna prova di suono.
 
 **Da verificare:**
 
-- All'arrivo: riscontrare sigla e impedenza (circa 8 Ω misurati al tester, valore in continua leggermente inferiore).
+- Sigla ABS-216-RC sul pezzo da riscontrare; resistenza misurata 7,9 Ω il 28/10/2026.
 - Senza cavetti: saldare due fili o usare coccodrilli; collegarlo solo a P6 Speak con firmware speak-test caricato.
 - Prova da fare: tono 200 Hz di speak-test 0.1.1 per chiarire la funzione di U1 "AKK 7HG" (amplificatore o altro), prima di definire amplificatore e relè D-028.
 - Solo banco: non è l'altoparlante del veicolo; relè e amplificatore D-028 ancora da definire.
