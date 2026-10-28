@@ -115,11 +115,12 @@ for i, (sx, sy) in enumerate(ing.SW, 1):
     sw.Move(pcbnew.VECTOR2I(at(sx, sy).x - centre.x, at(sx, sy).y - centre.y))
 j1 = place('Connector_Molex', 'Molex_Micro-Fit_3.0_43045-2412_2x12_P3.00mm_Vertical', 'J1', 0.0, 0.0, angle=0.0,
            back=True, value='Micro-Fit 2x12 verticale verso auto (D-061)')
-# L'origine dell'impronta è il piedino 1: centrare in x e portare il courtyard a 1 mm dal bordo inferiore
-# (y = -6 mm nel DXF v3); la spina si innesta dal retro, perpendicolare alla scheda.
+# L'origine dell'impronta è il piedino 1: centrare in x e portare il courtyard 1 mm sotto la ventola (retro,
+# 40 × 40 attorno a FAN_C), vicino alla parte più profonda del vano (utente 28/10/2026: circa 4 cm a 3 cm dal
+# bordo inferiore); la spina si innesta dal retro, perpendicolare alla scheda.
 box = j1.GetCourtyard(pcbnew.B_CrtYd).BBox()
-edge_y = at(0, ing.YMIN + 1.0).y
-j1.Move(pcbnew.VECTOR2I(at(0, 0).x - box.Centre().x, edge_y - box.GetBottom()))
+top_y = at(0, ing.FAN_C[1] - ing.FAN_SIZE / 2 - 1.0).y
+j1.Move(pcbnew.VECTOR2I(at(0, 0).x - box.Centre().x, top_y - box.GetTop()))
 
 
 # --- Componenti dello schema (CR-EL-001…005): reti dal netlist di KiCad, piazzamento preliminare a blocchi ----

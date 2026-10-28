@@ -1,7 +1,7 @@
 """Studio d'ingombro della scheda madre (C3AI-CR-PL-001), D-029…D-031, D-044, D-045, D-061.
 
 Rev. F (D-061): contorno v3 dell'utente, 15 mm più in basso (bordo inferiore a y −6, raccordi R10),
-fori invariati; -J1 Micro-Fit verticale nella nuova fascia in basso, spina innestata dal retro.
+fori invariati; -J1 Micro-Fit verticale subito sotto la ventola, nella parte più profonda del vano.
 
 Rev. E: posizione degli interruttori e della scheda S3 dall'assieme 3D dell'utente
 (cruscotto/meccanica/assieme-cruscotto.step): pulsanti originali in (±84,3, 32,2) mm nelle
@@ -110,7 +110,7 @@ KEEP = 3.5                                                # zona libera attorno 
 
 # Zone: sigla, descrizione, x sinistra, y alta (mm del DXF), larghezza, altezza, facoltativa
 ZONES = [
-    ('-J1', 'Micro-Fit 3.0 2×12 verticale (D-061)', -21, 4.5, 42, 10, False),
+    ('-J1', 'Micro-Fit 3.0 2×12 verticale (D-061)', -21, 25, 42, 10, False),
     ('-X2', 'J2 verso S3 (P1, P2, P6)', -17, 81, 34, 8, False),
     ('-U1…U3', 'Ingresso 12 V protetto', -73, 42, 26, 20, False),
     ('-U4', 'Buck 12→5 V 3 A', -45, 41, 22, 16, False),
@@ -243,7 +243,7 @@ d.notes(25, 214, 'NOTE', [
     '   in alternativa 30 × 30 con foro Ø28. Distanza tra le schede da scegliere per il flusso d\'aria.',
     '3  -S1/-S2 sotto i pulsanti originali (assieme 3D): estremità del pulsante a circa 6,3 mm dalla scheda, quindi',
     '   interruttore tattile con pulsante alto circa 7 mm o prolunga; corsa da verificare.',
-    '4  -J1 verticale in basso, al centro (D-061): la spina entra dal retro, servono circa 30-35 mm dietro la scheda. Antenna del front-end -U6 verso il bordo, senza rame.',
+    '4  -J1 verticale sotto la ventola, al centro (D-061): la spina entra dal retro, servono circa 30-35 mm dietro la scheda. Antenna del front-end -U6 verso il bordo, senza rame.',
     '5  Supercondensatore di riserva (-C1, 36 × 24) non trova posto su questa faccia: retro o fuori scheda, da decidere.',
     '6  Montaggio a mano, si produce solo il circuito stampato (D-046): passivi da 0805, SOIC/SOT/TSSOP, moduli; niente',
     '   QFN, BGA, LGA (IMU su modulo con connettore). Distanza tra le schede da fissare simulando lo spessore nel 3D.',

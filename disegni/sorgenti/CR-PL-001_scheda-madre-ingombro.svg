@@ -85,10 +85,10 @@
 <text x="37.589" y="113.76" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000" font-weight="bold">-S1</text>
 <rect x="285.929" y="115.76" width="9" height="9" fill="#fde9c8" stroke="#000000" stroke-width="0.4"/>
 <text x="290.429" y="113.76" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000" font-weight="bold">-S2</text>
-<rect x="132.509" y="161.75" width="63" height="15" fill="#eef4fb" stroke="#000000" stroke-width="0.35"/>
-<text x="133.709" y="165.75" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.6" text-anchor="start" fill="#000000" font-weight="bold">-J1</text>
-<text x="133.709" y="169.25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">Micro-Fit 3.0 2×12 verticale (D-061)</text>
-<text x="133.709" y="172.25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">42 × 10</text>
+<rect x="132.509" y="131" width="63" height="15" fill="#eef4fb" stroke="#000000" stroke-width="0.35"/>
+<text x="133.709" y="135" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.6" text-anchor="start" fill="#000000" font-weight="bold">-J1</text>
+<text x="133.709" y="138.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">Micro-Fit 3.0 2×12 verticale (D-061)</text>
+<text x="133.709" y="141.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">42 × 10</text>
 <rect x="138.509" y="47" width="51" height="12" fill="#eef4fb" stroke="#000000" stroke-width="0.35"/>
 <text x="139.709" y="51" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.6" text-anchor="start" fill="#000000" font-weight="bold">-X2</text>
 <text x="139.709" y="54.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">J2 verso S3 (P1, P2, P6)</text>
@@ -311,7 +311,7 @@
 <text x="25" y="230.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">   in alternativa 30 × 30 con foro Ø28. Distanza tra le schede da scegliere per il flusso d&#x27;aria.</text>
 <text x="25" y="234.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">3  -S1/-S2 sotto i pulsanti originali (assieme 3D): estremità del pulsante a circa 6,3 mm dalla scheda, quindi</text>
 <text x="25" y="238.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">   interruttore tattile con pulsante alto circa 7 mm o prolunga; corsa da verificare.</text>
-<text x="25" y="242.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">4  -J1 verticale in basso, al centro (D-061): la spina entra dal retro, servono circa 30-35 mm dietro la scheda. Antenna del front-end -U6 verso il bordo, senza rame.</text>
+<text x="25" y="242.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">4  -J1 verticale sotto la ventola, al centro (D-061): la spina entra dal retro, servono circa 30-35 mm dietro la scheda. Antenna del front-end -U6 verso il bordo, senza rame.</text>
 <text x="25" y="246.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">5  Supercondensatore di riserva (-C1, 36 × 24) non trova posto su questa faccia: retro o fuori scheda, da decidere.</text>
 <text x="25" y="250.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">6  Montaggio a mano, si produce solo il circuito stampato (D-046): passivi da 0805, SOIC/SOT/TSSOP, moduli; niente</text>
 <text x="25" y="254.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">   QFN, BGA, LGA (IMU su modulo con connettore). Distanza tra le schede da fissare simulando lo spessore nel 3D.</text>

@@ -116,11 +116,11 @@ Procedura (Python di KiCad; Freerouting e Java come sopra):
    finale con il DRC di KiCad (errori e avvisi su distanze, fori e tratti morti), ripetuto fino a esito pulito.
 
 Esito della scheda in questo repository (rifatta il 28/10/2026 sul contorno v3 178,7 × 89 mm con -J1 Micro-Fit
-verticale, D-061): 2314 piste (F 836, In2 978, B 500, 4,2 m in tutto) e 490 via. **DRC: 0 errori, 0 collegamenti mancanti**, nessun avviso
+verticale sotto la ventola, D-061): 2737 piste (F 1069, In2 1199, B 469, 4,2 m in tutto) e 516 via. **DRC: 0 errori, 0 collegamenti mancanti**, nessun avviso
 su fori o tratti morti. Serigrafia (28/10/2026, `tools/serigrafia-scheda-madre.py`): sigle alte 1,0 mm (0,8 mm
 dove serve) lontane da piazzole e bordo, pallino sul piedino 1 di integrati, transistor e connettori, nomi dei fili
-accanto alle piazzole, titolo e lato su F e B; DRC con **0 violazioni anche tra gli avvisi**. Cinque sigle senza posto (C4, R17, R29, R37,
-R40) restano solo nel disegno di montaggio (`montaggio/`), con la guida in `cruscotto/docs/montaggio-scheda-madre.md`. Il confronto con lo schema segnala differenze di
+accanto alle piazzole, titolo e lato su F e B; DRC con **0 violazioni anche tra gli avvisi**. Otto sigle senza posto (D3, D9, C32, C33, R17,
+R29, R33, R37) restano solo nel disegno di montaggio (`montaggio/`), con la guida in `cruscotto/docs/montaggio-scheda-madre.md`. Il confronto con lo schema segnala differenze di
 forma: le impronte sono assegnate dal generatore (varianti HandSolder) e non collegate ai simboli; le reti sono
 verificate dal generatore dello schema. Anteprime: `sbroglio-rame-F.png`, `sbroglio-rame-In2.png`,
 `sbroglio-rame-B.png` (B in vista speculare).
