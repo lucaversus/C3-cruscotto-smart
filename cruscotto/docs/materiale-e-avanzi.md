@@ -6,6 +6,8 @@ Revisione A — 28/10/2026. Per proporre ad altri progetti i componenti che avan
 quantità non è registrata è scritto «da riscontrare»: non è stimata. Elenco anche in `materiale-e-avanzi.csv`.
 Dal 28/10/2026 giacenze, impegni per progetto e ordini sono tenuti anche nel magazzino condiviso
 `lucaversus/DB-componenti-elettronici` (progetti `c3-data-logger` e `c3-scheda-madre`).
+Utente 28/10/2026: tutto il materiale del Data Logger (in pausa, D-025) è utilizzabile per la scheda madre;
+nel magazzino gli impegni del logger sono stati rilasciati.
 
 ## 1. In possesso o già ordinato
 
