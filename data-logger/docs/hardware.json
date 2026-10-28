@@ -516,11 +516,12 @@
       "quantity": 1,
       "status": "present_declared",
       "verified": [
-        "28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica."
+        "28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica.",
+        "28/10/2026, utente a vista: condensatori C1 100 nF e C2 10 µF arrivati a foro passante (versione THT, non le SMD del primo carrello)."
       ],
       "open_checks": [
         "Ordine Farnell 22/10/2026 (dichiarato, consegna non riscontrata): 2× LM2903BYDT (SOIC-8, versione B), 5× 2N5551BU onsemi, resistenze R1…R10 (330 Ω, 47 kΩ, 510 Ω 1 W 5 %, 68 kΩ, 10 kΩ 0,5 %, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ), C1 100 nF e C2 10 µF, millefori MC01009 72×47 mm come base. All'arrivo riscontrare valori e sigle.",
-        "Condensatori: nel carrello allegato erano SMD (KEMET 0603 100 nF, Panasonic EEEHB1C100R 10 µF); consigliata sostituzione con THT 1216438 e 8766754, versione effettivamente ordinata da riscontrare all'arrivo.",
+        "Condensatori: arrivati a foro passante (utente 28/10/2026), adatti alla millefori; codice esatto Farnell non riscontrato sul pezzo.",
         "Montaggio scelto dall'utente: collegamenti volanti sulla millefori, senza zoccolo, adattatore SOIC-8→DIP-8 né morsettiere (KL-003 resta riferimento per un montaggio successivo). Fili sottili saldati direttamente ai piedini SOIC (passo 1,27 mm): controllare al tester assenza di ponti prima di alimentare; fissare meccanicamente chip e fili.",
         "Verifica montaggio, pin E-B-C del 2N5551 onsemi sul datasheet, assenza corti e alimentazioni su banco limitato in corrente (HW-BENCH-PSU dichiarato).",
         "Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.",
