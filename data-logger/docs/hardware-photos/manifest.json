@@ -74,6 +74,20 @@
       "source_filename": "chat-20261020-dash-fronte.jpg",
       "source_sha256": "035f1c7771ac4c511373059decd774d85135a264c8d2ae0272d94057b74efb30",
       "sha256": "a0591a3a53a971c8e2c6975aee5c349a2851f376efde1a6e037f1c873f7c4c3f"
+    },
+    {
+      "hardware_id": "HW-IMU-LSM6DSO",
+      "file": "steval-mki196v1-fronte.jpg",
+      "source_filename": "allegato chat 28/10/2026 (5.jpg)",
+      "source_sha256": "3dfc5692d2af431727cef2230480efd06b8f9e9d73f4a9ad4da3ac859a3c8fc4",
+      "sha256": "1b1e18e2592bed061f777ca6487068bd9415ec8877eba00ea76da397ddad433c"
+    },
+    {
+      "hardware_id": "HW-IMU-LSM6DSO",
+      "file": "steval-mki196v1-retro.jpg",
+      "source_filename": "allegato chat 28/10/2026 (6.jpg)",
+      "source_sha256": "dc89b3f2752addbbac8c77a99807a84b5647edaeaf61f2ba956a2a15bf9e91df",
+      "sha256": "62e578a25cd742ac273c12b08db4452834f67043e2ec46f7927b248190f34a71"
     }
   ]
 }

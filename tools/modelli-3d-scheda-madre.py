@@ -30,7 +30,7 @@ BOXES = {
     'K1': [(None, 0.0, 15.7)],                             # Omron G2RL-2: 29 × 12,7 × 15,7
     'K2': [(None, 0.0, 15.7)],
     'J1': [(None, 0.0, 9.9), (None, 9.9, 35.0)],            # 43045-2412 verticale alto 9,9; sopra, spina e fili (~25 mm, stima)
-    'J6': [((-1.5, -1.28, 16.5, 29.22), 0.0, 5.6)],        # STEVAL 18 × 30,5 sui pin diritti (D-059)
+    'J6': [((-1.75, -1.48, 16.75, 29.42), 0.0, 5.6)],      # STEVAL 18,5 × 30,9 misurata, sui pin diritti (D-059)
     'J8': [((-1.3, -2.69, 33.7, 10.31), 0.0, 5.7),         # modulo VAN 35 × 13 sui pin diritti (D-060)
            ((24.0, -2.0, 33.7, 9.6), 5.7, 14.0)],          # morsetto a vite, altezza stimata
     'C3': [((-2.5, -5.0, 7.5, 5.0), 0.0, 17.5)],           # EEU-FR1H221 Ø10 × 17,5 (verificata 28/10/2026)

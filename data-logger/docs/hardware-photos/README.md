@@ -21,6 +21,20 @@ localmente nella cartella ignorata `.tools/hardware-photo-originals/`.
 [manifest.json](manifest.json) conserva nomi sorgenti e SHA-256 di origine/archivio;
 il preflight controlla presenza e integrità delle copie versionate.
 
+## HW-IMU-LSM6DSO — STEVAL-MKI196V1, fronte e retro
+
+![STEVAL-MKI196V1, lato componenti](steval-mki196v1-fronte.jpg)
+
+![STEVAL-MKI196V1, retro con le strip maschio](steval-mki196v1-retro.jpg)
+
+Foto dell'utente del 28/10/2026, all'arrivo dell'ordine Farnell. Sigla STEVAL-MKI196V1
+serigrafata. Piedino 1 = piazzola quadrata accanto a VDD; numerazione DIL antioraria
+vista dal lato componenti: 1 VDD, 2 VDDIO, 3 OCS, 4 SCx, 5 SDx, 6 OSDO (7-12 senza nome),
+13 GND, 14 INT1, 15 INT2, 16 OSDO, 17 SDx, 18 OCS, 19 CS, 20 SCL, 21 SDA, 22 SDO, 24 SCx
+(16-18 e 24 passano da resistenze/ponticelli R1-R8). Il modulo arriva con le strip
+maschio già saldate. Misure dell'utente con il calibro: scheda 18,5 × 30,9 mm, passo 2,54 mm,
+interasse tra le file 15 mm. La marcatura del chip U1 non è leggibile in foto.
+
 ## HW-CAN-MCP2515 — fronte e dettaglio
 
 ![Modulo MCP2515, fronte](mcp2515-fronte.jpg)
