@@ -29,7 +29,7 @@ BOXES = {
     'U2': [(None, 0.0, 1.7)],                              # TPS54360B in SO-PowerPAD-8
     'K1': [(None, 0.0, 15.7)],                             # Omron G2RL-2: 29 × 12,7 × 15,7
     'K2': [(None, 0.0, 15.7)],
-    'J1': [(None, 0.0, 10.0)],                             # Micro-Fit 43045-2400 ad angolo: altezza approssimata
+    'J1': [(None, 0.0, 9.9), (None, 9.9, 35.0)],            # 43045-2412 verticale alto 9,9; sopra, spina e fili (~25 mm, stima)
     'J6': [((-1.5, -1.28, 16.5, 29.22), 0.0, 5.6)],        # STEVAL 18 × 30,5 sui pin diritti (D-059)
     'J8': [((-1.3, -2.69, 33.7, 10.31), 0.0, 5.7),         # modulo VAN 35 × 13 sui pin diritti (D-060)
            ((24.0, -2.0, 33.7, 9.6), 5.7, 14.0)],          # morsetto a vite, altezza stimata

@@ -392,7 +392,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Servono almeno due femmine: una per il cablaggio dell'auto, una per il cablaggio di prova a banco (R3 e alimentatore).
 - Pinza a crimpare compatibile Micro-Fit da scegliere (quella originale Molex è costosa): verificare la tenuta di ogni crimpatura.
 - Assegnazione delle vie: bozza in cruscotto/docs/scheda-madre.md (1 +BAT, 2 massa, 3 +APC, 4 K, 5/6 VAN, 7 massa VAN, 8-15 audio, 16-24 riserva).
-- Scheda definitiva: connettore da circuito stampato 43045-2400 da prevedere nel disegno della scheda madre.
+- Scheda definitiva: connettore da circuito stampato verticale 43045-2412 (D-061, Farnell 1012244, 2,72 € del 28/10/2026, non ordinato) al posto dell'angolato 43045-2400; da verificare circa 30-35 mm liberi dietro la scheda per spina e fili (utente 28/10/2026: parte più profonda del vano a circa 3 cm dal lato lungo inferiore della scheda, profonda circa 4 cm; J1 spostato sotto la ventola, a 21-31 mm dal bordo inferiore; spazio per spina e fili da confermare nell'assieme).
 - Utente 28/10/2026: niente pinza a crimpare; fili Molex già crimpati da 300 mm al posto dei contatti sciolti: femmina 214761-2124 (18 AWG rosso, +batteria), 214761-1124 (18 AWG nero, massa), 214761-1104 (22 AWG nero, altre vie); spina da banco 43020-2400 con fili maschio 214763-2124 e 214763-1104. Lista acquisti in cruscotto/docs/lista-acquisti-scheda-madre.md; nulla ordinato.
 
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto

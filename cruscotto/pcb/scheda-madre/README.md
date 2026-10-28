@@ -115,12 +115,12 @@ Procedura (Python di KiCad; Freerouting e Java come sopra):
    tracciamento delle reti che si bloccano a vicenda, una via verso In1 nelle isole di massa e controllo
    finale con il DRC di KiCad (errori e avvisi su distanze, fori e tratti morti), ripetuto fino a esito pulito.
 
-Esito della scheda in questo repository (rifatta il 28/10/2026 con il modulo VAN di D-060): 5653 piste
-(F 2140, In2 2379, B 1134, 4,6 m in tutto) e 566 via. **DRC: 0 errori, 0 collegamenti mancanti**, nessun avviso
+Esito della scheda in questo repository (rifatta il 28/10/2026 sul contorno v3 178,7 × 89 mm con -J1 Micro-Fit
+verticale sotto la ventola, D-061): 2737 piste (F 1069, In2 1199, B 469, 4,2 m in tutto) e 516 via. **DRC: 0 errori, 0 collegamenti mancanti**, nessun avviso
 su fori o tratti morti. Serigrafia (28/10/2026, `tools/serigrafia-scheda-madre.py`): sigle alte 1,0 mm (0,8 mm
 dove serve) lontane da piazzole e bordo, pallino sul piedino 1 di integrati, transistor e connettori, nomi dei fili
-accanto alle piazzole, titolo e lato su F e B; DRC con **0 violazioni anche tra gli avvisi**. Sei sigle senza posto (U1, R13, R17, R20, R37,
-R42) restano solo nel disegno di montaggio (`montaggio/`), con la guida in `cruscotto/docs/montaggio-scheda-madre.md`. Il confronto con lo schema segnala differenze di
+accanto alle piazzole, titolo e lato su F e B; DRC con **0 violazioni anche tra gli avvisi**. Otto sigle senza posto (D3, D9, C32, C33, R17,
+R29, R33, R37) restano solo nel disegno di montaggio (`montaggio/`), con la guida in `cruscotto/docs/montaggio-scheda-madre.md`. Il confronto con lo schema segnala differenze di
 forma: le impronte sono assegnate dal generatore (varianti HandSolder) e non collegate ai simboli; le reti sono
 verificate dal generatore dello schema. Anteprime: `sbroglio-rame-F.png`, `sbroglio-rame-In2.png`,
 `sbroglio-rame-B.png` (B in vista speculare).
@@ -143,7 +143,7 @@ kicad-cli sch export bom --fields "Reference,Value,Footprint,Description,QUANTIT
 
 `tools/modelli-3d-scheda-madre.py` assegna un parallelepipedo STEP (`modelli-3d/`) ai componenti senza modello
 nelle librerie di KiCad, con le dimensioni di ingombro: relè K1/K2 29 × 12,7 × 15,7 mm, C3 Ø10 × 17,5 mm (in
-piedi; montato coricato è più basso), J1 Micro-Fit circa 10 mm, USB-C 3,3 mm, U2 1,7 mm, STEVAL circa 5,6 mm sui
+piedi; montato coricato è più basso), J1 Micro-Fit verticale 9,9 mm più un volume stimato fino a 35 mm per spina e fili (D-061), USB-C 3,3 mm, U2 1,7 mm, STEVAL circa 5,6 mm sui
 pin, modulo VAN 35 × 13 × circa 5,7 mm con il morsetto a circa 14 mm (stimati), e aggiunge la ventola Delta
 40 × 40 × 10 mm sul retro, centrata sul foro, come oggetto solo meccanico (VENT1, fuori da distinta e posizioni).
 Lo STEP completo si esporta con `kicad-cli pcb export step --subst-models --user-origin 148.5x151mm

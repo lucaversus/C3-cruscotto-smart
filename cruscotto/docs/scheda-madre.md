@@ -34,7 +34,7 @@ KL-001 su millefori, HW-IMU-LSM6DSO).
 | -U10 | RTC (opzionale) | DS3231 a 0x68 | utile per i timestamp del dataset |
 | -U11 | Programmazione | USB-seriale con reset automatico, oppure connettore a 6 poli | aggiornamenti senza smontare |
 | -K1/K2 | Audio (D-028) | un relè a doppio scambio per canale (Omron G2RL-2, bobina 5 V), pilotato da MOSFET con diodo di ricircolo; eccitati: S3 sui due altoparlanti in serie | a riposo radio → altoparlanti; uscite radio a ponte mai a massa; schema CR-EL-005 |
-| -J1 | Verso l'auto | **Molex Micro-Fit 3.0, 24 vie** (D-044): sulla scheda 43045-2400, sul cablaggio 43025-2400 | ritenuta meccanica e codifica contro l'inserimento errato |
+| -J1 | Verso l'auto | **Molex Micro-Fit 3.0, 24 vie** (D-044): sulla scheda 43045-2412 verticale (D-061), sul cablaggio 43025-2400 | ritenuta meccanica e codifica contro l'inserimento errato |
 | -J2 | Verso l'S3 | P1, P2, P6 della scheda 8048S050 | cavo corto |
 
 ## GPIO del front-end (proposta)
@@ -185,7 +185,10 @@ dei Gerber e dell'ordine dei circuiti stampati.
 
 1. **Profondità dietro la scheda madre** (verso il fondo del quadro): sul retro i pezzi più alti
    sono i relè K1/K2 (15,7 mm), C3 e J4 (circa 10 mm), la ventola (10 mm) e J1 con la spina del
-   cablaggio inserita. Da misurare sull'auto o sul modello del quadro.
+   cablaggio inserita: con J1 verticale (D-061) servono circa 30-35 mm per spina e curva dei fili. Utente
+   28/10/2026: la parte più profonda del vano è a circa 3 cm dal lato lungo inferiore della scheda, profonda circa
+   4 cm; J1 spostato lì, sotto la ventola (21-31 mm dal bordo): restano da
+   confermare nell'assieme i circa 30-35 mm per spina e fili. Da misurare sull'auto o sul modello del quadro.
 2. **Modulo VAN blu**: risolta con D-060 (pin diritti su J8, modulo appoggiato sul retro, CANH/CANL con due
    fili a J9); resta da confermare sul pezzo la posizione dei 4 pin rispetto al bordo del modulo (ingombro
    35 × 13 mm misurato dall'utente).
@@ -218,7 +221,7 @@ dei Gerber e dell'ordine dei circuiti stampati.
 
 **Contorno definitivo (D-045, 24/10/2026)** dal modello 3D del cruscotto dell'utente:
 [`cruscotto/meccanica/scheda-madre-contorno.dxf`](../meccanica/scheda-madre-contorno.dxf),
-**178,7 × 74 mm**, 6 fori di fissaggio Ø3 in (±80, 13), (±75, 48), (±30, 79) mm, due
+**178,7 × 89 mm** (contorno v3 del 28/10/2026, D-061: bordo inferiore abbassato di 15 mm), 6 fori di fissaggio Ø3 in (±80, 13), (±75, 48), (±30, 79) mm, due
 rientranze laterali. La scheda madre sta **direttamente dietro la S3**. Il generatore dello
 studio legge il DXF e controlla che ogni zona stia nel contorno, lontana dai fori, dalla
 ventola e dagli interruttori.
@@ -282,7 +285,7 @@ all'amplificatore U1 se la prova d'ascolto lo conferma.
 
 Tipo deciso il 23/10/2026 (D-044); assegnazione delle vie ancora bozza. Lo stesso cablaggio
 dell'auto (femmina 43025-2400) si innesta prima nella spina volante del prototipo a banco
-(43020-2400, tavola C3AI-DL-EL-004) e poi nel connettore della scheda definitiva (43045-2400).
+(43020-2400, tavola C3AI-DL-EL-004) e poi nel connettore della scheda definitiva (43045-2412 verticale, D-061).
 
 | Via | Segnale | Origine nel veicolo |
 | --- | --- | --- |

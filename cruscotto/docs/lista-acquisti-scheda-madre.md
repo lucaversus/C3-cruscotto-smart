@@ -1,6 +1,6 @@
 # Lista acquisti — scheda madre del cruscotto
 
-Revisione D — 28/10/2026. Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
+Revisione E — 28/10/2026 (J1 verticale, D-061). Lista completa per costruire la scheda madre: dove si compra ogni pezzo. Prezzi IVA
 esclusa del 27-28/10/2026, da ricontrollare al momento dell'ordine. Riferimenti, valori e verifiche in
 `distinta-scheda-madre.md`; viti, filo, guaina e stagno esclusi (materiale di consumo). Niente è ancora ordinato.
 Cablaggio verso l'auto con fili Molex già crimpati (niente pinza): alloggiamento femmina 43025-2400 e fili
@@ -8,15 +8,16 @@ Cablaggio verso l'auto con fili Molex già crimpati (niente pinza): alloggiament
 
 | Fornitore | Righe | Merce | Spedizione | File |
 | --- | --- | --- | --- | --- |
-| LCSC | 54 | 82.59 $ | 13 $ | `ordine-lcsc-scheda-madre.csv` |
-| Farnell | 15 | circa 28.35 € | da verificare | `ordine-farnell-scheda-madre.csv` |
+| LCSC | 53 | 80.50 $ | 13 $ | `ordine-lcsc-scheda-madre.csv` |
+| Farnell | 16 | circa 33.79 € | da verificare | `ordine-farnell-scheda-madre.csv` |
 | DigiKey | 7 | circa 52 € | gratuita sopra 50 € (da verificare) | `ordine-digikey-scheda-madre.csv` |
 | Produttore di circuiti stampati | 1 | preventivo | — | dopo serigrafia e Gerber (D-057) |
 
 ## 1. LCSC
 
 Carrello del 28/10/2026 senza: le tre righe a prezzo zero (1 µF, 22 µF, 10 kΩ, presi da Farnell), l'AP2112K di
-TECH PUBLIC (originale da Farnell) e i contatti sciolti Micro-Fit 430300007 (sostituiti dai fili già crimpati).
+TECH PUBLIC (originale da Farnell), i contatti sciolti Micro-Fit 430300007 (sostituiti dai fili già crimpati) e
+il J1 ad angolo 430452400 (C277384), sostituito dal verticale 43045-2412 da Farnell (D-061).
 Produttori diversi dall'originale ma stesso componente: AO3400A ElecSuper, MMBT3904 FUXINSEMI, SMBJ26CA R+O,
 BAT54J Blue Rocket.
 
@@ -70,7 +71,6 @@ BAT54J Blue Rocket.
 | C5875740 | 5 | APT2012CGCK (Kingbright) |
 | C2044314 | 5 | SRN6045TA-220M (BOURNS) |
 | C668306 | 5 | BLM31KN601SN1L (muRata) |
-| C277384 | 1 | 430452400 (MOLEX) |
 | C1524519 | 2 | G2RL-2 DC5 (OMRON) |
 | C93157 | 5 | B3F-1000 (OMRON) |
 | C336241 | 5 | EEEHB1C100R (PANASONIC) |
@@ -98,6 +98,7 @@ Da incollare in «Aggiungi rapidamente» del carrello (codice, quantità); Farne
 | 3257429 | 4 | DIODES INC. AP2112K-3.3TRG1 | U5 U9 |
 | 2987032 | 1 | STMICROELECTRONICS STEVAL-MKI196V1 | J6 (IMU) |
 | 634712 | 1 | MOLEX 43020-2400 | spina volante per il banco (D-044) |
+| 1012244 | 2 | MOLEX 43045-2412 | J1 verticale (D-061) |
 
 ## 3. DigiKey
 
@@ -126,5 +127,5 @@ Un solo ordine sopra la soglia della spedizione gratuita. DigiKey non ha il filo
 
 ## 5. Circuito stampato
 
-4 strati, 178,7 × 74 mm, 1,6 mm: preventivo e ordine dopo la sistemazione della serigrafia, i file Gerber e le
+4 strati, 178,7 × 89 mm (contorno v3, D-061), 1,6 mm: preventivo e ordine dopo la sistemazione della serigrafia, i file Gerber e le
 verifiche aperte di `scheda-madre.md` (profondità dietro la scheda, interasse del modulo VAN, misure della STEVAL).

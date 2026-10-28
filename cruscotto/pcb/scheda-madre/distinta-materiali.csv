@@ -22,7 +22,7 @@
 "D10","NUP2105L","Package_TO_SOT_SMD:SOT-23","Protezione dai transitori sulle due linee VAN","1",""
 "D13","B340A","Diode_SMD:D_SMA","Impedisce il ritorno del 5 V della USB della S3 verso la scheda madre (caduta ~0,4 V)","1",""
 "FB1","ferrite >= 3A, 1206","Inductor_SMD:L_1206_3216Metric_Pad1.22x1.90mm_HandSolder","","1",""
-"J1","Micro-Fit 43045-2400 (D-044)","Connector_Molex:Molex_Micro-Fit_3.0_43045-2400_2x12_P3.00mm_Horizontal","Vie 16-24 riserva; assegnazione bozza (D-044)","1",""
+"J1","Micro-Fit 43045-2412 verticale (D-061)","Connector_Molex:Molex_Micro-Fit_3.0_43045-2412_2x12_P3.00mm_Vertical","Vie 16-24 riserva; assegnazione bozza (D-044)","1",""
 "J3","USB-C (solo a banco)","Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12","Passo 0,5 mm: saldatura a trascinamento con flussante","1",""
 "J4","Ventola Delta AFB0412VA-00 (D-052)","Connector_Wire:SolderWire-0.127sqmm_1x04_P3.7mm_D0.48mm_OD1mm","Fili Delta: nero GND, rosso +12V, blu giri, giallo PWM","1",""
 "J5","NTC display","Connector_Wire:SolderWire-0.127sqmm_1x02_P3.7mm_D0.48mm_OD1mm","Vishay NTCLE100E3104JB0 (100k) incollata vicino al display; valore B dalla scheda tecnica","1",""

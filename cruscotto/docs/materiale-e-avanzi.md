@@ -85,7 +85,7 @@ Avanzo = quantità da ordinare − quantità usata da una scheda. Su LCSC molti 
 | LCSC | APT2012CGCK | Kingbright | 5 | 1 | 4 | D7 |
 | LCSC | SRN6045TA-220M | BOURNS | 5 | 1 | 4 | L2 |
 | LCSC | BLM31KN601SN1L | muRata | 5 | 1 | 4 | FB1 |
-| LCSC | 430452400 | MOLEX | 1 | 1 | 0 | J1 |
+| Farnell | 43045-2412 | MOLEX | 2 | 1 | 1 | J1 |
 | LCSC | G2RL-2 DC5 | OMRON | 2 | 2 | 0 | K1 K2 |
 | LCSC | B3F-1000 | OMRON | 5 | 2 | 3 | SW3 SW4 |
 | LCSC | EEEHB1C100R | PANASONIC | 5 | 1 | 4 | C29 |

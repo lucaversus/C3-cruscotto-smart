@@ -300,8 +300,8 @@ def shunt(ref, value, x, top, net, fp=C0805, kind='C', note=''):
     gnd(f'{ref}.2', 0)
 
 
-begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazione', 'C3AI-CR-EL-001', 'D',
-            'D-030, D-031, D-044, D-046, D-047, D-048', date='2026-10-28')
+begin_sheet('scheda-madre.kicad_sch', 'Scheda madre cruscotto C3+AI - alimentazione', 'C3AI-CR-EL-001', 'E',
+            'D-030, D-031, D-044, D-046, D-047, D-048, D-061', date='2026-10-28')
 FE_SHEET = sheet_box('front-end.kicad_sch', 'Front-end', 279.4, 205.74, 38.1, 12.7, 2)
 VEH_SHEET = sheet_box('interfacce-veicolo.kicad_sch', 'Interfacce veicolo', 279.4, 228.6, 38.1, 12.7, 3)
 SENS_SHEET = sheet_box('sensori-memoria.kicad_sch', 'Sensori e memoria', 332.74, 205.74, 38.1, 12.7, 4)
@@ -311,8 +311,8 @@ S3_SHEET = sheet_box('s3-audio.kicad_sch', 'Collegamento S3 e audio', 332.74, 22
 J1_NETS = {1: 'VBAT_IN', 2: 'GND', 3: 'KEY_IN', 4: 'KLINE', 5: 'VAN_DATA', 6: 'VAN_DATAB', 7: 'VAN_GND_REF',
            8: 'RADIO_L_P', 9: 'RADIO_L_N', 10: 'SPK_L_P', 11: 'SPK_L_N', 12: 'RADIO_R_P', 13: 'RADIO_R_N',
            14: 'SPK_R_P', 15: 'SPK_R_N'}
-symbol('J1', 'Connector_Generic:Conn_02x12_Top_Bottom', 'Micro-Fit 43045-2400 (D-044)',
-       'Connector_Molex:Molex_Micro-Fit_3.0_43045-2400_2x12_P3.00mm_Horizontal', 45.72, 116.84,
+symbol('J1', 'Connector_Generic:Conn_02x12_Top_Bottom', 'Micro-Fit 43045-2412 verticale (D-061)',
+       'Connector_Molex:Molex_Micro-Fit_3.0_43045-2412_2x12_P3.00mm_Vertical', 45.72, 116.84,
        nets={str(i): J1_NETS.get(i) for i in range(1, 25)}, auto=True,
        note='Vie 16-24 riserva; assegnazione bozza (D-044)')
 wire((30.48, 160.02), (30.48, 165.1))

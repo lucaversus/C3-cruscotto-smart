@@ -56,8 +56,8 @@
 <path d="M0 148.5 L25 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M420 148.5 L405 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="25" y="20" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">SCHEDA MADRE — STUDIO D&#x27;INGOMBRO SUL CONTORNO DEFINITIVO (SCALA 1,5:1)</text>
-<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Contorno e fori dal disegno dell&#x27;utente (scheda-madre-contorno.dxf, 178,7 × 74 mm). Zone con ingombri stimati, controllate dal generatore: non è un circuito stampato.</text>
-<polygon points="289.25,151.93 296.38,139.16 296.68,138.57 296.92,137.96 297.11,137.33 297.24,136.69 297.31,136.04 297.33,135.38 297.29,134.73 297.20,134.08 297.05,133.44 296.84,132.82 296.42,131.72 296.33,131.45 296.27,131.18 296.23,130.91 296.22,130.63 296.23,130.35 296.27,130.07 296.34,129.80 296.43,129.54 296.55,129.28 296.68,129.04 296.84,128.81 297.15,128.38 297.40,127.93 297.62,127.45 297.79,126.96 297.91,126.45 297.99,125.93 298.02,125.41 298.00,124.89 297.93,124.37 297.81,123.86 297.65,123.36 293.62,112.86 293.42,112.38 293.16,111.92 292.87,111.49 292.53,111.08 292.16,110.71 291.76,110.38 291.33,110.08 290.87,109.83 290.39,109.62 289.90,109.45 289.39,109.34 289.12,109.27 288.85,109.18 288.60,109.07 288.35,108.94 288.12,108.78 287.91,108.60 287.71,108.40 287.53,108.19 287.38,107.96 287.24,107.71 287.13,107.46 282.11,94.35 281.87,93.80 281.57,93.28 281.22,92.79 280.83,92.34 280.39,91.92 279.91,91.56 212.41,45.06 211.90,44.74 211.36,44.48 210.79,44.27 210.21,44.12 209.61,44.03 209.01,44.00 119.01,44.00 118.41,44.03 117.81,44.12 117.23,44.27 116.66,44.48 116.12,44.74 115.61,45.06 48.11,91.56 47.63,91.92 47.19,92.34 46.79,92.79 46.45,93.28 46.15,93.80 45.91,94.35 40.89,107.46 40.78,107.71 40.64,107.96 40.49,108.19 40.31,108.40 40.11,108.60 39.90,108.78 39.67,108.94 39.42,109.07 39.17,109.18 38.90,109.27 38.63,109.34 38.12,109.45 37.62,109.62 37.15,109.83 36.69,110.08 36.26,110.38 35.85,110.71 35.48,111.08 35.15,111.49 34.86,111.92 34.60,112.38 34.39,112.86 30.37,123.36 30.21,123.86 30.09,124.37 30.02,124.89 30.00,125.41 30.03,125.93 30.10,126.45 30.23,126.96 30.40,127.45 30.61,127.93 30.87,128.38 31.17,128.81 31.33,129.04 31.47,129.28 31.59,129.54 31.68,129.80 31.74,130.07 31.78,130.35 31.80,130.63 31.79,130.91 31.75,131.18 31.69,131.45 31.60,131.72 31.18,132.82 30.97,133.44 30.82,134.08 30.72,134.73 30.69,135.38 30.70,136.04 30.78,136.69 30.91,137.33 31.10,137.96 31.34,138.57 31.64,139.16 38.77,151.93 39.05,152.38 39.37,152.80 39.72,153.20 40.11,153.56 40.53,153.89 40.97,154.17 41.44,154.42 41.93,154.63 42.44,154.79 42.95,154.91 43.48,154.98 44.01,155.00 284.01,155.00 284.54,154.98 285.07,154.91 285.58,154.79 286.09,154.63 286.58,154.42 287.05,154.17 287.49,153.89 287.91,153.56 288.30,153.20 288.65,152.80 288.97,152.38 289.25,151.93" fill="#f6f9fc" stroke="#000" stroke-width="0.7"/>
+<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Contorno e fori dal disegno dell&#x27;utente (scheda-madre-contorno.dxf v3, 178,7 × 89 mm). Zone con ingombri stimati, controllate dal generatore: non è un circuito stampato.</text>
+<polygon points="31.64,139.16 48.77,169.82 49.46,170.94 50.26,172.01 51.14,172.99 52.11,173.90 53.16,174.72 54.27,175.44 55.44,176.06 56.66,176.57 57.93,176.98 59.22,177.27 60.54,177.44 61.86,177.50 266.16,177.50 267.48,177.44 268.80,177.27 270.09,176.98 271.35,176.57 272.58,176.06 273.75,175.44 274.86,174.72 275.91,173.90 276.88,172.99 277.76,172.01 278.55,170.94 279.25,169.82 296.38,139.16 296.68,138.57 296.92,137.96 297.11,137.33 297.24,136.69 297.31,136.04 297.33,135.38 297.29,134.73 297.20,134.08 297.05,133.44 296.84,132.82 296.42,131.72 296.33,131.45 296.27,131.18 296.23,130.91 296.22,130.63 296.23,130.35 296.27,130.07 296.34,129.80 296.43,129.54 296.55,129.28 296.68,129.04 296.84,128.81 297.15,128.38 297.40,127.93 297.62,127.45 297.79,126.96 297.91,126.45 297.99,125.93 298.02,125.41 298.00,124.89 297.93,124.37 297.81,123.86 297.65,123.36 293.62,112.86 293.42,112.38 293.16,111.92 292.87,111.49 292.53,111.08 292.16,110.71 291.76,110.38 291.33,110.08 290.87,109.83 290.39,109.62 289.90,109.45 289.39,109.34 289.12,109.27 288.85,109.18 288.60,109.07 288.35,108.94 288.12,108.78 287.91,108.60 287.71,108.40 287.53,108.19 287.38,107.96 287.24,107.71 287.13,107.46 282.11,94.35 281.87,93.80 281.57,93.28 281.22,92.79 280.83,92.34 280.39,91.92 279.91,91.56 212.41,45.06 211.90,44.74 211.36,44.48 210.79,44.27 210.21,44.12 209.61,44.03 209.01,44.00 119.01,44.00 118.41,44.03 117.81,44.12 117.23,44.27 116.66,44.48 116.12,44.74 115.61,45.06 48.11,91.56 47.63,91.92 47.19,92.34 46.79,92.79 46.45,93.28 46.15,93.80 45.91,94.35 40.89,107.46 40.78,107.71 40.64,107.96 40.49,108.19 40.31,108.40 40.11,108.60 39.90,108.78 39.67,108.94 39.42,109.07 39.17,109.18 38.90,109.27 38.63,109.34 38.12,109.45 37.62,109.62 37.15,109.83 36.69,110.08 36.26,110.38 35.85,110.71 35.48,111.08 35.15,111.49 34.86,111.92 34.60,112.38 34.39,112.86 30.37,123.36 30.21,123.86 30.09,124.37 30.02,124.89 30.00,125.41 30.03,125.93 30.10,126.45 30.23,126.96 30.40,127.45 30.61,127.93 30.87,128.38 31.17,128.81 31.33,129.04 31.47,129.28 31.59,129.54 31.68,129.80 31.74,130.07 31.78,130.35 31.80,130.63 31.79,130.91 31.75,131.18 31.69,131.45 31.60,131.72 31.18,132.82 30.97,133.44 30.82,134.08 30.72,134.73 30.69,135.38 30.70,136.04 30.78,136.69 30.91,137.33 31.10,137.96 31.34,138.57 31.64,139.16" fill="#f6f9fc" stroke="#000" stroke-width="0.7"/>
 <circle cx="44.009" cy="149" r="2.25" fill="none" stroke="#000000" stroke-width="0.35"/>
 <circle cx="44.009" cy="149" r="7.5" fill="none" stroke="#000000" stroke-width="0.2"/>
 <circle cx="51.509" cy="96.5" r="2.25" fill="none" stroke="#000000" stroke-width="0.35"/>
@@ -85,10 +85,10 @@
 <text x="37.589" y="113.76" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000" font-weight="bold">-S1</text>
 <rect x="285.929" y="115.76" width="9" height="9" fill="#fde9c8" stroke="#000000" stroke-width="0.4"/>
 <text x="290.429" y="113.76" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000" font-weight="bold">-S2</text>
-<rect x="134.009" y="134" width="60" height="19.5" fill="#eef4fb" stroke="#000000" stroke-width="0.35"/>
-<text x="135.209" y="138" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.6" text-anchor="start" fill="#000000" font-weight="bold">-J1</text>
-<text x="135.209" y="141.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">Micro-Fit 3.0 2×12 (D-044)</text>
-<text x="135.209" y="144.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">40 × 13</text>
+<rect x="132.509" y="131" width="63" height="15" fill="#eef4fb" stroke="#000000" stroke-width="0.35"/>
+<text x="133.709" y="135" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.6" text-anchor="start" fill="#000000" font-weight="bold">-J1</text>
+<text x="133.709" y="138.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">Micro-Fit 3.0 2×12 verticale (D-061)</text>
+<text x="133.709" y="141.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">42 × 10</text>
 <rect x="138.509" y="47" width="51" height="12" fill="#eef4fb" stroke="#000000" stroke-width="0.35"/>
 <text x="139.709" y="51" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.6" text-anchor="start" fill="#000000" font-weight="bold">-X2</text>
 <text x="139.709" y="54.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">J2 verso S3 (P1, P2, P6)</text>
@@ -141,23 +141,23 @@
 <text x="199.709" y="63" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.6" text-anchor="start" fill="#000000" font-weight="bold">-X4</text>
 <text x="199.709" y="66.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">MicroSD</text>
 <text x="199.709" y="69.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.9" text-anchor="start" fill="#000000">15 × 15</text>
-<path d="M30 161 L298.018 161" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M30 157 L30 163" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M298.018 157 L298.018 163" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="164.009" y="160" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000">178,7</text>
-<path d="M25 44 L25 155" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="24" y="99.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000" transform="rotate(-90 24 99.5)">74,0</text>
-<text x="30" y="167" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Fori di fissaggio Ø3 (6): cerchio esterno = zona libera di 3,5 mm. Zone tratteggiate: facoltative.</text>
-<rect x="30.00" y="170.00" width="6" height="3.5" fill="#fbe3d6" stroke="#000" stroke-width="0.2"/>
-<text x="38" y="173" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Componenti più caldi: faccia interna (verso la S3), nel flusso della ventola (D-046).</text>
+<path d="M30 183.5 L298.018 183.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30 179.5 L30 185.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M298.018 179.5 L298.018 185.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="164.009" y="182.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000">178,7</text>
+<path d="M25 44 L25 177.5" fill="none" stroke="#000000" stroke-width="0.25" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24" y="110.75" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3" text-anchor="middle" fill="#000000" transform="rotate(-90 24 110.75)">89,0</text>
+<text x="30" y="189.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Fori di fissaggio Ø3 (6): cerchio esterno = zona libera di 3,5 mm. Zone tratteggiate: facoltative.</text>
+<rect x="30.00" y="192.50" width="6" height="3.5" fill="#fbe3d6" stroke="#000" stroke-width="0.2"/>
+<text x="38" y="195.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Componenti più caldi: faccia interna (verso la S3), nel flusso della ventola (D-046).</text>
 <text x="316" y="46" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">BILANCIO DELLE AREE (mm²)</text>
 <rect x="316" y="49" width="84" height="95" fill="white"/>
 <rect x="316" y="49" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="317" y="52.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">-J1</text>
 <rect x="330" y="49" width="44" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="331" y="52.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Micro-Fit 3.0 2×12 (D-044)</text>
+<text x="331" y="52.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Micro-Fit 3.0 2×12 verticale</text>
 <rect x="374" y="49" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="375" y="52.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">520</text>
+<text x="375" y="52.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">420</text>
 <rect x="386" y="49" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="387" y="52.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">base</text>
 <rect x="316" y="54" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
@@ -269,7 +269,7 @@
 <rect x="330" y="119" width="44" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="331" y="122.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Totale base (netto)</text>
 <rect x="374" y="119" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="375" y="122.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">3679</text>
+<text x="375" y="122.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">3579</text>
 <rect x="386" y="119" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="387" y="122.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000"></text>
 <rect x="316" y="124" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
@@ -285,7 +285,7 @@
 <rect x="330" y="129" width="44" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="331" y="132.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Base × 1,5 (piste, distanze)</text>
 <rect x="374" y="129" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="375" y="132.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">5518</text>
+<text x="375" y="132.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">5368</text>
 <rect x="386" y="129" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="387" y="132.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000"></text>
 <rect x="316" y="134" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
@@ -293,7 +293,7 @@
 <rect x="330" y="134" width="44" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="331" y="137.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Contorno meno foro ventola</text>
 <rect x="374" y="134" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="375" y="137.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">9509</text>
+<text x="375" y="137.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">11844</text>
 <rect x="386" y="134" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="387" y="137.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000"></text>
 <rect x="316" y="139" width="14" height="5" fill="none" stroke="#000000" stroke-width="0.35"/>
@@ -311,7 +311,7 @@
 <text x="25" y="230.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">   in alternativa 30 × 30 con foro Ø28. Distanza tra le schede da scegliere per il flusso d&#x27;aria.</text>
 <text x="25" y="234.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">3  -S1/-S2 sotto i pulsanti originali (assieme 3D): estremità del pulsante a circa 6,3 mm dalla scheda, quindi</text>
 <text x="25" y="238.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">   interruttore tattile con pulsante alto circa 7 mm o prolunga; corsa da verificare.</text>
-<text x="25" y="242.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">4  -J1 al bordo inferiore, al centro: il cablaggio esce verso il basso. Antenna del front-end -U6 verso il bordo, senza rame.</text>
+<text x="25" y="242.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">4  -J1 verticale sotto la ventola, al centro (D-061): la spina entra dal retro, servono circa 30-35 mm dietro la scheda. Antenna del front-end -U6 verso il bordo, senza rame.</text>
 <text x="25" y="246.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">5  Supercondensatore di riserva (-C1, 36 × 24) non trova posto su questa faccia: retro o fuori scheda, da decidere.</text>
 <text x="25" y="250.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">6  Montaggio a mano, si produce solo il circuito stampato (D-046): passivi da 0805, SOIC/SOT/TSSOP, moduli; niente</text>
 <text x="25" y="254.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">   QFN, BGA, LGA (IMU su modulo con connettore). Distanza tra le schede da fissare simulando lo spessore nel 3D.</text>
@@ -344,10 +344,10 @@
 <text x="311.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C3AI-CR-PL-001</text>
 <rect x="360" y="271" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="361" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Rev.</text>
-<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">E</text>
+<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">F</text>
 <rect x="375" y="271" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="376" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Data di emissione</text>
-<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">24/10/2026</text>
+<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">28/10/2026</text>
 <rect x="310" y="279" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="311" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Riferimento tecnico</text>
 <text x="311.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">D-024 · IEC 61082-1</text>
@@ -366,26 +366,26 @@
 <rect x="385" y="230" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="386" y="233.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
 <rect x="230" y="235" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
+<text x="231" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">C</text>
 <rect x="242" y="235" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">IMU LSM6DSO (HW-IMU-LSM6DSO) al posto di LSM6DS3</text>
+<text x="243" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Contorno definitivo dal DXF dell&#x27;utente, foro ventola, interruttori -S1/-S2, J1 24 vie (D-045)</text>
 <rect x="385" y="235" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">22/10/2026</text>
+<text x="386" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">24/10/2026</text>
 <rect x="230" y="240" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">C</text>
+<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">D</text>
 <rect x="242" y="240" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Contorno definitivo dal DXF dell&#x27;utente, foro ventola, interruttori -S1/-S2, J1 24 vie (D-045)</text>
+<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Componenti caldi sulla faccia interna, montaggio a mano (D-046)</text>
 <rect x="385" y="240" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">24/10/2026</text>
 <rect x="230" y="245" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">D</text>
+<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">E</text>
 <rect x="242" y="245" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Componenti caldi sulla faccia interna, montaggio a mano (D-046)</text>
+<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Interruttori e scheda S3 posizionati dall’assieme 3D</text>
 <rect x="385" y="245" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">24/10/2026</text>
 <rect x="230" y="250" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">E</text>
+<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">F</text>
 <rect x="242" y="250" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Interruttori e scheda S3 posizionati dall’assieme 3D</text>
+<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Contorno v3 (+15 mm in basso), J1 Micro-Fit verticale (D-061)</text>
 <rect x="385" y="250" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">24/10/2026</text></svg>
+<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">28/10/2026</text></svg>
