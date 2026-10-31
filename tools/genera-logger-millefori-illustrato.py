@@ -269,7 +269,7 @@ for i, n in enumerate(['GND', 'VCC', 'SCL', 'SDA']):
 # Modo 1 (solo I²C): SDx e SCx a VDDIO o GND secondo ST, OCS e OSDO liberi (da riscontrare sul datasheet).
 perfboard(d, 345, 131, 41, 57, '')
 label(d, 365.5, 129, 'Basetta 4 — IMU (ritaglio ~27×38 mm)', 2.6, bold=True)
-label(d, 365.5, 125.6, 'STEVAL da procurare: quella posseduta va alla scheda madre (D-062)', 1.7, color='#c00000')
+label(d, 365.5, 125.6, 'STEVAL posseduta: qui ora, poi si sposta sulla scheda madre (D-062)', 1.7, color='#c00000')
 box(d, 356, 134, 23, 49, '#1a6a3a', rx=1)
 DIL_L = [24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13]
 DIL_R = list(range(1, 13))
@@ -443,7 +443,7 @@ d.title_block(title=['Data Logger completo', 'a banco, illustrato'], subtitle='D
               revisions=[('A', 'Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)', '22/10/2026'),
                          ('B', 'Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)', '23/10/2026'),
                          ('C', 'Modulo VAN modificato: «121» rimossa, TX a 3V3, prove 1-4 superate', '23/10/2026'),
-                         ('D', 'Basetta 1 da KL-003 rev B (U1 a pancia in su); IMU da procurare (D-062)', '31/10/2026')])
+                         ('D', 'Basetta 1 da KL-003 rev B (U1 a pancia in su); STEVAL qui, poi alla scheda madre (D-062)', '31/10/2026')])
 out = ROOT / 'disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg'
 out.write_text(d.svg('Collegamenti illustrati del Data Logger completo a banco su millefori; posizioni indicative.'),
                encoding='utf-8')

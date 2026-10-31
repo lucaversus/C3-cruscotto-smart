@@ -327,15 +327,15 @@
       "name": "Alimentazione temporanea proposta: Uadme 5 V, arresto manuale STOP",
       "scope": "Data Logger",
       "quantity": null,
-      "status": "candidate",
+      "status": "ordered_pending",
       "verified": [],
       "open_checks": [
-        "Uadme B0BFFDSNRC: nessun ordine/possesso confermato; verificare uscita 5 V e funzionamento col carico.",
+        "Utente 31/10/2026: alimentazione dai 12 V «è stato già acquistato»; modello ricevuto, fusibile e interruttore compresi da riscontrare sul materiale. Verificare uscita 5 V e funzionamento col carico.",
         "Prelievo alimentazione auto e fusibile di ramo da verificare; non collegare 12 V ai GPIO. Punto candidato da manuale: presa OBD via 16/1 (D-030), non ancora misurato.",
         "Arresto manuale STOP e conferma a display da implementare/collaudare con SD reale. Il pulsante non toglie fisicamente corrente.",
         "Nessuna garanzia su transitori oltre specifica, cadute in avviamento o spegnimento senza STOP; nessuna qualifica automotive dichiarata."
       ],
-      "evidence": "Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto.",
+      "evidence": "Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto. Utente 31/10/2026: acquisto dichiarato, consegna e modello non riscontrati.",
       "assembly_document": "data-logger/docs/alimentazione-spegnimento.md"
     },
     {
@@ -409,7 +409,8 @@
         "Temperatura di esercizio del chip -40...+85 °C: per la scheda madre definitiva valutare la famiglia industriale ISM330 (-40...+105 °C), con lo stesso chip anche nel logger (D-033).",
         "Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).",
         "Utente 28/10/2026: l'unica STEVAL posseduta va sulla scheda madre (J6), nessuna seconda STEVAL in ordine; il Data Logger in pausa ne richiederà un'altra alla ripresa. Impegno spostato nel magazzino condiviso.",
-        "Il modulo è arrivato con le strip maschio già saldate (foto retro): per la scheda madre (J6, D-059) si salda così com'è nei fori da 1 mm; altezza reale sopra la scheda da misurare per il modello 3D (stima 5,6 mm del corpo)."
+        "Il modulo è arrivato con le strip maschio già saldate (foto retro): per la scheda madre (J6, D-059) si salda così com'è nei fori da 1 mm; altezza reale sopra la scheda da misurare per il modello 3D (stima 5,6 mm del corpo).",
+        "Utente 31/10/2026: l'unica STEVAL si monta prima sul Data Logger (basetta 4, EL-004) e poi si smonta per la scheda madre (J6): niente seconda STEVAL. Impegno condiviso nel tempo, non contemporaneo; D-062 aggiornata."
       ],
       "evidence": "Utente 22/10/2026: \"ST STEVAL-MKI196V1 ho preso questo\" (Farnell Italia, codice 2987032, 15,36 € IVA esclusa, 4 disponibili al 22/10/2026). Ordine dichiarato, consegna non riscontrata. Sostituisce HW-IMU-LSM6DS3 (Seeed Grove LSM6DS3, candidato mai ordinato) e la prima scelta BMI270 (ordine annullato dal venditore). Storia: Utente 20/10/2026: richiesta sensore giroscopio e accelerazione. Prima scelta BMI270 (AliExpress 1005010561882473, voce HW-IMU-BMI270): ordine annullato perché il venditore non spedisce nella zona. Utente: \"sostituiscilo con questo\", link Reichelt LSM6DS3 Grove. Dati prodotto letti dalla pagina Reichelt il 20/10/2026. 24/10/2026: misure meccaniche dai Gerber ST steval-mki196v1_gerber.zip (2018, contorno GM1 e foratura): scheda 18,0 × 30,5 mm; 24 fori Ø0,9 mm su due file da 12 a passo 2,54 mm con interasse 15,0 mm (non i 15,24 di uno zoccolo DIP da 600 mil); piedino 1 con piazzola quadrata in alto a sinistra (vista lato componenti), primo e ultimo foro a 1,28 mm dai bordi corti. Impronta del progetto scheda-madre:ST_DIL24_Adapter_W15.0mm (due strip femmina 1x12). Nessun modello 3D dell'utente: modulo non ancora arrivato. 28/10/2026: ordine Farnell 20261022194931 arrivato, caricato dall'utente nel magazzino lucaversus/DB-componenti-elettronici; presenza dichiarata, non ancora verificata al banco. 28/10/2026: foto fronte e retro dell'utente archiviate; misure con il calibro 18,5 × 30,9 mm, interasse 15 mm, passo 2,54 mm. Impronta e ingombro della scheda madre portati a 18,5 × 30,9 mm.",
       "photos": [
@@ -557,13 +558,13 @@
       "name": "Pulsante STOP momentaneo normalmente aperto",
       "scope": "Data Logger temporaneo",
       "quantity": 1,
-      "status": "candidate",
+      "status": "present_declared",
       "verified": [],
       "open_checks": [
-        "Possesso/ordine non confermato; firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.",
+        "Utente 31/10/2026: «ce l'ho io» (pulsante posseduto, modello non riscontrato). Firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.",
         "Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione."
       ],
-      "evidence": "Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto."
+      "evidence": "Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto. Utente 31/10/2026: pulsante STOP già posseduto."
     },
     {
       "id": "HW-LOGGER-SWITCH",

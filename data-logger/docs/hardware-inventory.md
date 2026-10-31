@@ -190,9 +190,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-AUTO-POWER — Alimentazione temporanea proposta: Uadme 5 V, arresto manuale STOP
 
-**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
+**Stato:** `ordered_pending` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto.
+**Fonte:** Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto. Utente 31/10/2026: acquisto dichiarato, consegna e modello non riscontrati.
 
 **Verifiche documentate:**
 
@@ -200,7 +200,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Uadme B0BFFDSNRC: nessun ordine/possesso confermato; verificare uscita 5 V e funzionamento col carico.
+- Utente 31/10/2026: alimentazione dai 12 V «è stato già acquistato»; modello ricevuto, fusibile e interruttore compresi da riscontrare sul materiale. Verificare uscita 5 V e funzionamento col carico.
 - Prelievo alimentazione auto e fusibile di ramo da verificare; non collegare 12 V ai GPIO. Punto candidato da manuale: presa OBD via 16/1 (D-030), non ancora misurato.
 - Arresto manuale STOP e conferma a display da implementare/collaudare con SD reale. Il pulsante non toglie fisicamente corrente.
 - Nessuna garanzia su transitori oltre specifica, cadute in avviamento o spegnimento senza STOP; nessuna qualifica automotive dichiarata.
@@ -279,6 +279,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).
 - Utente 28/10/2026: l'unica STEVAL posseduta va sulla scheda madre (J6), nessuna seconda STEVAL in ordine; il Data Logger in pausa ne richiederà un'altra alla ripresa. Impegno spostato nel magazzino condiviso.
 - Il modulo è arrivato con le strip maschio già saldate (foto retro): per la scheda madre (J6, D-059) si salda così com'è nei fori da 1 mm; altezza reale sopra la scheda da misurare per il modello 3D (stima 5,6 mm del corpo).
+- Utente 31/10/2026: l'unica STEVAL si monta prima sul Data Logger (basetta 4, EL-004) e poi si smonta per la scheda madre (J6): niente seconda STEVAL. Impegno condiviso nel tempo, non contemporaneo; D-062 aggiornata.
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
 
@@ -408,9 +409,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
 
-**Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger temporaneo
+**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger temporaneo
 
-**Fonte:** Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto.
+**Fonte:** Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto. Utente 31/10/2026: pulsante STOP già posseduto.
 
 **Verifiche documentate:**
 
@@ -418,7 +419,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Possesso/ordine non confermato; firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.
+- Utente 31/10/2026: «ce l'ho io» (pulsante posseduto, modello non riscontrato). Firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.
 - Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione.
 
 ### HW-LOGGER-SWITCH — Interruttore generale del logger sul + 12 V (dopo il fusibile, prima del convertitore)
