@@ -118,7 +118,7 @@ d.text(355, 166, '-G1 alimentatore 9–16 V', 2.2); d.text(355, 169.5, 'limitato
 
 parts = [
     ('1', 'Q1', '1', 'NPN 2N5551, TO-92', 'Piedinatura E/B/C secondo produttore'),
-    ('2', 'U1', '1', 'Doppio comparatore LM2903B, SOIC-8', 'Adattatore SOIC-8 → DIP-8 e zoccolo'),
+    ('2', 'U1', '1', 'Doppio comparatore LM2903B, SOIC-8', 'LM2903BYDT; rovesciato con fili (KL-003)'),
     ('3', 'R1', '1', '330 Ω, 0,25 W, 5 %', ''),
     ('4', 'R2', '1', '47 kΩ, 0,25 W, 5 %', 'Q1 spento con GPIO flottante'),
     ('5', 'R4', '1', '68 kΩ, 0,25 W, 1 %', 'Partitore K'),
@@ -130,7 +130,7 @@ parts = [
     ('11', 'C1', '1', '100 nF, ceramico', 'Vicino ai pin 8 e 4 di U1'),
     ('12', 'C2', '1', '10 µF, 16 V, elettrolitico', 'Rispettare la polarità'),
     ('13', 'R3', '1', '510 Ω, 1 W, 1 %', 'Solo -A2 simulatore, non nel modulo'),
-    ('14', '—', '1 ins.', 'Millefori, morsetti, fili', ''),
+    ('14', '—', '1 ins.', 'Millefori, fili saldati', 'Niente morsettiere (D-042)'),
 ]
 d.parts_list(25, 192, parts, widths=(10, 15, 11, 62, 82))
 d.notes(212, 196, 'NOTE', [
@@ -145,9 +145,10 @@ d.notes(212, 196, 'NOTE', [
 ], step=3.6)
 d.title_block(title=['Interfaccia K-line', 'autocostruita'], subtitle='Data Logger',
               doc_type='Schema elettrico', status='NON COLLAUDATO · solo banco',
-              code='C3AI-DL-KL-001', rev='F', date='20/10/2026', sheet='1/1',
+              code='C3AI-DL-KL-001', rev='G', date='31/10/2026', sheet='1/1',
               revisions=[('C', 'Eliminato JP1; R3 solo nel simulatore esterno (D-018)', '18/10/2026'),
                          ('D', 'Porte esterne evidenziate; nessuna variazione elettrica', '18/10/2026'),
                          ('E', 'Aggiunta R10 per isteresi del comparatore (D-022)', '20/10/2026'),
-                         ('F', 'Ridisegno secondo IEC 60617 / IEC 61082-1 / ISO 5457 / ISO 7200 (D-024)', '20/10/2026')])
+                         ('F', 'Ridisegno secondo IEC 60617 / IEC 61082-1 / ISO 5457 / ISO 7200 (D-024)', '20/10/2026'),
+                         ('G', 'Distinta: U1 senza adattatore e zoccolo, niente morsettiere; circuito invariato (D-062)', '31/10/2026')])
 (ROOT.parents[1]/'disegni/sorgenti/DL-KL-001_schema-kline.svg').write_text(d.svg('Schema elettrico IEC 61082-1 dell\'interfaccia K-line da banco; non collaudato.'), encoding='utf-8')

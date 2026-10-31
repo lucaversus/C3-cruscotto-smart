@@ -1,6 +1,7 @@
 # K-line autocostruita — Cruscotto C3+AI / Data Logger
 
-Revisione F, 20/10/2026. Disegno C3AI-DL-KL-001, rev F (D-022: isteresi R10; D-024: disegno IEC/ISO).
+Revisione F, 20/10/2026. Disegno C3AI-DL-KL-001, rev G del 31/10/2026 (D-022: isteresi R10; D-024: disegno IEC/ISO;
+rev G: solo distinta, U1 senza adattatore e zoccolo e niente morsettiere, D-062; circuito invariato rispetto alla F).
 **Prototipo da banco non collaudato: nessun collegamento al veicolo.**
 Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
 il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
