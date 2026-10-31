@@ -519,13 +519,14 @@
       "verified": [
         "28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica.",
         "28/10/2026, utente a vista: condensatori C1 100 nF e C2 10 µF arrivati a foro passante (versione THT, non le SMD del primo carrello).",
-        "31/10/2026, KL-M001: modulo montato secondo KL-003 rev C, prova a circuito spento superata (utente al tester): continuità GND, +5V, VREF e K; nessun corto tra piedini vicini di U1 né tra +5V, +3V3 e GND; R1, R2, R4…R10 al valore atteso; Q1 E a GND e C a K; C2 con «−» a massa. Non prova il funzionamento alimentato."
+        "31/10/2026, KL-M001: modulo montato secondo KL-003 rev C, prova a circuito spento superata (utente al tester): continuità GND, +5V, VREF e K; nessun corto tra piedini vicini di U1 né tra +5V, +3V3 e GND; R1, R2, R4…R10 al valore atteso; Q1 E a GND e C a K; C2 con «−» a massa. Non prova il funzionamento alimentato.",
+        "31/10/2026, KL-M002: prova KL-P001 della sola scheda con un alimentatore a 5,0 V su +5V, +3V3 e VBENCH e R3 510 Ω esterna: utente «tutto dentro le tolleranze» (17 punti: corrente, VREF, VSENSE, K alta/bassa, uscita del comparatore alta/bassa al comando di TX, ritorno ripetuto). Valori numerici non riferiti singolarmente."
       ],
       "open_checks": [
         "Ordine Farnell 22/10/2026 (dichiarato, consegna non riscontrata): 2× LM2903BYDT (SOIC-8, versione B), 5× 2N5551BU onsemi, resistenze R1…R10 (330 Ω, 47 kΩ, 510 Ω 1 W 5 %, 68 kΩ, 10 kΩ 0,5 %, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ), C1 100 nF e C2 10 µF, millefori MC01009 72×47 mm come base. All'arrivo riscontrare valori e sigle.",
         "Condensatori: arrivati a foro passante (utente 28/10/2026), adatti alla millefori; codice esatto Farnell non riscontrato sul pezzo.",
         "Montaggio eseguito 31/10/2026 secondo KL-003 rev C (U1 SOIC-8 a pancia in su, fili saldati, senza zoccolo né morsettiere): fissaggio meccanico di chip e fili da controllare nel tempo.",
-        "Prima accensione su banco limitato in corrente (HW-BENCH-PSU dichiarato), solo 5 V e 3,3 V, senza ESP32 né veicolo: assorbimento e tensioni VREF/VSENSE/RX_RAW. Prova a spento superata (KL-M001).",
+        "Prova con VBENCH 9-16 V reale e 3,3 V separato (ESP32), dopo il montaggio completo: stati statici e poi tempi a 10400 baud. Stati statici a 5 V unica superati (KL-M002, 31/10/2026); alimentatore HW-BENCH-PSU usato, modello e limite di corrente ancora da riscontrare.",
         "Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.",
         "Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.",
         "Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).",

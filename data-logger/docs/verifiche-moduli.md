@@ -460,3 +460,17 @@ rev C. Non prova il funzionamento alimentato, le soglie del comparatore né la K
 **Esito:** superata.
 **Prossimo passo:** prima accensione su banco limitato in corrente, solo 5 V e 3,3 V,
 senza ESP32 né veicolo: assorbimento e tensioni VREF, VSENSE, RX_RAW.
+
+## KL-M002 — prova KL-P001, sola scheda K-line con un alimentatore a 5 V — 31/10/2026
+
+**Misura riferita:** utente "tutto dentro le tolleranze" sul foglio KL-P001 rev A: un'unica uscita
+dell'alimentatore da banco a 5,0 V (limite 50 mA) su -X1 3 +5V, -X1 4 +3V3 e -X2 2 VBENCH, R3 510 Ω
+esterna verso -X2 1 K, niente ESP32 né veicolo. Punti 1-17: corrente a riposo, chip freddo, VREF,
+VSENSE, K alta con uscita del comparatore alta, TX al + con K bassa e uscita bassa, corrente in
+trasmissione, ritorno ripetuto. Valori numerici non riferiti singolarmente.
+**Interpretazione:** il trasmettitore (R1, R2, Q1) tira giù la linea e il ricevitore (partitori,
+LM2903B, pull-up R8, R9) segue lo stato della linea in proporzione a VBENCH. Non prova il
+funzionamento con VBENCH 9-16 V e 3,3 V separati, l'isteresi misurata, i tempi a 10400 baud né la
+compatibilità con una centralina.
+**Esito:** superata, nei limiti dichiarati.
+**Prossimo passo:** montaggio completo del logger (EL-004), poi prova finale con ESP32 e VBENCH 12 V.
