@@ -373,17 +373,18 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - 28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica.
 - 28/10/2026, utente a vista: condensatori C1 100 nF e C2 10 µF arrivati a foro passante (versione THT, non le SMD del primo carrello).
+- 31/10/2026, KL-M001: modulo montato secondo KL-003 rev C, prova a circuito spento superata (utente al tester): continuità GND, +5V, VREF e K; nessun corto tra piedini vicini di U1 né tra +5V, +3V3 e GND; R1, R2, R4…R10 al valore atteso; Q1 E a GND e C a K; C2 con «−» a massa. Non prova il funzionamento alimentato.
 
 **Da verificare:**
 
 - Ordine Farnell 22/10/2026 (dichiarato, consegna non riscontrata): 2× LM2903BYDT (SOIC-8, versione B), 5× 2N5551BU onsemi, resistenze R1…R10 (330 Ω, 47 kΩ, 510 Ω 1 W 5 %, 68 kΩ, 10 kΩ 0,5 %, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ), C1 100 nF e C2 10 µF, millefori MC01009 72×47 mm come base. All'arrivo riscontrare valori e sigle.
 - Condensatori: arrivati a foro passante (utente 28/10/2026), adatti alla millefori; codice esatto Farnell non riscontrato sul pezzo.
-- Montaggio scelto dall'utente: collegamenti volanti sulla millefori, senza zoccolo, adattatore SOIC-8→DIP-8 né morsettiere (KL-003 resta riferimento per un montaggio successivo). Fili sottili saldati direttamente ai piedini SOIC (passo 1,27 mm): controllare al tester assenza di ponti prima di alimentare; fissare meccanicamente chip e fili.
-- Verifica montaggio, pin E-B-C del 2N5551 onsemi sul datasheet, assenza corti e alimentazioni su banco limitato in corrente (HW-BENCH-PSU dichiarato).
+- Montaggio eseguito 31/10/2026 secondo KL-003 rev C (U1 SOIC-8 a pancia in su, fili saldati, senza zoccolo né morsettiere): fissaggio meccanico di chip e fili da controllare nel tempo.
+- Prima accensione su banco limitato in corrente (HW-BENCH-PSU dichiarato), solo 5 V e 3,3 V, senza ESP32 né veicolo: assorbimento e tensioni VREF/VSENSE/RX_RAW. Prova a spento superata (KL-M001).
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
 - Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.
 - Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).
-- Utente 31/10/2026, scelta per U1: LM2903BYDT SOIC-8 incollato a pancia in su con la tacca a destra (KL-003 rev B), 8 spezzoni nei fori assegnati in modo speculare, ciascuno di fronte al proprio piedino (1-4 in basso da destra, 5-8 in alto da sinistra), fili corti senza incroci; nessun adattatore SOIC-8→DIP-8. Lo zoccolo DIP-8 Farnell 2445620 (TE 1-2199298-2, 10 in magazzino) non accoglie il SOIC. Riscontrare al tester ogni piedino → spezzone e l'assenza di corti tra piedini vicini prima di alimentare.
+- Utente 31/10/2026, scelta per U1: LM2903BYDT SOIC-8 incollato a pancia in su con la tacca a destra (KL-003 rev B), 8 spezzoni nei fori assegnati in modo speculare, ciascuno di fronte al proprio piedino (1-4 in basso da destra, 5-8 in alto da sinistra), fili corti senza incroci; nessun adattatore SOIC-8→DIP-8. Lo zoccolo DIP-8 Farnell 2445620 (TE 1-2199298-2, 10 in magazzino) non accoglie il SOIC. Riscontro al tester eseguito (KL-M001, 31/10/2026): fili 1 e 2 sotto U1 aggiunti dopo la correzione del disegno (rev C).
 
 ### HW-J1-MICROFIT24 — Connettore verso l'auto -J1: Molex Micro-Fit 3.0 24 vie (femmina 43025-2400 sul cablaggio, spina 43020-2400 sul prototipo)
 

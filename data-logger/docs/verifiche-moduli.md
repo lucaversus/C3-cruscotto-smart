@@ -443,3 +443,20 @@ sono ancora simulati; non provata la direzione S3 → front-end (l'S3 non trasme
 **Esito:** superata, con massa comune attraverso l'USB del PC. Il filo GND tra le schede resta
 obbligatorio (alimentazioni separate, auto).
 **Prossimo passo:** dati reali nel front-end (tensione batteria, poi K-line e VAN).
+
+## KL-M001 — modulo K-line montato (KL-003 rev C), prova a circuito spento — 31/10/2026
+
+**Misura riferita:** utente al tester, basetta scollegata e non alimentata, U1 già montato.
+Cicalino: GND tra -X1 5 e -X2 3, piedini 4-5 di U1 (dopo l'aggiunta del filo 2), piedini 2-6
+(dopo l'aggiunta del filo 1), piedino 8 a -X1 3, Q1 E a GND e C a -X2 1 K: suonano. Nessun
+corto tra piedini vicini di U1 (1-2, 2-3, 3-4, 5-6, 6-7, 7-8) né tra +5V, +3V3 e GND.
+Ohmmetro: da GND piedino 2 ≈10 kΩ, piedino 3 ≈10 kΩ, -X2 2 ≈160 kΩ, -X2 1 ≈78 kΩ,
+piedino 1 ≈340 kΩ; -X1 1→piedino 1 ≈1 kΩ, -X1 4→piedino 1 ≈4,7 kΩ, -X2 1→piedino 3 ≈68 kΩ,
+-X2 2→piedino 2 ≈150 kΩ, -X1 2→base Q1 ≈330 Ω, base Q1→GND ≈47 kΩ: "conformi". A vista
+Q1 E-B-C con E a massa, C2 con «−» verso J10.
+**Interpretazione:** il cablaggio realizza le reti di KL-001 rev G come da KL-003. I due fili
+sotto U1 mancavano perché nascosti dal corpo del chip nella rev B del disegno, corretta in
+rev C. Non prova il funzionamento alimentato, le soglie del comparatore né la K-line.
+**Esito:** superata.
+**Prossimo passo:** prima accensione su banco limitato in corrente, solo 5 V e 3,3 V,
+senza ESP32 né veicolo: assorbimento e tensioni VREF, VSENSE, RX_RAW.
