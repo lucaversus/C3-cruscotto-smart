@@ -192,6 +192,8 @@ disegnati e la disposizione su millefori con i collegamenti da componente a comp
   `tools/genera-logger-millefori-illustrato.py`, D-042): K-line, ESP32, RTC + MicroSD su tre basette,
   IMU su un ritaglio, OLED, VAN (solo ricezione) e STOP, fili saldati W1-W31 senza morsetti. Proposta, non collaudata.
 - [Disposizione su millefori](../../disegni/DL-KL-003_kline-millefori.png), C3AI-DL-KL-003 rev C (31/10/2026: fili 1 e 2 sotto U1 resi visibili)
+- [Prova KL-P001, prima accensione a banco](prove/KL-P001_prima-accensione.pdf), foglio A4 stampabile
+  ([HTML](prove/KL-P001_prima-accensione.html)): stati statici K alta/bassa, VREF, VSENSE, RX; valori attesi calcolati
   ([SVG](../../disegni/sorgenti/DL-KL-003_kline-millefori.svg), generatore `tools/genera-kline-millefori.py`):
   basetta 24 × 16 fori passo 2,54 mm, scala 4:1, fili colorati per rete, elenco dei 32
   fili con i fori di partenza e arrivo, ordine di montaggio. Il generatore instrada i
