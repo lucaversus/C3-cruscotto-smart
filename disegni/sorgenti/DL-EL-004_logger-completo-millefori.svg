@@ -56,7 +56,7 @@
 <path d="M0 148.5 L25 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M420 148.5 L405 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="25" y="20" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">DATA LOGGER COMPLETO A BANCO SU MILLEFORI — COLLEGAMENTI ILLUSTRATI</text>
-<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">Disegno illustrativo, basette in scala 1,5:1 (millefori MC01009 72×47 mm): posizioni dei piedini indicative, collegare per nome secondo la serigrafia. Riferimenti tecnici: KL-001 rev F (K-line), EL-003 rev B (moduli). Nessun collegamento al veicolo.</text>
+<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">Disegno illustrativo, basette in scala 1,5:1 (millefori MC01009 72×47 mm): posizioni dei piedini indicative, collegare per nome secondo la serigrafia. Riferimenti tecnici: KL-001 rev G (K-line), EL-003 rev B (moduli). Nessun collegamento al veicolo.</text>
 <rect x="28.00" y="38.00" width="70.50" height="108.00" rx="2" fill="#e9d8a6" stroke="#000" stroke-width="0.4"/>
 <circle cx="31.50" cy="41.50" r="0.55" fill="#c08040"/>
 <circle cx="31.50" cy="45.31" r="0.55" fill="#c08040"/>
@@ -586,7 +586,7 @@
 <text x="79.60" y="110.14" font-size="2.0" text-anchor="end" fill="#ffffff" font-weight="bold" font-family="Arial, sans-serif">3V3</text>
 <text x="63.00" y="141.00" font-size="2.3" text-anchor="middle" fill="#000" font-family="Arial, sans-serif">ESP32 saldato sulla basetta</text>
 <rect x="150.00" y="38.00" width="108.00" height="70.50" rx="2" fill="#e9d8a6" stroke="#000" stroke-width="0.4"/>
-<text x="204.00" y="35.50" font-size="3.2" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">Basetta 1 — K-line KL-001 rev F (disposizione KL-003)</text>
+<text x="204.00" y="35.50" font-size="3.2" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">Basetta 1 — K-line KL-001 rev G (disposizione KL-003 rev B)</text>
 <circle cx="152.58" cy="40.89" r="0.55" fill="#c08040"/>
 <circle cx="152.58" cy="44.70" r="0.55" fill="#c08040"/>
 <circle cx="152.58" cy="48.51" r="0.55" fill="#c08040"/>
@@ -1092,36 +1092,27 @@
 <circle cx="255.45" cy="101.85" r="0.55" fill="#c08040"/>
 <circle cx="255.45" cy="105.66" r="0.55" fill="#c08040"/>
 <line x1="160.20" y1="101.85" x2="247.83" y2="101.85" stroke="#909090" stroke-width="1.0" stroke-linecap="round"/>
-<polyline points="205.92,82.80 205.92,75.18 209.73,75.18 209.73,71.37" fill="none" stroke="#8040c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="205.92" cy="82.80" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
-<circle cx="209.73" cy="71.37" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
-<polyline points="213.54,82.80 213.54,71.37" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="213.54" cy="82.80" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
-<circle cx="213.54" cy="71.37" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
-<polyline points="160.20,71.37 194.49,71.37" fill="none" stroke="#d00000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="160.20" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
-<circle cx="194.49" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
-<polyline points="194.49,71.37 198.30,71.37" fill="none" stroke="#d00000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="194.49" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
-<circle cx="198.30" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
-<polyline points="198.30,71.37 202.11,71.37" fill="none" stroke="#d00000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="198.30" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
-<circle cx="202.11" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
-<polyline points="213.54,82.80 213.54,101.85" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="213.54" cy="82.80" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
-<circle cx="213.54" cy="101.85" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
-<polyline points="221.16,52.32 209.73,52.32 209.73,71.37" fill="none" stroke="#8040c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<polyline points="209.73,82.80 209.73,78.99 205.92,78.99 205.92,71.37" fill="none" stroke="#8040c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="209.73" cy="82.80" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
+<circle cx="205.92" cy="71.37" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
+<polyline points="202.11,82.80 202.11,71.37" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="202.11" cy="82.80" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
+<circle cx="202.11" cy="71.37" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
+<polyline points="221.16,52.32 205.92,52.32 205.92,71.37" fill="none" stroke="#8040c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="221.16" cy="52.32" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
-<circle cx="209.73" cy="71.37" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
+<circle cx="205.92" cy="71.37" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
 <polyline points="221.16,56.13 221.16,52.32" fill="none" stroke="#8040c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="221.16" cy="56.13" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
 <circle cx="221.16" cy="52.32" r="0.5" fill="#8040c0" stroke="#000" stroke-width="0.1"/>
-<polyline points="194.49,75.18 194.49,71.37" fill="none" stroke="#d00000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<polyline points="194.49,75.18 160.20,75.18 160.20,71.37" fill="none" stroke="#d00000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="194.49" cy="75.18" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
-<circle cx="194.49" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
+<circle cx="160.20" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
 <polyline points="198.30,75.18 194.49,75.18" fill="none" stroke="#d00000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="198.30" cy="75.18" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
 <circle cx="194.49" cy="75.18" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
+<polyline points="213.54,71.37 213.54,67.56 198.30,67.56 198.30,75.18" fill="none" stroke="#d00000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="213.54" cy="71.37" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
+<circle cx="198.30" cy="75.18" r="0.5" fill="#d00000" stroke="#000" stroke-width="0.1"/>
 <polyline points="167.82,56.13 160.20,56.13" fill="none" stroke="#008000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="167.82" cy="56.13" r="0.5" fill="#008000" stroke="#000" stroke-width="0.1"/>
 <circle cx="160.20" cy="56.13" r="0.5" fill="#008000" stroke="#000" stroke-width="0.1"/>
@@ -1137,13 +1128,13 @@
 <polyline points="186.87,90.42 183.06,90.42 183.06,78.99" fill="none" stroke="#6cbf3a" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="186.87" cy="90.42" r="0.5" fill="#6cbf3a" stroke="#000" stroke-width="0.1"/>
 <circle cx="183.06" cy="78.99" r="0.5" fill="#6cbf3a" stroke="#000" stroke-width="0.1"/>
-<polyline points="202.11,82.80 186.87,82.80 186.87,90.42" fill="none" stroke="#6cbf3a" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="202.11" cy="82.80" r="0.5" fill="#6cbf3a" stroke="#000" stroke-width="0.1"/>
+<polyline points="213.54,82.80 213.54,86.61 186.87,86.61 186.87,90.42" fill="none" stroke="#6cbf3a" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="213.54" cy="82.80" r="0.5" fill="#6cbf3a" stroke="#000" stroke-width="0.1"/>
 <circle cx="186.87" cy="90.42" r="0.5" fill="#6cbf3a" stroke="#000" stroke-width="0.1"/>
-<polyline points="209.73,82.80 209.73,86.61 202.11,86.61 202.11,90.42" fill="none" stroke="#00a0c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
-<circle cx="209.73" cy="82.80" r="0.5" fill="#00a0c0" stroke="#000" stroke-width="0.1"/>
+<polyline points="205.92,82.80 205.92,90.42 202.11,90.42" fill="none" stroke="#00a0c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="205.92" cy="82.80" r="0.5" fill="#00a0c0" stroke="#000" stroke-width="0.1"/>
 <circle cx="202.11" cy="90.42" r="0.5" fill="#00a0c0" stroke="#000" stroke-width="0.1"/>
-<polyline points="221.16,82.80 217.35,82.80 217.35,90.42 202.11,90.42" fill="none" stroke="#00a0c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<polyline points="221.16,82.80 217.35,82.80 217.35,90.42 209.73,90.42 209.73,94.23 202.11,94.23 202.11,90.42" fill="none" stroke="#00a0c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="221.16" cy="82.80" r="0.5" fill="#00a0c0" stroke="#000" stroke-width="0.1"/>
 <circle cx="202.11" cy="90.42" r="0.5" fill="#00a0c0" stroke="#000" stroke-width="0.1"/>
 <polyline points="221.16,90.42 221.16,82.80" fill="none" stroke="#00a0c0" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
@@ -1167,18 +1158,21 @@
 <polyline points="160.20,86.61 160.20,101.85" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="160.20" cy="86.61" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <circle cx="160.20" cy="101.85" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
-<polyline points="194.49,78.99 190.68,78.99 190.68,86.61 179.25,86.61 179.25,101.85" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<polyline points="194.49,78.99 186.87,78.99 186.87,82.80 179.25,82.80 179.25,101.85" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="194.49" cy="78.99" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <circle cx="179.25" cy="101.85" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <polyline points="198.30,78.99 194.49,78.99" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="198.30" cy="78.99" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <circle cx="194.49" cy="78.99" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
+<polyline points="202.11,82.80 198.30,82.80 198.30,78.99" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="202.11" cy="82.80" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
+<circle cx="198.30" cy="78.99" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <polyline points="236.40,90.42 236.40,101.85" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="236.40" cy="90.42" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <circle cx="236.40" cy="101.85" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
-<polyline points="236.40,56.13 244.02,56.13 244.02,48.51 213.54,48.51 213.54,71.37" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
+<polyline points="236.40,56.13 244.02,56.13 244.02,48.51 202.11,48.51 202.11,71.37" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="236.40" cy="56.13" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
-<circle cx="213.54" cy="71.37" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
+<circle cx="202.11" cy="71.37" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <polyline points="236.40,75.18 240.21,75.18 240.21,86.61 236.40,86.61 236.40,90.42" fill="none" stroke="#000000" stroke-width="0.7" stroke-linejoin="round" opacity="0.9"/>
 <circle cx="236.40" cy="75.18" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
 <circle cx="236.40" cy="90.42" r="0.5" fill="#000000" stroke="#000" stroke-width="0.1"/>
@@ -1266,32 +1260,32 @@
 <rect x="195.44" y="89.42" width="0.5" height="2" fill="#ff8c00"/>
 <rect x="196.24" y="89.42" width="0.5" height="2" fill="#8b4513"/>
 <text x="194.49" y="88.82" font-size="1.5" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">R10 330 kΩ 1%</text>
-<line x1="204.97" y1="74.89" x2="202.11" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
-<rect x="201.31" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="200.81" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">8</text>
-<line x1="206.88" y1="74.89" x2="205.92" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
-<rect x="205.12" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="205.92" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">7</text>
-<line x1="208.77" y1="74.89" x2="209.73" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
-<rect x="208.93" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="209.73" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">6</text>
-<line x1="210.67" y1="74.89" x2="213.54" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
-<rect x="212.74" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="214.84" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">5</text>
+<line x1="210.68" y1="79.29" x2="213.54" y2="82.80" stroke="#b07020" stroke-width="0.3"/>
+<rect x="212.74" y="82.00" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
+<text x="213.54" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">1</text>
+<line x1="208.78" y1="79.29" x2="209.73" y2="82.80" stroke="#b07020" stroke-width="0.3"/>
+<rect x="208.93" y="82.00" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
+<text x="209.73" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">2</text>
+<line x1="206.87" y1="79.29" x2="205.92" y2="82.80" stroke="#b07020" stroke-width="0.3"/>
+<rect x="205.12" y="82.00" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
+<text x="205.92" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">3</text>
 <line x1="204.97" y1="79.29" x2="202.11" y2="82.80" stroke="#b07020" stroke-width="0.3"/>
 <rect x="201.31" y="82.00" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="200.81" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">1</text>
-<line x1="206.88" y1="79.29" x2="205.92" y2="82.80" stroke="#b07020" stroke-width="0.3"/>
-<rect x="205.12" y="82.00" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="205.92" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">2</text>
-<line x1="208.77" y1="79.29" x2="209.73" y2="82.80" stroke="#b07020" stroke-width="0.3"/>
-<rect x="208.93" y="82.00" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="209.73" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">3</text>
-<line x1="210.67" y1="79.29" x2="213.54" y2="82.80" stroke="#b07020" stroke-width="0.3"/>
-<rect x="212.74" y="82.00" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
-<text x="214.84" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">4</text>
+<text x="202.11" y="85.20" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">4</text>
+<line x1="204.97" y1="74.89" x2="202.11" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
+<rect x="201.31" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
+<text x="202.11" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">5</text>
+<line x1="206.87" y1="74.89" x2="205.92" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
+<rect x="205.12" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
+<text x="205.92" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">6</text>
+<line x1="208.78" y1="74.89" x2="209.73" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
+<rect x="208.93" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
+<text x="209.73" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">7</text>
+<line x1="210.68" y1="74.89" x2="213.54" y2="71.37" stroke="#b07020" stroke-width="0.3"/>
+<rect x="212.74" y="70.57" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>
+<text x="213.54" y="70.17" font-size="1.3" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">8</text>
 <rect x="203.32" y="75.09" width="9.00" height="4.00" rx="0.3" fill="#303030" stroke="#000" stroke-width="0.4"/>
-<circle cx="204.22" cy="78.19" r="0.35" fill="#ffffff"/>
+<path d="M212.32 76.29 a0.8 0.8 0 0 0 0 1.6" fill="#e9d8a6" stroke="#000" stroke-width="0.1"/>
 <text x="207.82" y="77.69" font-size="1.6" text-anchor="middle" fill="#ffffff" font-weight="bold" font-family="Arial, sans-serif">U1</text>
 <line x1="196.90" y1="77.09" x2="198.30" y2="75.18" stroke="#606060" stroke-width="0.3"/>
 <line x1="196.90" y1="77.09" x2="198.30" y2="78.99" stroke="#606060" stroke-width="0.3"/>
@@ -1306,7 +1300,7 @@
 <text x="243.42" y="64.25" font-size="1.3" text-anchor="end" fill="#ffffff" font-weight="bold" font-family="Arial, sans-serif">B</text>
 <text x="243.42" y="68.06" font-size="1.3" text-anchor="end" fill="#ffffff" font-weight="bold" font-family="Arial, sans-serif">E</text>
 <text x="241.02" y="57.94" font-size="1.6" text-anchor="end" fill="#000" font-weight="bold" font-family="Arial, sans-serif">Q1</text>
-<text x="204.00" y="112.00" font-size="1.9" text-anchor="middle" fill="#000" font-family="Arial, sans-serif">Componenti e fili interni come KL-003 (R3 fuori basetta). U1 SOIC-8 incollato, fili sottili piedino→foro;</text>
+<text x="204.00" y="112.00" font-size="1.9" text-anchor="middle" fill="#000" font-family="Arial, sans-serif">Componenti e fili interni come KL-003 rev B (R3 fuori basetta). U1 SOIC-8 a pancia in su, tacca a destra;</text>
 <text x="204.00" y="114.60" font-size="1.9" text-anchor="middle" fill="#000" font-family="Arial, sans-serif">X1/X2 = fori dove si saldano i fili W1-W5 e W24, W26, W27 (niente morsettiere).</text>
 <circle cx="160.20" cy="56.13" r="1.3" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>
 <text x="158.40" y="54.53" font-size="1.8" text-anchor="end" fill="#000" font-weight="bold" font-family="Arial, sans-serif">X1:1 RX</text>
@@ -2035,6 +2029,7 @@
 <circle cx="378.98" cy="180.22" r="0.55" fill="#c08040"/>
 <text x="365.50" y="128.50" font-size="3.2" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif"></text>
 <text x="365.50" y="129.00" font-size="2.6" text-anchor="middle" fill="#000" font-weight="bold" font-family="Arial, sans-serif">Basetta 4 — IMU (ritaglio ~27×38 mm)</text>
+<text x="365.50" y="125.60" font-size="1.7" text-anchor="middle" fill="#c00000" font-family="Arial, sans-serif">STEVAL da procurare: quella posseduta va alla scheda madre (D-062)</text>
 <rect x="356.00" y="134.00" width="23.00" height="49.00" rx="1" fill="#1a6a3a" stroke="#000" stroke-width="0.4"/>
 <circle cx="357.5" cy="137.50" r="0.9" fill="#a0a0a0" stroke="#000" stroke-width="0.2"/>
 <text x="359.00" y="138.00" font-size="1.3" text-anchor="start" fill="#ffffff" font-family="Arial, sans-serif">24 </text>
@@ -2337,21 +2332,16 @@
 <text x="136" y="264.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">W30  basetta 3 3V3 (VAN) → -A6 3V3  (+3,3 V)</text>
 <line x1="128" y1="268.2" x2="134" y2="268.2" stroke="#606060" stroke-width="1.8"/>
 <text x="136" y="269.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">W31  -A6 CANH/CANL → -J1 vie 5/6 → quadro: dopo D-022  (bus VAN)</text>
-<text x="25" y="30.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Basette (millefori MC01009 72×47 mm): 1 K-line KL-001 rev F a fili volanti · 2 ESP32 HW-394 · 3 RTC DS3231 + MicroSD · 4 IMU (ritaglio) · modulo VAN -A6 con fili. Fili sottili = collegamenti interni; pallino = giunzione saldata; incrocio senza pallino = nessun contatto.</text>
+<text x="25" y="30.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Basette (millefori MC01009 72×47 mm): 1 K-line KL-001 rev G a fili volanti · 2 ESP32 HW-394 · 3 RTC DS3231 + MicroSD · 4 IMU (ritaglio) · modulo VAN -A6 con fili. Fili sottili = collegamenti interni; pallino = giunzione saldata; incrocio senza pallino = nessun contatto.</text>
 <text x="292" y="197" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">SEQUENZA E PRECAUZIONI</text>
-<text x="292" y="202" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">1 Tutto spento: saldare, poi controllare al tester continuità</text>
-<text x="292" y="205.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">  e assenza di ponti, soprattutto sui piedini SOIC di U1.</text>
-<text x="292" y="209.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">2 Ingombri reali di RTC e MicroSD da verificare sulla basetta 3.</text>
-<text x="292" y="212.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">3 Prima USB da sola: VIN 4,75-5,25 V, 3V3 3,2-3,4 V.</text>
-<text x="292" y="216.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">4 Alimentatore 12,0 V, limite 0,10 A, poi uscita accesa.</text>
-<text x="292" y="220" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">5 Spegnere in ordine inverso. Mai 12 V su ESP32 o su 3V3.</text>
-<text x="292" y="223.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">6 W4/W6, W5/W7, W16…W19/W20…W23: due fili sullo stesso punto.</text>
-<text x="292" y="227.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">7 Verso l&#x27;auto e verso il banco: spina volante -J1 Micro-Fit 24 vie</text>
-<text x="292" y="230.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">  (D-044); al banco una femmina cablata su R3 e alimentatore.</text>
-<text x="292" y="234.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">8 IMU solo 3,3 V; la scheda non ha pull-up I²C: verificare quelle del</text>
-<text x="292" y="238" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">  modulo RTC, altrimenti 4,7 kΩ verso 3V3 su SDA e SCL.</text>
-<text x="292" y="241.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">9 VAN -A6: solo ricezione su GPIO34; prove 1-4 D-022 superate a banco</text>
-<text x="292" y="245.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">  il 23/10/2026; al quadro solo dopo la prova 5 (punto sul veicolo).</text>
+<text x="292" y="202" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">1 Tutto spento: saldare, poi al tester continuità e nessun ponte, soprattutto sui piedini SOIC di U1.</text>
+<text x="292" y="205" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">2 Ingombri reali di RTC e MicroSD da verificare sulla basetta 3.</text>
+<text x="292" y="208" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">3 Prima USB da sola: VIN 4,75-5,25 V, 3V3 3,2-3,4 V. Poi alimentatore 12,0 V, limite 0,10 A, uscita accesa.</text>
+<text x="292" y="211" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">4 Spegnere in ordine inverso. Mai 12 V su ESP32 o su 3V3.</text>
+<text x="292" y="214" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">5 W4/W6, W5/W7, W16…W19/W20…W23: due fili sullo stesso punto.</text>
+<text x="292" y="217" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">6 Verso auto e banco: spina volante -J1 Micro-Fit 24 vie (D-044); al banco femmina cablata su R3 e alimentatore.</text>
+<text x="292" y="220" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">7 IMU solo 3,3 V, senza pull-up I²C: usare quelle del modulo RTC, altrimenti 4,7 kΩ verso 3V3 su SDA e SCL.</text>
+<text x="292" y="223" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000">8 VAN -A6 solo ricezione su GPIO34; prove 1-4 D-022 superate il 23/10/2026; al quadro solo dopo la prova 5.</text>
 <rect x="230" y="255" width="180" height="32" fill="white"/>
 <rect x="230" y="255" width="180" height="32" fill="none" stroke="#000000" stroke-width="0.7"/>
 <rect x="230" y="255" width="80" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
@@ -2381,10 +2371,10 @@
 <text x="311.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C3AI-DL-EL-004</text>
 <rect x="360" y="271" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="361" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Rev.</text>
-<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C</text>
+<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">D</text>
 <rect x="375" y="271" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="376" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Data di emissione</text>
-<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">23/10/2026</text>
+<text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">31/10/2026</text>
 <rect x="310" y="279" width="50" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="311" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Riferimento tecnico</text>
 <text x="311.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">D-024 · IEC 61082-1</text>
@@ -2394,29 +2384,35 @@
 <rect x="375" y="279" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="376" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Foglio</text>
 <text x="376.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">1/1</text>
-<rect x="230" y="235" width="180" height="20" fill="white"/>
-<rect x="230" y="235" width="180" height="20" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="230" width="180" height="25" fill="white"/>
+<rect x="230" y="230" width="180" height="25" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="230" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="233.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<rect x="242" y="230" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="233.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<rect x="385" y="230" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="233.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
 <rect x="230" y="235" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<text x="231" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">A</text>
 <rect x="242" y="235" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<text x="243" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)</text>
 <rect x="385" y="235" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
+<text x="386" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">22/10/2026</text>
 <rect x="230" y="240" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">A</text>
+<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
 <rect x="242" y="240" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)</text>
+<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)</text>
 <rect x="385" y="240" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">22/10/2026</text>
+<text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">23/10/2026</text>
 <rect x="230" y="245" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
+<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">C</text>
 <rect x="242" y="245" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)</text>
+<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Modulo VAN modificato: «121» rimossa, TX a 3V3, prove 1-4 superate</text>
 <rect x="385" y="245" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">23/10/2026</text>
 <rect x="230" y="250" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">C</text>
+<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">D</text>
 <rect x="242" y="250" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Modulo VAN modificato: «121» rimossa, TX a 3V3, prove 1-4 superate</text>
+<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Basetta 1 da KL-003 rev B (U1 a pancia in su); IMU da procurare (D-062)</text>
 <rect x="385" y="250" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">23/10/2026</text></svg>
+<text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">31/10/2026</text></svg>

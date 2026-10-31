@@ -36,7 +36,7 @@ d = Sheet('C3AI-DL-KL-002 rev A — K-line, collegamenti illustrati della prova 
 d.frame()
 d.text(25, 20, 'PROVA A BANCO DEL MODULO K-LINE — COLLEGAMENTI ILLUSTRATI', 5, bold=True)
 d.text(25, 25, 'Disegno illustrativo: posizioni dei piedini indicative, usare sempre la serigrafia dei moduli. Riferimento tecnico: '
-               'schema KL-001 rev F; montaggio: KL-003. Nessun collegamento al veicolo.', 2.5)
+               'schema KL-001 rev G; montaggio: KL-003 rev B. -X1/-X2 = fori dove si saldano i fili (niente morsettiere). Nessun collegamento al veicolo.', 2.5)
 
 # --- ESP32 HW-394 ---------------------------------------------------------------
 ex, ey, ew, eh = 30, 50, 62, 120
@@ -71,20 +71,20 @@ for i in range(16):
 box(d, mx + 38, my + 20, 18, 14, '#303030', rx=1)
 label(d, mx + 47, my + 28, 'U1', 2.6, bold=True, color='#ffffff')
 d.raw(f'<path d="M{mx + 70} {my + 16} a4 4 0 0 1 0 10 z" fill="#202020"/>')
-label(d, mx + mw / 2, my - 3, '-A2  Modulo K-line KL-001 rev F (montaggio KL-003)', 3.4, bold=True)
+label(d, mx + mw / 2, my - 3, '-A2  Modulo K-line KL-001 rev G (montaggio KL-003 rev B)', 3.4, bold=True)
 x1 = {}
-box(d, mx - 6, my + 6, 8, 50, '#2e8b57', rx=1)
+d.raw(f'<rect x="{mx - 6}" y="{my + 6}" width="8" height="50" fill="none" stroke="#000" stroke-width="0.3" stroke-dasharray="1.5 1"/>')
 for i, (n, net) in enumerate([('1 RX', 'RX_3V3'), ('2 TX', 'TX_INV'), ('3 +5V', '+5V'), ('4 +3V3', '+3V3'), ('5 GND', 'GND')]):
     y = my + 11 + i * 10
-    d.raw(f'<circle cx="{mx - 2:.2f}" cy="{y:.2f}" r="2.2" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>')
+    d.raw(f'<circle cx="{mx - 2:.2f}" cy="{y:.2f}" r="1.8" fill="#b87333" stroke="#000" stroke-width="0.3"/>')
     label(d, mx + 3, y + 1, n, 2.4, 'start', True)
     x1[net] = (mx - 2, y)
 label(d, mx - 10, my + 4, '-X1', 3, 'end', True)
 x2 = {}
-box(d, mx + mw - 2, my + 16, 8, 30, '#2e8b57', rx=1)
+d.raw(f'<rect x="{mx + mw - 2}" y="{my + 16}" width="8" height="30" fill="none" stroke="#000" stroke-width="0.3" stroke-dasharray="1.5 1"/>')
 for i, (n, net) in enumerate([('1 K', 'K'), ('2 VBENCH', 'VBENCH'), ('3 GND', 'GND')]):
     y = my + 21 + i * 10
-    d.raw(f'<circle cx="{mx + mw + 2:.2f}" cy="{y:.2f}" r="2.2" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>')
+    d.raw(f'<circle cx="{mx + mw + 2:.2f}" cy="{y:.2f}" r="1.8" fill="#b87333" stroke="#000" stroke-width="0.3"/>')
     label(d, mx + mw - 3, y + 1, n, 2.4, 'end', True)
     x2[net] = (mx + mw + 2, y)
 label(d, mx + mw + 8, my + 14, '-X2', 3, 'start', True)
@@ -150,8 +150,9 @@ d.notes(200, 212, 'SEQUENZA E PRECAUZIONI', [
 ], h=2.5, step=4.0)
 d.title_block(title=['K-line, banco', 'illustrato'], subtitle='Data Logger',
               doc_type='Schema illustrativo', status='PROPOSTO · NON COLLAUDATO',
-              code='C3AI-DL-KL-002', rev='A', date='22/10/2026', sheet='1/1',
-              revisions=[('A', 'Prima emissione: moduli illustrati a complemento di KL-001 rev F', '22/10/2026')])
+              code='C3AI-DL-KL-002', rev='B', date='31/10/2026', sheet='1/1',
+              revisions=[('A', 'Prima emissione: moduli illustrati a complemento di KL-001 rev F', '22/10/2026'),
+                         ('B', '-X1/-X2 come fori per fili saldati, niente morsettiere (D-042, D-062)', '31/10/2026')])
 out = ROOT / 'disegni/sorgenti/DL-KL-002_kline-collegamenti-illustrati.svg'
 out.write_text(d.svg('Collegamenti illustrati della prova a banco del modulo K-line; posizioni dei piedini indicative.'),
                encoding='utf-8')

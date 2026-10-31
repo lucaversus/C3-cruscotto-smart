@@ -183,12 +183,12 @@ Richiesta dell'utente: oltre allo schema tecnico, una rappresentazione con i mod
 disegnati e la disposizione su millefori con i collegamenti da componente a componente.
 
 - [Collegamenti illustrati della prova a banco](../../disegni/DL-KL-002_kline-collegamenti-illustrati.png),
-  C3AI-DL-KL-002 rev A ([SVG](../../disegni/sorgenti/DL-KL-002_kline-collegamenti-illustrati.svg), generatore
+  C3AI-DL-KL-002 rev B ([SVG](../../disegni/sorgenti/DL-KL-002_kline-collegamenti-illustrati.svg), generatore
   `tools/genera-kline-illustrato.py`): ESP32 HW-394, modulo, alimentatore da banco
   (HW-BENCH-PSU) e R3 del simulatore; tabella dei fili W1-W9 e sequenza di accensione.
   Piedini dell'ESP32 in posizione indicativa: fa fede la serigrafia.
 - [Data Logger completo a banco su millefori](../../disegni/DL-EL-004_logger-completo-millefori.png),
-  C3AI-DL-EL-004 rev A ([SVG](../../disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg), generatore
+  C3AI-DL-EL-004 rev D ([SVG](../../disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg), generatore
   `tools/genera-logger-millefori-illustrato.py`, D-042): K-line, ESP32, RTC + MicroSD su tre basette,
   IMU su un ritaglio, OLED, VAN (solo ricezione) e STOP, fili saldati W1-W31 senza morsetti. Proposta, non collaudata.
 - [Disposizione su millefori](../../disegni/DL-KL-003_kline-millefori.png), C3AI-DL-KL-003 rev B

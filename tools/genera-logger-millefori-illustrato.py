@@ -81,7 +81,7 @@ d = Sheet('C3AI-DL-EL-004 rev C — Data Logger completo a banco, collegamenti i
 d.frame()
 d.text(25, 20, 'DATA LOGGER COMPLETO A BANCO SU MILLEFORI — COLLEGAMENTI ILLUSTRATI', 5, bold=True)
 d.text(25, 25, 'Disegno illustrativo, basette in scala 1,5:1 (millefori MC01009 72×47 mm): posizioni dei piedini indicative, collegare '
-               'per nome secondo la serigrafia. Riferimenti tecnici: KL-001 rev F (K-line), EL-003 rev B (moduli). Nessun collegamento al veicolo.', 2.4)
+               'per nome secondo la serigrafia. Riferimenti tecnici: KL-001 rev G (K-line), EL-003 rev B (moduli). Nessun collegamento al veicolo.', 2.4)
 
 # --- Basetta 2: ESP32 HW-394 ---------------------------------------------------------
 perfboard(d, 28, 38, 70.5, 108, 'Basetta 2 — ESP32')
@@ -109,7 +109,7 @@ label(d, 63, 141, 'ESP32 saldato sulla basetta', 2.3)
 # --- Basetta 1: modulo K-line, disposizione e fili di KL-003 ------------------------
 B1 = (150, 38, 108, 70.5)
 box(d, *B1, '#e9d8a6', rx=2)
-label(d, B1[0] + B1[2] / 2, B1[1] - 2.5, 'Basetta 1 — K-line KL-001 rev F (disposizione KL-003)', 3.2, bold=True)
+label(d, B1[0] + B1[2] / 2, B1[1] - 2.5, 'Basetta 1 — K-line KL-001 rev G (disposizione KL-003 rev B)', 3.2, bold=True)
 KX0, KY0, KS = 160.2, 44.7, 3.81                 # foro A1 e passo 2,54 mm in scala 1,5:1
 assert KL.verify() > 0                          # reti di KL-003 = netlist KL-001 rev F
 
@@ -147,18 +147,18 @@ for ref, (ohms, precise) in KL.RES.items():
             d.raw(f'<rect x="{mx - w / 2:.2f}" y="{my + off - 0.25:.2f}" width="{w}" height="0.5" fill="{col}"/>')
     tx, ty = (mx, my - 1.6) if horizontal else (mx + 1.6, my + 0.6)
     label(d, tx, ty, f'{ref} {KL.RES_LABEL[ref]}', 1.5, 'middle' if horizontal else 'start', True)
-# U1 LM2903B SOIC-8 incollato al centro dei suoi 8 fori, fili sottili dai piedini ai fori.
-(xa, ya), (xb, yb) = KP(KL.COMP['U1']['8'][0]), KP(KL.COMP['U1']['4'][0])
-cx, cy = (xa + xb) / 2, (ya + yb) / 2
+# U1 LM2903B SOIC-8 a pancia in su (tacca a destra) tra i suoi 8 spezzoni, come in KL-003 rev B:
+# ogni spezzone sta di fronte al proprio piedino, fili corti e dritti.
+us = [KP(h) for h, _ in KL.COMP['U1'].values()]
+cx, cy = sum(x for x, _ in us) / len(us), sum(y for _, y in us) / len(us)
 for pin, (hl, _) in KL.COMP['U1'].items():
     x, y = KP(hl)
-    px_ = cx + (int(pin) - 2.5 if int(pin) <= 4 else 6.5 - int(pin)) * 1.9
-    py_ = cy + (2.2 if int(pin) <= 4 else -2.2)
+    px_, py_ = cx + (x - cx) * 0.5, cy + (2.2 if y > cy else -2.2)
     d.raw(f'<line x1="{px_:.2f}" y1="{py_:.2f}" x2="{x:.2f}" y2="{y:.2f}" stroke="#b07020" stroke-width="0.3"/>')
     d.raw(f'<rect x="{x - 0.8:.2f}" y="{y - 0.8:.2f}" width="1.6" height="1.6" fill="#d0d0d0" stroke="#000" stroke-width="0.15"/>')
-    label(d, x + (1.3 if int(pin) in (4, 5) else -1.3 if int(pin) in (1, 8) else 0), y + (2.4 if int(pin) <= 4 else -1.2), pin, 1.3, 'middle', True)
+    label(d, x, y + (2.4 if y > cy else -1.2), pin, 1.3, 'middle', True)
 box(d, cx - 4.5, cy - 2, 9, 4, '#303030', rx=0.3)
-d.raw(f'<circle cx="{cx - 3.6:.2f}" cy="{cy + 1.1:.2f}" r="0.35" fill="#ffffff"/>')
+d.raw(f'<path d="M{cx + 4.5:.2f} {cy - 0.8:.2f} a0.8 0.8 0 0 0 0 1.6" fill="#e9d8a6" stroke="#000" stroke-width="0.1"/>')
 label(d, cx, cy + 0.6, 'U1', 1.6, bold=True, color='#ffffff')
 for ref, shape in (('C1', 'disc'), ('C2', 'elec')):
     hl = list(KL.COMP[ref].values())
@@ -182,7 +182,7 @@ for pin, (h, _) in KL.COMP['Q1'].items():
     x, y = KP(h)
     label(d, x - 0.6, y + 0.5, pin, 1.3, 'end', True, '#ffffff')
 label(d, xq - 3, hs[0][1] - 2, 'Q1', 1.6, 'end', True)
-label(d, 204, 112, 'Componenti e fili interni come KL-003 (R3 fuori basetta). U1 SOIC-8 incollato, fili sottili piedino→foro;', 1.9)
+label(d, 204, 112, 'Componenti e fili interni come KL-003 rev B (R3 fuori basetta). U1 SOIC-8 a pancia in su, tacca a destra;', 1.9)
 label(d, 204, 114.6, 'X1/X2 = fori dove si saldano i fili W1-W5 e W24, W26, W27 (niente morsettiere).', 1.9)
 
 
@@ -269,6 +269,7 @@ for i, n in enumerate(['GND', 'VCC', 'SCL', 'SDA']):
 # Modo 1 (solo I²C): SDx e SCx a VDDIO o GND secondo ST, OCS e OSDO liberi (da riscontrare sul datasheet).
 perfboard(d, 345, 131, 41, 57, '')
 label(d, 365.5, 129, 'Basetta 4 — IMU (ritaglio ~27×38 mm)', 2.6, bold=True)
+label(d, 365.5, 125.6, 'STEVAL da procurare: quella posseduta va alla scheda madre (D-062)', 1.7, color='#c00000')
 box(d, 356, 134, 23, 49, '#1a6a3a', rx=1)
 DIL_L = [24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13]
 DIL_R = list(range(1, 13))
@@ -424,29 +425,25 @@ for i, (w, net, a, b) in enumerate(rows):
     x, y = TX0 + col * 103, TY0 + 1 + r * 4.3
     d.raw(f'<line x1="{x}" y1="{y - 1}" x2="{x + 6}" y2="{y - 1}" stroke="{C[net]}" stroke-width="1.8"/>')
     d.text(x + 8, y, f'{w}  {a} → {b}  ({NAMES[net]})', 2.3)
-d.text(25, 30.5, 'Basette (millefori MC01009 72×47 mm): 1 K-line KL-001 rev F a fili volanti · 2 ESP32 HW-394 · 3 RTC DS3231 + MicroSD · '
+d.text(25, 30.5, 'Basette (millefori MC01009 72×47 mm): 1 K-line KL-001 rev G a fili volanti · 2 ESP32 HW-394 · 3 RTC DS3231 + MicroSD · '
                '4 IMU (ritaglio) · modulo VAN -A6 con fili. Fili sottili = collegamenti interni; pallino = giunzione saldata; incrocio senza pallino = nessun contatto.', 2.2)
 d.notes(292, 197, 'SEQUENZA E PRECAUZIONI', [
-    '1 Tutto spento: saldare, poi controllare al tester continuità',
-    '  e assenza di ponti, soprattutto sui piedini SOIC di U1.',
+    '1 Tutto spento: saldare, poi al tester continuità e nessun ponte, soprattutto sui piedini SOIC di U1.',
     '2 Ingombri reali di RTC e MicroSD da verificare sulla basetta 3.',
-    '3 Prima USB da sola: VIN 4,75-5,25 V, 3V3 3,2-3,4 V.',
-    '4 Alimentatore 12,0 V, limite 0,10 A, poi uscita accesa.',
-    '5 Spegnere in ordine inverso. Mai 12 V su ESP32 o su 3V3.',
-    '6 W4/W6, W5/W7, W16…W19/W20…W23: due fili sullo stesso punto.',
-    '7 Verso l\'auto e verso il banco: spina volante -J1 Micro-Fit 24 vie',
-    '  (D-044); al banco una femmina cablata su R3 e alimentatore.',
-    '8 IMU solo 3,3 V; la scheda non ha pull-up I²C: verificare quelle del',
-    '  modulo RTC, altrimenti 4,7 kΩ verso 3V3 su SDA e SCL.',
-    '9 VAN -A6: solo ricezione su GPIO34; prove 1-4 D-022 superate a banco',
-    '  il 23/10/2026; al quadro solo dopo la prova 5 (punto sul veicolo).',
-], h=2.3, step=3.6)
+    '3 Prima USB da sola: VIN 4,75-5,25 V, 3V3 3,2-3,4 V. Poi alimentatore 12,0 V, limite 0,10 A, uscita accesa.',
+    '4 Spegnere in ordine inverso. Mai 12 V su ESP32 o su 3V3.',
+    '5 W4/W6, W5/W7, W16…W19/W20…W23: due fili sullo stesso punto.',
+    '6 Verso auto e banco: spina volante -J1 Micro-Fit 24 vie (D-044); al banco femmina cablata su R3 e alimentatore.',
+    '7 IMU solo 3,3 V, senza pull-up I²C: usare quelle del modulo RTC, altrimenti 4,7 kΩ verso 3V3 su SDA e SCL.',
+    '8 VAN -A6 solo ricezione su GPIO34; prove 1-4 D-022 superate il 23/10/2026; al quadro solo dopo la prova 5.',
+], h=2.0, step=3.0)
 d.title_block(title=['Data Logger completo', 'a banco, illustrato'], subtitle='Data Logger',
               doc_type='Schema illustrativo', status='PROPOSTO · NON COLLAUDATO',
-              code='C3AI-DL-EL-004', rev='C', date='23/10/2026', sheet='1/1',
+              code='C3AI-DL-EL-004', rev='D', date='31/10/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)', '22/10/2026'),
                          ('B', 'Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)', '23/10/2026'),
-                         ('C', 'Modulo VAN modificato: «121» rimossa, TX a 3V3, prove 1-4 superate', '23/10/2026')])
+                         ('C', 'Modulo VAN modificato: «121» rimossa, TX a 3V3, prove 1-4 superate', '23/10/2026'),
+                         ('D', 'Basetta 1 da KL-003 rev B (U1 a pancia in su); IMU da procurare (D-062)', '31/10/2026')])
 out = ROOT / 'disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg'
 out.write_text(d.svg('Collegamenti illustrati del Data Logger completo a banco su millefori; posizioni indicative.'),
                encoding='utf-8')
