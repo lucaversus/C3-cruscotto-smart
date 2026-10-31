@@ -197,5 +197,9 @@ disegnati e la disposizione su millefori con i collegamenti da componente a comp
   fili e **verifica che realizzino esattamente le reti della netlist rev F**, senza fori
   condivisi tra reti, tratti sovrapposti o fili sopra piedini di altre reti.
 
-Stato invariato: componenti in acquisto, nulla montato o collaudato. Prima prova:
+Montaggio di U1 scelto il 31/10/2026 (D-062): il SOIC-8 viene incollato rovesciato al posto dello zoccolo
+e collegato con fili corti ai fori dei piedini 1-8 della tavola; adattatore non usato. A chip rovesciato la
+numerazione appare speculare. I fori e le reti della tavola restano validi.
+
+Stato: componenti arrivati il 28/10/2026, nulla montato o collaudato. Prima prova:
 continuità e assenza di corti a circuito spento, senza LM2903B nell'adattatore.

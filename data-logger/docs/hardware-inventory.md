@@ -383,6 +383,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
 - Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.
 - Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).
+- Utente 31/10/2026, scelta per U1: LM2903BYDT SOIC-8 incollato rovesciato (dead-bug) nel posto dello zoccolo della tavola KL-003, fili corti da ogni piedino al foro del piedino corrispondente; nessun adattatore SOIC-8→DIP-8 ordinato. Lo zoccolo DIP-8 Farnell 2445620 (TE 1-2199298-2, 10 in magazzino) non accoglie il SOIC. A chip rovesciato la numerazione appare speculare: riscontrare al tester ogni piedino → foro e l'assenza di corti tra piedini vicini prima di alimentare.
 
 ### HW-J1-MICROFIT24 — Connettore verso l'auto -J1: Molex Micro-Fit 3.0 24 vie (femmina 43025-2400 sul cablaggio, spina 43020-2400 sul prototipo)
 
