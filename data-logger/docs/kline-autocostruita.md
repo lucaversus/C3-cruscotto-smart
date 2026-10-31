@@ -20,15 +20,15 @@ Non e una piedinatura del veicolo o una scheda automotive certificata.
 ## Distinta per un prototipo da banco
 
 Tutte le resistenze dei partitori a tolleranza 1%; valori da acquistare solo
-se non gia disponibili. Componenti ordinati su Farnell il 22/10/2026 (consegna non
-riscontrata, dettaglio in HW-KLINE-INTERFACE). Prima prova con collegamenti volanti
+se non gia disponibili. Componenti ordinati su Farnell il 22/10/2026 e arrivati il 28/10/2026
+(dettaglio in HW-KLINE-INTERFACE). Prima prova con collegamenti volanti
 sulla millefori, senza zoccolo, adattatore né morsettiere; i fili vanno saldati
 direttamente ai piedini SOIC-8 (passo 1,27 mm) e controllati al tester prima di alimentare.
 
 | Rif. | Quantita | Valore / componente | Nota |
 | --- | --- | --- | --- |
 | Q1 | 1 | 2N5551, NPN TO-92 | Scegliere produttore e verificare E/B/C sul relativo datasheet |
-| U1 | 1 | LM2903B, versione SOIC-8 | Adattatore SOIC-8 → DIP-8; non scambiare con LM2903 senza B |
+| U1 | 1 | LM2903B, versione SOIC-8 | LM2903BYDT (marcatura 2903BY); incollato rovesciato e cablato con fili (KL-003 rev B); non scambiare con LM2903 senza B |
 | R1 | 1 | 330 ohm, 0,25 W, 5% | Base TX |
 | R2 | 1 | 47 kohm, 0,25 W, 5% | Base-emettitore, Q1 spento a GPIO flottante |
 | R3 | 1 | 510 ohm, 1 W, 1% | Solo simulatore esterno da banco; non montare nel modulo |
@@ -40,7 +40,7 @@ direttamente ai piedini SOIC-8 (passo 1,27 mm) e controllati al tester prima di 
 | R10 | 1 | 330 kohm, 0,25 W, 1% | Retroazione OUT1 → IN1+, isteresi (rev E) |
 | C1 | 1 | 100 nF ceramico | Bypass U1, vicino ai pin 8/4 |
 | C2 | 1 | 10 microfarad, 16 V | Positivo su +5 V, negativo a GND |
-| Montaggio | 1 insieme | Adattatore SOIC-8 → DIP-8, zoccolo DIP-8, millefori, morsetti e fili | Saldature e piedinatura da controllare |
+| Montaggio | 1 insieme | Millefori MC01009, filo isolato e nudo, colla per U1 | Niente zoccolo, adattatore né morsettiere (D-042, D-062); saldature e piedinatura da controllare |
 
 Non ordinare in questa fase un altro modulo CAN o un'interfaccia Freematics.
 Il tester esistente consente i controlli statici, non dimostra i tempi UART.
@@ -190,16 +190,17 @@ disegnati e la disposizione su millefori con i collegamenti da componente a comp
   C3AI-DL-EL-004 rev A ([SVG](../../disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg), generatore
   `tools/genera-logger-millefori-illustrato.py`, D-042): K-line, ESP32, RTC + MicroSD su tre basette,
   IMU su un ritaglio, OLED, VAN (solo ricezione) e STOP, fili saldati W1-W31 senza morsetti. Proposta, non collaudata.
-- [Disposizione su millefori](../../disegni/DL-KL-003_kline-millefori.png), C3AI-DL-KL-003 rev A
+- [Disposizione su millefori](../../disegni/DL-KL-003_kline-millefori.png), C3AI-DL-KL-003 rev B
   ([SVG](../../disegni/sorgenti/DL-KL-003_kline-millefori.svg), generatore `tools/genera-kline-millefori.py`):
   basetta 24 × 16 fori passo 2,54 mm, scala 4:1, fili colorati per rete, elenco dei 32
   fili con i fori di partenza e arrivo, ordine di montaggio. Il generatore instrada i
   fili e **verifica che realizzino esattamente le reti della netlist rev F**, senza fori
-  condivisi tra reti, tratti sovrapposti o fili sopra piedini di altre reti.
+  condivisi tra reti, tratti sovrapposti o fili sopra piedini di altre reti. Rev B (31/10/2026): U1 SOIC-8
+  rovesciato su 8 spezzoni nei fori dei piedini, fili saldati nei fori X1/X2, ordine di montaggio aggiornato.
 
 Montaggio di U1 scelto il 31/10/2026 (D-062): il SOIC-8 viene incollato rovesciato al posto dello zoccolo
 e collegato con fili corti ai fori dei piedini 1-8 della tavola; adattatore non usato. A chip rovesciato la
 numerazione appare speculare. I fori e le reti della tavola restano validi.
 
 Stato: componenti arrivati il 28/10/2026, nulla montato o collaudato. Prima prova:
-continuità e assenza di corti a circuito spento, senza LM2903B nell'adattatore.
+continuità e assenza di corti a circuito spento, prima di montare l'LM2903B.

@@ -22,7 +22,7 @@ chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 | 1 | Fusibile di ramo da 2 A, se non incluso | Portafusibile gia acquistato (HW-FUSE-HOLDER), modello da riscontrare; verificare valore con cavo e carico |
 | 1 | Pulsante momentaneo normalmente aperto, a 2 contatti | STOP logico, non interruttore di potenza |
 | 1 | 2N5551 NPN TO-92 | K-line, pinout secondo produttore |
-| 1 + 1 + 1 | LM2903B SOIC-8, adattatore SOIC-8 → DIP-8 e zoccolo DIP-8 | Ricevitore K-line del prototipo documentato |
+| 1 | LM2903B SOIC-8 (LM2903BYDT, arrivato) | Ricevitore K-line del prototipo; montato rovesciato con fili, senza adattatore né zoccolo (KL-003 rev B, D-062) |
 | 1 ciascuna | Resistenze 330 ohm e 47 kohm, 0,25 W, 5% | K-line |
 | 1 | Resistenza 510 ohm, 1 W, 1% | Solo simulatore esterno da banco, non montata nel modulo K-line |
 | 1 ciascuna | Resistenze 68 kohm, 150 kohm e 4,7 kohm, 0,25 W, 1% | K-line |

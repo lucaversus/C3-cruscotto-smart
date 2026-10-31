@@ -4,6 +4,8 @@ Rev. A: vista dal lato componenti, passo 2,54 mm, scala 4:1. Ogni collegamento �
 (isolato se lungo, nudo o stagno se tra fori adiacenti) saldato sul lato saldature ai
 piedini indicati. Il generatore verifica che i fili realizzino esattamente le reti dello
 schema KL-001 rev F e che nessun foro sia usato da due elementi.
+Rev. B (31/10/2026, D-062): U1 SOIC-8 incollato rovesciato al posto dello zoccolo, con 8 spezzoni nei fori dei
+piedini e fili corti fino al chip; fili saldati nei fori X1/X2 invece delle morsettiere (D-042).
 """
 from pathlib import Path
 import sys
@@ -329,12 +331,12 @@ def draw():
                 d.raw(f'<rect x="{mx - w / 2:.2f}" y="{my + off - 0.45:.2f}" width="{w}" height="0.9" fill="{col}"/>')
         tx, ty = (mx, my - 3.4) if horizontal else (mx + 3.5, my)
         d.text(tx, ty, f'{ref} {RES_LABEL[ref]}', 2.2, 'middle' if horizontal else 'start', True)
-    # U1: zoccolo DIP-8 con adattatore (tacca a sinistra, piedino 1 in basso a sinistra)
+    # U1: SOIC-8 rovesciato sopra gli 8 fori dei piedini (fori numerati come un DIP-8, tacca a sinistra)
     (xa, ya), (xb, yb) = P(COMP['U1']['8'][0]), P(COMP['U1']['4'][0])
     d.raw(f'<rect x="{xa - 3:.2f}" y="{ya - 3:.2f}" width="{xb - xa + 6:.2f}" height="{yb - ya + 6:.2f}" rx="1" fill="#303030" stroke="#000" stroke-width="0.4"/>')
     d.raw(f'<path d="M{xa - 3:.2f} {(ya + yb) / 2 - 2:.2f} a2 2 0 0 1 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>')
     d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 - 1:.2f}" font-size="2.8" text-anchor="middle" font-weight="bold" fill="#ffffff" font-family="Arial">U1 LM2903B</text>')
-    d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 + 3:.2f}" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">su adattatore SOIC-8 → DIP-8</text>')
+    d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 + 3:.2f}" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 rovesciato, fili ai fori 1-8</text>')
     for pin, (h, _) in COMP['U1'].items():
         x, y = P(h)
         d.raw(f'<rect x="{x - 1.3:.2f}" y="{y - 1.3:.2f}" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>')
@@ -367,16 +369,17 @@ def draw():
     d.text(xq - 6.5, hs[1][1] - 1, 'Q1 2N5551', 2.4, 'end', True)
     d.text(xq - 6.5, hs[1][1] + 2.2, '(E-B-C dal datasheet)', 2, 'end')
     # Morsettiere
+    # X1/X2: fori dove si saldano i fili verso ESP32 e banco (D-042: niente morsettiere)
     for ref, label in (('X1', ['1 RX→GPIO16', '2 TX←GPIO17', '3 +5V', '4 +3V3', '5 GND']),
                        ('X2', ['1 K', '2 VBENCH', '3 GND'])):
         holes = [h for h, _ in COMP[ref].values()]
         xs = [P(h)[0] for h in holes]; ys = [P(h)[1] for h in holes]
         left = ref == 'X1'
         bx = min(xs) - 3.75
-        d.raw(f'<rect x="{bx:.2f}" y="{min(ys) - 3:.2f}" width="7.5" height="{max(ys) - min(ys) + 6:.2f}" fill="#2e8b57" stroke="#000" stroke-width="0.3"/>')
+        d.raw(f'<rect x="{bx:.2f}" y="{min(ys) - 3:.2f}" width="7.5" height="{max(ys) - min(ys) + 6:.2f}" fill="none" stroke="#000" stroke-width="0.3" stroke-dasharray="1.5 1"/>')
         for (h, _), text in zip(COMP[ref].values(), label):
             x, y = P(h)
-            d.raw(f'<circle cx="{bx + 3.75:.2f}" cy="{y:.2f}" r="2" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>')
+            d.raw(f'<circle cx="{bx + 3.75:.2f}" cy="{y:.2f}" r="1.6" fill="#b87333" stroke="#000" stroke-width="0.3"/>')
             edge = x0 if left else x0 + (COLS - 1 + 1.6) * STEP
             d.text(edge - 1.5 if left else edge + 1.5, y + 1, text, 2.4, 'end' if left else 'start', True)
         d.text(bx + 3.75, min(ys) - 4.5, f'-{ref}', 3, 'middle', True)
@@ -401,11 +404,16 @@ def draw():
     ], h=2.4, step=4.0)
     d.notes(LX, LY + 120, 'ORDINE DI MONTAGGIO', [
         '1 Fili e bus di massa, poi resistenze.',
-        '2 Zoccolo U1 (tacca a sinistra), C1, C2 (polarità).',
-        '3 Q1 per ultimo, orientato col datasheet.',
-        '4 Morsettiere X1 e X2.',
+        '2 8 spezzoni nudi nei fori U1, C1, C2 (polarità).',
+        '3 Q1, orientato col datasheet.',
+        '4 Fili X1 e X2 saldati nei fori (D-042).',
         '5 Controllo a vista e continuità a',
-        '  circuito spento PRIMA dell\'adattatore U1.',
+        '  circuito spento PRIMA di U1.',
+        '6 U1 SOIC-8 rovesciato e incollato tra',
+        '  gli spezzoni: piedino 1 dal pallino,',
+        '  numerazione speculare. Ogni piedino al',
+        '  suo foro; al tester piedino→foro e',
+        '  nessun corto tra piedini vicini.',
     ], h=2.4, step=4.0)
     # Elenco dei fili (estremi da saldare), in due colonne
     d.text(25, 214, 'ELENCO DEI FILI (estremi da saldare; percorso come nel disegno)', 3.2, bold=True)
@@ -417,12 +425,13 @@ def draw():
         pts = [hole(h) for h in path]
         under = any((c, r) in {hole(b) for b in BODIES} for (c1, r1), (c2, r2) in zip(pts, pts[1:])
                     for c in range(min(c1, c2), max(c1, c2) + 1) for r in range(min(r1, r2), max(r1, r2) + 1))
-        note = ' (sotto lo zoccolo, lato saldature)' if under else ''
+        note = ' (sotto U1, lato saldature)' if under else ''
         d.text(x + 7, y, f'{i + 1:2d}  {net:7s} {path[0]} → {path[-1]}{note}', 2.3)
     d.title_block(title=['K-line su', 'millefori'], subtitle='Data Logger',
                   doc_type='Disposizione di montaggio', status='PROPOSTO · NON COLLAUDATO',
-                  code='C3AI-DL-KL-003', rev='A', date='22/10/2026', sheet='1/1',
-                  revisions=[('A', 'Prima emissione da KL-001 rev F; reti verificate dal generatore', '22/10/2026')])
+                  code='C3AI-DL-KL-003', rev='B', date='31/10/2026', sheet='1/1',
+                  revisions=[('A', 'Prima emissione da KL-001 rev F; reti verificate dal generatore', '22/10/2026'),
+                             ('B', 'U1 SOIC-8 rovesciato con fili; niente zoccolo e morsettiere (D-062)', '31/10/2026')])
     out = ROOT / 'disegni/sorgenti/DL-KL-003_kline-millefori.svg'
     out.write_text(d.svg('Disposizione dei componenti del modulo K-line KL-001 rev F su millefori; prototipo non collaudato.'),
                    encoding='utf-8')
