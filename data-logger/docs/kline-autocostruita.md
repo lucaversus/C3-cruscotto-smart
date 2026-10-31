@@ -197,11 +197,13 @@ disegnati e la disposizione su millefori con i collegamenti da componente a comp
   fili con i fori di partenza e arrivo, ordine di montaggio. Il generatore instrada i
   fili e **verifica che realizzino esattamente le reti della netlist rev F**, senza fori
   condivisi tra reti, tratti sovrapposti o fili sopra piedini di altre reti. Rev B (31/10/2026): U1 SOIC-8
-  rovesciato su 8 spezzoni nei fori dei piedini, fili saldati nei fori X1/X2, ordine di montaggio aggiornato.
+  a pancia in su (tacca a destra) con 8 spezzoni di fronte ai piedini, 30 fili rifatti e riverificati, fili saldati
+  nei fori X1/X2, ordine di montaggio aggiornato.
 
-Montaggio di U1 scelto il 31/10/2026 (D-062): il SOIC-8 viene incollato rovesciato al posto dello zoccolo
-e collegato con fili corti ai fori dei piedini 1-8 della tavola; adattatore non usato. A chip rovesciato la
-numerazione appare speculare. I fori e le reti della tavola restano validi.
+Montaggio di U1 scelto il 31/10/2026 (D-062): il SOIC-8 viene incollato a pancia in su con la tacca a destra;
+la tavola KL-003 rev B assegna gli 8 spezzoni in modo speculare, ognuno di fronte al proprio piedino
+(1-4 in basso da destra, 5-8 in alto da sinistra), con fili corti e senza incroci; fili del modulo rifatti
+dal generatore (30 fili). Adattatore non usato.
 
 Stato: componenti arrivati il 28/10/2026, nulla montato o collaudato. Prima prova:
 continuità e assenza di corti a circuito spento, prima di montare l'LM2903B.

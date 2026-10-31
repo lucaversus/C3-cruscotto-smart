@@ -56,7 +56,7 @@
 <path d="M0 148.5 L25 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M420 148.5 L405 148.5" fill="none" stroke="#000000" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="25" y="20" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="5" text-anchor="start" fill="#000000" font-weight="bold">MODULO K-LINE KL-001 REV F — DISPOSIZIONE SU MILLEFORI (VISTA LATO COMPONENTI, SCALA 4:1)</text>
-<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Basetta a fori isolati passo 2,54 mm, 24 × 16 fori. Disposizione verificata dal generatore: 32 fili realizzano esattamente le reti dello schema KL-001 rev F. Prototipo da banco, non collaudato.</text>
+<text x="25" y="25" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="start" fill="#000000">Basetta a fori isolati passo 2,54 mm, 24 × 16 fori. Disposizione verificata dal generatore: 30 fili realizzano esattamente le reti dello schema KL-001 rev F. Prototipo da banco, non collaudato.</text>
 <rect x="43.87" y="41.87" width="249.94" height="168.66" rx="2" fill="#e9d8a6" stroke="#000" stroke-width="0.5"/>
 <text x="52" y="40.372" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000" font-weight="bold">A</text>
 <text x="62.16" y="40.372" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.5" text-anchor="middle" fill="#000000" font-weight="bold">B</text>
@@ -499,36 +499,27 @@
 <circle cx="275.52" cy="202.40" r="1.6" fill="#c08040" stroke="#7a4a1a" stroke-width="0.2"/><circle cx="275.52" cy="202.40" r="0.55" fill="#ffffff"/>
 <circle cx="285.68" cy="202.40" r="1.6" fill="#c08040" stroke="#7a4a1a" stroke-width="0.2"/><circle cx="285.68" cy="202.40" r="0.55" fill="#ffffff"/>
 <line x1="52.00" y1="202.40" x2="285.68" y2="202.40" stroke="#909090" stroke-width="2.2" stroke-linecap="round"/><line x1="52.00" y1="202.40" x2="285.68" y2="202.40" stroke="#000000" stroke-width="0.6" stroke-dasharray="2 2"/>
-<polyline points="173.92,151.60 173.92,131.28 184.08,131.28 184.08,121.12" fill="none" stroke="#8040c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="173.92" cy="151.60" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
-<circle cx="184.08" cy="121.12" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
-<polyline points="194.24,151.60 194.24,121.12" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="194.24" cy="151.60" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
-<circle cx="194.24" cy="121.12" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
-<polyline points="52.00,121.12 143.44,121.12" fill="none" stroke="#d00000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="52.00" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
-<circle cx="143.44" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
-<polyline points="143.44,121.12 153.60,121.12" fill="none" stroke="#d00000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="143.44" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
-<circle cx="153.60" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
-<polyline points="153.60,121.12 163.76,121.12" fill="none" stroke="#d00000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="153.60" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
-<circle cx="163.76" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
-<polyline points="194.24,151.60 194.24,202.40" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="194.24" cy="151.60" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
-<circle cx="194.24" cy="202.40" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
-<polyline points="214.56,70.32 184.08,70.32 184.08,121.12" fill="none" stroke="#8040c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<polyline points="184.08,151.60 184.08,141.44 173.92,141.44 173.92,121.12" fill="none" stroke="#8040c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<circle cx="184.08" cy="151.60" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
+<circle cx="173.92" cy="121.12" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
+<polyline points="163.76,151.60 163.76,121.12" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<circle cx="163.76" cy="151.60" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
+<circle cx="163.76" cy="121.12" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
+<polyline points="214.56,70.32 173.92,70.32 173.92,121.12" fill="none" stroke="#8040c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="214.56" cy="70.32" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
-<circle cx="184.08" cy="121.12" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
+<circle cx="173.92" cy="121.12" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
 <polyline points="214.56,80.48 214.56,70.32" fill="none" stroke="#8040c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="214.56" cy="80.48" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
 <circle cx="214.56" cy="70.32" r="1.0" fill="#8040c0" stroke="#000" stroke-width="0.2"/>
-<polyline points="143.44,131.28 143.44,121.12" fill="none" stroke="#d00000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<polyline points="143.44,131.28 52.00,131.28 52.00,121.12" fill="none" stroke="#d00000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="143.44" cy="131.28" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
-<circle cx="143.44" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
+<circle cx="52.00" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
 <polyline points="153.60,131.28 143.44,131.28" fill="none" stroke="#d00000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="153.60" cy="131.28" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
 <circle cx="143.44" cy="131.28" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
+<polyline points="194.24,121.12 194.24,110.96 153.60,110.96 153.60,131.28" fill="none" stroke="#d00000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<circle cx="194.24" cy="121.12" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
+<circle cx="153.60" cy="131.28" r="1.0" fill="#d00000" stroke="#000" stroke-width="0.2"/>
 <polyline points="72.32,80.48 52.00,80.48" fill="none" stroke="#008000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="72.32" cy="80.48" r="1.0" fill="#008000" stroke="#000" stroke-width="0.2"/>
 <circle cx="52.00" cy="80.48" r="1.0" fill="#008000" stroke="#000" stroke-width="0.2"/>
@@ -544,13 +535,13 @@
 <polyline points="123.12,171.92 112.96,171.92 112.96,141.44" fill="none" stroke="#6cbf3a" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="123.12" cy="171.92" r="1.0" fill="#6cbf3a" stroke="#000" stroke-width="0.2"/>
 <circle cx="112.96" cy="141.44" r="1.0" fill="#6cbf3a" stroke="#000" stroke-width="0.2"/>
-<polyline points="163.76,151.60 123.12,151.60 123.12,171.92" fill="none" stroke="#6cbf3a" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="163.76" cy="151.60" r="1.0" fill="#6cbf3a" stroke="#000" stroke-width="0.2"/>
+<polyline points="194.24,151.60 194.24,161.76 123.12,161.76 123.12,171.92" fill="none" stroke="#6cbf3a" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<circle cx="194.24" cy="151.60" r="1.0" fill="#6cbf3a" stroke="#000" stroke-width="0.2"/>
 <circle cx="123.12" cy="171.92" r="1.0" fill="#6cbf3a" stroke="#000" stroke-width="0.2"/>
-<polyline points="184.08,151.60 184.08,161.76 163.76,161.76 163.76,171.92" fill="none" stroke="#00a0c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
-<circle cx="184.08" cy="151.60" r="1.0" fill="#00a0c0" stroke="#000" stroke-width="0.2"/>
+<polyline points="173.92,151.60 173.92,171.92 163.76,171.92" fill="none" stroke="#00a0c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<circle cx="173.92" cy="151.60" r="1.0" fill="#00a0c0" stroke="#000" stroke-width="0.2"/>
 <circle cx="163.76" cy="171.92" r="1.0" fill="#00a0c0" stroke="#000" stroke-width="0.2"/>
-<polyline points="214.56,151.60 204.40,151.60 204.40,171.92 163.76,171.92" fill="none" stroke="#00a0c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<polyline points="214.56,151.60 204.40,151.60 204.40,171.92 184.08,171.92 184.08,182.08 163.76,182.08 163.76,171.92" fill="none" stroke="#00a0c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="214.56" cy="151.60" r="1.0" fill="#00a0c0" stroke="#000" stroke-width="0.2"/>
 <circle cx="163.76" cy="171.92" r="1.0" fill="#00a0c0" stroke="#000" stroke-width="0.2"/>
 <polyline points="214.56,171.92 214.56,151.60" fill="none" stroke="#00a0c0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
@@ -574,18 +565,21 @@
 <polyline points="52.00,161.76 52.00,202.40" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="52.00" cy="161.76" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <circle cx="52.00" cy="202.40" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
-<polyline points="143.44,141.44 133.28,141.44 133.28,161.76 102.80,161.76 102.80,202.40" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<polyline points="143.44,141.44 123.12,141.44 123.12,151.60 102.80,151.60 102.80,202.40" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="143.44" cy="141.44" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <circle cx="102.80" cy="202.40" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <polyline points="153.60,141.44 143.44,141.44" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="153.60" cy="141.44" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <circle cx="143.44" cy="141.44" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
+<polyline points="163.76,151.60 153.60,151.60 153.60,141.44" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<circle cx="163.76" cy="151.60" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
+<circle cx="153.60" cy="141.44" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <polyline points="255.20,171.92 255.20,202.40" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="255.20" cy="171.92" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <circle cx="255.20" cy="202.40" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
-<polyline points="255.20,80.48 275.52,80.48 275.52,60.16 194.24,60.16 194.24,121.12" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+<polyline points="255.20,80.48 275.52,80.48 275.52,60.16 163.76,60.16 163.76,121.12" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="255.20" cy="80.48" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
-<circle cx="194.24" cy="121.12" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
+<circle cx="163.76" cy="121.12" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <polyline points="255.20,131.28 265.36,131.28 265.36,161.76 255.20,161.76 255.20,171.92" fill="none" stroke="#000000" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
 <circle cx="255.20" cy="131.28" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
 <circle cx="255.20" cy="171.92" r="1.0" fill="#000000" stroke="#000" stroke-width="0.2"/>
@@ -674,25 +668,25 @@
 <rect x="146.99" y="169.82" width="0.9" height="4.2" fill="#8b4513"/>
 <text x="143.44" y="168.52" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="middle" fill="#000000" font-weight="bold">R10 330 kΩ 1%</text>
 <rect x="160.76" y="118.12" width="36.48" height="36.48" rx="1" fill="#303030" stroke="#000" stroke-width="0.4"/>
-<path d="M160.76 134.36 a2 2 0 0 1 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>
+<path d="M197.24 134.36 a2 2 0 0 0 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>
 <text x="179.00" y="135.36" font-size="2.8" text-anchor="middle" font-weight="bold" fill="#ffffff" font-family="Arial">U1 LM2903B</text>
-<text x="179.00" y="139.36" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 rovesciato, fili ai fori 1-8</text>
-<rect x="162.46" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="163.76" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">8</text>
-<rect x="172.62" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="173.92" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">7</text>
-<rect x="182.78" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="184.08" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">6</text>
-<rect x="192.94" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="194.24" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">5</text>
-<rect x="162.46" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="163.76" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">1</text>
-<rect x="172.62" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="173.92" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">2</text>
-<rect x="182.78" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="184.08" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">3</text>
+<text x="179.00" y="139.36" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 a pancia in su, tacca a destra</text>
 <rect x="192.94" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
-<text x="194.24" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">4</text>
+<text x="194.24" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">1</text>
+<rect x="182.78" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
+<text x="184.08" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">2</text>
+<rect x="172.62" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
+<text x="173.92" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">3</text>
+<rect x="162.46" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
+<text x="163.76" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">4</text>
+<rect x="162.46" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
+<text x="163.76" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">5</text>
+<rect x="172.62" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
+<text x="173.92" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">6</text>
+<rect x="182.78" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
+<text x="184.08" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">7</text>
+<rect x="192.94" y="119.82" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
+<text x="194.24" y="121.92" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">8</text>
 <ellipse cx="150.00" cy="136.36" rx="2.4" ry="3.4" fill="#e0a020" stroke="#000" stroke-width="0.3"/>
 <text x="152" y="144.86" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="middle" fill="#000000" font-weight="bold">C1 100 nF</text>
 <line x1="150.00" y1="136.36" x2="153.60" y2="131.28" stroke="#606060" stroke-width="0.5"/>
@@ -769,76 +763,73 @@
 <text x="334" y="183" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">4 Fili X1 e X2 saldati nei fori (D-042).</text>
 <text x="334" y="187" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">5 Controllo a vista e continuità a</text>
 <text x="334" y="191" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  circuito spento PRIMA di U1.</text>
-<text x="334" y="195" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">6 U1 SOIC-8 rovesciato e incollato tra</text>
-<text x="334" y="199" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  gli spezzoni: piedino 1 dal pallino,</text>
-<text x="334" y="203" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  numerazione speculare. Ogni piedino al</text>
-<text x="334" y="207" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  suo foro; al tester piedino→foro e</text>
-<text x="334" y="211" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  nessun corto tra piedini vicini.</text>
+<text x="334" y="195" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">6 U1 a pancia in su, tacca a destra</text>
+<text x="334" y="199" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  come nel disegno: piedino 1 in basso a</text>
+<text x="334" y="203" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  destra. Ogni piedino al suo spezzone</text>
+<text x="334" y="207" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  di fronte, fili corti senza incroci; al</text>
+<text x="334" y="211" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  tester piedino→spezzone e nessun corto</text>
+<text x="334" y="215" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  tra piedini vicini.</text>
 <text x="25" y="214" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.2" text-anchor="start" fill="#000000" font-weight="bold">ELENCO DEI FILI (estremi da saldare; percorso come nel disegno)</text>
 <line x1="25.00" y1="218.60" x2="30.00" y2="218.60" stroke="#8040c0" stroke-width="1.4"/>
-<text x="32" y="219.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 1  VREF    M11 → N8 (sotto U1, lato saldature)</text>
+<text x="32" y="219.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 1  VREF    N11 → M8 (sotto U1, lato saldature)</text>
 <line x1="25.00" y1="221.90" x2="30.00" y2="221.90" stroke="#000000" stroke-width="1.4"/>
-<text x="32" y="222.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 2  GND     O11 → O8 (sotto U1, lato saldature)</text>
-<line x1="25.00" y1="225.20" x2="30.00" y2="225.20" stroke="#d00000" stroke-width="1.4"/>
-<text x="32" y="226.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 3  +5V     A8 → J8</text>
-<line x1="25.00" y1="228.50" x2="30.00" y2="228.50" stroke="#d00000" stroke-width="1.4"/>
-<text x="32" y="229.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 4  +5V     J8 → K8</text>
+<text x="32" y="222.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 2  GND     L11 → L8 (sotto U1, lato saldature)</text>
+<line x1="25.00" y1="225.20" x2="30.00" y2="225.20" stroke="#8040c0" stroke-width="1.4"/>
+<text x="32" y="226.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 3  VREF    Q3 → M8</text>
+<line x1="25.00" y1="228.50" x2="30.00" y2="228.50" stroke="#8040c0" stroke-width="1.4"/>
+<text x="32" y="229.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 4  VREF    Q4 → Q3</text>
 <line x1="25.00" y1="231.80" x2="30.00" y2="231.80" stroke="#d00000" stroke-width="1.4"/>
-<text x="32" y="232.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 5  +5V     K8 → L8</text>
-<line x1="25.00" y1="235.10" x2="30.00" y2="235.10" stroke="#000000" stroke-width="1.4"/>
-<text x="32" y="236" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 6  GND     O11 → O16</text>
-<line x1="25.00" y1="238.40" x2="30.00" y2="238.40" stroke="#8040c0" stroke-width="1.4"/>
-<text x="32" y="239.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 7  VREF    Q3 → N8</text>
-<line x1="25.00" y1="241.70" x2="30.00" y2="241.70" stroke="#8040c0" stroke-width="1.4"/>
-<text x="32" y="242.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 8  VREF    Q4 → Q3</text>
-<line x1="25.00" y1="245.00" x2="30.00" y2="245.00" stroke="#d00000" stroke-width="1.4"/>
-<text x="32" y="245.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 9  +5V     J9 → J8</text>
-<line x1="25.00" y1="248.30" x2="30.00" y2="248.30" stroke="#d00000" stroke-width="1.4"/>
-<text x="32" y="249.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">10  +5V     K9 → J9</text>
-<line x1="25.00" y1="251.60" x2="30.00" y2="251.60" stroke="#008000" stroke-width="1.4"/>
-<text x="32" y="252.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">11  RX_3V3  C4 → A4</text>
-<line x1="25.00" y1="254.90" x2="30.00" y2="254.90" stroke="#c8a000" stroke-width="1.4"/>
-<text x="32" y="255.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">12  TX_INV  Q6 → A6</text>
-<line x1="25.00" y1="258.20" x2="30.00" y2="258.20" stroke="#ff8c00" stroke-width="1.4"/>
-<text x="32" y="259.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">13  +3V3    C10 → A10</text>
-<line x1="25.00" y1="261.50" x2="30.00" y2="261.50" stroke="#6cbf3a" stroke-width="1.4"/>
-<text x="32" y="262.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">14  RX_RAW  G4 → G10</text>
-<line x1="25.00" y1="264.80" x2="30.00" y2="264.80" stroke="#6cbf3a" stroke-width="1.4"/>
-<text x="32" y="265.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">15  RX_RAW  H13 → G10</text>
-<line x1="25.00" y1="268.10" x2="30.00" y2="268.10" stroke="#6cbf3a" stroke-width="1.4"/>
-<text x="32" y="269" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">16  RX_RAW  L11 → H13</text>
+<text x="32" y="232.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 5  +5V     J9 → A8</text>
+<line x1="25.00" y1="235.10" x2="30.00" y2="235.10" stroke="#d00000" stroke-width="1.4"/>
+<text x="32" y="236" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 6  +5V     K9 → J9</text>
+<line x1="25.00" y1="238.40" x2="30.00" y2="238.40" stroke="#d00000" stroke-width="1.4"/>
+<text x="32" y="239.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 7  +5V     O8 → K9</text>
+<line x1="25.00" y1="241.70" x2="30.00" y2="241.70" stroke="#008000" stroke-width="1.4"/>
+<text x="32" y="242.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 8  RX_3V3  C4 → A4</text>
+<line x1="25.00" y1="245.00" x2="30.00" y2="245.00" stroke="#c8a000" stroke-width="1.4"/>
+<text x="32" y="245.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 9  TX_INV  Q6 → A6</text>
+<line x1="25.00" y1="248.30" x2="30.00" y2="248.30" stroke="#ff8c00" stroke-width="1.4"/>
+<text x="32" y="249.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">10  +3V3    C10 → A10</text>
+<line x1="25.00" y1="251.60" x2="30.00" y2="251.60" stroke="#6cbf3a" stroke-width="1.4"/>
+<text x="32" y="252.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">11  RX_RAW  G4 → G10</text>
+<line x1="25.00" y1="254.90" x2="30.00" y2="254.90" stroke="#6cbf3a" stroke-width="1.4"/>
+<text x="32" y="255.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">12  RX_RAW  H13 → G10</text>
+<line x1="25.00" y1="258.20" x2="30.00" y2="258.20" stroke="#6cbf3a" stroke-width="1.4"/>
+<text x="32" y="259.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">13  RX_RAW  O11 → H13</text>
+<line x1="25.00" y1="261.50" x2="30.00" y2="261.50" stroke="#00a0c0" stroke-width="1.4"/>
+<text x="32" y="262.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">14  VSENSE  M11 → L13</text>
+<line x1="25.00" y1="264.80" x2="30.00" y2="264.80" stroke="#00a0c0" stroke-width="1.4"/>
+<text x="32" y="265.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">15  VSENSE  Q11 → L13</text>
 <line x1="125.00" y1="218.60" x2="130.00" y2="218.60" stroke="#00a0c0" stroke-width="1.4"/>
-<text x="132" y="219.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">17  VSENSE  N11 → L13</text>
-<line x1="125.00" y1="221.90" x2="130.00" y2="221.90" stroke="#00a0c0" stroke-width="1.4"/>
-<text x="132" y="222.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">18  VSENSE  Q11 → L13</text>
-<line x1="125.00" y1="225.20" x2="130.00" y2="225.20" stroke="#00a0c0" stroke-width="1.4"/>
-<text x="132" y="226.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">19  VSENSE  Q13 → Q11</text>
-<line x1="125.00" y1="228.50" x2="130.00" y2="228.50" stroke="#d040a0" stroke-width="1.4"/>
-<text x="132" y="229.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">20  VBENCH  X8 → U3</text>
-<line x1="125.00" y1="231.80" x2="130.00" y2="231.80" stroke="#8b5a2b" stroke-width="1.4"/>
-<text x="132" y="232.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">21  BASE    U7 → U6</text>
-<line x1="125.00" y1="235.10" x2="130.00" y2="235.10" stroke="#8b5a2b" stroke-width="1.4"/>
-<text x="132" y="236" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">22  BASE    W6 → U6</text>
-<line x1="125.00" y1="238.40" x2="130.00" y2="238.40" stroke="#0040d0" stroke-width="1.4"/>
-<text x="132" y="239.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">23  K       W5 → U11</text>
-<line x1="125.00" y1="241.70" x2="130.00" y2="241.70" stroke="#0040d0" stroke-width="1.4"/>
-<text x="132" y="242.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">24  K       X5 → W5</text>
+<text x="132" y="219.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">16  VSENSE  Q13 → Q11</text>
+<line x1="125.00" y1="221.90" x2="130.00" y2="221.90" stroke="#d040a0" stroke-width="1.4"/>
+<text x="132" y="222.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">17  VBENCH  X8 → U3</text>
+<line x1="125.00" y1="225.20" x2="130.00" y2="225.20" stroke="#8b5a2b" stroke-width="1.4"/>
+<text x="132" y="226.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">18  BASE    U7 → U6</text>
+<line x1="125.00" y1="228.50" x2="130.00" y2="228.50" stroke="#8b5a2b" stroke-width="1.4"/>
+<text x="132" y="229.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">19  BASE    W6 → U6</text>
+<line x1="125.00" y1="231.80" x2="130.00" y2="231.80" stroke="#0040d0" stroke-width="1.4"/>
+<text x="132" y="232.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">20  K       W5 → U11</text>
+<line x1="125.00" y1="235.10" x2="130.00" y2="235.10" stroke="#0040d0" stroke-width="1.4"/>
+<text x="132" y="236" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">21  K       X5 → W5</text>
+<line x1="125.00" y1="238.40" x2="130.00" y2="238.40" stroke="#000000" stroke-width="1.4"/>
+<text x="132" y="239.3" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">22  GND     A12 → A16</text>
+<line x1="125.00" y1="241.70" x2="130.00" y2="241.70" stroke="#000000" stroke-width="1.4"/>
+<text x="132" y="242.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">23  GND     J10 → F16</text>
 <line x1="125.00" y1="245.00" x2="130.00" y2="245.00" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="245.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">25  GND     A12 → A16</text>
+<text x="132" y="245.9" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">24  GND     K10 → J10</text>
 <line x1="125.00" y1="248.30" x2="130.00" y2="248.30" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="249.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">26  GND     J10 → F16</text>
+<text x="132" y="249.2" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">25  GND     L11 → K10</text>
 <line x1="125.00" y1="251.60" x2="130.00" y2="251.60" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="252.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">27  GND     K10 → J10</text>
+<text x="132" y="252.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">26  GND     U13 → U16</text>
 <line x1="125.00" y1="254.90" x2="130.00" y2="254.90" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="255.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">28  GND     U13 → U16</text>
+<text x="132" y="255.8" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">27  GND     U4 → L8</text>
 <line x1="125.00" y1="258.20" x2="130.00" y2="258.20" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="259.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">29  GND     U4 → O8</text>
+<text x="132" y="259.1" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">28  GND     U9 → U13</text>
 <line x1="125.00" y1="261.50" x2="130.00" y2="261.50" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="262.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">30  GND     U9 → U13</text>
+<text x="132" y="262.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">29  GND     W7 → U13</text>
 <line x1="125.00" y1="264.80" x2="130.00" y2="264.80" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="265.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">31  GND     W7 → U13</text>
-<line x1="125.00" y1="268.10" x2="130.00" y2="268.10" stroke="#000000" stroke-width="1.4"/>
-<text x="132" y="269" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">32  GND     X11 → X16</text>
+<text x="132" y="265.7" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000">30  GND     X11 → X16</text>
 <rect x="230" y="255" width="180" height="32" fill="white"/>
 <rect x="230" y="255" width="180" height="32" fill="none" stroke="#000000" stroke-width="0.7"/>
 <rect x="230" y="255" width="80" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
@@ -898,6 +889,6 @@
 <rect x="230" y="250" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
 <rect x="242" y="250" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">U1 SOIC-8 rovesciato con fili; niente zoccolo e morsettiere (D-062)</text>
+<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">U1 SOIC-8 a pancia in su, spezzoni di fronte ai piedini e fili rifatti; niente zoccolo e morsettiere (D-062)</text>
 <rect x="385" y="250" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">31/10/2026</text></svg>

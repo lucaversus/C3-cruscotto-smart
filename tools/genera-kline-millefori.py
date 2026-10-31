@@ -4,8 +4,9 @@ Rev. A: vista dal lato componenti, passo 2,54 mm, scala 4:1. Ogni collegamento �
 (isolato se lungo, nudo o stagno se tra fori adiacenti) saldato sul lato saldature ai
 piedini indicati. Il generatore verifica che i fili realizzino esattamente le reti dello
 schema KL-001 rev F e che nessun foro sia usato da due elementi.
-Rev. B (31/10/2026, D-062): U1 SOIC-8 incollato rovesciato al posto dello zoccolo, con 8 spezzoni nei fori dei
-piedini e fili corti fino al chip; fili saldati nei fori X1/X2 invece delle morsettiere (D-042).
+Rev. B (31/10/2026, D-062): U1 SOIC-8 incollato a pancia in su (tacca a destra) con 8 spezzoni nei fori
+assegnati in modo speculare, ognuno di fronte al proprio piedino: fili corti senza incroci. Fili saldati nei fori
+X1/X2 invece delle morsettiere (D-042).
 """
 from pathlib import Path
 import sys
@@ -41,8 +42,11 @@ NET_COLOR = {
 COMP = {
     'X1': {'1': ('A4', 'RX_3V3'), '2': ('A6', 'TX_INV'), '3': ('A8', '+5V'), '4': ('A10', '+3V3'), '5': ('A12', 'GND')},
     'X2': {'1': ('X5', 'K'), '2': ('X8', 'VBENCH'), '3': ('X11', 'GND')},
-    'U1': {'8': ('L8', '+5V'), '7': ('M8', None), '6': ('N8', 'VREF'), '5': ('O8', 'GND'),
-           '1': ('L11', 'RX_RAW'), '2': ('M11', 'VREF'), '3': ('N11', 'VSENSE'), '4': ('O11', 'GND')},
+    # U1 SOIC-8 a pancia in su, tacca a destra, visto dal lato componenti: numerazione speculare rispetto a un
+    # DIP (1-4 in basso da destra, 5-8 in alto da sinistra). Ogni spezzone sta di fronte al suo piedino; con la
+    # tacca a destra i piedini restano dal lato delle loro reti e i fili sono più corti (178 passi contro 240).
+    'U1': {'1': ('O11', 'RX_RAW'), '2': ('N11', 'VREF'), '3': ('M11', 'VSENSE'), '4': ('L11', 'GND'),
+           '5': ('L8', 'GND'), '6': ('M8', 'VREF'), '7': ('N8', None), '8': ('O8', '+5V')},
     'C1': {'1': ('K9', '+5V'), '2': ('K10', 'GND')},
     'C2': {'+': ('J9', '+5V'), '-': ('J10', 'GND')},
     'R9': {'a': ('C4', 'RX_3V3'), 'b': ('G4', 'RX_RAW')},
@@ -56,14 +60,13 @@ COMP = {
     'R2': {'a': ('U7', 'BASE'), 'b': ('U9', 'GND')},
     'Q1': {'C': ('W5', 'K'), 'B': ('W6', 'BASE'), 'E': ('W7', 'GND')},
 }
-BODIES = [f'{c}{r}' for c in 'LMNO' for r in (9, 10)]     # interno dello zoccolo U1
+BODIES = [f'{c}{r}' for c in 'LMNO' for r in (9, 10)]     # sotto il corpo di U1
 
 # Bus nudo di massa (stagno o filo nudo lungo la fila 16).
 BUSES = [('GND', [f'{LETTERS[c]}16' for c in range(0, COLS)])]
 
-# Fili sotto lo zoccolo (lato saldature), fissati a mano.
-FIXED = [('VREF', ['M11', 'M9', 'N9', 'N8']), ('GND', ['O11', 'O8']),
-         ('+5V', ['A8', 'J8']), ('+5V', ['J8', 'K8']), ('+5V', ['K8', 'L8']), ('GND', ['O11', 'O16'])]
+# Fili sotto U1 (lato saldature), fissati a mano: piedini 2-6 (VREF) e 4-5 (GND).
+FIXED = [('VREF', ['N11', 'N10', 'M10', 'M8']), ('GND', ['L11', 'L8'])]
 NET_ORDER = ['VREF', '+5V', 'RX_3V3', 'TX_INV', '+3V3', 'RX_RAW', 'VSENSE', 'VBENCH', 'BASE', 'K', 'GND']
 
 
@@ -331,12 +334,13 @@ def draw():
                 d.raw(f'<rect x="{mx - w / 2:.2f}" y="{my + off - 0.45:.2f}" width="{w}" height="0.9" fill="{col}"/>')
         tx, ty = (mx, my - 3.4) if horizontal else (mx + 3.5, my)
         d.text(tx, ty, f'{ref} {RES_LABEL[ref]}', 2.2, 'middle' if horizontal else 'start', True)
-    # U1: SOIC-8 rovesciato sopra gli 8 fori dei piedini (fori numerati come un DIP-8, tacca a sinistra)
-    (xa, ya), (xb, yb) = P(COMP['U1']['8'][0]), P(COMP['U1']['4'][0])
+    # U1: SOIC-8 a pancia in su tra gli 8 spezzoni, tacca a destra, numeri = piedini del chip rovesciato
+    us = [P(h) for h, _ in COMP['U1'].values()]
+    (xa, ya), (xb, yb) = (min(x for x, _ in us), min(y for _, y in us)), (max(x for x, _ in us), max(y for _, y in us))
     d.raw(f'<rect x="{xa - 3:.2f}" y="{ya - 3:.2f}" width="{xb - xa + 6:.2f}" height="{yb - ya + 6:.2f}" rx="1" fill="#303030" stroke="#000" stroke-width="0.4"/>')
-    d.raw(f'<path d="M{xa - 3:.2f} {(ya + yb) / 2 - 2:.2f} a2 2 0 0 1 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>')
+    d.raw(f'<path d="M{xb + 3:.2f} {(ya + yb) / 2 - 2:.2f} a2 2 0 0 0 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>')
     d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 - 1:.2f}" font-size="2.8" text-anchor="middle" font-weight="bold" fill="#ffffff" font-family="Arial">U1 LM2903B</text>')
-    d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 + 3:.2f}" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 rovesciato, fili ai fori 1-8</text>')
+    d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 + 3:.2f}" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 a pancia in su, tacca a destra</text>')
     for pin, (h, _) in COMP['U1'].items():
         x, y = P(h)
         d.raw(f'<rect x="{x - 1.3:.2f}" y="{y - 1.3:.2f}" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>')
@@ -409,11 +413,12 @@ def draw():
         '4 Fili X1 e X2 saldati nei fori (D-042).',
         '5 Controllo a vista e continuità a',
         '  circuito spento PRIMA di U1.',
-        '6 U1 SOIC-8 rovesciato e incollato tra',
-        '  gli spezzoni: piedino 1 dal pallino,',
-        '  numerazione speculare. Ogni piedino al',
-        '  suo foro; al tester piedino→foro e',
-        '  nessun corto tra piedini vicini.',
+        '6 U1 a pancia in su, tacca a destra',
+        '  come nel disegno: piedino 1 in basso a',
+        '  destra. Ogni piedino al suo spezzone',
+        '  di fronte, fili corti senza incroci; al',
+        '  tester piedino→spezzone e nessun corto',
+        '  tra piedini vicini.',
     ], h=2.4, step=4.0)
     # Elenco dei fili (estremi da saldare), in due colonne
     d.text(25, 214, 'ELENCO DEI FILI (estremi da saldare; percorso come nel disegno)', 3.2, bold=True)
@@ -431,7 +436,7 @@ def draw():
                   doc_type='Disposizione di montaggio', status='PROPOSTO · NON COLLAUDATO',
                   code='C3AI-DL-KL-003', rev='B', date='31/10/2026', sheet='1/1',
                   revisions=[('A', 'Prima emissione da KL-001 rev F; reti verificate dal generatore', '22/10/2026'),
-                             ('B', 'U1 SOIC-8 rovesciato con fili; niente zoccolo e morsettiere (D-062)', '31/10/2026')])
+                             ('B', 'U1 SOIC-8 a pancia in su, spezzoni di fronte ai piedini e fili rifatti; niente zoccolo e morsettiere (D-062)', '31/10/2026')])
     out = ROOT / 'disegni/sorgenti/DL-KL-003_kline-millefori.svg'
     out.write_text(d.svg('Disposizione dei componenti del modulo K-line KL-001 rev F su millefori; prototipo non collaudato.'),
                    encoding='utf-8')
