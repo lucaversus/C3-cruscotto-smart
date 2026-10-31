@@ -341,6 +341,11 @@ def draw():
     d.raw(f'<path d="M{xb + 3:.2f} {(ya + yb) / 2 - 2:.2f} a2 2 0 0 0 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>')
     d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 - 1:.2f}" font-size="2.8" text-anchor="middle" font-weight="bold" fill="#ffffff" font-family="Arial">U1 LM2903B</text>')
     d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 + 3:.2f}" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 a pancia in su, tacca a destra</text>')
+    # Fili sotto U1 (lato saldature) disegnati tratteggiati sopra il corpo, altrimenti resterebbero nascosti
+    for net, path in FIXED:
+        pts = ' '.join(f'{P(h)[0]:.2f},{P(h)[1]:.2f}' for h in path)
+        d.raw(f'<polyline points="{pts}" fill="none" stroke="{NET_COLOR[net]}" stroke-width="1.0" '
+              f'stroke-dasharray="1.5 1" stroke-linejoin="round"/>')
     for pin, (h, _) in COMP['U1'].items():
         x, y = P(h)
         d.raw(f'<rect x="{x - 1.3:.2f}" y="{y - 1.3:.2f}" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>')
@@ -403,10 +408,12 @@ def draw():
         '(fila 16), stagno o filo nudo.',
         'Resistenze 1% in azzurro, 5% in beige;',
         'bande colorate come sul componente.',
+        'Tratteggio sul chip = fili 1 e 2 SOTTO la',
+        'basetta: piedini 2-6 (VREF) e 4-5 (GND).',
         'R3 (510 Ω 1 W) NON va sulla basetta:',
         'solo simulatore esterno (D-018).',
     ], h=2.4, step=4.0)
-    d.notes(LX, LY + 120, 'ORDINE DI MONTAGGIO', [
+    d.notes(LX, LY + 128, 'ORDINE DI MONTAGGIO', [
         '1 Fili e bus di massa, poi resistenze.',
         '2 8 spezzoni nudi nei fori U1, C1, C2 (polarità).',
         '3 Q1, orientato col datasheet.',
@@ -434,9 +441,10 @@ def draw():
         d.text(x + 7, y, f'{i + 1:2d}  {net:7s} {path[0]} → {path[-1]}{note}', 2.3)
     d.title_block(title=['K-line su', 'millefori'], subtitle='Data Logger',
                   doc_type='Disposizione di montaggio', status='PROPOSTO · NON COLLAUDATO',
-                  code='C3AI-DL-KL-003', rev='B', date='31/10/2026', sheet='1/1',
+                  code='C3AI-DL-KL-003', rev='C', date='31/10/2026', sheet='1/1',
                   revisions=[('A', 'Prima emissione da KL-001 rev F; reti verificate dal generatore', '22/10/2026'),
-                             ('B', 'U1 SOIC-8 a pancia in su, spezzoni di fronte ai piedini e fili rifatti; niente zoccolo e morsettiere (D-062)', '31/10/2026')])
+                             ('B', 'U1 SOIC-8 a pancia in su, spezzoni di fronte ai piedini e fili rifatti; niente zoccolo e morsettiere (D-062)', '31/10/2026'),
+                             ('C', 'Fili 1 e 2 sotto U1 resi visibili (tratteggio sul chip)', '31/10/2026')])
     out = ROOT / 'disegni/sorgenti/DL-KL-003_kline-millefori.svg'
     out.write_text(d.svg('Disposizione dei componenti del modulo K-line KL-001 rev F su millefori; prototipo non collaudato.'),
                    encoding='utf-8')

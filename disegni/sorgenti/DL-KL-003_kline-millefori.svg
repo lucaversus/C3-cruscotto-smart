@@ -671,6 +671,8 @@
 <path d="M197.24 134.36 a2 2 0 0 0 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>
 <text x="179.00" y="135.36" font-size="2.8" text-anchor="middle" font-weight="bold" fill="#ffffff" font-family="Arial">U1 LM2903B</text>
 <text x="179.00" y="139.36" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 a pancia in su, tacca a destra</text>
+<polyline points="184.08,151.60 184.08,141.44 173.92,141.44 173.92,121.12" fill="none" stroke="#8040c0" stroke-width="1.0" stroke-dasharray="1.5 1" stroke-linejoin="round"/>
+<polyline points="163.76,151.60 163.76,121.12" fill="none" stroke="#000000" stroke-width="1.0" stroke-dasharray="1.5 1" stroke-linejoin="round"/>
 <rect x="192.94" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
 <text x="194.24" y="152.40" font-size="2.2" text-anchor="middle" font-weight="bold" font-family="Arial">1</text>
 <rect x="182.78" y="150.30" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>
@@ -754,21 +756,23 @@
 <text x="334" y="141" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">(fila 16), stagno o filo nudo.</text>
 <text x="334" y="145" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">Resistenze 1% in azzurro, 5% in beige;</text>
 <text x="334" y="149" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">bande colorate come sul componente.</text>
-<text x="334" y="153" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">R3 (510 Ω 1 W) NON va sulla basetta:</text>
-<text x="334" y="157" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">solo simulatore esterno (D-018).</text>
-<text x="334" y="166" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">ORDINE DI MONTAGGIO</text>
-<text x="334" y="171" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">1 Fili e bus di massa, poi resistenze.</text>
-<text x="334" y="175" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">2 8 spezzoni nudi nei fori U1, C1, C2 (polarità).</text>
-<text x="334" y="179" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">3 Q1, orientato col datasheet.</text>
-<text x="334" y="183" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">4 Fili X1 e X2 saldati nei fori (D-042).</text>
-<text x="334" y="187" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">5 Controllo a vista e continuità a</text>
-<text x="334" y="191" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  circuito spento PRIMA di U1.</text>
-<text x="334" y="195" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">6 U1 a pancia in su, tacca a destra</text>
-<text x="334" y="199" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  come nel disegno: piedino 1 in basso a</text>
-<text x="334" y="203" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  destra. Ogni piedino al suo spezzone</text>
-<text x="334" y="207" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  di fronte, fili corti senza incroci; al</text>
-<text x="334" y="211" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  tester piedino→spezzone e nessun corto</text>
-<text x="334" y="215" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  tra piedini vicini.</text>
+<text x="334" y="153" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">Tratteggio sul chip = fili 1 e 2 SOTTO la</text>
+<text x="334" y="157" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">basetta: piedini 2-6 (VREF) e 4-5 (GND).</text>
+<text x="334" y="161" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">R3 (510 Ω 1 W) NON va sulla basetta:</text>
+<text x="334" y="165" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">solo simulatore esterno (D-018).</text>
+<text x="334" y="174" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">ORDINE DI MONTAGGIO</text>
+<text x="334" y="179" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">1 Fili e bus di massa, poi resistenze.</text>
+<text x="334" y="183" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">2 8 spezzoni nudi nei fori U1, C1, C2 (polarità).</text>
+<text x="334" y="187" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">3 Q1, orientato col datasheet.</text>
+<text x="334" y="191" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">4 Fili X1 e X2 saldati nei fori (D-042).</text>
+<text x="334" y="195" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">5 Controllo a vista e continuità a</text>
+<text x="334" y="199" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  circuito spento PRIMA di U1.</text>
+<text x="334" y="203" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">6 U1 a pancia in su, tacca a destra</text>
+<text x="334" y="207" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  come nel disegno: piedino 1 in basso a</text>
+<text x="334" y="211" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  destra. Ogni piedino al suo spezzone</text>
+<text x="334" y="215" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  di fronte, fili corti senza incroci; al</text>
+<text x="334" y="219" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  tester piedino→spezzone e nessun corto</text>
+<text x="334" y="223" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.4" text-anchor="start" fill="#000000">  tra piedini vicini.</text>
 <text x="25" y="214" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.2" text-anchor="start" fill="#000000" font-weight="bold">ELENCO DEI FILI (estremi da saldare; percorso come nel disegno)</text>
 <line x1="25.00" y1="218.60" x2="30.00" y2="218.60" stroke="#8040c0" stroke-width="1.4"/>
 <text x="32" y="219.5" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.3" text-anchor="start" fill="#000000"> 1  VREF    N11 → M8 (sotto U1, lato saldature)</text>
@@ -859,7 +863,7 @@
 <text x="311.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C3AI-DL-KL-003</text>
 <rect x="360" y="271" width="15" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="361" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Rev.</text>
-<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">B</text>
+<text x="361.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000" font-weight="bold">C</text>
 <rect x="375" y="271" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="376" y="273.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Data di emissione</text>
 <text x="376.5" y="277.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">31/10/2026</text>
@@ -872,23 +876,29 @@
 <rect x="375" y="279" width="35" height="8" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="376" y="281.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="1.8" text-anchor="start" fill="#000000">Foglio</text>
 <text x="376.5" y="285.4" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="3.5" text-anchor="start" fill="#000000">1/1</text>
-<rect x="230" y="240" width="180" height="15" fill="white"/>
-<rect x="230" y="240" width="180" height="15" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="235" width="180" height="20" fill="white"/>
+<rect x="230" y="235" width="180" height="20" fill="none" stroke="#000000" stroke-width="0.25"/>
+<rect x="230" y="235" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="231" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<rect x="242" y="235" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="243" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<rect x="385" y="235" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
+<text x="386" y="238.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
 <rect x="230" y="240" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Rev.</text>
+<text x="231" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">A</text>
 <rect x="242" y="240" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Descrizione della modifica</text>
+<text x="243" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Prima emissione da KL-001 rev F; reti verificate dal generatore</text>
 <rect x="385" y="240" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2" text-anchor="start" fill="#000000" font-weight="bold">Data</text>
+<text x="386" y="243.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">22/10/2026</text>
 <rect x="230" y="245" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">A</text>
+<text x="231" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
 <rect x="242" y="245" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Prima emissione da KL-001 rev F; reti verificate dal generatore</text>
+<text x="243" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">U1 SOIC-8 a pancia in su, spezzoni di fronte ai piedini e fili rifatti; niente zoccolo e morsettiere (D-062)</text>
 <rect x="385" y="245" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">22/10/2026</text>
+<text x="386" y="248.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">31/10/2026</text>
 <rect x="230" y="250" width="12" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">B</text>
+<text x="231" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">C</text>
 <rect x="242" y="250" width="143" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
-<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">U1 SOIC-8 a pancia in su, spezzoni di fronte ai piedini e fili rifatti; niente zoccolo e morsettiere (D-062)</text>
+<text x="243" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">Fili 1 e 2 sotto U1 resi visibili (tratteggio sul chip)</text>
 <rect x="385" y="250" width="25" height="5" fill="none" stroke="#000000" stroke-width="0.25"/>
 <text x="386" y="253.6" font-family="osifont, 'DejaVu Sans Condensed', 'Arial Narrow', Arial, sans-serif" font-size="2.2" text-anchor="start" fill="#000000">31/10/2026</text></svg>
