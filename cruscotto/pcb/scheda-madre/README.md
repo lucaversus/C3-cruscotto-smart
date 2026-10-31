@@ -144,7 +144,7 @@ kicad-cli sch export bom --fields "Reference,Value,Footprint,Description,QUANTIT
 `tools/modelli-3d-scheda-madre.py` assegna un parallelepipedo STEP (`modelli-3d/`) ai componenti senza modello
 nelle librerie di KiCad, con le dimensioni di ingombro: relè K1/K2 29 × 12,7 × 15,7 mm, C3 Ø10 × 17,5 mm (in
 piedi; montato coricato è più basso), J1 Micro-Fit verticale 9,9 mm più un volume stimato fino a 35 mm per spina e fili (D-061), USB-C 3,3 mm, U2 1,7 mm, STEVAL circa 5,6 mm sui
-pin, modulo VAN 35 × 13 × circa 5,7 mm con il morsetto a circa 14 mm (stimati), e aggiunge la ventola Delta
+pin, modulo VAN 28,5 × 11 mm a circa 5,7 mm con il morsetto 7,5 × 10,5 alto 10 mm sopra (modello 3D dell'utente), e aggiunge la ventola Delta
 40 × 40 × 10 mm sul retro, centrata sul foro, come oggetto solo meccanico (VENT1, fuori da distinta e posizioni).
 Lo STEP completo si esporta con `kicad-cli pcb export step --subst-models --user-origin 148.5x151mm
 --include-tracks --include-zones`; le piazzole dei fili non hanno corpo. Inserimento nell'assieme: rotazione di

@@ -190,9 +190,10 @@ dei Gerber e dell'ordine dei circuiti stampati.
    4 cm; J1 spostato lì, sotto la ventola (21-31 mm dal bordo): restano da
    confermare nell'assieme i circa 30-35 mm per spina e fili. Da misurare sull'auto o sul modello del quadro.
 2. **Modulo VAN blu**: risolta con D-060 (pin diritti su J8, modulo appoggiato sul retro, CANH/CANL con due
-   fili a J9); resta da confermare sul pezzo la posizione dei 4 pin rispetto al bordo del modulo (ingombro
-   35 × 13 mm misurato dall'utente).
-3. **STEVAL-MKI196V1**: confermare sul pezzo interasse 15,0 mm e piedino 1 (misure dai Gerber ST).
+   fili a J9); misure dal modello 3D dell'utente, confermate il 31/10/2026: scheda 28,5 × 11 mm, pin a 1,25 mm
+   dal lato corto e centrati, morsetto 7,5 × 10,5 × 10 mm all'altro capo. Pin risaldati dall'utente nel verso
+   più comodo, morsetto verso l'esterno. Ordine dei pin 3.3V/GND/RX/TX da riscontrare sulla serigrafia.
+3. **STEVAL-MKI196V1**: interasse 15,0 mm e piedino 1 confermati sul pezzo il 28/10/2026 (scheda 18,5 × 30,9 mm).
 4. **Telaio stampato**: nessun contatto con i componenti della faccia F (controllo fatto solo
    verso i componenti della S3, margine minimo 5,5 mm).
 5. **Audio (D-053)**: potenza di U1 (prova d'ascolto su P6), impedenza degli altoparlanti, fase.

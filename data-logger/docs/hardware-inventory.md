@@ -92,6 +92,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Scheda madre (D-051, 24/10/2026): stesso tipo di modulo su file di pin J8 (3.3V/GND/RX/TX) e J9 (CANH/CANL), schema C3AI-CR-EL-003 rev B. Esemplare per la scheda madre distinto da quello del Data Logger (D-042), con resistenza 121 rimossa; interasse tra le due file di pin e altezza del modulo da misurare. Utente 24/10/2026: acquista sempre almeno 2 esemplari di ogni componente; quantità effettiva da riscontrare. Dimensioni dai file STEP dell'utente; i pin piegati a 90° si possono sostituire con pin dritti.
 - Secondo esemplare (scheda madre, J8/J9): resistenza 121 da togliere e prove 1-4 D-022 da ripetere come per il primo (VAN-M002…M005); finora solo il primo è modificato e provato.
 - D-060, 28/10/2026: sul secondo esemplare l'utente sostituisce il connettore ad angolo con 4 pin diritti; modulo saldato appoggiato sul retro della scheda madre (J8), CANH/CANL con due fili dal morsetto a J9. Ingombro circa 35 x 13 mm (misura dell'utente); posizione dei pin rispetto al bordo da confermare sul pezzo.
+- 31/10/2026: modello 3D dell'utente `cruscotto/meccanica/moduli/modulo-van.step` confermato dall'utente: scheda 28,5 × 11 × 1,6 mm, 4 pin a passo 2,54 a 1,25 mm dal lato corto e centrati sulla larghezza, morsetto CANH/CANL 7,5 × 10,5 × 10 mm all'altro capo. Impronta J8 della scheda madre aggiornata. Ordine 3.3V/GND/RX/TX da riscontrare sulla serigrafia prima di saldare.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
