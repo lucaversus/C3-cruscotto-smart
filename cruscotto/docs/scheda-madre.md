@@ -124,8 +124,9 @@ Foglio `cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch`; tavola
   TVS bidirezionale D8 (SMBJ26CA) sulla linea, diodo D9 in serie al collettore (linea negativa),
   soglia R42 presa dalla **linea chiave** invece che dalla batteria (nessun consumo a riposo;
   con la chiave la linea vale circa la tensione di batteria). Comparatore alimentato dal 5 V
-  principale; pull-up dell'uscita al 3,3 V sempre acceso. Protezione dal corto della linea K
-  verso la batteria durante la trasmissione: da studiare.
+  principale; pull-up dell'uscita al 3,3 V sempre acceso. Corto della linea K verso la batteria durante la
+  trasmissione: nessuna protezione aggiuntiva, rischio accettato (si brucerebbe solo Q8; utente 01/11/2026
+  «lasciamo perdere», D-063). Sbroglio invariato.
 - **VAN** (-U7 del blocco, D-051): modulo blu SN65HVD230 (tipo HW-CAN-VP230, resistenza 121
   rimossa) su file di pin J8 (3.3V/GND/RX/TX) e J9 (CANH/CANL); TX collegato al 3,3 V sulla scheda,
   quindi sola ricezione; NUP2105L sulle due linee, 100k verso massa su GPIO34 (nessuna resistenza
