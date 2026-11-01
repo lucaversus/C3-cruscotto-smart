@@ -105,6 +105,16 @@ def break_price(breaks, qty):
     return best
 
 
+def check_rows(rows, src):
+    """Ferma lo script se la distinta è scritta male, invece di cercare testi vuoti (errore del 31/10/2026)."""
+    bad = [f"riga {i}: codice={r.get('codice')!r} ricerca={r.get('ricerca')!r}"
+           for i, r in enumerate(rows, 2)
+           if not (r.get('codice') or '').strip() or r.get('ricerca') not in ('mpn', 'parole')]
+    if bad:
+        raise SystemExit(f'{src}: colonne rif, qta, codice, ricerca, note; codice = codice del produttore o parole '
+                         'da cercare (mai vuoto), ricerca = mpn oppure parole.\n' + '\n'.join(bad))
+
+
 def main():
     src = ROOT / 'cruscotto/docs/distinta-scheda-madre-da-cercare.csv'
     copies = 1
@@ -117,6 +127,7 @@ def main():
     if not shop.key:
         raise SystemExit('Credenziali TME non trovate (vedi la descrizione dello script).')
     rows = list(csv.DictReader(src.open(encoding='utf-8-sig')))
+    check_rows(rows, src)
     found = {}
     for row in rows:
         try:
