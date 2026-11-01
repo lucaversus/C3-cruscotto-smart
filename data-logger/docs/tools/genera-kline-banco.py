@@ -37,14 +37,16 @@ assert max_input < 4.75-2
 base_min=(2.5-1.2)/(330*1.05)-1.2/(47000*.95)
 collector_max=16/(510*.99)
 assert collector_max/base_min<10
+# Rev H: D1 P6KE33A on K (VRWM 28.2 V min, IR 1 uA max at VRWM): off for the whole 9-16 V range.
+assert 16 < 28.2
 print(f"DC model: falling/VBAT={min(falling):.4f}..{max(falling):.4f}; rising/VBAT={min(rising):.4f}..{max(rising):.4f}; hysteresis_K={min(hyst):.3f}..{max(hyst):.3f}V; input_max={max_input:.3f}V; forced_beta_max={collector_max/base_min:.2f}; R3_power_max={16**2/(510*.99):.3f}W")
 
 
 
 def it(v, n): return f'{v:.{n}f}'.replace('.', ',')
 
-# --- Disegno C3AI-DL-KL-001 rev F (D-024): IEC 60617 / IEC 61082-1, foglio ISO 5457 A3 ---
-d = Sheet('C3AI-DL-KL-001 rev F — Interfaccia K-line autocostruita')
+# --- Disegno C3AI-DL-KL-001 rev H (D-024): IEC 60617 / IEC 61082-1, foglio ISO 5457 A3 ---
+d = Sheet('C3AI-DL-KL-001 rev H — Interfaccia K-line autocostruita')
 d.frame()
 d.text(25, 20, 'INTERFACCIA K-LINE AUTOCOSTRUITA — SCHEMA ELETTRICO', 5, bold=True)
 d.text(25, 25, 'Prototipo da banco, non collaudato. Nessun collegamento al veicolo autorizzato da questo documento.', 2.5)
@@ -88,6 +90,9 @@ c, e = d.npn(105, 140, 'Q1', '2N5551')
 d.wire(c, (c[0], 115), (329.1, 115)); d.dot(147.5, 115)
 d.wire(e, (e[0], 152.5)); d.ground(e[0], 152.5)
 d.text(150, 113, 'K', 2.5, bold=True)
+# Rev H: D1 TVS vicino a -X2:1, catodo su K. Ferma i picchi positivi oltre ~46 V e quelli negativi a ~-1 V,
+# che altrimenti passerebbero dalla giunzione C-B di Q1 e da R1 fino al GPIO17 dell'ESP32.
+d.dot(312.5, 115); d.tvs(312.5, 115, 127.5, 'D1', 'P6KE33A', 'left'); d.ground(312.5, 127.5)
 
 # Riferimento VREF dal partitore R6/R7 su VBENCH.
 d.supply(260, 125, 'VBENCH'); d.resistor(260, 125, 260, 142.5, 'R6', '150 kΩ', 'left')
@@ -129,8 +134,9 @@ parts = [
     ('10', 'R10', '1', '330 kΩ, 0,25 W, 1 %', 'Isteresi (rev E, D-022)'),
     ('11', 'C1', '1', '100 nF, ceramico', 'Vicino ai pin 8 e 4 di U1'),
     ('12', 'C2', '1', '10 µF, 16 V, elettrolitico', 'Rispettare la polarità'),
-    ('13', 'R3', '1', '510 Ω, 1 W, 1 %', 'Solo -A2 simulatore, non nel modulo'),
-    ('14', '—', '1 ins.', 'Millefori, fili saldati', 'Niente morsettiere (D-042)'),
+    ('13', 'D1', '1', 'TVS unidirezionale P6KE33A, 600 W, DO-15', 'Catodo (striscia) su K, vicino a -X2:1'),
+    ('14', 'R3', '1', '510 Ω, 1 W, 1 %', 'Solo -A2 simulatore, non nel modulo'),
+    ('15', '—', '1 ins.', 'Millefori, fili saldati', 'Niente morsettiere (D-042)'),
 ]
 d.parts_list(25, 192, parts, widths=(10, 15, 11, 62, 82))
 d.notes(212, 196, 'NOTE', [
@@ -139,16 +145,18 @@ d.notes(212, 196, 'NOTE', [
     f' isteresi {it(min(hyst), 2)}–{it(max(hyst), 2)} V. Nessuna simulazione dinamica.',
     '2. UART 10 400 baud 8N1: TX invertito (TX basso = linea rilasciata), RX non invertito.',
     '3. U1B inutilizzato: ingressi a potenziale definito, uscita 7 non collegata (×).',
-    '4. Protezioni automotive (inversione, transitori, load dump, ESD) NON comprese.',
+    '4. Unica protezione: D1 sulla linea K (picchi, difesa del GPIO17). Inversione, load dump,',
+    '  corto K-batteria in trasmissione NON compresi (logger per pochi giorni, D-015).',
     '5. Simboli IEC 60617, schema IEC 61082-1. Incrocio senza punto: nessun contatto.',
     '\u2003\u2003Sigle con lettere di uso corrente (Q, U) coerenti con distinta e firmware.',
 ], step=3.6)
 d.title_block(title=['Interfaccia K-line', 'autocostruita'], subtitle='Data Logger',
               doc_type='Schema elettrico', status='NON COLLAUDATO · solo banco',
-              code='C3AI-DL-KL-001', rev='G', date='31/10/2026', sheet='1/1',
+              code='C3AI-DL-KL-001', rev='H', date='01/11/2026', sheet='1/1',
               revisions=[('C', 'Eliminato JP1; R3 solo nel simulatore esterno (D-018)', '18/10/2026'),
                          ('D', 'Porte esterne evidenziate; nessuna variazione elettrica', '18/10/2026'),
                          ('E', 'Aggiunta R10 per isteresi del comparatore (D-022)', '20/10/2026'),
                          ('F', 'Ridisegno secondo IEC 60617 / IEC 61082-1 / ISO 5457 / ISO 7200 (D-024)', '20/10/2026'),
-                         ('G', 'Distinta: U1 senza adattatore e zoccolo, niente morsettiere; circuito invariato (D-062)', '31/10/2026')])
+                         ('G', 'Distinta: U1 senza adattatore e zoccolo, niente morsettiere; circuito invariato (D-062)', '31/10/2026'),
+                         ('H', 'Aggiunto D1 P6KE33A sulla linea K a protezione dell’ESP32 (D-063)', '01/11/2026')])
 (ROOT.parents[1]/'disegni/sorgenti/DL-KL-001_schema-kline.svg').write_text(d.svg('Schema elettrico IEC 61082-1 dell\'interfaccia K-line da banco; non collaudato.'), encoding='utf-8')

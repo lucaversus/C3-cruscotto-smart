@@ -1,7 +1,7 @@
 # K-line autocostruita — Cruscotto C3+AI / Data Logger
 
-Revisione F, 20/10/2026. Disegno C3AI-DL-KL-001, rev G del 31/10/2026 (D-022: isteresi R10; D-024: disegno IEC/ISO;
-rev G: solo distinta, U1 senza adattatore e zoccolo e niente morsettiere, D-062; circuito invariato rispetto alla F).
+Revisione F, 20/10/2026. Disegno C3AI-DL-KL-001, rev H del 01/11/2026 (D-022: isteresi R10; D-024: disegno IEC/ISO;
+rev G: solo distinta, U1 senza adattatore e zoccolo e niente morsettiere, D-062; rev H: aggiunto D1 P6KE33A sulla linea K, D-063).
 **Prototipo da banco non collaudato: nessun collegamento al veicolo.**
 Scelta utente: realizzare l'interfaccia in proprio; la scelta non certifica
 il circuito o autorizza pin auto presunti. Ambito D-008, D-010, D-011, D-013.
@@ -41,6 +41,7 @@ direttamente ai piedini SOIC-8 (passo 1,27 mm) e controllati al tester prima di 
 | R10 | 1 | 330 kohm, 0,25 W, 1% | Retroazione OUT1 → IN1+, isteresi (rev E) |
 | C1 | 1 | 100 nF ceramico | Bypass U1, vicino ai pin 8/4 |
 | C2 | 1 | 10 microfarad, 16 V | Positivo su +5 V, negativo a GND |
+| D1 | 1 | TVS unidirezionale P6KE33A, 600 W, DO-15 | Rev H (D-063): catodo (striscia) su K, anodo a GND, vicino a -X2:1; da procurare |
 | Montaggio | 1 insieme | Millefori MC01009, filo isolato e nudo, colla per U1 | Niente zoccolo, adattatore né morsettiere (D-042, D-062); saldature e piedinatura da controllare |
 
 Non ordinare in questa fase un altro modulo CAN o un'interfaccia Freematics.
@@ -89,9 +90,11 @@ R3 esterna simula il pull-up della vettura sul banco; nessun jumper nel modulo. 
 stato verificato e non va raddoppiato automaticamente. Non collegare 12 V
 ad alcun ingresso ESP32 o al pin 3V3. Montare e controllare tutto spento.
 
-La protezione automotive contro inversione, cortocircuiti, ESD/transitori,
-load dump, disturbi e alimentazioni parziali NON e compresa o validata in
-questa revisione. Q1 non ha limitazione attiva di corrente su corto a batteria.
+Rev H (D-063): unica protezione D1 P6KE33A sulla linea K. Non conduce fino a 28 V (oltre i 9-16 V di
+lavoro), taglia i picchi positivi a circa 46 V e quelli negativi a circa -1 V: protegge il GPIO17 dell'ESP32
+(raggiungibile attraverso la giunzione C-B di Q1 e R1), Q1 e il comparatore. Resto della protezione
+automotive (inversione, load dump, corto K-batteria, disturbi, alimentazioni parziali) NON compreso:
+rischio accettato per un logger di pochi giorni (D-015). Q1 non ha limitazione attiva di corrente su corto a batteria.
 La tensione nominale del transistor non dimostra robustezza del sistema.
 La revisione per l'auto richiede uno studio dedicato del circuito protetto.
 
@@ -188,10 +191,10 @@ disegnati e la disposizione su millefori con i collegamenti da componente a comp
   (HW-BENCH-PSU) e R3 del simulatore; tabella dei fili W1-W9 e sequenza di accensione.
   Piedini dell'ESP32 in posizione indicativa: fa fede la serigrafia.
 - [Data Logger completo a banco su millefori](../../disegni/DL-EL-004_logger-completo-millefori.png),
-  C3AI-DL-EL-004 rev D ([SVG](../../disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg), generatore
+  C3AI-DL-EL-004 rev E ([SVG](../../disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg), generatore
   `tools/genera-logger-millefori-illustrato.py`, D-042): K-line, ESP32, RTC + MicroSD su tre basette,
   IMU su un ritaglio, OLED, VAN (solo ricezione) e STOP, fili saldati W1-W31 senza morsetti. Proposta, non collaudata.
-- [Disposizione su millefori](../../disegni/DL-KL-003_kline-millefori.png), C3AI-DL-KL-003 rev C (31/10/2026: fili 1 e 2 sotto U1 resi visibili)
+- [Disposizione su millefori](../../disegni/DL-KL-003_kline-millefori.png), C3AI-DL-KL-003 rev D (01/11/2026: D1 in piedi su X6/X7 con i ponticelli 31 e 32; fili 1-30 invariati)
 - [Prova KL-P001, prima accensione a banco](prove/KL-P001_prima-accensione.pdf), foglio A4 stampabile
   ([HTML](prove/KL-P001_prima-accensione.html)): sola scheda con un alimentatore a 5 V: stati K alta/bassa, VREF, VSENSE, RX; valori attesi calcolati
   ([SVG](../../disegni/sorgenti/DL-KL-003_kline-millefori.svg), generatore `tools/genera-kline-millefori.py`):

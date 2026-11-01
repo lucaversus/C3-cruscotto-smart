@@ -81,7 +81,7 @@ d = Sheet('C3AI-DL-EL-004 rev C — Data Logger completo a banco, collegamenti i
 d.frame()
 d.text(25, 20, 'DATA LOGGER COMPLETO A BANCO SU MILLEFORI — COLLEGAMENTI ILLUSTRATI', 5, bold=True)
 d.text(25, 25, 'Disegno illustrativo, basette in scala 1,5:1 (millefori MC01009 72×47 mm): posizioni dei piedini indicative, collegare '
-               'per nome secondo la serigrafia. Riferimenti tecnici: KL-001 rev G (K-line), EL-003 rev B (moduli). Nessun collegamento al veicolo.', 2.4)
+               'per nome secondo la serigrafia. Riferimenti tecnici: KL-001 rev H (K-line), EL-003 rev B (moduli). Nessun collegamento al veicolo.', 2.4)
 
 # --- Basetta 2: ESP32 HW-394 ---------------------------------------------------------
 perfboard(d, 28, 38, 70.5, 108, 'Basetta 2 — ESP32')
@@ -109,7 +109,7 @@ label(d, 63, 141, 'ESP32 saldato sulla basetta', 2.3)
 # --- Basetta 1: modulo K-line, disposizione e fili di KL-003 ------------------------
 B1 = (150, 38, 108, 70.5)
 box(d, *B1, '#e9d8a6', rx=2)
-label(d, B1[0] + B1[2] / 2, B1[1] - 2.5, 'Basetta 1 — K-line KL-001 rev G (disposizione KL-003 rev B)', 3.2, bold=True)
+label(d, B1[0] + B1[2] / 2, B1[1] - 2.5, 'Basetta 1 — K-line KL-001 rev H (disposizione KL-003 rev D)', 3.2, bold=True)
 KX0, KY0, KS = 160.2, 44.7, 3.81                 # foro A1 e passo 2,54 mm in scala 1,5:1
 assert KL.verify() > 0                          # reti di KL-003 = netlist KL-001 rev F
 
@@ -182,7 +182,13 @@ for pin, (h, _) in KL.COMP['Q1'].items():
     x, y = KP(h)
     label(d, x - 0.6, y + 0.5, pin, 1.3, 'end', True, '#ffffff')
 label(d, xq - 3, hs[0][1] - 2, 'Q1', 1.6, 'end', True)
-label(d, 204, 112, 'Componenti e fili interni come KL-003 rev B (R3 fuori basetta). U1 SOIC-8 a pancia in su, tacca a destra;', 1.9)
+# D1 TVS (KL-001 rev H, D-063): in piedi su X7, catodo piegato in X6
+(xk, yk), (xa_, ya_) = KP(KL.D1['K'][0]), KP(KL.D1['A'][0])
+d.raw(f'<line x1="{xa_:.2f}" y1="{ya_:.2f}" x2="{xk:.2f}" y2="{yk:.2f}" stroke="#606060" stroke-width="0.3"/>'
+      f'<circle cx="{xa_:.2f}" cy="{ya_:.2f}" r="1.0" fill="#202020"/>'
+      f'<circle cx="{xa_:.2f}" cy="{ya_:.2f}" r="0.6" fill="none" stroke="#e0e0e0" stroke-width="0.25"/>')
+label(d, xa_ + 1.6, ya_ + 0.5, 'D1', 1.5, 'start', True)
+label(d, 204, 112, 'Componenti e fili interni come KL-003 rev D (R3 fuori basetta, D1 su X6/X7). U1 SOIC-8 a pancia in su, tacca a destra;', 1.9)
 label(d, 204, 114.6, 'X1/X2 = fori dove si saldano i fili W1-W5 e W24, W26, W27 (niente morsettiere).', 1.9)
 
 
@@ -439,11 +445,12 @@ d.notes(292, 197, 'SEQUENZA E PRECAUZIONI', [
 ], h=2.0, step=3.0)
 d.title_block(title=['Data Logger completo', 'a banco, illustrato'], subtitle='Data Logger',
               doc_type='Schema illustrativo', status='PROPOSTO · NON COLLAUDATO',
-              code='C3AI-DL-EL-004', rev='D', date='31/10/2026', sheet='1/1',
+              code='C3AI-DL-EL-004', rev='E', date='01/11/2026', sheet='1/1',
               revisions=[('A', 'Prima emissione: quattro basette con fili saldati, IMU e VAN illustrati (D-042)', '22/10/2026'),
                          ('B', 'Fili verso auto e banco attraverso -J1 Micro-Fit 3.0 24 vie (D-044)', '23/10/2026'),
                          ('C', 'Modulo VAN modificato: «121» rimossa, TX a 3V3, prove 1-4 superate', '23/10/2026'),
-                         ('D', 'Basetta 1 da KL-003 rev B (U1 a pancia in su); STEVAL qui, poi alla scheda madre (D-062)', '31/10/2026')])
+                         ('D', 'Basetta 1 da KL-003 rev B (U1 a pancia in su); STEVAL qui, poi alla scheda madre (D-062)', '31/10/2026'),
+                         ('E', 'Basetta 1 da KL-003 rev D: D1 P6KE33A sulla linea K (D-063)', '01/11/2026')])
 out = ROOT / 'disegni/sorgenti/DL-EL-004_logger-completo-millefori.svg'
 out.write_text(d.svg('Collegamenti illustrati del Data Logger completo a banco su millefori; posizioni indicative.'),
                encoding='utf-8')
