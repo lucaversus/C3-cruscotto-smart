@@ -137,6 +137,16 @@ def best(found, mpn):
     return max(found, key=key)
 
 
+def check_rows(rows, src):
+    """Ferma lo script se la distinta è scritta male, invece di cercare testi vuoti (errore del 31/10/2026)."""
+    bad = [f"riga {i}: codice={r.get('codice')!r} ricerca={r.get('ricerca')!r}"
+           for i, r in enumerate(rows, 2)
+           if not (r.get('codice') or '').strip() or r.get('ricerca') not in ('mpn', 'parole')]
+    if bad:
+        raise SystemExit(f'{src}: colonne rif, qta, codice, ricerca, note; codice = codice del produttore o parole '
+                         'da cercare (mai vuoto), ricerca = mpn oppure parole.\n' + '\n'.join(bad))
+
+
 def main():
     src = ROOT / 'cruscotto/docs/distinta-scheda-madre-da-cercare.csv'
     copies = 1
@@ -149,6 +159,7 @@ def main():
     if not shops:
         raise SystemExit('Nessuna credenziale Mouser o DigiKey trovata (vedi la descrizione dello script).')
     rows = list(csv.DictReader(src.open(encoding='utf-8')))
+    check_rows(rows, src)
     out = src.with_name(src.stem + '-mouser-digikey.csv')
     with out.open('w', encoding='utf-8', newline='') as f:
         w = csv.writer(f)

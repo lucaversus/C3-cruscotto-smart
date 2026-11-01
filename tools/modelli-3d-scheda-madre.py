@@ -31,8 +31,8 @@ BOXES = {
     'K2': [(None, 0.0, 15.7)],
     'J1': [(None, 0.0, 9.9), (None, 9.9, 35.0)],            # 43045-2412 verticale alto 9,9; sopra, spina e fili (~25 mm, stima)
     'J6': [((-1.75, -1.48, 16.75, 29.42), 0.0, 5.6)],      # STEVAL 18,5 × 30,9 misurata, sui pin diritti (D-059)
-    'J8': [((-1.3, -2.69, 33.7, 10.31), 0.0, 5.7),         # modulo VAN 35 × 13 sui pin diritti (D-060)
-           ((24.0, -2.0, 33.7, 9.6), 5.7, 14.0)],          # morsetto a vite, altezza stimata
+    'J8': [((-1.25, -1.69, 27.25, 9.31), 0.0, 5.7),        # modulo VAN 28,5 × 11 sui pin diritti (D-060, modello 3D utente)
+           ((19.55, -1.44, 27.05, 9.06), 5.7, 15.7)],      # morsetto 7,5 × 10,5 alto 10 (modello 3D utente)
     'C3': [((-2.5, -5.0, 7.5, 5.0), 0.0, 17.5)],           # EEU-FR1H221 Ø10 × 17,5 (verificata 28/10/2026)
 }
 FAN = (40.0, 10.0)   # Delta AFB0412VA-00: 40 × 40 × 10
@@ -110,9 +110,13 @@ def step_boxes(path, boxes, name):
                     "ENDSEC;\nEND-ISO-10303-21;\n", encoding='ascii')
 
 
+_COPIE = []
+
+
 def local_courtyard(fp):
     """Rettangolo del courtyard nelle coordinate dell'impronta, senza rotazione né ribaltamento."""
     loc = pcbnew.FOOTPRINT(fp)   # copia riportata sulla faccia F, senza rotazione, nell'origine
+    _COPIE.append(loc)           # copia tenuta in vita: se Python la distrugge, SWIG perde i tipi di pcbnew
     if loc.IsFlipped():
         loc.Flip(loc.GetPosition(), pcbnew.FLIP_DIRECTION_TOP_BOTTOM)
     loc.SetOrientationDegrees(0)

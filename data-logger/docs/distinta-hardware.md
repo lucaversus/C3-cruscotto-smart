@@ -22,7 +22,7 @@ chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 | 1 | Fusibile di ramo da 2 A, se non incluso | Portafusibile gia acquistato (HW-FUSE-HOLDER), modello da riscontrare; verificare valore con cavo e carico |
 | 1 | Pulsante momentaneo normalmente aperto, a 2 contatti | STOP logico, non interruttore di potenza |
 | 1 | 2N5551 NPN TO-92 | K-line, pinout secondo produttore |
-| 1 + 1 + 1 | LM2903B SOIC-8, adattatore SOIC-8 → DIP-8 e zoccolo DIP-8 | Ricevitore K-line del prototipo documentato |
+| 1 | LM2903B SOIC-8 (LM2903BYDT, arrivato) | Ricevitore K-line del prototipo; montato rovesciato con fili, senza adattatore né zoccolo (KL-003 rev B, D-062) |
 | 1 ciascuna | Resistenze 330 ohm e 47 kohm, 0,25 W, 5% | K-line |
 | 1 | Resistenza 510 ohm, 1 W, 1% | Solo simulatore esterno da banco, non montata nel modulo K-line |
 | 1 ciascuna | Resistenze 68 kohm, 150 kohm e 4,7 kohm, 0,25 W, 1% | K-line |
@@ -31,6 +31,7 @@ chiamato batteria coincide con RTC. Non ricomprare i componenti gia censiti.
 | 1 | Resistenza 330 kohm, 0,25 W, 1% | K-line, isteresi R10 (rev E) |
 | 1 ciascuno | Condensatore ceramico 100 nF ed elettrolitico 10 microfarad, 16 V | Alimentazione a 5 V del ricevitore |
 | 1 | Basetta millefori | Montaggio interfaccia K-line |
+| 2 | Diodo TVS unidirezionale P6KE33A, 600 W, DO-15 | D1 della K-line, KL-001 rev H (D-063); da procurare (uno di scorta) |
 | 1 insieme | Morsetti, filo flessibile per segnali e alimentazione, guaina termorestringente e fascette | Lunghezze dipendenti dalla collocazione; niente acquisto di controconnettori presunti |
 | 1 | Contenitore isolante con fissaggi per le schede | Dimensioni da scegliere sul montaggio reale |
 | 1 | Pila CR2032 3 V, non ricaricabile | RTC DS3231; inserimento consentito dopo RTC-M007 (ramo di ricarica interrotto) |

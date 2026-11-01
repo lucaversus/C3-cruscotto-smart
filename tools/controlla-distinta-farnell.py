@@ -73,6 +73,16 @@ def unit_price(prices, qty):
     return best if best is not None else (prices[0].get('cost') if prices else None)
 
 
+def check_rows(rows, src):
+    """Ferma lo script se la distinta è scritta male, invece di cercare testi vuoti (errore del 31/10/2026)."""
+    bad = [f"riga {i}: codice={r.get('codice')!r} ricerca={r.get('ricerca')!r}"
+           for i, r in enumerate(rows, 2)
+           if not (r.get('codice') or '').strip() or r.get('ricerca') not in ('mpn', 'parole')]
+    if bad:
+        raise SystemExit(f'{src}: colonne rif, qta, codice, ricerca, note; codice = codice del produttore o parole '
+                         'da cercare (mai vuoto), ricerca = mpn oppure parole.\n' + '\n'.join(bad))
+
+
 def main():
     src, store, copies = args()
     key = os.environ.get('FARNELL_API_KEY')
@@ -82,6 +92,7 @@ def main():
     if not key:
         raise SystemExit(f'Manca la chiave API element14: variabile FARNELL_API_KEY o file {keyfile}.')
     rows = list(csv.DictReader(src.open(encoding='utf-8')))
+    check_rows(rows, src)
     out = src.with_name(src.stem + '-farnell.csv')
     total, missing = 0.0, []
     with out.open('w', encoding='utf-8', newline='') as f:

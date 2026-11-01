@@ -110,6 +110,20 @@ class Sheet:
             self.text(x - 3.4, cy - 1.6, '+', 2.5, 'middle', True)
         self.text(x + 3.5, cy - 0.6, ref, 2.5, 'start', True); self.text(x + 3.5, cy + 2.4, value, 2.5)
 
+    def tvs(self, x, y0, y1, ref, value, label_side='right'):
+        """Diodo di soppressione unidirezionale (diodo 05-03-01 con barra a Z, come 05-03-06), verticale:
+        catodo in alto (y0), anodo in basso (y1); triangolo di 3 mm al centro del tratto."""
+        cy = (y0 + y1) / 2
+        h = 1.5
+        self.line((x, y0), (x, cy - h)); self.line((x, cy + h), (x, y1))
+        self.raw(f'<path d="M{num(x - 1.75)} {num(cy + h)} L{num(x + 1.75)} {num(cy + h)} L{num(x)} {num(cy - h)} Z" '
+                 f'fill="none" stroke="{INK}" stroke-width="{NORMAL}" stroke-linejoin="round"/>')
+        self.line((x - 2.4, cy - h + 0.7), (x - 1.75, cy - h), (x + 1.75, cy - h), (x + 2.4, cy - h - 0.7))
+        if label_side == 'right':
+            self.text(x + 3.5, cy - 0.6, ref, 2.5, 'start', True); self.text(x + 3.5, cy + 2.4, value, 2.5)
+        else:
+            self.text(x - 3.5, cy - 0.6, ref, 2.5, 'end', True); self.text(x - 3.5, cy + 2.4, value, 2.5, 'end')
+
     def ground(self, x, y):
         """Terra / massa comune 02-15-01: tratto di 2,5 mm e tre linee decrescenti."""
         self.line((x, y), (x, y + 2.5))

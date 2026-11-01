@@ -26826,73 +26826,6 @@
 			)
 		)
 	)
-	(footprint ""
-		(layer "B.Cu")
-		(uuid "082a5808-ce38-47bd-a4a3-484d5e1d66b3")
-		(at 148.5 105)
-		(property "Reference" "VENT1"
-			(at 0 0 180)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "0e26f394-d634-4aaa-b192-8108815325f4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Value" "Delta AFB0412VA-00"
-			(at 0 0 180)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "2d7f6366-5b9c-46a2-98b4-88b4d9e3ba20")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 180)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "fadd79ca-ce60-40ba-961e-bbdfead55c16")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Description" ""
-			(at 0 0 180)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "dea7526b-f736-40e7-b9d5-ace8ca61436f")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify mirror)
-			)
-		)
-		(attr board_only exclude_from_pos_files exclude_from_bom)
-		(duplicate_pad_numbers_are_jumpers no)
-		(embedded_fonts no)
-		(model "${KIPRJMOD}/modelli-3d/ingombro-ventola.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
 	(footprint "Relay_DPDT_Omron_G2RL-2"
 		(layer "B.Cu")
 		(uuid "0ef12ecd-47e6-40fe-b350-f895426ded19")
@@ -30591,6 +30524,226 @@
 			)
 		)
 	)
+	(footprint "Modulo_VAN_SN65HVD230"
+		(layer "B.Cu")
+		(uuid "74cb1e1f-aec7-4ba4-97b1-0b4ba0e858f3")
+		(at 179.8 112.3)
+		(descr "Modulo CAN blu SN65HVD230 (VP230, HW-CAN-VP230) usato come ricevitore VAN, appoggiato sulla scheda con 4 pin diritti a passo 2,54 mm (3.3V, GND, RX, TX) al posto del connettore ad angolo; scheda 28,5 x 11,0 mm, pin a 1,25 mm dal lato corto e centrati sulla larghezza (modello 3D dell'utente, confermato il 31/10/2026; prima stima circa 35 x 13). CANH/CANL dal morsetto a vite del modulo con due fili alle piazzole J9 (D-060).")
+		(tags "SN65HVD230 VP230 VAN CAN modulo")
+		(property "Reference" "J8"
+			(at 13 -3.81 0)
+			(layer "B.SilkS")
+			(uuid "d5e7113c-3c01-4a92-b6b9-b55b0bfe57ac")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "Modulo VAN: 3.3V GND RX TX"
+			(at 13 -10.5 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "580e8279-1ae9-4ece-83d1-0f9995a2815d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "61c5973d-48dd-4dc1-a8e1-4c367f636e29")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 180)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "ef5fe5f7-3239-4ca2-bbe2-c54e4c546649")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify mirror)
+			)
+		)
+		(attr through_hole)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -1.37 -9.43)
+			(end -1.37 -6.93)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "e2e1aa5a-c60d-45cf-8474-c18af1537a99")
+		)
+		(fp_line
+			(start -1.37 -9.43)
+			(end 1.13 -9.43)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "0c70c9a3-34d4-4cec-92d6-43821dd25288")
+		)
+		(fp_line
+			(start -1.37 1.81)
+			(end -1.37 -0.69)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "9af6a4f0-d617-407b-8319-fe5940fd9f9b")
+		)
+		(fp_line
+			(start -1.37 1.81)
+			(end 1.13 1.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "3ca77f8d-401e-4fe7-93e5-debe698ffb7a")
+		)
+		(fp_line
+			(start 27.37 -9.43)
+			(end 24.87 -9.43)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "6026eb2c-93bb-4b65-b353-55282b2529e7")
+		)
+		(fp_line
+			(start 27.37 -9.43)
+			(end 27.37 -6.93)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "03ba40a0-1ac4-408c-9258-1346cfe3d20e")
+		)
+		(fp_line
+			(start 27.37 1.81)
+			(end 24.87 1.81)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "405b7233-cc47-4fe8-bfa9-98e40e5b2889")
+		)
+		(fp_line
+			(start 27.37 1.81)
+			(end 27.37 -0.69)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "B.SilkS")
+			(uuid "bc7d008b-007a-4519-8184-33b85cf3745b")
+		)
+		(fp_rect
+			(start -1.5 1.94)
+			(end 27.5 -9.56)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "3b665dcf-b503-4f36-b059-02a9b9d52790")
+		)
+		(fp_rect
+			(start -1.25 1.69)
+			(end 27.25 -9.31)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "fcbdac7f-a240-4e92-a289-98d7cfcb59f7")
+		)
+		(fp_text user "VAN SN65HVD230 · CANH/CANL ai fili J9"
+			(at 17 -3.81 180)
+			(layer "B.Fab")
+			(uuid "e0d31c95-3480-4a82-8446-16bb8399b5f8")
+			(effects
+				(font
+					(size 0.8 0.8)
+					(thickness 0.12)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" thru_hole rect
+			(at 0 0)
+			(size 1.7 1.7)
+			(drill 1)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "+3V3_SW")
+			(uuid "b5a7a354-a79d-4623-8795-feb09133d57a")
+		)
+		(pad "2" thru_hole circle
+			(at 0 -2.54)
+			(size 1.7 1.7)
+			(drill 1)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "GND")
+			(uuid "4a1d829c-aeba-4133-b822-d286f151a83c")
+		)
+		(pad "3" thru_hole circle
+			(at 0 -5.08)
+			(size 1.7 1.7)
+			(drill 1)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "VAN_RX")
+			(uuid "f6bdf4e0-e483-4aec-90c2-3dd5a2a5f353")
+		)
+		(pad "4" thru_hole circle
+			(at 0 -7.62)
+			(size 1.7 1.7)
+			(drill 1)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "+3V3_SW")
+			(uuid "bd735416-bcff-4863-831b-dd05be9d4fd8")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/modelli-3d/ingombro-J8.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "SolderWire-0.127sqmm_1x02_P3.7mm_D0.48mm_OD1mm"
 		(layer "B.Cu")
 		(uuid "92ae2b53-08df-4418-88c5-fcbbfc3ee04c")
@@ -30909,7 +31062,7 @@
 		(descr "Adattatore ST DIL24 (STEVAL-MKIxxx, es. STEVAL-MKI196V1): 2 file da 12 a passo 2,54 mm, interasse 15,0 mm (non 15,24), scheda 18,0 x 30,5 mm. Misure dai Gerber ST steval-mki196v1_gerber.zip (2018). Saldata direttamente (D-059); piedino 1 = piazzola quadrata.")
 		(tags "ST DIL24 STEVAL adapter LSM6DSO")
 		(property "Reference" "J6"
-			(at -3.095 -13.97 0)
+			(at 18.345 -13.97 0)
 			(layer "B.SilkS")
 			(uuid "5e97a692-22a7-4073-aba8-06ea08bb79d5")
 			(effects
@@ -32246,33 +32399,30 @@
 			)
 		)
 	)
-	(footprint "Modulo_VAN_SN65HVD230"
+	(footprint ""
 		(layer "B.Cu")
-		(uuid "eb98ed99-8ed8-4cdc-840d-108f98e9fc84")
-		(at 179.8 112.3)
-		(descr "Modulo CAN blu SN65HVD230 (VP230, HW-CAN-VP230) usato come ricevitore VAN, appoggiato sulla scheda con 4 pin diritti a passo 2,54 mm (3.3V, GND, RX, TX) al posto del connettore ad angolo; scheda circa 35 x 13 mm (misura dell'utente, 28/10/2026). CANH/CANL dal morsetto a vite del modulo con due fili alle piazzole J9 (D-060).")
-		(tags "SN65HVD230 VP230 VAN CAN modulo")
-		(property "Reference" "J8"
-			(at 16.2 -3.8 0)
+		(uuid "e0ccf3f7-fc14-47fe-b6ae-c35b22c2da75")
+		(at 148.5 105)
+		(property "Reference" "VENT1"
+			(at 0 0 180)
 			(layer "B.SilkS")
-			(uuid "e9c7ae75-d196-4ca8-8402-f527e2875c46")
+			(hide yes)
+			(uuid "5be44766-d10b-4137-9adb-37dd3728a827")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 1.27 1.27)
 				)
 				(justify mirror)
 			)
 		)
-		(property "Value" "Modulo VAN: 3.3V GND RX TX"
-			(at 17 -11.8 180)
+		(property "Value" "Delta AFB0412VA-00"
+			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "fa943f2d-4351-4797-9161-a2703e9a6a94")
+			(uuid "0fd590ef-4bfb-4c5f-b3c7-80855dda0040")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 1.27 1.27)
 				)
 				(justify mirror)
 			)
@@ -32281,7 +32431,7 @@
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "58807743-c9be-4af8-a2a9-5965a0579fd3")
+			(uuid "40aca442-60a2-40b2-9b1c-c7e437497b14")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32293,7 +32443,7 @@
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "581fecce-9a42-40a9-baa7-082eeed57de5")
+			(uuid "47bc3aa3-334b-4d0d-ba1a-4edefbb22de5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32301,160 +32451,10 @@
 				(justify mirror)
 			)
 		)
-		(attr through_hole)
+		(attr board_only exclude_from_pos_files exclude_from_bom)
 		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -1.42 -10.43)
-			(end -1.42 -7.93)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "195b2bac-00ae-4aac-8c5e-7939628d27cd")
-		)
-		(fp_line
-			(start -1.42 -10.43)
-			(end 1.08 -10.43)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "f0d613d0-72c3-4f03-a99a-52cf5f785881")
-		)
-		(fp_line
-			(start -1.42 2.81)
-			(end -1.42 0.31)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "5d56e641-7406-4401-b66c-67a3de6b472e")
-		)
-		(fp_line
-			(start -1.42 2.81)
-			(end 1.08 2.81)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "83e83d44-de81-44d1-9695-efb5123726f7")
-		)
-		(fp_line
-			(start 33.82 -10.43)
-			(end 31.32 -10.43)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "22c4348f-863b-4ff4-9fdb-affd061d8477")
-		)
-		(fp_line
-			(start 33.82 -10.43)
-			(end 33.82 -7.93)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "b5fe6e30-ac5b-42fb-9e2e-256a037b6842")
-		)
-		(fp_line
-			(start 33.82 2.81)
-			(end 31.32 2.81)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "8e828a99-010a-43fa-89fc-7167250614f2")
-		)
-		(fp_line
-			(start 33.82 2.81)
-			(end 33.82 0.31)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "B.SilkS")
-			(uuid "ce8a776d-203b-4ba5-9bd7-c3155bb74053")
-		)
-		(fp_rect
-			(start -1.8 3.2)
-			(end 34.2 -10.8)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "B.CrtYd")
-			(uuid "b078e14f-f5d2-43b0-8b7d-6f636ecb84d1")
-		)
-		(fp_rect
-			(start -1.3 2.69)
-			(end 33.7 -10.31)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "B.Fab")
-			(uuid "f76519a5-f523-4526-8f80-f7d00e6d5dc6")
-		)
-		(fp_text user "VAN SN65HVD230 · CANH/CANL ai fili J9"
-			(at 17 -3.81 180)
-			(layer "B.Fab")
-			(uuid "7d182ef9-fe72-40d6-9e63-d76e18036616")
-			(effects
-				(font
-					(size 0.8 0.8)
-					(thickness 0.12)
-				)
-				(justify mirror)
-			)
-		)
-		(pad "1" thru_hole rect
-			(at 0 0)
-			(size 1.7 1.7)
-			(drill 1)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "+3V3_SW")
-			(uuid "0d8abc7d-daf2-4045-a11c-dd41599c26bd")
-		)
-		(pad "2" thru_hole circle
-			(at 0 -2.54)
-			(size 1.7 1.7)
-			(drill 1)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "GND")
-			(uuid "26c75a53-82e1-45b5-9dd0-a0446e8f051c")
-		)
-		(pad "3" thru_hole circle
-			(at 0 -5.08)
-			(size 1.7 1.7)
-			(drill 1)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "VAN_RX")
-			(uuid "7609d529-f8be-40c6-9ad5-ec441dcda274")
-		)
-		(pad "4" thru_hole circle
-			(at 0 -7.62)
-			(size 1.7 1.7)
-			(drill 1)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "+3V3_SW")
-			(uuid "ad4c5389-b399-4c98-8bca-7ad42d028a9b")
-		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/modelli-3d/ingombro-J8.step"
+		(model "${KIPRJMOD}/modelli-3d/ingombro-ventola.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -32475,7 +32475,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "685f5457-b1da-4f69-b2c2-63ee8e07b596")
+		(uuid "d25df66e-830b-421d-af14-4c638f8bd1bd")
 	)
 	(gr_circle
 		(center 92.975 137.5)
@@ -32486,7 +32486,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "4ea8a7d5-7306-4964-b15a-ff2430ae22e4")
+		(uuid "df4ad5e1-9cf9-4f33-aaac-fa9ee4b175b5")
 	)
 	(gr_circle
 		(center 107.5193 131.7955)
@@ -32497,7 +32497,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "24eee4f7-d826-4b3b-9d62-2a5447bcb2b3")
+		(uuid "3078025a-1a15-43a6-9506-36c4917ad2e8")
 	)
 	(gr_circle
 		(center 110.399999 124.22)
@@ -32508,7 +32508,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "1870d6ce-9bd6-478a-a03b-35c4aa4d8fc6")
+		(uuid "80ef7cc4-fb04-47b6-ae14-e40fdce2ea9c")
 	)
 	(gr_circle
 		(center 112.774999 137.5)
@@ -32519,7 +32519,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "caf26e3f-4275-4e11-ae1e-c5898c6a832e")
+		(uuid "d98a0d4b-04d2-4f79-9f5c-3fe7f61336d6")
 	)
 	(gr_circle
 		(center 117.225 114.095)
@@ -32530,7 +32530,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "06e5de4b-656e-4ff4-a477-82eafadf98d6")
+		(uuid "7002eb40-2104-47f7-bd94-98c04fb46108")
 	)
 	(gr_circle
 		(center 117.725 83.095)
@@ -32541,7 +32541,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "64e289bc-59cc-4531-95a5-a6a971f43034")
+		(uuid "c6aec8ab-67c6-4367-af20-09b3e356c49f")
 	)
 	(gr_circle
 		(center 140.25 72.555)
@@ -32552,7 +32552,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "a3858393-667a-4f54-a78d-9ae755acdd8c")
+		(uuid "b8465628-da27-4f54-8d14-4caec201558f")
 	)
 	(gr_circle
 		(center 144.1128 143.0827)
@@ -32563,7 +32563,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "38830ffa-5ebc-4e3d-8574-bdb5edca3fa4")
+		(uuid "fcd2aa1f-82b0-45e4-ada3-18c10a14aa24")
 	)
 	(gr_circle
 		(center 150.23005 148.560199)
@@ -32574,7 +32574,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "2c741110-94fc-42f4-a71f-b2a75b1b7c8a")
+		(uuid "0f54cfef-d14d-4d1d-9d3f-89ede3f06367")
 	)
 	(gr_circle
 		(center 151.2099 69.5818)
@@ -32585,7 +32585,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "6870fd62-8219-47ad-8a5a-3060ed17ca9d")
+		(uuid "d64aaab8-e24a-4dd6-a129-1edf6de888f7")
 	)
 	(gr_circle
 		(center 154.9475 143.8631)
@@ -32596,7 +32596,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "fc909b2b-7043-49fc-be1a-5e0746dbff3d")
+		(uuid "bc1f164b-a252-4764-9f4f-cb4e79f53f47")
 	)
 	(gr_circle
 		(center 160.58 71.1425)
@@ -32607,7 +32607,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "bb6a2fb4-6a54-4375-9db9-d45d2f17d5cb")
+		(uuid "767af52a-86ba-48c1-8e39-6c0fe2af64dc")
 	)
 	(gr_circle
 		(center 168.8875 85.7375)
@@ -32618,7 +32618,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "70ad138e-4684-42f6-a238-f0ba0ef223ce")
+		(uuid "f124db7a-bb13-41a7-9345-ccd635614f3d")
 	)
 	(gr_circle
 		(center 169.426 97.538)
@@ -32629,7 +32629,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "b61e432d-c23d-481f-a171-c27b362ef986")
+		(uuid "1fc2c706-bd2b-4e9d-9dcc-c7b75f2a2283")
 	)
 	(gr_circle
 		(center 169.8317 139.807)
@@ -32640,7 +32640,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "99735026-cc38-43c3-b86d-71d0fc451966")
+		(uuid "0f112a2b-0c48-4914-bc87-3633332ae0c8")
 	)
 	(gr_circle
 		(center 173.6375 93.3575)
@@ -32651,7 +32651,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "14dc29af-a8a4-4fe0-9e3a-1f97265070fa")
+		(uuid "c1bbcc2d-86f0-4b62-9486-e227f34d7bdb")
 	)
 	(gr_circle
 		(center 174.700699 98.3468)
@@ -32662,7 +32662,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "56190e61-7afe-4f5e-8878-b67db61fbe90")
+		(uuid "027b4ec1-9542-4b95-a2a1-27315d548093")
 	)
 	(gr_circle
 		(center 180.25 133.095)
@@ -32673,7 +32673,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "23fc91d4-deb7-4b29-91c7-2fb0fc66a696")
+		(uuid "49b0b636-7eff-4851-9366-694c0370d88c")
 	)
 	(gr_circle
 		(center 184.1422 83.5572)
@@ -32684,7 +32684,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "de91e997-5e5b-417e-9462-ec8e7fe9ecac")
+		(uuid "848c67b8-534d-48ff-b33d-bbbaefab1ed7")
 	)
 	(gr_circle
 		(center 186.2 95.74)
@@ -32695,7 +32695,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "edce9180-8efa-4810-aeba-d53c470ad9cd")
+		(uuid "8b6f0b34-3b24-4820-ae12-773fd890c213")
 	)
 	(gr_circle
 		(center 216.3136 109.3797)
@@ -32706,7 +32706,7 @@
 		)
 		(fill yes)
 		(layer "F.SilkS")
-		(uuid "58bcbf1e-e5b5-4ed8-bd6c-2bb0f39d0ca8")
+		(uuid "747ea8b5-b8de-407f-831d-694d3bc6f36a")
 	)
 	(gr_circle
 		(center 84.4 105.45)
@@ -32717,7 +32717,7 @@
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "1d8ae4bd-5931-4bbd-9b4b-0e0e35712c23")
+		(uuid "c9a4cf8f-7765-4098-ad9c-cd28ce3c6649")
 	)
 	(gr_circle
 		(center 89.066899 100.9999)
@@ -32728,7 +32728,7 @@
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "59ad6f04-55ce-4091-9591-698f0d8efcd9")
+		(uuid "6868e3c4-b1a7-4bbd-a5fe-bb6c79833946")
 	)
 	(gr_circle
 		(center 92.4 90.45)
@@ -32739,7 +32739,7 @@
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "e779070a-8103-4fe8-a001-73b60a10bb86")
+		(uuid "6cede3bd-c1e7-423e-9851-7924d03f0bce")
 	)
 	(gr_circle
 		(center 130.449999 132.854999)
@@ -32750,7 +32750,7 @@
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "ea3aa16b-6b29-4155-b1fa-64b777e8685a")
+		(uuid "752d944a-1c80-4b7e-b543-2fcf549b12c6")
 	)
 	(gr_circle
 		(center 147.1669 138.1551)
@@ -32761,7 +32761,7 @@
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "7e29f993-ccaf-48dc-ae63-9b43f9e10c47")
+		(uuid "2be396e2-bb8a-45fe-8b03-8b7ebfdd951e")
 	)
 	(gr_circle
 		(center 174.5 113.774999)
@@ -32772,29 +32772,29 @@
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "cd2d9fa5-bd8c-4b41-b82e-bb0d84b78a29")
+		(uuid "0c1a4609-4572-4a61-8933-cbf5770ea7a1")
 	)
 	(gr_circle
-		(center 179.8 113.95)
-		(end 179.925 113.95)
+		(center 177.75 112.3)
+		(end 177.875 112.3)
 		(stroke
 			(width 0.151)
 			(type default)
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "ae01b90c-a905-46c4-bb27-e45dd40ff3ca")
+		(uuid "0e3d6463-b9a6-41cd-aa9a-315ec7fe57ac")
 	)
 	(gr_circle
-		(center 188.98 118.5)
-		(end 189.105 118.5)
+		(center 188.58 118.5)
+		(end 188.705 118.5)
 		(stroke
 			(width 0.151)
 			(type default)
 		)
 		(fill yes)
 		(layer "B.SilkS")
-		(uuid "2a47ec17-7109-445f-8ca1-028936eb9381")
+		(uuid "a0a5eacd-5e04-4394-ad28-8bc7cb008649")
 	)
 	(gr_line
 		(start 80 76.5)
@@ -33666,7 +33666,7 @@
 	(gr_text "​5V"
 		(at 78.925 135.25 0)
 		(layer "F.SilkS")
-		(uuid "acf642af-d510-4f96-88b8-57b61b9bc2ea")
+		(uuid "2e0779a0-88bb-461e-8ad4-0e569346f7c9")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33677,7 +33677,7 @@
 	(gr_text "​TXD"
 		(at 82.625 135.25 0)
 		(layer "F.SilkS")
-		(uuid "921b42f2-85ec-4c6d-b4d1-5ba2f2ea8464")
+		(uuid "89ec9b81-00a2-4cdd-8b0d-17874312ffc4")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33688,7 +33688,7 @@
 	(gr_text "​RXD"
 		(at 86.325 135.25 0)
 		(layer "F.SilkS")
-		(uuid "c784c59a-57f4-42e0-a71e-1421d089dc86")
+		(uuid "5a555883-65ae-4799-9de2-ab6bebd379d6")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33699,7 +33699,7 @@
 	(gr_text "​GND"
 		(at 90.025 135.25 0)
 		(layer "F.SilkS")
-		(uuid "968b719e-1f23-4eee-9976-bafe45c8f3d8")
+		(uuid "437dfea3-631a-48da-8eac-ffcd5d4d18dd")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33710,7 +33710,7 @@
 	(gr_text "​SPK"
 		(at 94.625 135.25 0)
 		(layer "F.SilkS")
-		(uuid "ddafb539-d55f-48a0-8d20-754f84d0783e")
+		(uuid "94166f59-42e6-4a0c-9523-c6d7a2f1a8bb")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33721,7 +33721,7 @@
 	(gr_text "​SPK"
 		(at 98.325 135.25 0)
 		(layer "F.SilkS")
-		(uuid "1219a84b-2452-427f-b349-1b098e794855")
+		(uuid "9ba56f02-54b6-4f94-9dbf-33775e11f589")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33732,7 +33732,7 @@
 	(gr_text "​IO19"
 		(at 114.425 135.25 0)
 		(layer "F.SilkS")
-		(uuid "72a19da8-8bc6-4bc4-b6ff-512dea8066e8")
+		(uuid "c04b34fb-1a2d-455b-b9f3-1acd47f165b4")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33743,7 +33743,7 @@
 	(gr_text "​IO11"
 		(at 118.125 135.25 0)
 		(layer "F.SilkS")
-		(uuid "575d482e-e848-47c1-8ced-456e4b3d3fec")
+		(uuid "3e0fb379-3541-4304-a35c-0d46501df0c2")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33754,7 +33754,7 @@
 	(gr_text "​IO12"
 		(at 121.825 135.25 0)
 		(layer "F.SilkS")
-		(uuid "3febe1fa-9180-4a22-931b-09f1a4b3330c")
+		(uuid "3eb7ce48-5ddd-4d1d-bdd6-fb1471db9385")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33765,7 +33765,7 @@
 	(gr_text "​IO13"
 		(at 125.525 135.25 0)
 		(layer "F.SilkS")
-		(uuid "0529ef1c-d975-4a01-b9fe-647d25ff1718")
+		(uuid "ff599f9a-8129-4e92-a3ac-8bfcefd044d8")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33776,7 +33776,7 @@
 	(gr_text "​GND"
 		(at 180.0507 96.0968 0)
 		(layer "F.SilkS")
-		(uuid "1630c70a-5a16-477a-8904-ba2301169259")
+		(uuid "dee656cc-d856-4430-b775-8c51ca42ba05")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33787,7 +33787,7 @@
 	(gr_text "​CS"
 		(at 181.2922 88.1472 0)
 		(layer "F.SilkS")
-		(uuid "56696e34-d644-4ace-84a5-2873686988c6")
+		(uuid "37c7f35d-f7b0-4e0a-973d-344a4b8859eb")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33798,7 +33798,7 @@
 	(gr_text "​3V3"
 		(at 186.9922 85.6072 0)
 		(layer "F.SilkS")
-		(uuid "06be2e5a-4e2f-4482-b512-d5ed44ed1458")
+		(uuid "90ed3932-1ce8-4828-8a6c-4cd77887ed02")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33809,7 +33809,7 @@
 	(gr_text "​C3+AI scheda madre · LATO S3"
 		(at 125.110415 74.95 0)
 		(layer "F.SilkS")
-		(uuid "46f0fb7d-b19e-41a5-bb17-5f552586e238")
+		(uuid "f4fbe032-d963-4c8a-beef-f412924a4cba")
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -33820,7 +33820,7 @@
 	(gr_text "​CANL"
 		(at 141.8169 140.4051 0)
 		(layer "B.SilkS")
-		(uuid "3a00d615-f3f7-41ed-88c7-fe153d009dd3")
+		(uuid "751e1609-4d30-433e-a9b2-f089d0dfb859")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33832,7 +33832,7 @@
 	(gr_text "​CANH"
 		(at 145.5169 140.4051 0)
 		(layer "B.SilkS")
-		(uuid "965e1634-b195-4e2a-a985-37f545c18723")
+		(uuid "e094c367-68a8-4e94-bfbd-66bc885d924d")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33844,7 +33844,7 @@
 	(gr_text "​GND"
 		(at 171.65 115.425 0)
 		(layer "B.SilkS")
-		(uuid "fedcb60a-6e6b-4491-802e-2acc0cf9a870")
+		(uuid "501eda8a-97a2-4e71-bd35-bd0d89dd67d8")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33856,7 +33856,7 @@
 	(gr_text "​12V"
 		(at 171.65 119.125 0)
 		(layer "B.SilkS")
-		(uuid "a423e6d4-9bf9-4bc4-9790-276d161841a0")
+		(uuid "a1ae9762-336a-478e-8287-8ba73cfda2f2")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33868,7 +33868,7 @@
 	(gr_text "​RPM"
 		(at 171.65 122.825 0)
 		(layer "B.SilkS")
-		(uuid "84acf09a-1091-4f7a-a150-14a7d2914dbc")
+		(uuid "66fe5423-a641-433c-b341-da9509776f62")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33880,7 +33880,7 @@
 	(gr_text "​PWM"
 		(at 171.65 126.525 0)
 		(layer "B.SilkS")
-		(uuid "33066a33-ed1f-4226-9c7f-1f867cbda497")
+		(uuid "487d2a4f-2fc4-4b8b-8827-36c18cc90dbd")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33892,7 +33892,7 @@
 	(gr_text "​GND"
 		(at 176.95 109.76 0)
 		(layer "B.SilkS")
-		(uuid "29d4f8bd-b8c6-4f0a-8615-ab1512086b65")
+		(uuid "c7ff6593-7e4f-4b26-b4f7-959fadb4519a")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33904,7 +33904,7 @@
 	(gr_text "​RX"
 		(at 177.45 107.22 0)
 		(layer "B.SilkS")
-		(uuid "ec90bb7b-382b-489e-abc7-158318d85bed")
+		(uuid "ff5ab85d-b383-4c9d-8f36-8001f26272d8")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33916,7 +33916,7 @@
 	(gr_text "​TX"
 		(at 182.15 104.68 0)
 		(layer "B.SilkS")
-		(uuid "8e19666e-88b4-478f-bbe8-0157cec91fdb")
+		(uuid "73bd9fa1-1c48-49d3-aca0-ba9098315bf3")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33928,7 +33928,7 @@
 	(gr_text "​3V3"
 		(at 182.65 112.3 0)
 		(layer "B.SilkS")
-		(uuid "a86d68a7-ccfa-4fc1-878c-8ee16bcc699d")
+		(uuid "7e541676-1960-4100-94af-54208878e033")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -33940,7 +33940,7 @@
 	(gr_text "​C3+AI scheda madre · RETRO · rev A 10/2026"
 		(at 132.110414 74.95 0)
 		(layer "B.SilkS")
-		(uuid "79ecef04-e015-4919-ad1d-68bcbfa89535")
+		(uuid "58f6669a-e277-48ee-93a5-e3cefea597ca")
 		(effects
 			(font
 				(size 1.2 1.2)

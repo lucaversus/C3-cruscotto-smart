@@ -124,8 +124,9 @@ Foglio `cruscotto/pcb/scheda-madre/interfacce-veicolo.kicad_sch`; tavola
   TVS bidirezionale D8 (SMBJ26CA) sulla linea, diodo D9 in serie al collettore (linea negativa),
   soglia R42 presa dalla **linea chiave** invece che dalla batteria (nessun consumo a riposo;
   con la chiave la linea vale circa la tensione di batteria). Comparatore alimentato dal 5 V
-  principale; pull-up dell'uscita al 3,3 V sempre acceso. Protezione dal corto della linea K
-  verso la batteria durante la trasmissione: da studiare.
+  principale; pull-up dell'uscita al 3,3 V sempre acceso. Corto della linea K verso la batteria durante la
+  trasmissione: nessuna protezione aggiuntiva, rischio accettato (si brucerebbe solo Q8; utente 01/11/2026
+  «lasciamo perdere», D-063). Sbroglio invariato.
 - **VAN** (-U7 del blocco, D-051): modulo blu SN65HVD230 (tipo HW-CAN-VP230, resistenza 121
   rimossa) su file di pin J8 (3.3V/GND/RX/TX) e J9 (CANH/CANL); TX collegato al 3,3 V sulla scheda,
   quindi sola ricezione; NUP2105L sulle due linee, 100k verso massa su GPIO34 (nessuna resistenza
@@ -190,9 +191,10 @@ dei Gerber e dell'ordine dei circuiti stampati.
    4 cm; J1 spostato lì, sotto la ventola (21-31 mm dal bordo): restano da
    confermare nell'assieme i circa 30-35 mm per spina e fili. Da misurare sull'auto o sul modello del quadro.
 2. **Modulo VAN blu**: risolta con D-060 (pin diritti su J8, modulo appoggiato sul retro, CANH/CANL con due
-   fili a J9); resta da confermare sul pezzo la posizione dei 4 pin rispetto al bordo del modulo (ingombro
-   35 × 13 mm misurato dall'utente).
-3. **STEVAL-MKI196V1**: confermare sul pezzo interasse 15,0 mm e piedino 1 (misure dai Gerber ST).
+   fili a J9); misure dal modello 3D dell'utente, confermate il 31/10/2026: scheda 28,5 × 11 mm, pin a 1,25 mm
+   dal lato corto e centrati, morsetto 7,5 × 10,5 × 10 mm all'altro capo. Pin risaldati dall'utente nel verso
+   più comodo, morsetto verso l'esterno. Ordine dei pin 3.3V/GND/RX/TX da riscontrare sulla serigrafia.
+3. **STEVAL-MKI196V1**: interasse 15,0 mm e piedino 1 confermati sul pezzo il 28/10/2026 (scheda 18,5 × 30,9 mm).
 4. **Telaio stampato**: nessun contatto con i componenti della faccia F (controllo fatto solo
    verso i componenti della S3, margine minimo 5,5 mm).
 5. **Audio (D-053)**: potenza di U1 (prova d'ascolto su P6), impedenza degli altoparlanti, fase.

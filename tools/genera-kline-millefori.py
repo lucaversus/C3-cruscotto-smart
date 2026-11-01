@@ -4,6 +4,12 @@ Rev. A: vista dal lato componenti, passo 2,54 mm, scala 4:1. Ogni collegamento �
 (isolato se lungo, nudo o stagno se tra fori adiacenti) saldato sul lato saldature ai
 piedini indicati. Il generatore verifica che i fili realizzino esattamente le reti dello
 schema KL-001 rev F e che nessun foro sia usato da due elementi.
+Rev. B (31/10/2026, D-062): U1 SOIC-8 incollato a pancia in su (tacca a destra) con 8 spezzoni nei fori
+assegnati in modo speculare, ognuno di fronte al proprio piedino: fili corti senza incroci. Fili saldati nei fori
+X1/X2 invece delle morsettiere (D-042).
+Rev. D (01/11/2026, KL-001 rev H, D-063): D1 P6KE33A in piedi nei fori liberi X6 (catodo) e X7 (anodo), aggiunto
+alla scheda già montata con due ponticelli X5-X6 (K) e W7-X7 (GND, emettitore di Q1). D1 resta fuori
+dall'instradamento: i fili 1-30 della rev C non cambiano e i ponticelli prendono i numeri successivi.
 """
 from pathlib import Path
 import sys
@@ -39,8 +45,11 @@ NET_COLOR = {
 COMP = {
     'X1': {'1': ('A4', 'RX_3V3'), '2': ('A6', 'TX_INV'), '3': ('A8', '+5V'), '4': ('A10', '+3V3'), '5': ('A12', 'GND')},
     'X2': {'1': ('X5', 'K'), '2': ('X8', 'VBENCH'), '3': ('X11', 'GND')},
-    'U1': {'8': ('L8', '+5V'), '7': ('M8', None), '6': ('N8', 'VREF'), '5': ('O8', 'GND'),
-           '1': ('L11', 'RX_RAW'), '2': ('M11', 'VREF'), '3': ('N11', 'VSENSE'), '4': ('O11', 'GND')},
+    # U1 SOIC-8 a pancia in su, tacca a destra, visto dal lato componenti: numerazione speculare rispetto a un
+    # DIP (1-4 in basso da destra, 5-8 in alto da sinistra). Ogni spezzone sta di fronte al suo piedino; con la
+    # tacca a destra i piedini restano dal lato delle loro reti e i fili sono più corti (178 passi contro 240).
+    'U1': {'1': ('O11', 'RX_RAW'), '2': ('N11', 'VREF'), '3': ('M11', 'VSENSE'), '4': ('L11', 'GND'),
+           '5': ('L8', 'GND'), '6': ('M8', 'VREF'), '7': ('N8', None), '8': ('O8', '+5V')},
     'C1': {'1': ('K9', '+5V'), '2': ('K10', 'GND')},
     'C2': {'+': ('J9', '+5V'), '-': ('J10', 'GND')},
     'R9': {'a': ('C4', 'RX_3V3'), 'b': ('G4', 'RX_RAW')},
@@ -54,14 +63,16 @@ COMP = {
     'R2': {'a': ('U7', 'BASE'), 'b': ('U9', 'GND')},
     'Q1': {'C': ('W5', 'K'), 'B': ('W6', 'BASE'), 'E': ('W7', 'GND')},
 }
-BODIES = [f'{c}{r}' for c in 'LMNO' for r in (9, 10)]     # interno dello zoccolo U1
+# Rev D: D1 aggiunto dopo il montaggio, collegato solo da ponticelli verso fori adiacenti.
+D1 = {'K': ('X6', 'K'), 'A': ('X7', 'GND')}
+ADDED = [('K', ['X5', 'X6']), ('GND', ['W7', 'X7'])]
+BODIES = [f'{c}{r}' for c in 'LMNO' for r in (9, 10)]     # sotto il corpo di U1
 
 # Bus nudo di massa (stagno o filo nudo lungo la fila 16).
 BUSES = [('GND', [f'{LETTERS[c]}16' for c in range(0, COLS)])]
 
-# Fili sotto lo zoccolo (lato saldature), fissati a mano.
-FIXED = [('VREF', ['M11', 'M9', 'N9', 'N8']), ('GND', ['O11', 'O8']),
-         ('+5V', ['A8', 'J8']), ('+5V', ['J8', 'K8']), ('+5V', ['K8', 'L8']), ('GND', ['O11', 'O16'])]
+# Fili sotto U1 (lato saldature), fissati a mano: piedini 2-6 (VREF) e 4-5 (GND).
+FIXED = [('VREF', ['N11', 'N10', 'M10', 'M8']), ('GND', ['L11', 'L8'])]
 NET_ORDER = ['VREF', '+5V', 'RX_3V3', 'TX_INV', '+3V3', 'RX_RAW', 'VSENSE', 'VBENCH', 'BASE', 'K', 'GND']
 
 
@@ -184,6 +195,9 @@ def route():
 
 
 WIRES = route()
+COMP['D1'] = D1
+N_ROUTED = len(WIRES)
+WIRES += ADDED
 
 
 def verify():
@@ -282,11 +296,11 @@ RES_LABEL = {'R1': '330 Ω', 'R2': '47 kΩ', 'R4': '68 kΩ 1%', 'R5': '10 kΩ 1%
 
 def draw():
     n = verify()
-    d = Sheet('C3AI-DL-KL-003 rev A — K-line su millefori')
+    d = Sheet('C3AI-DL-KL-003 rev D — K-line su millefori')
     d.frame()
-    d.text(25, 20, 'MODULO K-LINE KL-001 REV F — DISPOSIZIONE SU MILLEFORI (VISTA LATO COMPONENTI, SCALA 4:1)', 5, bold=True)
+    d.text(25, 20, 'MODULO K-LINE KL-001 REV H — DISPOSIZIONE SU MILLEFORI (VISTA LATO COMPONENTI, SCALA 4:1)', 5, bold=True)
     d.text(25, 25, f'Basetta a fori isolati passo 2,54 mm, {COLS} × {ROWS} fori. Disposizione verificata dal generatore: '
-                   f'{n} fili realizzano esattamente le reti dello schema KL-001 rev F. Prototipo da banco, non collaudato.', 2.5)
+                   f'{n} fili realizzano esattamente le reti dello schema KL-001 rev H. Prototipo da banco, non collaudato.', 2.5)
     # Basetta e fori
     x0, y0 = OX - STEP * 0.8, OY - STEP * 0.8
     d.raw(f'<rect x="{x0:.2f}" y="{y0:.2f}" width="{(COLS - 1 + 1.6) * STEP:.2f}" height="{(ROWS - 1 + 1.6) * STEP:.2f}" '
@@ -329,12 +343,18 @@ def draw():
                 d.raw(f'<rect x="{mx - w / 2:.2f}" y="{my + off - 0.45:.2f}" width="{w}" height="0.9" fill="{col}"/>')
         tx, ty = (mx, my - 3.4) if horizontal else (mx + 3.5, my)
         d.text(tx, ty, f'{ref} {RES_LABEL[ref]}', 2.2, 'middle' if horizontal else 'start', True)
-    # U1: zoccolo DIP-8 con adattatore (tacca a sinistra, piedino 1 in basso a sinistra)
-    (xa, ya), (xb, yb) = P(COMP['U1']['8'][0]), P(COMP['U1']['4'][0])
+    # U1: SOIC-8 a pancia in su tra gli 8 spezzoni, tacca a destra, numeri = piedini del chip rovesciato
+    us = [P(h) for h, _ in COMP['U1'].values()]
+    (xa, ya), (xb, yb) = (min(x for x, _ in us), min(y for _, y in us)), (max(x for x, _ in us), max(y for _, y in us))
     d.raw(f'<rect x="{xa - 3:.2f}" y="{ya - 3:.2f}" width="{xb - xa + 6:.2f}" height="{yb - ya + 6:.2f}" rx="1" fill="#303030" stroke="#000" stroke-width="0.4"/>')
-    d.raw(f'<path d="M{xa - 3:.2f} {(ya + yb) / 2 - 2:.2f} a2 2 0 0 1 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>')
+    d.raw(f'<path d="M{xb + 3:.2f} {(ya + yb) / 2 - 2:.2f} a2 2 0 0 0 0 4" fill="#e9d8a6" stroke="#000" stroke-width="0.3"/>')
     d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 - 1:.2f}" font-size="2.8" text-anchor="middle" font-weight="bold" fill="#ffffff" font-family="Arial">U1 LM2903B</text>')
-    d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 + 3:.2f}" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">su adattatore SOIC-8 → DIP-8</text>')
+    d.raw(f'<text x="{(xa + xb) / 2:.2f}" y="{(ya + yb) / 2 + 3:.2f}" font-size="2" text-anchor="middle" fill="#ffffff" font-family="Arial">SOIC-8 a pancia in su, tacca a destra</text>')
+    # Fili sotto U1 (lato saldature) disegnati tratteggiati sopra il corpo, altrimenti resterebbero nascosti
+    for net, path in FIXED:
+        pts = ' '.join(f'{P(h)[0]:.2f},{P(h)[1]:.2f}' for h in path)
+        d.raw(f'<polyline points="{pts}" fill="none" stroke="{NET_COLOR[net]}" stroke-width="1.0" '
+              f'stroke-dasharray="1.5 1" stroke-linejoin="round"/>')
     for pin, (h, _) in COMP['U1'].items():
         x, y = P(h)
         d.raw(f'<rect x="{x - 1.3:.2f}" y="{y - 1.3:.2f}" width="2.6" height="2.6" fill="#d0d0d0" stroke="#000" stroke-width="0.2"/>')
@@ -366,17 +386,26 @@ def draw():
         d.raw(f'<text x="{x - 1.4:.2f}" y="{y + 0.9:.2f}" font-size="2.4" text-anchor="end" font-weight="bold" fill="#ffffff" font-family="Arial">{pin}</text>')
     d.text(xq - 6.5, hs[1][1] - 1, 'Q1 2N5551', 2.4, 'end', True)
     d.text(xq - 6.5, hs[1][1] + 2.2, '(E-B-C dal datasheet)', 2, 'end')
+    # D1 TVS in piedi su X7 (anodo, corpo) con il terminale del catodo piegato verso X6
+    (xk, yk), (xa_, ya_) = P(D1['K'][0]), P(D1['A'][0])
+    d.raw(f'<path d="M{xa_:.2f} {ya_:.2f} C{xa_ + 4:.2f} {ya_ - 2:.2f} {xk + 4:.2f} {yk + 2:.2f} {xk:.2f} {yk:.2f}" fill="none" stroke="#606060" stroke-width="0.6"/>')
+    d.raw(f'<circle cx="{xa_:.2f}" cy="{ya_:.2f}" r="2.2" fill="#202020" stroke="#000" stroke-width="0.3"/>'
+          f'<circle cx="{xa_:.2f}" cy="{ya_:.2f}" r="1.3" fill="none" stroke="#e0e0e0" stroke-width="0.6"/>')
+    edge_r = x0 + (COLS - 1 + 1.6) * STEP
+    d.text(edge_r + 1.5, (yk + ya_) / 2 - 0.6, 'D1 P6KE33A in piedi:', 2.2, 'start', True)
+    d.text(edge_r + 1.5, (yk + ya_) / 2 + 2.2, 'striscia (catodo) in alto → X6', 2, 'start')
     # Morsettiere
+    # X1/X2: fori dove si saldano i fili verso ESP32 e banco (D-042: niente morsettiere)
     for ref, label in (('X1', ['1 RX→GPIO16', '2 TX←GPIO17', '3 +5V', '4 +3V3', '5 GND']),
                        ('X2', ['1 K', '2 VBENCH', '3 GND'])):
         holes = [h for h, _ in COMP[ref].values()]
         xs = [P(h)[0] for h in holes]; ys = [P(h)[1] for h in holes]
         left = ref == 'X1'
         bx = min(xs) - 3.75
-        d.raw(f'<rect x="{bx:.2f}" y="{min(ys) - 3:.2f}" width="7.5" height="{max(ys) - min(ys) + 6:.2f}" fill="#2e8b57" stroke="#000" stroke-width="0.3"/>')
+        d.raw(f'<rect x="{bx:.2f}" y="{min(ys) - 3:.2f}" width="7.5" height="{max(ys) - min(ys) + 6:.2f}" fill="none" stroke="#000" stroke-width="0.3" stroke-dasharray="1.5 1"/>')
         for (h, _), text in zip(COMP[ref].values(), label):
             x, y = P(h)
-            d.raw(f'<circle cx="{bx + 3.75:.2f}" cy="{y:.2f}" r="2" fill="#c0c0c0" stroke="#000" stroke-width="0.3"/>')
+            d.raw(f'<circle cx="{bx + 3.75:.2f}" cy="{y:.2f}" r="1.6" fill="#b87333" stroke="#000" stroke-width="0.3"/>')
             edge = x0 if left else x0 + (COLS - 1 + 1.6) * STEP
             d.text(edge - 1.5 if left else edge + 1.5, y + 1, text, 2.4, 'end' if left else 'start', True)
         d.text(bx + 3.75, min(ys) - 4.5, f'-{ref}', 3, 'middle', True)
@@ -396,17 +425,29 @@ def draw():
         '(fila 16), stagno o filo nudo.',
         'Resistenze 1% in azzurro, 5% in beige;',
         'bande colorate come sul componente.',
+        'Tratteggio sul chip = fili 1 e 2 SOTTO la',
+        'basetta: piedini 2-6 (VREF) e 4-5 (GND).',
+        'D1 (rev D): in piedi su X7/X6, ponticelli',
+        'X5-X6 e W7-X7 (fili 31 e 32).',
         'R3 (510 Ω 1 W) NON va sulla basetta:',
         'solo simulatore esterno (D-018).',
-    ], h=2.4, step=4.0)
-    d.notes(LX, LY + 120, 'ORDINE DI MONTAGGIO', [
+    ], h=2.4, step=3.6)
+    d.notes(LX, LY + 126, 'ORDINE DI MONTAGGIO', [
         '1 Fili e bus di massa, poi resistenze.',
-        '2 Zoccolo U1 (tacca a sinistra), C1, C2 (polarità).',
-        '3 Q1 per ultimo, orientato col datasheet.',
-        '4 Morsettiere X1 e X2.',
+        '2 8 spezzoni nudi nei fori U1, C1, C2 (polarità).',
+        '3 Q1, orientato col datasheet.',
+        '4 Fili X1 e X2 saldati nei fori (D-042).',
         '5 Controllo a vista e continuità a',
-        '  circuito spento PRIMA dell\'adattatore U1.',
-    ], h=2.4, step=4.0)
+        '  circuito spento PRIMA di U1.',
+        '6 U1 a pancia in su, tacca a destra',
+        '  come nel disegno: piedino 1 in basso a',
+        '  destra. Ogni piedino al suo spezzone',
+        '  di fronte, fili corti senza incroci; al',
+        '  tester piedino→spezzone e nessun corto',
+        '  tra piedini vicini.',
+        '7 Rev D, a scheda spenta: D1 e fili 31-32;',
+        '  X5-X6 e W7-X7 suonano, X5-GND no.',
+    ], h=2.4, step=3.6)
     # Elenco dei fili (estremi da saldare), in due colonne
     d.text(25, 214, 'ELENCO DEI FILI (estremi da saldare; percorso come nel disegno)', 3.2, bold=True)
     half = (len(WIRES) + 1) // 2
@@ -417,14 +458,17 @@ def draw():
         pts = [hole(h) for h in path]
         under = any((c, r) in {hole(b) for b in BODIES} for (c1, r1), (c2, r2) in zip(pts, pts[1:])
                     for c in range(min(c1, c2), max(c1, c2) + 1) for r in range(min(r1, r2), max(r1, r2) + 1))
-        note = ' (sotto lo zoccolo, lato saldature)' if under else ''
+        note = ' (sotto U1, lato saldature)' if under else ' (rev D, ponticello di D1)' if i >= N_ROUTED else ''
         d.text(x + 7, y, f'{i + 1:2d}  {net:7s} {path[0]} → {path[-1]}{note}', 2.3)
     d.title_block(title=['K-line su', 'millefori'], subtitle='Data Logger',
                   doc_type='Disposizione di montaggio', status='PROPOSTO · NON COLLAUDATO',
-                  code='C3AI-DL-KL-003', rev='A', date='22/10/2026', sheet='1/1',
-                  revisions=[('A', 'Prima emissione da KL-001 rev F; reti verificate dal generatore', '22/10/2026')])
+                  code='C3AI-DL-KL-003', rev='D', date='01/11/2026', sheet='1/1',
+                  revisions=[('A', 'Prima emissione da KL-001 rev F; reti verificate dal generatore', '22/10/2026'),
+                             ('B', 'U1 SOIC-8 a pancia in su, spezzoni di fronte ai piedini e fili rifatti; niente zoccolo e morsettiere (D-062)', '31/10/2026'),
+                             ('C', 'Fili 1 e 2 sotto U1 resi visibili (tratteggio sul chip)', '31/10/2026'),
+                             ('D', 'D1 P6KE33A su X6/X7 con due ponticelli, fili 1-30 invariati (KL-001 rev H, D-063)', '01/11/2026')])
     out = ROOT / 'disegni/sorgenti/DL-KL-003_kline-millefori.svg'
-    out.write_text(d.svg('Disposizione dei componenti del modulo K-line KL-001 rev F su millefori; prototipo non collaudato.'),
+    out.write_text(d.svg('Disposizione dei componenti del modulo K-line KL-001 rev H su millefori; prototipo non collaudato.'),
                    encoding='utf-8')
     print(out, 'fili', n)
 

@@ -92,6 +92,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Scheda madre (D-051, 24/10/2026): stesso tipo di modulo su file di pin J8 (3.3V/GND/RX/TX) e J9 (CANH/CANL), schema C3AI-CR-EL-003 rev B. Esemplare per la scheda madre distinto da quello del Data Logger (D-042), con resistenza 121 rimossa; interasse tra le due file di pin e altezza del modulo da misurare. Utente 24/10/2026: acquista sempre almeno 2 esemplari di ogni componente; quantità effettiva da riscontrare. Dimensioni dai file STEP dell'utente; i pin piegati a 90° si possono sostituire con pin dritti.
 - Secondo esemplare (scheda madre, J8/J9): resistenza 121 da togliere e prove 1-4 D-022 da ripetere come per il primo (VAN-M002…M005); finora solo il primo è modificato e provato.
 - D-060, 28/10/2026: sul secondo esemplare l'utente sostituisce il connettore ad angolo con 4 pin diritti; modulo saldato appoggiato sul retro della scheda madre (J8), CANH/CANL con due fili dal morsetto a J9. Ingombro circa 35 x 13 mm (misura dell'utente); posizione dei pin rispetto al bordo da confermare sul pezzo.
+- 31/10/2026: modello 3D dell'utente `cruscotto/meccanica/moduli/modulo-van.step` confermato dall'utente: scheda 28,5 × 11 × 1,6 mm, 4 pin a passo 2,54 a 1,25 mm dal lato corto e centrati sulla larghezza, morsetto CANH/CANL 7,5 × 10,5 × 10 mm all'altro capo. Impronta J8 della scheda madre aggiornata. Ordine 3.3V/GND/RX/TX da riscontrare sulla serigrafia prima di saldare.
 
 ### HW-SD-MODULE — Lettore MicroSD SPI 3,3 V — riferimento consigliato Create idea B0DRWPJ1T5
 
@@ -189,9 +190,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-AUTO-POWER — Alimentazione temporanea proposta: Uadme 5 V, arresto manuale STOP
 
-**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
+**Stato:** `ordered_pending` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto.
+**Fonte:** Discussione alimentazione dal quadro: possibilità richiesta, non decisione approvata su circuito o pin. 18/10/2026: utente propone Uadme Amazon ASIN B0BFFDSNRC; pagina letta nel browser Work: modello dichiarato GYVRM-K240505, ingresso 8-40 V, uscita 5 +/-0,25 V, 5 A/25 W, non isolato. Specifiche commerciali non collaudate; nessun possesso/ordine confermato. 18/10/2026: proposta LAOMAO MP1584EN Amazon B0B92WYRR4; pagina letta nel browser: confezione 6 moduli, ingresso 4,5-28 V, uscita regolabile 0,8-20 V, 3 A massimi dichiarati. Valutato per banco, non selezionato per ingresso diretto auto; nessun ordine confermato. Utente 18/10/2026 esclude Pololu per costo/spedizione (D-014) e chiede di completare la proposta economica. Scelta tecnica proposta: +12 V permanente e segnale IGN, MOSFET mantenuto da ESP32 per chiusura SD; nessuna riserva autonoma su batteria scollegata. Nuova istruzione utente 18/10/2026 D-015: logger per pochi giorni, STOP manuale prima di spegnere auto; ritirata proposta MOSFET/mantenimento/IGN separato/riserva energetica. Nessun UPS richiesto. Utente 31/10/2026: acquisto dichiarato, consegna e modello non riscontrati.
 
 **Verifiche documentate:**
 
@@ -199,7 +200,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Uadme B0BFFDSNRC: nessun ordine/possesso confermato; verificare uscita 5 V e funzionamento col carico.
+- Utente 31/10/2026: alimentazione dai 12 V «è stato già acquistato»; modello ricevuto, fusibile e interruttore compresi da riscontrare sul materiale. Verificare uscita 5 V e funzionamento col carico.
 - Prelievo alimentazione auto e fusibile di ramo da verificare; non collegare 12 V ai GPIO. Punto candidato da manuale: presa OBD via 16/1 (D-030), non ancora misurato.
 - Arresto manuale STOP e conferma a display da implementare/collaudare con SD reale. Il pulsante non toglie fisicamente corrente.
 - Nessuna garanzia su transitori oltre specifica, cadute in avviamento o spegnimento senza STOP; nessuna qualifica automotive dichiarata.
@@ -278,6 +279,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).
 - Utente 28/10/2026: l'unica STEVAL posseduta va sulla scheda madre (J6), nessuna seconda STEVAL in ordine; il Data Logger in pausa ne richiederà un'altra alla ripresa. Impegno spostato nel magazzino condiviso.
 - Il modulo è arrivato con le strip maschio già saldate (foto retro): per la scheda madre (J6, D-059) si salda così com'è nei fori da 1 mm; altezza reale sopra la scheda da misurare per il modello 3D (stima 5,6 mm del corpo).
+- Utente 31/10/2026: l'unica STEVAL si monta prima sul Data Logger (basetta 4, EL-004) e poi si smonta per la scheda madre (J6): niente seconda STEVAL. Impegno condiviso nel tempo, non contemporaneo; D-062 aggiornata.
 
 ### HW-AUDIO-SPK-TEST — Altoparlante miniatura di prova Multicomp Pro ABS-216-RC (8 Ω, 2 W, 200 Hz-20 kHz, 40×20 mm)
 
@@ -372,16 +374,19 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 - 28/10/2026, utente a vista: marcatura degli integrati «2903BY», coerente con LM2903BYDT ordinato (versione B, grado automotive). Nessuna prova elettrica.
 - 28/10/2026, utente a vista: condensatori C1 100 nF e C2 10 µF arrivati a foro passante (versione THT, non le SMD del primo carrello).
+- 31/10/2026, KL-M001: modulo montato secondo KL-003 rev C, prova a circuito spento superata (utente al tester): continuità GND, +5V, VREF e K; nessun corto tra piedini vicini di U1 né tra +5V, +3V3 e GND; R1, R2, R4…R10 al valore atteso; Q1 E a GND e C a K; C2 con «−» a massa. Non prova il funzionamento alimentato.
+- 31/10/2026, KL-M002: prova KL-P001 della sola scheda con un alimentatore a 5,0 V su +5V, +3V3 e VBENCH e R3 510 Ω esterna: utente «tutto dentro le tolleranze» (17 punti: corrente, VREF, VSENSE, K alta/bassa, uscita del comparatore alta/bassa al comando di TX, ritorno ripetuto). Valori numerici non riferiti singolarmente.
 
 **Da verificare:**
 
 - Ordine Farnell 22/10/2026 (dichiarato, consegna non riscontrata): 2× LM2903BYDT (SOIC-8, versione B), 5× 2N5551BU onsemi, resistenze R1…R10 (330 Ω, 47 kΩ, 510 Ω 1 W 5 %, 68 kΩ, 10 kΩ 0,5 %, 150 kΩ, 4,7 kΩ, 1 kΩ, 330 kΩ), C1 100 nF e C2 10 µF, millefori MC01009 72×47 mm come base. All'arrivo riscontrare valori e sigle.
 - Condensatori: arrivati a foro passante (utente 28/10/2026), adatti alla millefori; codice esatto Farnell non riscontrato sul pezzo.
-- Montaggio scelto dall'utente: collegamenti volanti sulla millefori, senza zoccolo, adattatore SOIC-8→DIP-8 né morsettiere (KL-003 resta riferimento per un montaggio successivo). Fili sottili saldati direttamente ai piedini SOIC (passo 1,27 mm): controllare al tester assenza di ponti prima di alimentare; fissare meccanicamente chip e fili.
-- Verifica montaggio, pin E-B-C del 2N5551 onsemi sul datasheet, assenza corti e alimentazioni su banco limitato in corrente (HW-BENCH-PSU dichiarato).
+- Montaggio eseguito 31/10/2026 secondo KL-003 rev C (U1 SOIC-8 a pancia in su, fili saldati, senza zoccolo né morsettiere): fissaggio meccanico di chip e fili da controllare nel tempo.
+- Prova con VBENCH 9-16 V reale e 3,3 V separato (ESP32), dopo il montaggio completo: stati statici e poi tempi a 10400 baud. Stati statici a 5 V unica superati (KL-M002, 31/10/2026); alimentatore HW-BENCH-PSU usato, modello e limite di corrente ancora da riscontrare.
 - Misura statica e temporale RX/TX, eco, livelli 3,3 V, commutazione e margini UART a 10400; nessun firmware K-line caricato.
-- Protezioni automotive, corti, transitori, alimentazioni parziali e compatibilita reale con auto da progettare/collaudare. Lo schema rev F e solo da banco.
+- D1 P6KE33A (KL-001 rev H, D-063, 01/11/2026): da procurare (almeno 2) e montare in piedi su X6/X7 con i ponticelli X5-X6 e W7-X7 (KL-003 rev D); dopo il montaggio: X5-X6 e W7-X7 in continuità, nessun corto X5-GND, ripetere le misure 4 e 10 di KL-P001. Altre protezioni automotive non previste (rischio accettato, D-015).
 - Magazzino condiviso: lucaversus/DB-componenti-elettronici (giacenze, impegni dei progetti c3-data-logger e c3-scheda-madre).
+- Utente 31/10/2026, scelta per U1: LM2903BYDT SOIC-8 incollato a pancia in su con la tacca a destra (KL-003 rev B), 8 spezzoni nei fori assegnati in modo speculare, ciascuno di fronte al proprio piedino (1-4 in basso da destra, 5-8 in alto da sinistra), fili corti senza incroci; nessun adattatore SOIC-8→DIP-8. Lo zoccolo DIP-8 Farnell 2445620 (TE 1-2199298-2, 10 in magazzino) non accoglie il SOIC. Riscontro al tester eseguito (KL-M001, 31/10/2026): fili 1 e 2 sotto U1 aggiunti dopo la correzione del disegno (rev C).
 
 ### HW-J1-MICROFIT24 — Connettore verso l'auto -J1: Molex Micro-Fit 3.0 24 vie (femmina 43025-2400 sul cablaggio, spina 43020-2400 sul prototipo)
 
@@ -404,9 +409,9 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 ### HW-STOP-BUTTON — Pulsante STOP momentaneo normalmente aperto
 
-**Stato:** `candidate` · **Quantità:** 1 · **Ambito:** Data Logger temporaneo
+**Stato:** `present_declared` · **Quantità:** 1 · **Ambito:** Data Logger temporaneo
 
-**Fonte:** Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto.
+**Fonte:** Richiesta esplicita utente 18/10/2026, D-015: pulsante prima di spegnere l’auto. Utente 31/10/2026: pulsante STOP già posseduto.
 
 **Verifiche documentate:**
 
@@ -414,7 +419,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Possesso/ordine non confermato; firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.
+- Utente 31/10/2026: «ce l'ho io» (pulsante posseduto, modello non riscontrato). Firmware 0.3.0 propone GPIO32 verso GND con pull-up interna, cablaggio e funzionamento ancora da provare.
 - Premuto: bloccare acquisizione, salvare/chiudere SD, confermare sul display; non usarlo per tagliare direttamente alimentazione.
 
 ### HW-LOGGER-SWITCH — Interruttore generale del logger sul + 12 V (dopo il fusibile, prima del convertitore)

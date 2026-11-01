@@ -101,7 +101,8 @@ caricato e collaudato. Se non pubblicato, dirlo esplicitamente.
 
 `.claude/skills/` contiene procedure in Markdown, leggibili da qualsiasi agente
 o persona, non solo da Claude: `chiusura-blocco` (pubblicazione D-021),
-`registro-collaudo` (misure a banco) e `revisione-firmware` (checklist modifiche).
+`registro-collaudo` (misure a banco), `revisione-firmware` (checklist modifiche) e
+`ricerca-fornitori` (distinta CSV e script dei fornitori).
 Riassumono le regole di questo file senza sostituirle: in caso di differenze vale AGENTS.md.
 
 ## Vincoli del progetto

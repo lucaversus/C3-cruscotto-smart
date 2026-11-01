@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>KL-P001 Prova scheda K-line</title>
+<!-- Foglio A4 stampabile della prova KL-P001 (modulo K-line KL-001 rev G montato come KL-003 rev C), solo la
+     scheda con un unico alimentatore a 5,0 V su +5V, +3V3 e VBENCH (scelta utente 31/10/2026: una sola uscita,
+     niente ESP32). Le soglie sono in proporzione a VBENCH, quindi gli stati K alta/bassa si provano anche a 5 V.
+     PDF: chrome --headless --no-pdf-header-footer --print-to-pdf=KL-P001_prima-accensione.pdf KL-P001_prima-accensione.html
+     Valori attesi calcolati dallo schema con alimentazione 5,00 V e R3 510 ohm; non sono misure. -->
+<style>
+  @page { size: A4; margin: 9mm 11mm; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 8.7pt; color: #000; background: #fff; margin: 0; line-height: 1.3; }
+  h1 { font-size: 14pt; margin: 0 0 1mm; }
+  h2 { font-size: 10pt; margin: 2.4mm 0 1mm; padding: 0.8mm 1.5mm; background: #e6e6e6; }
+  p { margin: 0.8mm 0; }
+  .sub { font-size: 8.4pt; margin-bottom: 2mm; }
+  .warn { border: 1.2pt solid #c00000; padding: 1.5mm 2mm; margin: 2mm 0; }
+  .warn b { color: #c00000; }
+  table { border-collapse: collapse; width: 100%; margin: 1mm 0; }
+  th, td { border: 0.6pt solid #000; padding: 0.6mm 1.5mm; vertical-align: top; text-align: left; }
+  th { background: #f2f2f2; font-size: 8.4pt; }
+  td.n { width: 6mm; text-align: center; font-weight: bold; }
+  td.v { width: 32mm; }
+  td.w { width: 22mm; }
+  td.ok { width: 9mm; }
+  ol, ul { margin: 0.6mm 0; padding-left: 5mm; }
+  li { margin: 0.2mm 0; }
+  .foot { font-size: 7.6pt; margin-top: 3mm; border-top: 0.6pt solid #000; padding-top: 1mm; }
+</style>
+</head>
+<body>
+<h1>KL-P001 — Prova della sola scheda K-line, un alimentatore</h1>
+<p class="sub">Scheda KL-001 rev G montata secondo KL-003 rev C · prova a spento superata (KL-M001, 31/10/2026) · rev A del 31/10/2026 · nomi e fori come nel disegno KL-003 · niente ESP32, niente auto</p>
+
+<div class="warn">Tutto da <b>un'unica uscita a 5,0 V</b>: la scheda confronta le tensioni in proporzione alla linea, quindi funziona anche a 5 V.
+<b>Non usare 12 V in questa prova</b> (il chip si alimenta a 5 V). Se qualcosa scalda o l'alimentatore va in limite di corrente: <b>spegni subito</b> e annota.</div>
+
+<h2>Preparazione (alimentatore con l'uscita SPENTA)</h2>
+<ol>
+  <li>Imposta <b>5,0 V</b> e limite di corrente <b>0,05 A</b> (50 mA).</li>
+  <li>Filo dal <b>+</b> dell'alimentatore a tre fori uniti insieme: <b>-X1 3 +5V</b> (A8), <b>-X1 4 +3V3</b> (A10), <b>-X2 2 VBENCH</b> (X8).</li>
+  <li>Resistenza <b>R3 510 Ω</b> (fuori dalla scheda): un capo al <b>+</b> dell'alimentatore, l'altro a <b>-X2 1 K</b> (X5).</li>
+  <li>Filo dal <b>−</b> dell'alimentatore a <b>-X1 5 GND</b> (A12).</li>
+  <li>Fori <b>-X1 1 RX</b> (A4) e <b>-X1 2 TX</b> (A6): per ora <b>liberi</b>. Prepara un filo nel foro TX con l'altra estremità isolata.</li>
+  <li>Tester in <b>V continua</b>, coccodrillo del puntale <b>nero</b> su -X1 5 GND (A12) per tutte le misure.</li>
+</ol>
+
+<h2>Fase 1 — Accensione, linea K alta (TX libero)</h2>
+<p>Accendi l'uscita dell'alimentatore.</p>
+<table>
+<tr><th>#</th><th>Lettura / punto del puntale rosso</th><th>Atteso</th><th>Letto</th><th>OK</th></tr>
+<tr><td class="n">1</td><td>Corrente sul display dell'alimentatore</td><td class="v">circa 1 mA (sotto 5 mA)</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">2</td><td>Dopo 10 s tocca U1 e Q1 col dito</td><td class="v">freddi</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">3</td><td>U1 piedino 8 (alimentazione del chip)</td><td class="v">5,0 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">4</td><td>-X2 1 K (foro X5)</td><td class="v">4,9 – 5,0 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">5</td><td>U1 piedino 2 (VREF)</td><td class="v">0,30 – 0,33 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">6</td><td>U1 piedino 3 (VSENSE)</td><td class="v">0,71 – 0,79 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">7</td><td>U1 piedino 1 (uscita del comparatore): <b>alta</b></td><td class="v">4,85 – 5,0 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">8</td><td>-X1 1 RX (foro A4)</td><td class="v">come la misura 7</td><td class="w"></td><td class="ok"></td></tr>
+</table>
+
+<h2>Fase 2 — Trasmissione simulata, linea K bassa</h2>
+<p>Con l'alimentatore acceso, collega l'estremità libera del filo <b>TX</b> (-X1 2, foro A6) al <b>+</b> dell'alimentatore. Q1 si accende e tira la linea K a massa.</p>
+<table>
+<tr><th>#</th><th>Lettura / punto del puntale rosso</th><th>Atteso</th><th>Letto</th><th>OK</th></tr>
+<tr><td class="n">9</td><td>Corrente sul display dell'alimentatore (non deve andare in limite)</td><td class="v">20 – 30 mA</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">10</td><td>-X2 1 K (foro X5)</td><td class="v">sotto 0,3 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">11</td><td>U1 piedino 3 (VSENSE)</td><td class="v">sotto 0,1 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">12</td><td>U1 piedino 1 (uscita del comparatore): <b>bassa</b></td><td class="v">sotto 0,4 V</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">13</td><td>-X1 1 RX (foro A4)</td><td class="v">come la misura 12</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">14</td><td>Dopo 30 s tocca Q1, R1 e R3</td><td class="v">freddi o appena tiepidi</td><td class="w"></td><td class="ok"></td></tr>
+</table>
+
+<h2>Fase 3 — Ritorno</h2>
+<table>
+<tr><th>#</th><th>Lettura / punto del puntale rosso</th><th>Atteso</th><th>Letto</th><th>OK</th></tr>
+<tr><td class="n">15</td><td>Stacca il filo TX dal + e isolalo. -X2 1 K</td><td class="v">torna come la misura 4</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">16</td><td>U1 piedino 1</td><td class="v">torna come la misura 7</td><td class="w"></td><td class="ok"></td></tr>
+<tr><td class="n">17</td><td>Ripeti 3 volte TX collegato / staccato e guarda il piedino 1</td><td class="v">alto / basso ogni volta</td><td class="w"></td><td class="ok"></td></tr>
+</table>
+
+<h2>Spegnimento</h2>
+<ol>
+  <li>Spegni l'uscita dell'alimentatore, poi scollega i fili.</li>
+  <li>Mandami il foglio compilato (anche una foto) per la registrazione KL-M002.</li>
+</ol>
+
+<p class="foot">Valori attesi calcolati dallo schema KL-001 con un'unica alimentazione 5,00 V su +5V, +3V3 e VBENCH e R3 510 Ω esterna: non sono misure.
+La prova verifica gli stati statici della scheda (trasmissione con Q1, ricezione con il comparatore). Non prova il funzionamento con VBENCH 9–16 V e 3,3 V separati,
+i tempi a 10400 baud né la comunicazione con una centralina: quelli si provano nella prova finale con l'ESP32. Non autorizza il collegamento al veicolo (D-008, D-020).
+C3AI · Data Logger · procedura KL-P001 rev A · data-logger/docs/prove/KL-P001_prima-accensione.html</p>
+</body>
+</html>
