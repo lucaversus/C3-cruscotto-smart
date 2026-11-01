@@ -483,11 +483,11 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 - Riscontrare tipo e modello sul pezzo ricevuto; non proporre altro portafusibile prima del riscontro.
 - Fusibile da 2 A previsto per ramo 12 V prima del convertitore; acquisto non confermato, valore da verificare con cavi e assorbimento reali.
 
-### HW-RTC-BATTERY — Pila CR2032 non ricaricabile per RTC — da procurare
+### HW-RTC-BATTERY — Pila CR2032 non ricaricabile per RTC
 
-**Stato:** `candidate` · **Quantità:** non confermata · **Ambito:** Data Logger
+**Stato:** `present_declared` · **Quantità:** non confermata · **Ambito:** Data Logger
 
-**Fonte:** Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: "la pila non ce l'ho". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare). 25/10/2026: non serve alla scheda madre del cruscotto, il cui RTC è senza pila (D-056); resta per il modulo RTC del Data Logger.
+**Fonte:** Utente 19/10/2026 risponde 2032 e poi cr alla richiesta della sigla della pila. Quantita e tensione effettiva non misurate. Utente 20/10/2026: "la pila non ce l'ho". La risposta del 19/10/2026 indicava il tipo di pila richiesto dal portabatteria, non il possesso: stato corretto da present_declared a candidate (da procurare). 25/10/2026: non serve alla scheda madre del cruscotto, il cui RTC è senza pila (D-056); resta per il modulo RTC del Data Logger. Utente 01/11/2026: "le pile le ho" (possesso dichiarato, quantità non riferita).
 
 **Verifiche documentate:**
 
@@ -495,7 +495,7 @@ Le decisioni definitive restano nel [README principale](../../README.md#decision
 
 **Da verificare:**
 
-- Da procurare: una CR2032 (3 V, non ricaricabile). Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).
+- Possesso dichiarato 01/11/2026, non misurata. Inserimento consentito dal 20/10/2026: ramo di ricarica interrotto (RTC-M007).
 - Prima dell inserimento misurare la tensione (attesi circa 3 V; sotto 2,7 V scarica).
 
 ### HW-DASH-FAN — Ventola 40 × 40 × 10 mm 12 V a 4 fili per la scheda madre del cruscotto: Delta AFB0412VA-00 (D-031, D-052)
